@@ -35,6 +35,29 @@ class Welcome extends CI_Controller {
 		$this->load->template('welcome_message');
 	}
 
+	public function test() {
+		define('0', 'UTORRENT_TORRENT_HASH');
+		$output = array(
+			0 => 'BADBC42E639D870A24E70A7AAFA5389DDDDA0079',
+			1 => '201'
+			);
+
+		$types = array(
+			'0' => 'UTORRENT_TORRENT_HASH',
+			'1' => 'UTORRENT_TORRENT_STATUS'
+			);
+		$combined = array();
+		foreach($output as $key => $value) {
+			foreach($types as $type_key => $type_value) {
+				if($key == $type_key) {
+					//echo $type_value .' => '. $value . '<br>';
+					$combined[$type_value] = $value;
+				}
+			}
+		}
+		print_r($combined);
+	}
+
 	public function getToken() {
 		$url = 'http://192.168.15.190:27555/gui/token.html';
         $curl = curl_init($url);
