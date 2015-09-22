@@ -5,6 +5,7 @@ class Welcome extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->model('room_model');
+		$this->load->model('machine_model');
 	}
 
 	/**
@@ -138,6 +139,54 @@ class Welcome extends CI_Controller {
 			);
 		if($retval) {
 			redirect('/welcome/add_room');
+		} else {
+			echo "DB Error";
+		}
+	}
+
+	/**
+	 * Add a machine.
+	 */
+	public function add_machine() {
+		
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			$retval = $this->machine_model->add_machine(
+				$this->input->post('room_id'),
+				$this->input->post('seat'),
+				$this->input->post('mac_address'),
+				$this->input->post('ip_address'),
+				$this->input->post('operating_system'),
+				$this->input->post('username'),
+				$this->input->post('password'),
+				$this->input->post('torrent_client'),
+				$this->input->post('transport_type') 
+				);
+
+			if($retval) {
+				redirect('/welcome/add_machine');
+			} else {
+				echo "DB Error";
+			}
+
+		} else {
+			$machines = $this->machine_model->get_machines();
+			$rooms = $this->room_model->get_rooms();
+			sort($machines);
+			$data['machines'] = $machines;
+			$data['rooms'] = $rooms;
+			$this->load->template('add_machine', $data);
+		}
+	}
+
+	/**
+	 * Delete a machine.
+	 */
+	public function delete_machine() {
+		$retval = $this->machine_model->delete_machine(
+			$this->input->post('machine_id')
+			);
+		if($retval) {
+			redirect('/welcome/add_machine');
 		} else {
 			echo "DB Error";
 		}
