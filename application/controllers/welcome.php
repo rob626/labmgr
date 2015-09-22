@@ -2,6 +2,11 @@
 
 class Welcome extends CI_Controller {
 
+	public function __construct() {
+		parent::__construct();
+		$this->load->model('room_model');
+	}
+
 	/**
 	 * Index Page for this controller.
 	 *
@@ -74,6 +79,69 @@ class Welcome extends CI_Controller {
         //$response = curl_exec($curl);
         //print_r($response);
 	}	
+
+	/**
+	 * Add a room.
+	 */
+	public function add_room() {
+		
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			$retval = $this->room_model->add_room(
+				$this->input->post('room_name'), 
+				$this->input->post('room_desc')
+				);
+			if($retval) {
+				redirect('/welcome/add_room');
+			} else {
+				echo "DB Error";
+			}
+
+		} else {
+			$rooms = $this->room_model->get_rooms();
+			sort($rooms);
+			$data['rooms'] = $rooms;
+			$this->load->template('add_room', $data);
+		}
+	}
+
+	/**
+	 * Edit a room
+	 */
+	public function edit_room() {
+		$room_id = $this->input->post("room_id");
+		$data['rooms'] = $this->room_model->get_room($room_id);
+		$this->load->template('edit_room', $data);
+	}
+
+	/**
+	 * Save changes made to a room.
+	 */
+	public function save_room_edits() {
+		$retval = $this->room_model->update_room(
+			$this->input->post('room_id'), 
+			$this->input->post('room_name'), 
+			$this->input->post('room_desc')
+			);
+		if($retval) {
+			redirect('/welcome/add_room');
+		} else {
+			echo "DB Error";
+		}
+	}
+
+	/**
+	 * Delete a room.
+	 */
+	public function delete_room() {
+		$retval = $this->room_model->delete_room(
+			$this->input->post('room_id')
+			);
+		if($retval) {
+			redirect('/welcome/add_room');
+		} else {
+			echo "DB Error";
+		}
+	}
 }
 
 /* End of file welcome.php */
