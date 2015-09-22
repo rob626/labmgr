@@ -178,24 +178,55 @@ public function setPriority($hash, $files, $priority) {
 public function setSetting($setting, $value) {
     $this->makeRequest("?action=setsetting&s=".$setting."&v=".$value, false);
 }
+
 // add a file to the list
 public function torrentAdd($filename, &$estring = false) {
+        
     $split = explode(":", $filename, 2);
     if (count($split) > 1 && (stristr("|http|https|file|magnet|", "|".$split[0]."|") !== false)) {
-        $this->makeRequest("?action=add-url&s=".urlencode($filename), false);
+        //$this->makeRequest("?action=add-url&s=".urlencode($filename), false);
+        $decode = true;
+        //$request = preg_replace('/^\?/', '?token='.$this->token . '&', $request);
+        $request = "?token=".$this->token ."&". "action=add-url&s=".urlencode($filename);
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, sprintf(self::$base, $this->host, $this->port, $request));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_USERPWD, $this->user.":".$this->pass);
+        curl_setopt($ch, CURLOPT_COOKIE, "GUID=".$this->guid);
+        $req = curl_exec($ch);
+        curl_close($ch);
+        return ($decode ? json_decode($req, true) : $req);
     }
     elseif (file_exists($filename)) {
-        $json = $this->makeRequest("?action=add-file", true, array(CURLOPT_POSTFIELDS => array("torrent_file" => "@".realpath($filename))));
+        //$json = $this->makeRequest("?action=add-file", true, array(CURLOPT_POSTFIELDS => array("torrent_file" => new CurlFile(realpath($filename)))));
+        echo 'Sending file: ' . $filename . "<br>";
+        $decode = true;
+        $request = "?token=".$this->token ."&". "action=add-file";
+        $ch = curl_init();
+        $args['torrent_file'] = new CurlFile($filename);
+        //curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $args);
+        curl_setopt($ch, CURLOPT_URL, sprintf(self::$base, $this->host, $this->port, $request));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_USERPWD, $this->user.":".$this->pass);
+        curl_setopt($ch, CURLOPT_COOKIE, "GUID=".$this->guid);
+        curl_setopt($ch, CURLOPT_VERBOSE, true);
+        $req = curl_exec($ch);
+        curl_close($ch);
+        $json = json_decode($req, true);
         if (isset($json['error'])) {
+            echo $json['error'];
             if ($estring !== false) $estring = $json['error'];
             return false;
         }
         return true;
     }
     else {
+        echo "File doesn't exist.";
         if ($estring !== false) $estring = "File doesn't exist!";
-        return false;
-    }
+        echo $estring;
+        return false; 
+    } 
 }
 // force start the specified torrent hashes
 public function torrentForceStart($hash) {

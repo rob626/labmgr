@@ -35,7 +35,8 @@ class Welcome extends CI_Controller {
 
 		echo "Running utorrent lib... <br>";
 		echo "<pre>";
-		print_r($this->utorrent->getTorrents());
+		//print_r($this->utorrent->getTorrents());
+		print_r($this->utorrent->torrentRemove('BADBC42E639D870A24E70A7AAFA5389DDDDA0079'));
 		echo "</pre>";
 		die();
 		$this->load->template('welcome_message');
@@ -62,6 +63,19 @@ class Welcome extends CI_Controller {
 			}
 		}
 		print_r($combined);
+	}
+
+	public function sendTorrent() {
+		$params = array(
+			'host' => '192.168.15.190',
+			'port' => '27555',
+			'user' => 'admin',
+			'pass' => 'web1sphere'
+			);
+		$this->load->library('utorrent', $params);
+
+		$filename = '/home/robert/Desktop/Ubuntu_64-bit.torrent';
+		print_r($this->utorrent->torrentAdd($filename));
 	}
 
 	public function getToken() {
