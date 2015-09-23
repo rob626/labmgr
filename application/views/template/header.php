@@ -7,12 +7,14 @@
 	<script src='/js/foundation.min.js'></script>
 	<script src='/js/jquery-ui-timepicker-addon.js'></script>
 	<script src='/js/ckeditor/ckeditor.js'></script>
+	<script src='/js/jquery.dataTables.min.js'></script>
 	<script src='/js/app.js'></script>
 
 	<!-- stylesheets -->
 	<link rel='stylesheet' href='/css/jquery-ui.css' />
 	<link rel='stylesheet' href='/css/jquery-ui-timepicker-addon.css' />
 	<link rel='stylesheet' href='/css/foundation.min.css' />
+	<link rel='stylesheet' href='/css/dataTables.jqueryui.css' />
 	<link rel='stylesheet' href='/css/app.css' />
 	
 	<title>IBM - Lab Manager</title>

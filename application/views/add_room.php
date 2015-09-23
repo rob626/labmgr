@@ -37,7 +37,7 @@
 	<h1>Existing Rooms</h1>
 </div>
 <div class='row'>
-	<table id=''>
+	<table id='datatable'>
 		<thead>
 			<tr>
 				<th>Room ID</th>

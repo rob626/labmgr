@@ -80,7 +80,7 @@
 </div>
 	<div class='large-12 columns'>
 
-		<table id=''>
+		<table id='datatable'>
 			<thead>
 				<tr>
 					<th>Machine ID</th>

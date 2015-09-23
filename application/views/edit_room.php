@@ -8,7 +8,7 @@
 	</dd> 
 </dl>
 <form method='POST' action='/welcome/save_room_edits'>
-<table id=''>
+<table id='datatable'>
 	<thead>
 		<tr>
 			<th>Room ID</th>
