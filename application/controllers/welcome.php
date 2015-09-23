@@ -9,6 +9,7 @@ class Welcome extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->model('room_model');
+		$this->load->model('torrent_model');
 		$this->load->model('machine_model');
 	}
 
@@ -101,8 +102,8 @@ class Welcome extends CI_Controller {
 
 	public function remove_all_torrents() {
 		$machines = $this->machine_model->get_machines();
-		$hash = 'BADBC42E639D870A24E70A7AAFA5389DDDDA0079';
-		$data = false;
+		$hash = '3798819A90FE09CA7B0F515A76E3CFDF7EB0D9CA';
+		$data = true;
 		foreach($machines as $machine) {
 			$this->getToken($machine['ip_address'], '27555', 'admin', 'web1sphere');
 			 $this->makeRequest($machine['ip_address'], '27555', 'admin', 'web1sphere', "?action=".($data ? "removedata" : "remove").$this->paramImplode("&hash=", $hash), false);
@@ -227,6 +228,16 @@ class Welcome extends CI_Controller {
 			$this->load->library('utorrent', $params);
 			return $this->utorrent->torrentAdd($file);
 	}
+
+	/**
+	 * Add a torrent.
+	 */
+	public function upload_torrent() {
+			$torrents = $this->torrent_model->get_torrents();
+			$data['torrents'] = $torrents;
+			$this->load->template('upload_torrent', $data);
+	}
+	
 
 	/**
 	 * Add a room.
@@ -369,6 +380,31 @@ class Welcome extends CI_Controller {
 			redirect('/welcome/add_machine');
 		} else {
 			echo "DB Error";
+		}
+	}
+
+	public function do_upload()
+	{
+		$config['upload_path'] = './uploads/';
+		$config['allowed_types'] = '*';
+		$config['max_size']	= '10000';
+
+		$this->load->library('upload', $config);
+
+		if (!$this->upload->do_upload('torrent_file')) {
+			$error = array('error' => $this->upload->display_errors());
+			print_r($error);
+			die();
+			$this->load->template('upload_torrent', $error);
+		}
+		else {
+			$upload_data = $this->upload->data();
+			print_r($upload_data);
+			$this->torrent_model->add_torrent(
+				$upload_data['file_name'],
+				$upload_data['full_path']
+				);
+			$this->upload_torrent();
 		}
 	}
 }
