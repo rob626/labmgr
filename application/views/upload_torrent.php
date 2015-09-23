@@ -1,6 +1,7 @@
 <div class='panel'>
 		<h1>Upload Torrent</h1>
 </div>
+<div class='row'>
 <?php
 	echo form_open_multipart('welcome/do_upload');
 	echo "<input type='file' name='torrent_file'>";
@@ -8,6 +9,8 @@
 	echo "</form>";
 
 ?>
+</div>
+<br>
 
 <div class='panel'>
 	<h1>Existing Torrents</h1>

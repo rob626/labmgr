@@ -399,7 +399,6 @@ class Welcome extends CI_Controller {
 		}
 		else {
 			$upload_data = $this->upload->data();
-			print_r($upload_data);
 			$this->torrent_model->add_torrent(
 				$upload_data['file_name'],
 				$upload_data['full_path']
