@@ -52,10 +52,14 @@
 					<label>Password</label>
 					<input type='text' name='password'>
 				</div>
-
+				
 				<div class='large-4 columns'>
 					<label>Torrent Client</label>
-					<input type='text' name='torrent_client'>
+					<select name="torrent_client_id">
+						<?php foreach ($torrent_clients as $torrent_client) { ?>
+						<option value='<?php echo $torrent_client['torrent_client_id'] ?>'><?php echo $torrent_client['name'] ?> </option>
+						<?php } ?>
+					</select> 
 				</div>
 
 				<div class='large-4 columns'>
@@ -115,7 +119,13 @@
 						echo "<td>".$machine['operating_system']."</td>";
 						echo "<td>".$machine['username']."</td>";
 						echo "<td>".$machine['password']."</td>";
-						echo "<td>".$machine['torrent_client']."</td>";
+						foreach($torrent_clients as $torrent_client_key => $torrent_client_value) {
+							if($torrent_client_value['torrent_client_id'] == $machine['torrent_client_id']) {
+								echo "<td>". $torrent_client_value['name'] ."</td>";
+							} else {
+								//echo "<td></td>";
+							}
+						}
 						echo "<td>".$machine['transport_type']."</td>";
 
 						echo "<td><form method='POST' action='/welcome/edit_machine'>

@@ -11,6 +11,7 @@ class Welcome extends CI_Controller {
 		$this->load->model('room_model');
 		$this->load->model('torrent_model');
 		$this->load->model('machine_model');
+		$this->load->model('admin_model');
 	}
 
 	/**
@@ -362,7 +363,7 @@ class Welcome extends CI_Controller {
 				$this->input->post('operating_system'),
 				$this->input->post('username'),
 				$this->input->post('password'),
-				$this->input->post('torrent_client'),
+				$this->input->post('torrent_client_id'),
 				$this->input->post('transport_type') 
 				);
 
@@ -378,6 +379,7 @@ class Welcome extends CI_Controller {
 			sort($machines);
 			$data['machines'] = $machines;
 			$data['rooms'] = $rooms;
+			$data['torrent_clients'] = $this->admin_model->get_torrent_clients();
 			$this->load->template('add_machine', $data);
 		}
 	}
