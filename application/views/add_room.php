@@ -1,10 +1,3 @@
-
-	<dl class="sub-nav">
-		<dd>
-			<a href="/admin">Admin Home</a>
-		</dd> 
-	</dl>
-
 	<div class='panel'>
 		<h1>Add Room</h1>
 	</div>

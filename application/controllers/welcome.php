@@ -32,7 +32,12 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		 $params = array(
+		 $this->load->template('home');
+
+	}
+
+	public function get_utorrents() {
+		$params = array(
 			'host' => '192.168.15.190',
 			'port' => '27555',
 			'user' => 'admin',
@@ -45,8 +50,6 @@ class Welcome extends CI_Controller {
 		print_r($this->utorrent->getTorrents());
 		//print_r($this->utorrent->torrentRemove('BADBC42E639D870A24E70A7AAFA5389DDDDA0079'));
 		echo "</pre>";
-		die();
-		$this->load->template('welcome_message'); 
 	}
 
 	public function test() {

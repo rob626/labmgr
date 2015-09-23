@@ -2,11 +2,6 @@
 	<h1>Edit Room</h1>
 </div>
 
-<dl class="sub-nav">
-	<dd>
-		<a href="/admin">Admin Home</a>
-	</dd> 
-</dl>
 <form method='POST' action='/welcome/save_room_edits'>
 <table id='datatable'>
 	<thead>

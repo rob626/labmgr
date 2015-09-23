@@ -1,8 +1,4 @@
 
-<dl class="sub-nav">
-	<dd>
-		<a href="/admin">Admin Home</a>
-</dl>
 	<div class="row">
 		<div class='panel'>
 			<h1>Add Machine</h1>
