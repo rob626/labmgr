@@ -238,6 +238,19 @@ class Welcome extends CI_Controller {
 			$this->load->template('upload_torrent', $data);
 	}
 	
+	/**
+	 * Remove a torrent from the torrent table.
+	 */
+	public function delete_torrent() {
+		$retval = $this->torrent_model->delete_torrent(
+			$this->input->post('torrent_id')
+			);
+		if($retval) {
+			$this->upload_torrent();
+		} else {
+			echo "DB Error";
+		}
+	}
 
 	/**
 	 * Add a room.
