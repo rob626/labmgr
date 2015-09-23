@@ -99,10 +99,17 @@
 			<tbody>
 				<?php
 				if(!empty($machines)) {
+					
 					foreach($machines as $machine) {
 						echo "<tr>";
 						echo "<td>".$machine['machine_id']."</td>";
-						echo "<td>". $machine['room_id'] ."</td>";
+						foreach($rooms as $room_key => $room_value) {
+							if($room_value['room_id'] == $machine['room_id']) {
+								echo "<td>". $room_value['name'] ."</td>";
+							} else {
+								echo "<td></td>";
+							}
+						}
 						echo "<td>". $machine['seat'] ."</td>";
 						echo "<td>". $machine['mac_address'] ."</td>";
 						echo "<td>". $machine['ip_address'] ."</td>";
