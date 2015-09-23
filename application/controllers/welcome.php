@@ -29,7 +29,6 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		/*
 		 $params = array(
 			'host' => '192.168.15.190',
 			'port' => '27555',
@@ -40,11 +39,11 @@ class Welcome extends CI_Controller {
 
 		echo "Running utorrent lib... <br>";
 		echo "<pre>";
-		//print_r($this->utorrent->getTorrents());
-		print_r($this->utorrent->torrentRemove('BADBC42E639D870A24E70A7AAFA5389DDDDA0079'));
+		print_r($this->utorrent->getTorrents());
+		//print_r($this->utorrent->torrentRemove('BADBC42E639D870A24E70A7AAFA5389DDDDA0079'));
 		echo "</pre>";
 		die();
-		$this->load->template('welcome_message'); */
+		$this->load->template('welcome_message'); 
 	}
 
 	public function test() {
@@ -79,7 +78,7 @@ class Welcome extends CI_Controller {
 			);
 		$this->load->library('utorrent', $params);
 
-		$filename = '/home/robert/Desktop/Ubuntu_64-bit.torrent';
+		$filename = '/home/robert/Desktop/Ubuntu_64-bit.5.torrent';
 		print_r($this->utorrent->torrentAdd($filename));
 	}
 
@@ -112,7 +111,7 @@ class Welcome extends CI_Controller {
 
 	public function send_torrents_to_machines() {
 		$machines = $this->machine_model->get_machines();
-		$filename = '/home/robert/Desktop/Ubuntu_64-bit.torrent';
+		$filename = '/home/robert/Desktop/Ubuntu_64-bit.5.torrent';
 
 		
 		foreach($machines as $machine) {
