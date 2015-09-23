@@ -12,6 +12,7 @@ class Welcome extends CI_Controller {
 		$this->load->model('torrent_model');
 		$this->load->model('machine_model');
 		$this->load->model('admin_model');
+		$this->load->model('script_model');
 	}
 
 	/**
@@ -248,6 +249,45 @@ class Welcome extends CI_Controller {
 			);
 		if($retval) {
 			$this->upload_torrent();
+		} else {
+			echo "DB Error";
+		}
+	}
+
+	/**
+	 * Add a script.
+	 */
+	public function add_script() {
+		
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			$retval = $this->script_model->add_script(
+				$this->input->post('script_name'), 
+				$this->input->post('script_desc'),
+				$this->input->post('script_path'),
+				$this->input->post('script_parameter'),
+				$this->input->post('script_os')
+				);
+			if($retval) {
+				redirect('/welcome/add_script');
+			} else {
+				echo "DB Error";
+			}
+
+		} else {
+			$data['scripts'] = $this->script_model->get_scripts();
+			$this->load->template('add_script', $data);
+		}
+	}
+
+	/**
+	 * Delete a script.
+	 */
+	public function delete_script() {
+		$retval = $this->script_model->delete_script(
+			$this->input->post('script_id')
+			);
+		if($retval) {
+			redirect('/welcome/add_script');
 		} else {
 			echo "DB Error";
 		}
