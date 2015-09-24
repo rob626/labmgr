@@ -31,12 +31,12 @@
 	</ul>
 	<section class='top-bar-section'>
 		<ul class='left'>
-			<li><a href='/labmgr/push_torrents_by_classroom'>Registration</a></li>
+			<li><a href='/labmgr/add_machine'>Registration</a></li>
 			<li><a href='/labmgr/add_room'>Setup</a></li>
-			<li><a href='/labmgr/upload_torrent'>Torrents</a></li>
+			<li><a href='/labmgr/push_torrents_by_classroom'>Torrents</a></li>
 			<li><a href='#'>VMs</a></li>
 			<li><a href='/labmgr/add_script'>Scripts</a></li>
-			<li><a href='/labmgr/add_machine'>Machines</a></li>
+			<li><a href='#'>Machines</a></li>
 			<li><a href='/admin'>Admin</a></li>
 			<li><a href='#'>Misc.</a></li>
 		</ul>
