@@ -2,7 +2,7 @@
 	<h1>Edit Room</h1>
 </div>
 
-<form method='POST' action='/welcome/save_room_edits'>
+<form method='POST' action='/labmgr/save_room_edits'>
 <table id='datatable'>
 	<thead>
 		<tr>

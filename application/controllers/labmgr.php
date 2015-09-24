@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Welcome extends CI_Controller {
+class Labmgr extends CI_Controller {
 
 	protected $token;
     protected $guid;
@@ -19,15 +19,15 @@ class Welcome extends CI_Controller {
 	 * Index Page for this controller.
 	 *
 	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
+	 * 		http://example.com/index.php/labmgr
 	 *	- or -  
-	 * 		http://example.com/index.php/welcome/index
+	 * 		http://example.com/index.php/labmgr/index
 	 *	- or -
 	 * Since this controller is set as the default controller in 
 	 * config/routes.php, it's displayed at http://example.com/
 	 *
 	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
+	 * map to /index.php/labmgr/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
 	public function index()
@@ -303,7 +303,7 @@ class Welcome extends CI_Controller {
 				$this->input->post('script_os')
 				);
 			if($retval) {
-				redirect('/welcome/add_script');
+				redirect('/labmgr/add_script');
 			} else {
 				echo "DB Error";
 			}
@@ -322,7 +322,7 @@ class Welcome extends CI_Controller {
 			$this->input->post('script_id')
 			);
 		if($retval) {
-			redirect('/welcome/add_script');
+			redirect('/labmgr/add_script');
 		} else {
 			echo "DB Error";
 		}
@@ -339,7 +339,7 @@ class Welcome extends CI_Controller {
 				$this->input->post('room_desc')
 				);
 			if($retval) {
-				redirect('/welcome/add_room');
+				redirect('/labmgr/add_room');
 			} else {
 				echo "DB Error";
 			}
@@ -380,7 +380,7 @@ class Welcome extends CI_Controller {
 			$this->input->post('room_desc')
 			);
 		if($retval) {
-			redirect('/welcome/add_room');
+			redirect('/labmgr/add_room');
 		} else {
 			echo "DB Error";
 		}
@@ -404,7 +404,7 @@ class Welcome extends CI_Controller {
 			$this->input->post('transport_type') 
 			);
 		if($retval) {
-			redirect('/welcome/add_machine');
+			redirect('/labmgr/add_machine');
 		} else {
 			echo "DB Error";
 		}
@@ -418,7 +418,7 @@ class Welcome extends CI_Controller {
 			$this->input->post('room_id')
 			);
 		if($retval) {
-			redirect('/welcome/add_room');
+			redirect('/labmgr/add_room');
 		} else {
 			echo "DB Error";
 		}
@@ -443,7 +443,7 @@ class Welcome extends CI_Controller {
 				);
 
 			if($retval) {
-				redirect('/welcome/add_machine');
+				redirect('/labmgr/add_machine');
 			} else {
 				echo "DB Error";
 			}
@@ -467,7 +467,7 @@ class Welcome extends CI_Controller {
 			$this->input->post('machine_id')
 			);
 		if($retval) {
-			redirect('/welcome/add_machine');
+			redirect('/labmgr/add_machine');
 		} else {
 			echo "DB Error";
 		}
@@ -498,5 +498,5 @@ class Welcome extends CI_Controller {
 	}
 }
 
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */
+/* End of file labmgr.php */
+/* Location: ./application/controllers/labmgr.php */

@@ -380,7 +380,7 @@ meta.foundation-mq-topbar{font-family:"/only screen and (min-width:40.0625em)/";
 .fixed.expanded:not(.top-bar){height:auto;max-height:100%;overflow-y:auto;width:100%}
 .fixed.expanded:not(.top-bar) .title-area{position:fixed;width:100%;z-index:99}
 .fixed.expanded:not(.top-bar) .top-bar-section{margin-top:2.8125rem;z-index:98}
-.top-bar{background:#333;height:2.8125rem;line-height:2.8125rem;margin-bottom:0;overflow:hidden;position:relative}
+.top-bar{background:#0CE7F2;height:2.8125rem;line-height:2.8125rem;margin-bottom:0;overflow:hidden;position:relative}
 .top-bar ul{list-style:none;margin-bottom:0}.top-bar .row{max-width:none}
 .top-bar form,.top-bar input,.top-bar select{margin-bottom:0}
 .top-bar input,.top-bar select{font-size:0.75rem;height:1.75rem;padding-bottom:.35rem;padding-top:.35rem}

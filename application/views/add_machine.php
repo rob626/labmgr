@@ -3,7 +3,7 @@
 		<div class='panel'>
 			<h1>Add Machine</h1>
 		</div>
-		<form method='POST' action='/welcome/add_machine'>
+		<form method='POST' action='/labmgr/add_machine'>
 
 			<div class='row'>
 				<div class='large-4 columns'>
@@ -124,10 +124,10 @@
 						}
 						echo "<td>".$machine['transport_type']."</td>";
 
-						echo "<td><form method='POST' action='/welcome/edit_machine'>
+						echo "<td><form method='POST' action='/labmgr/edit_machine'>
 						<input type='hidden' name='machine_id' value='".$machine['machine_id']."'>
 						<input type='submit' class='button tiny radius' value='Edit'></form>
-						<form method='POST' action='/welcome/delete_machine'>
+						<form method='POST' action='/labmgr/delete_machine'>
 						<input type='hidden' name='machine_id' value='".$machine['machine_id']."'>
 						<input type='submit' class='button tiny radius alert' value='Delete'></form>
 						</td>";

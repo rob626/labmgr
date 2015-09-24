@@ -2,7 +2,7 @@
 	<div class='panel'>
 		<h1>Add script</h1>
 	</div>
-	<form method='POST' action='/welcome/add_script'>
+	<form method='POST' action='/labmgr/add_script'>
 
 	<div class='row'>
 		<div class='large-6 columns'>
@@ -73,12 +73,12 @@
 					echo "<td>".$script['parameter']."</td>";
 					echo "<td>".$script['os']."</td>";
 					echo "<td>".$script['last_update_timestamp']."</td>";
-					echo "<td><form method='POST' action='/welcome/edit_script'>
+					echo "<td><form method='POST' action='/labmgr/edit_script'>
 					<input type='hidden' name='script_id' value='".$script['script_id']."'>
 					<input type='submit' class='button tiny radius' value='Edit'>
 					</form>
 
-					<form method='POST' action='/welcome/delete_script'>
+					<form method='POST' action='/labmgr/delete_script'>
 					<input type='hidden' name='script_id' value='".$script['script_id']."'>
 					<input type='submit' class='button tiny radius alert' value='Delete'>
 					</form>

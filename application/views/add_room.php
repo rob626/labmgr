@@ -1,7 +1,7 @@
 	<div class='panel'>
 		<h1>Add Room</h1>
 	</div>
-	<form method='POST' action='/welcome/add_room'>
+	<form method='POST' action='/labmgr/add_room'>
 
 	<div class='row'>
 		<div class='large-4 columns'>
@@ -50,12 +50,12 @@
 					echo "<td>".$room['name']."</td>";
 					echo "<td>".$room['description']."</td>";
 					echo "<td>".$room['last_update_timestamp']."</td>";
-					echo "<td><form method='POST' action='/welcome/edit_room'>
+					echo "<td><form method='POST' action='/labmgr/edit_room'>
 					<input type='hidden' name='room_id' value='".$room['room_id']."'>
 					<input type='submit' class='button tiny radius' value='Edit'>
 					</form>
 
-					<form method='POST' action='/welcome/delete_room'>
+					<form method='POST' action='/labmgr/delete_room'>
 					<input type='hidden' name='room_id' value='".$room['room_id']."'>
 					<input type='submit' class='button tiny radius alert' value='Delete'>
 					</form>
