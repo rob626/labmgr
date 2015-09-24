@@ -263,6 +263,15 @@ class Welcome extends CI_Controller {
 	}
 
 	/**
+	 * Edit a machine
+	 */
+	public function edit_machine() {
+		$machine_id = $this->input->post("machine_id");
+		$data['machines'] = $this->machine_model->get_machine($machine_id);
+		$this->load->template('edit_machine', $data);
+	}
+
+	/**
 	 * Save changes made to a room.
 	 */
 	public function save_room_edits() {
@@ -273,6 +282,30 @@ class Welcome extends CI_Controller {
 			);
 		if($retval) {
 			redirect('/welcome/add_room');
+		} else {
+			echo "DB Error";
+		}
+	}
+
+	/**
+	 * Save changes made to a machine.
+	 */
+	public function save_machine_edits() {
+
+		$retval = $this->machine_model->update_machine(
+			$this->input->post('machine_id'),
+			$this->input->post('room_id'),
+			$this->input->post('seat'),
+			$this->input->post('mac_address'),
+			$this->input->post('ip_address'),
+			$this->input->post('operating_system'),
+			$this->input->post('username'),
+			$this->input->post('password'),
+			$this->input->post('torrent_client'),
+			$this->input->post('transport_type') 
+			);
+		if($retval) {
+			redirect('/welcome/add_machine');
 		} else {
 			echo "DB Error";
 		}
