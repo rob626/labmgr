@@ -218,8 +218,40 @@ class Welcome extends CI_Controller {
         return false;
     }
 
-	public function test_ut_lib() {
-		
+	public function push_torrents_by_classroom() {
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			//echo "<pre>";
+			//print_r($_POST);
+			
+			$torrent = $this->torrent_model->get_torrent($this->input->post('torrent_id'));
+			$torrent = $torrent[0];
+			$machines = array();
+			$rooms = $this->input->post('room_ids');
+			foreach($rooms as $room) {
+				$machines = array_merge($machines, $this->machine_model->get_machines_by_room($room));
+			}
+			
+			foreach($machines as $machine) {
+				$this->getToken($machine['ip_address'], '27555', 'admin', 'web1sphere');
+
+				if($this->torrentAdd($torrent['path'], $machine['ip_address'], '27555', 'admin', 'web1sphere')) {
+					echo "Successfully sent to: " . $machine['ip_address'] . "<br>";
+				} else {
+					echo "Failed to send to: " . $machine['ip_address'] . "<br>";
+				}
+			}
+			/*
+			print_r($torrent);
+			echo "<br>Machines: <br>";
+			print_r($machines);
+			echo "</pre>";*/
+
+		} else {
+			//$data['machines'] = $this->machine_model->get_machines();
+			$data['rooms'] = $this->room_model->get_rooms();
+			$data['torrents'] = $this->torrent_model->get_torrents();
+			$this->load->template('push_torrents', $data);
+		}
 	
 	}
 

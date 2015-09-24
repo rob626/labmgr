@@ -5,7 +5,7 @@
 <?php
 	echo form_open_multipart('welcome/do_upload');
 	echo "<input type='file' name='torrent_file'>";
-	echo "<input type='submit' value='Upload'>";
+	echo "<input type='submit' class='button' value='Upload'>";
 	echo "</form>";
 
 ?>

@@ -23,6 +23,15 @@ class Machine_model extends CI_Model {
 		return $result->result_array();
 	}
 
+	/**
+	 * Get machines by room ID
+	 */
+	public function get_machines_by_room($room_id) {
+		$q = "SELECT * FROM machine where room_id = ?";
+		$result = $this->db->query($q, $room_id);
+		return $result->result_array();
+	}
+
     /**
      * Add a machine record.
      */
@@ -36,7 +45,7 @@ class Machine_model extends CI_Model {
 			'operating_system' => $operating_system,
 			'username' => $username,
 			'password' => $password,
-			'torrent_client' => $torrent_client,
+			'torrent_client_id' => $torrent_client,
 			'transport_type' => $transport_type
 		);
 		$this->db->insert('machine', $data);
