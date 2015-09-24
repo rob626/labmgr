@@ -1,7 +1,7 @@
-<div class='large-2 columns'>
+<div class='large-2 columns side-nav-color'>
 	<ul class='side-nav'>
 		<li><a href='/labmgr/push_torrents_by_classroom'>Push by Classroom</a></li>
-		<li><a href='/labmgr/push_torrents_by_machine'>Push by Machine</a></li>
+		<li class='active'><a href='/labmgr/push_torrents_by_machine'>Push by Machine</a></li>
 		<li><a href='/labmgr/push_torrents_to_all'>Push to All</a></li>
 		<hr>
 		<li><a href='/labmgr/delete_torrents_by_classroom'>Delete by Classroom</a></li>
@@ -12,7 +12,7 @@
 
 
 <div class='large-10 columns'>
-	<form method='POST' action='/labmgr/push_torrents_by_classroom'>
+	<form method='POST' action='/labmgr/push_torrents_by_machine'>
 	<div class='row'>
 		<div class='small-4 small-centered columns'>
 			<br>
@@ -31,10 +31,10 @@
 		</div>
 
 		<div class='large-6 columns'>
-			<h2>Classrooms</h2>
+			<h2>Machines</h2>
 			<?php
-				foreach($rooms as $room) {
-					echo "<input type='checkbox' name='room_ids[]' value='".$room['room_id']."'><label>".$room['name']."</label><br>";
+				foreach($machines as $machine) {
+					echo "<input type='checkbox' name='machine_ids[]' value='".$machine['machine_id']."'><label>Seat: ".$machine['seat']. ' ('.$machine['ip_address'].")</label><br>";
 				}
 			?>
 
