@@ -13,7 +13,6 @@
 				<div class='large-4 columns'>
 					<label>Room</label>
 					<select name="room_id">
-						<option value='-1'>Select Room</option>
 						<?php foreach ($rooms as $room) { ?>
 						<option value='<?php echo $room['room_id'] ?>'><?php echo $room['name'] ?> </option>
 						<?php } ?>
@@ -107,7 +106,7 @@
 							if($room_value['room_id'] == $machine['room_id']) {
 								echo "<td>". $room_value['name'] ."</td>";
 							} else {
-								echo "<td></td>";
+								//echo "<td></td>";
 							}
 						}
 						echo "<td>". $machine['seat'] ."</td>";
