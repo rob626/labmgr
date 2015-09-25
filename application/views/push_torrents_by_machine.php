@@ -30,12 +30,22 @@
 
 		<div class='large-6 columns'>
 			<h2>Machines</h2>
+			<label>Show by Room</label>
+				<select id='room_filter' name="room_id">
+					<option value='-1'>All Rooms</option>
+					<?php foreach ($rooms as $room) { ?>
+					<option value='<?php echo $room['room_id'] ?>'><?php echo $room['name'] ?> </option>
+					<?php } ?>
+				</select> 
+		
 			<a href='#' id='select_all'>Select All</a>&nbsp &nbsp  <a href='#' id='unselect_all'>Unselect All</a><br>
+			<div id='machine_list'>
 			<?php
 				foreach($machines as $machine) {
 					echo "<input type='checkbox' class='machine-checkboxes' name='machine_ids[]' value='".$machine['machine_id']."'><label>Seat: ".$machine['seat']. ' ('.$machine['ip_address'].")</label><br>";
 				}
 			?>
+			</div>
 
 		</div>
 	</div>

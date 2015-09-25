@@ -22,6 +22,28 @@ $(document).ready(function(){
 
     });
 
+    $('#room_filter').change(function() {
+        var room_id = $(this).val();
+         $.ajax({        
+            url: "/service/get_machines_by_room",
+            type: "get",
+            dataType: "json",
+            data: {room_id : room_id}
+            }).done(function(response) {
+                //console.log(response);
+                $('#machine_list').html("");
+                $.each(response, function(index, machine) {
+                    console.log(machine.ip_address);
+                    $('#machine_list').append("<input type='checkbox' class='machine-checkboxes' name='machine_ids[]' value='"+machine['machine_id']+"'><label>Seat: "+machine['seat']+ ' ('+machine['ip_address']+")</label><br>");
+                });
+                
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                //alert("Error submitting data!");
+                console.log(jqXHR, textStatus, errorThrown);
+            });
+
+    });
+
     function formatTime(strDate) {
         var date = new Date(strDate);
 
