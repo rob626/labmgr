@@ -37,18 +37,30 @@ class Labmgr extends CI_Controller {
 	}
 
 	public function get_utorrents() {
-		$params = array(
+		/* $params = array(
 			'host' => '192.168.15.190',
 			'port' => '27555',
 			'user' => 'admin',
 			'pass' => 'web1sphere'
 			);
-		$this->load->library('utorrent', $params);
-
+		$this->load->library('utorrent', $params); */
+		$machine['ip_address'] = '192.168.15.110';
 		echo "Running utorrent lib... <br>";
 		echo "<pre>";
-		print_r($this->utorrent->getTorrents());
+		$this->getToken($machine['ip_address'], '27555', 'admin', 'web1sphere');
+		print_r($this->makeRequest($machine['ip_address'], '27555', 'admin', 'web1sphere', '?list=1'));
+
 		//print_r($this->utorrent->torrentRemove('BADBC42E639D870A24E70A7AAFA5389DDDDA0079'));
+		echo "</pre>";
+	}
+
+	public function decode_test() {
+		$filename = '/home/robert/Desktop/Ubuntu_64-bit.5.torrent';
+		$this->load->library('bencoded');
+		$this->bencoded->FromFile($filename);
+		$hash = $this->bencoded->InfoHash();
+		echo "Hash: " . $hash;
+		echo "<pre>";
 		echo "</pre>";
 	}
 
@@ -601,6 +613,8 @@ class Labmgr extends CI_Controller {
 		$config['max_size']	= '10000';
 
 		$this->load->library('upload', $config);
+		$this->load->library('bencoded');
+		
 
 		if (!$this->upload->do_upload('torrent_file')) {
 			$error = array('error' => $this->upload->display_errors());
@@ -610,7 +624,9 @@ class Labmgr extends CI_Controller {
 		}
 		else {
 			$upload_data = $this->upload->data();
-			$hash = $this->input->post('hash');
+			$this->bencoded->FromFile($upload_data['full_path']);
+			$hash = $this->bencoded->InfoHash();
+
 			$this->torrent_model->add_torrent(
 				$upload_data['file_name'],
 				$hash,
