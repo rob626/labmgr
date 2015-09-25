@@ -254,6 +254,91 @@ class Labmgr extends CI_Controller {
 		}
     }
 
+    public function delete_torrents_by_machine() {
+    	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			//echo "<pre>";
+			//print_r($_POST);
+
+			if($this->input->post('delete_option') == 'delete_torrent_data') {
+				$data = true;
+			} else {
+				$data = false;
+			}
+			
+			$torrent = $this->torrent_model->get_torrent($this->input->post('torrent_id'));
+			$torrent = $torrent[0];
+			$machines = array();
+			$machine_ids = $this->input->post('machine_ids');
+			foreach($machine_ids as $id) {
+				$machines = array_merge($machines, $this->machine_model->get_machine($id));
+			}
+			
+			foreach($machines as $machine) {
+				$this->getToken($machine['ip_address'], '27555', 'admin', 'web1sphere');
+
+				$retval = $this->makeRequest($machine['ip_address'], '27555', 'admin', 'web1sphere', "?action=".($data ? "removedata" : "remove").$this->paramImplode("&hash=", $torrent['hash']), false);
+				if($retval) {
+					echo "Successfully sent to: " . $machine['ip_address'] . "<br>";
+				} else {
+					echo "Failed to send to: " . $machine['ip_address'] . "<br>";
+				}
+			}
+			/*
+			print_r($torrent);
+			echo "<br>Machines: <br>";
+			print_r($machines);
+			echo "</pre>";*/
+
+		} else {
+			$data['machines'] = $this->machine_model->get_machines();
+			//$data['rooms'] = $this->room_model->get_rooms();
+			$data['torrents'] = $this->torrent_model->get_torrents();
+			$this->load->template('delete_torrents_by_machine', $data);
+		}
+    }
+
+    public function delete_torrents_by_classroom() {
+    	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			//echo "<pre>";
+			//print_r($_POST);
+			//die();
+			if($this->input->post('delete_option') == 'delete_torrent_data') {
+				$data = true;
+			} else {
+				$data = false;
+			}
+			
+			$torrent = $this->torrent_model->get_torrent($this->input->post('torrent_id'));
+			$torrent = $torrent[0];
+			$machines = array();
+			$rooms = $this->input->post('room_ids');
+			foreach($rooms as $room) {
+				$machines = array_merge($machines, $this->machine_model->get_machines_by_room($room));
+			}
+			
+			foreach($machines as $machine) {
+				$this->getToken($machine['ip_address'], '27555', 'admin', 'web1sphere');
+				$retval = $this->makeRequest($machine['ip_address'], '27555', 'admin', 'web1sphere', "?action=".($data ? "removedata" : "remove").$this->paramImplode("&hash=", $torrent['hash']), false);
+				if($retval) {
+					echo "Successfully sent to: " . $machine['ip_address'] . "<br>";
+				} else {
+					echo "Failed to send to: " . $machine['ip_address'] . "<br>";
+				}
+			}
+			/*
+			print_r($torrent);
+			echo "<br>Machines: <br>";
+			print_r($machines);
+			echo "</pre>";*/
+
+		} else {
+			//$data['machines'] = $this->machine_model->get_machines();
+			$data['rooms'] = $this->room_model->get_rooms();
+			$data['torrents'] = $this->torrent_model->get_torrents();
+			$this->load->template('delete_torrents_by_classroom', $data);
+		}
+    }
+
 	public function push_torrents_by_classroom() {
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			//echo "<pre>";
@@ -525,8 +610,10 @@ class Labmgr extends CI_Controller {
 		}
 		else {
 			$upload_data = $this->upload->data();
+			$hash = $this->input->post('hash');
 			$this->torrent_model->add_torrent(
 				$upload_data['file_name'],
+				$hash,
 				$upload_data['full_path']
 				);
 			$this->upload_torrent();

@@ -5,6 +5,7 @@
 <?php
 	echo form_open_multipart('labmgr/do_upload');
 	echo "<input type='file' name='torrent_file'>";
+	echo "<label>Hash: </label><input name='hash' type='text'>";
 	echo "<input type='submit' class='button' value='Upload'>";
 	echo "</form>";
 
@@ -20,6 +21,7 @@
 			<tr>
 				<th>Torrent ID</th>
 				<th>Torrent Name</th>
+				<th>Torrent Hash</th>
 				<th>Torrent Path</th>
 				<th>Last Update Timestamp</th>
 				<th>Edit</th>
@@ -33,6 +35,7 @@
 					echo "<tr>";
 					echo "<td>".$torrent['torrent_id']."</td>";
 					echo "<td>".$torrent['name']."</td>";
+					echo "<td>".$torrent['hash']."</td>";
 					echo "<td>".$torrent['path']."</td>";
 					echo "<td>".$torrent['last_update_timestamp']."</td>";
 					echo "<td><form method='POST' action='/labmgr/edit_torrent'>

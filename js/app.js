@@ -10,6 +10,18 @@ $(document).ready(function(){
 
     $('.datepicker').datetimepicker({ dateFormat: "yy-mm-dd" });
 
+    $('#select_all').click(function() {
+        console.log("Clicked!");
+        $('.machine-checkboxes').prop('checked', true);
+
+    });
+
+    $('#unselect_all').click(function() {
+        console.log("Clicked!");
+        $('.machine-checkboxes').prop('checked', false);
+
+    });
+
     function formatTime(strDate) {
         var date = new Date(strDate);
 
