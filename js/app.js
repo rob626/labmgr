@@ -11,13 +11,11 @@ $(document).ready(function(){
     $('.datepicker').datetimepicker({ dateFormat: "yy-mm-dd" });
 
     $('#select_all').click(function() {
-        console.log("Clicked!");
         $('.machine-checkboxes').prop('checked', true);
 
     });
 
     $('#unselect_all').click(function() {
-        console.log("Clicked!");
         $('.machine-checkboxes').prop('checked', false);
 
     });
@@ -33,7 +31,7 @@ $(document).ready(function(){
                 //console.log(response);
                 $('#machine_list').html("");
                 $.each(response, function(index, machine) {
-                    console.log(machine.ip_address);
+                    //console.log(machine.ip_address);
                     $('#machine_list').append("<input type='checkbox' class='machine-checkboxes' name='machine_ids[]' value='"+machine['machine_id']+"'><label>Seat: "+machine['seat']+ ' ('+machine['ip_address']+")</label><br>");
                 });
                 
