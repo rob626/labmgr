@@ -13,6 +13,7 @@ class Labmgr extends CI_Controller {
 		$this->load->model('machine_model');
 		$this->load->model('admin_model');
 		$this->load->model('script_model');
+		$this->load->model('vm_model');
 	}
 
 	/**
@@ -228,6 +229,35 @@ class Labmgr extends CI_Controller {
             return true;
         }
         return false;
+    }
+
+    public function start_vms_by_machine() {
+    	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			echo "<pre>";
+			print_r($_POST);
+			die();
+			$vm = $this->vm_model->get_vm($this->input->post('vm_id'));
+			$vm = $vm[0];
+			$machines = array();
+			$machine_ids = $this->input->post('machine_ids');
+			foreach($machine_ids as $id) {
+				$machines = array_merge($machines, $this->machine_model->get_machine($id));
+			}
+			
+			foreach($machines as $machine) {
+				$this->torrent_model->start_vm($vm['vm_id'], $machine['ip_address']);			}
+			/*
+			print_r($torrent);
+			echo "<br>Machines: <br>";
+			print_r($machines);
+			echo "</pre>";*/
+
+		} else {
+			$data['machines'] = $this->machine_model->get_machines();
+			$data['rooms'] = $this->room_model->get_rooms();
+			$data['vms'] = $this->vm_model->get_vms();
+			$this->load->template('start_vms_by_machine', $data);
+		}
     }
 
     public function push_torrents_by_machine() {

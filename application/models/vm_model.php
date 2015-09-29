@@ -79,4 +79,18 @@ class Vm_model extends CI_Model {
 	    	return $this->db->trans_status();
 	    }
 
+	    /**
+	     * Start a VM
+	     */
+	    public function start_vm($vm_id, $ip) {
+	    	return shell_exec('./scripts/reboot.sh ' . $ip);
+	    }
+
+	    /**
+	     * Stop a VM
+	     */
+	    public function stop_vm($vm_id, $ip) {
+
+	    }
+
 	}
