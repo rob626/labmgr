@@ -303,7 +303,7 @@ class Labmgr extends CI_Controller {
 
 		} else {
 			$data['machines'] = $this->machine_model->get_machines();
-			//$data['rooms'] = $this->room_model->get_rooms();
+			$data['rooms'] = $this->room_model->get_rooms();
 			$data['torrents'] = $this->torrent_model->get_torrents();
 			$this->load->template('delete_torrents_by_machine', $data);
 		}
