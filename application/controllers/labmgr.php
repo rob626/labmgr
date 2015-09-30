@@ -245,7 +245,8 @@ class Labmgr extends CI_Controller {
 			}
 			
 			foreach($machines as $machine) {
-				$this->torrent_model->start_vm($vm['vm_id'], $machine['ip_address']);			}
+				$this->vm_model->start_vm($vm['vm_id'], $machine['ip_address']);			
+			}
 			/*
 			print_r($torrent);
 			echo "<br>Machines: <br>";
@@ -447,6 +448,44 @@ class Labmgr extends CI_Controller {
 			);
 		if($retval) {
 			$this->upload_torrent();
+		} else {
+			echo "DB Error";
+		}
+	}
+
+		/**
+	 * Add a script.
+	 */
+	public function add_vm() {
+		
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			$retval = $this->vm_model->add_vm(
+				$this->input->post('name'), 
+				$this->input->post('path'),
+				$this->input->post('hypervisor'),
+				$this->input->post('snapshot')
+				);
+			if($retval) {
+				redirect('/labmgr/add_vm');
+			} else {
+				echo "DB Error";
+			}
+
+		} else {
+			$data['vms'] = $this->vm_model->get_vms();
+			$this->load->template('add_vm', $data);
+		}
+	}
+
+	/**
+	 * Delete a VM.
+	 */
+	public function delete_vm() {
+		$retval = $this->vm_model->delete_vm(
+			$this->input->post('vm_id')
+			);
+		if($retval) {
+			redirect('/labmgr/add_vm');
 		} else {
 			echo "DB Error";
 		}
@@ -658,7 +697,7 @@ class Labmgr extends CI_Controller {
 			$hash = $this->bencoded->InfoHash();
 
 			$this->torrent_model->add_torrent(
-				$upload_data['file_name'],
+				$upload_data['raw_name'],
 				$hash,
 				$upload_data['full_path']
 				);
