@@ -83,7 +83,7 @@ class Vm_model extends CI_Model {
 	     * Start a VM
 	     */
 	    public function start_vm($vm_id, $ip) {
-	    	return shell_exec('./scripts/reboot.sh ' . $ip);
+	    	return shell_exec('ssh IBM_USER@ ' . $ip . ' -i /cert/location/ -o');
 	    }
 
 	    /**
