@@ -66,6 +66,9 @@ class Labmgr extends CI_Controller {
 	}
 
 	public function test() {
+		//echo FCPATH;
+		echo $this->vm_model->stop_vm('192.168.1.179');
+		die();
 		define('0', 'UTORRENT_TORRENT_HASH');
 		$output = array(
 			0 => 'BADBC42E639D870A24E70A7AAFA5389DDDDA0079',
@@ -233,9 +236,9 @@ class Labmgr extends CI_Controller {
 
     public function start_vms_by_machine() {
     	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-			echo "<pre>";
+			/*echo "<pre>";
 			print_r($_POST);
-			die();
+			die(); */
 			$vm = $this->vm_model->get_vm($this->input->post('vm_id'));
 			$vm = $vm[0];
 			$machines = array();
@@ -245,7 +248,7 @@ class Labmgr extends CI_Controller {
 			}
 			
 			foreach($machines as $machine) {
-				$this->vm_model->start_vm($vm['vm_id'], $machine['ip_address']);			
+				echo $this->vm_model->start_vm($machine['ip_address']);			
 			}
 			/*
 			print_r($torrent);

@@ -82,15 +82,40 @@ class Vm_model extends CI_Model {
 	    /**
 	     * Start a VM
 	     */
-	    public function start_vm($vm_id, $ip) {
-	    	return shell_exec('ssh IBM_USER@ ' . $ip . ' -i /cert/location/ -o');
+	    public function start_vm($ip) {
+	    	$path = 'C:/labs/AL1/vm/viper24vm1.vmx';
+	    	$dropins_dir = '/cygdrive/c/labmgr-wd/dropins/start.gui-command';
+	    	$command = 'vmrun -T ws start '.$path;
+	    	/* $file_name = './start.gui-command';
+	    	$file = fopen($file_name, "w");
+	    	echo fwrite($file, $command);
+	    	fclose($file);*/
+
+	    	echo "Sending start vm command to: ".$ip;
+
+	    	echo "<br>Cert: " . FCPATH . 'certs/labmgr';
+	    	echo "<br>Command: " . $command;
+	    	//return shell_exec('scp -i ./certs/labmgr '.$file_name.' IBM_USER@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/');
+	    	//return shell_exec('./scripts/start_vm.sh');
+	    	return shell_exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' "echo '.$command.' > '.$dropins_dir.'"');
+	    	//return shell_exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' touch file.txt');
 	    }
 
 	    /**
 	     * Stop a VM
 	     */
-	    public function stop_vm($vm_id, $ip) {
+	    public function stop_vm($ip) {
+	    	$path = 'C:/labs/AL1/vm/viper24vm1.vmx';
+	    	$dropins_dir = '/cygdrive/c/labmgr-wd/dropins/stop.gui-command';
+	    	$command = 'vmrun -T ws stop '.$path. ' hard';
+	    	
+	    	echo "Sending stop vm command to: ".$ip;
 
+	    	echo "<br>Cert: " . FCPATH . 'certs/labmgr';
+	    	echo "<br>Command: " . $command;
+	    	//return shell_exec('./scripts/start_vm.sh');
+	    	return shell_exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' "echo '.$command.' > '.$dropins_dir.'"');
+	    	//return shell_exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' touch file.txt');
 	    }
 
 	}
