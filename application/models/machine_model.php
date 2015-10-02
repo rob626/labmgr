@@ -91,4 +91,12 @@ class Machine_model extends CI_Model {
 		return $this->db->trans_status();
 	}
 
+	/**
+     * Reboot machine
+     */
+    public function reboot($ip) {
+    	echo "Sending reboot command to: ".$ip;
+    	return shell_exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' "shutdown -r -t 0 -f"');
+    }
+
 }
