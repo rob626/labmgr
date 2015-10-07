@@ -1,5 +1,15 @@
+<div class='large-2 columns'>
+	<ul class='side-nav'>
+		<li class='active'><a href='/labmgr/add_machine'>Add Machine</a></li>
+		<li><a href='/labmgr/manage_machines'>Manage Machines</a></li>
+		<li><a href='/admin/add_torrent_client'>Manage Torrents</a></li>
+		<li><a href='/labmgr/add_vm'>Manage VMs</a></li>
+		<li><a href='/labmgr/add_script'>Manage Scripts</a></li>
+	</ul>
+</div> 
 
-	<div class="row">
+<div class='large-10 columns'>
+	<div class='row'>
 		<div class='panel'>
 			<h1>Add Machine</h1>
 		</div>
@@ -71,13 +81,12 @@
 			</form>
 			</div>
 		</div>
-	</div>
 
 
+<div class='row'>
 <div class='panel'>
 	<h1>Existing Machines</h1>
 </div>
-	<div class='large-12 columns'>
 
 		<table id='datatable'>
 			<thead>
@@ -141,4 +150,5 @@
 			
 			</tbody>
 		</table>
-		</div>
+</div>
+</div>

@@ -1,10 +1,13 @@
-
-	<dl class="sub-nav">
-		<dd>
-			<a href="/admin">Admin Home</a>
-		</dd> 
-	</dl>
-
+<div class='large-2 columns'>
+	<ul class='side-nav'>
+		<li><a href='/labmgr/add_machine'>Add Machine</a></li>
+		<li><a href='/labmgr/manage_machines'>Manage Machines</a></li>
+		<li class='active'><a href='/admin/add_torrent_client'>Manage Torrents</a></li>
+		<li><a href='/labmgr/add_vm'>Manage VMs</a></li>
+		<li><a href='/labmgr/add_script'>Manage Scripts</a></li>
+	</ul>
+</div> 
+<div class='large-10 columns'>
 	<div class='panel'>
 		<h1>Add Torrent Client</h1>
 	</div>
@@ -20,7 +23,7 @@
 	<div class='row'>
 		<div class='large-4 columns'>
 			<label>Torrent Client Description</label>
-			<textarea name='torrent_client_desc'></textarea>
+			<textarea rows='3' name='torrent_client_desc'></textarea><br>
 		</div>
 	</div>
 
@@ -31,12 +34,10 @@
 	</div>
 
 	</form>
-</div>
 
 <div class='panel'>
 	<h1>Existing Torrent Clients</h1>
 </div>
-<div class='row'>
 	<table id='datatable'>
 		<thead>
 			<tr>
@@ -73,4 +74,6 @@
 			?>
 		</tbody>
 	</table>
+
+</div>
 </div>

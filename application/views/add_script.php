@@ -1,6 +1,16 @@
+<div class='large-2 columns'>
+	<ul class='side-nav'>
+		<li><a href='/labmgr/add_machine'>Add Machine</a></li>
+		<li><a href='/labmgr/manage_machines'>Manage Machines</a></li>
+		<li><a href='/admin/add_torrent_client'>Manage Torrents</a></li>
+		<li><a href='/labmgr/add_vm'>Manage VMs</a></li>
+		<li class='active'><a href='/labmgr/add_script'>Manage Scripts</a></li>
+	</ul>
+</div> 
 
+<div class='large-10 columns'>
 	<div class='panel'>
-		<h1>Add script</h1>
+		<h1>Add Script</h1>
 	</div>
 	<form method='POST' action='/labmgr/add_script'>
 
@@ -41,12 +51,11 @@
 	</div>
 
 	</form>
-</div>
 
 <div class='panel'>
 	<h1>Existing Scripts</h1>
 </div>
-<div class='row'>
+
 	<table id='datatable'>
 		<thead>
 			<tr>
@@ -89,4 +98,5 @@
 			?>
 		</tbody>
 	</table>
+
 </div>
