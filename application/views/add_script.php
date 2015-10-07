@@ -1,6 +1,7 @@
 <div class='large-2 columns'>
 	<ul class='side-nav'>
 		<li><a href='/labmgr/add_machine'>Add Machine</a></li>
+		<li><a href='/labmgr/add_room'>Add Room</a></li>
 		<li><a href='/labmgr/manage_machines'>Manage Machines</a></li>
 		<li><a href='/admin/add_torrent_client'>Manage Torrents</a></li>
 		<li><a href='/labmgr/add_vm'>Manage VMs</a></li>

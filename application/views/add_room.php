@@ -1,21 +1,32 @@
+<div class='large-2 columns'>
+	<ul class='side-nav'>
+		<li><a href='/labmgr/add_machine'>Add Machine</a></li>
+		<li><a href='/labmgr/add_room'>Add Room</a></li>
+		<li><a href='/labmgr/manage_machines'>Manage Machines</a></li>
+		<li><a href='/admin/add_torrent_client'>Manage Torrents</a></li>
+		<li><a href='/labmgr/add_vm'>Manage VMs</a></li>
+		<li><a href='/labmgr/add_script'>Manage Scripts</a></li>
+	</ul>
+</div> 
+
+<div class='large-10 columns'>
 	<div class='panel'>
 		<h1>Add Room</h1>
 	</div>
 	<form method='POST' action='/labmgr/add_room'>
 
 	<div class='row'>
-		<div class='large-4 columns'>
+		<div class='large-6 columns'>
 			<label>Room Name</label>
 			<input type='text' name='room_name'>
 		</div>
-	</div>
 
-	<div class='row'>
-		<div class='large-4 columns'>
+		<div class='large-6 columns'>
 			<label>Room Description</label>
 			<textarea name='room_desc'></textarea>
 		</div>
 	</div>
+
 
 	<div class='row'>
 		<div class="large-1 columns">
@@ -24,12 +35,11 @@
 	</div>
 
 	</form>
-</div>
 
 <div class='panel'>
 	<h1>Existing Rooms</h1>
 </div>
-<div class='row'>
+
 	<table id='datatable'>
 		<thead>
 			<tr>
@@ -66,4 +76,5 @@
 			?>
 		</tbody>
 	</table>
+
 </div>
