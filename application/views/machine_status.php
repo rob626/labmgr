@@ -37,10 +37,10 @@
 			<tbody>
 				<?php
 				if(!empty($machines)) {
-					
+					$counter = 1;
 					foreach($machines as $machine) {
 						echo "<tr>";
-						echo "<td><form method='POST' action='/labmgr/edit_machine'>
+						echo "<td><span style='display:none;' id='machine_ip_".$counter."'>".$machine['ip_address']."</span><form method='POST' action='/labmgr/edit_machine'>
 						<input type='hidden' name='machine_id' value='".$machine['machine_id']."'>
 						<input type='submit' class='button tiny radius' value='".$machine['ip_address']."'></form></td>";
 
@@ -53,7 +53,7 @@
 						}
 						echo "<td>". $machine['seat'] ."</td>";
 
-						echo "<td>Yes/No</td>";
+						echo "<td id='status_".$counter."'></td>";
 						echo "<td><form method='POST' action='/labmgr/reboot_machine'>
 						<input type='hidden' name='machine_id' value='".$machine['machine_id']."'>
 						<input type='submit' class='button tiny radius' value='Reboot'></form></td>";
@@ -74,9 +74,11 @@
 						<input type='submit' class='button tiny radius alert' value='Delete'></form>
 						</td>";
 						echo "</tr>";
-						
+						$counter++;
 
 					}
+					echo "<span id='status_total' style='display:none;'>".$counter."</span>";
+
 				}
 				?>
 

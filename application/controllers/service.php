@@ -21,4 +21,10 @@ class Service extends CI_Controller {
 		
 		echo json_encode($machines);
 	}
+
+	public function get_machine_status() {
+		$devices = $this->input->get('machines');
+		$data['status'] = $this->machine_model->ping_test_arr($devices);
+		echo json_encode($data);
+	}
 }

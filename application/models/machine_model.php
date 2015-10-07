@@ -107,4 +107,28 @@ class Machine_model extends CI_Model {
     	return shell_exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' "shutdown -t 0 -f"');
     }
 
+    public function ping_test_arr($machines) {
+    	$updated_machines = array();
+	    	foreach($machines as $machine) {
+	    		$machine['status'] = $this->ping_test($machine['ip_address']);
+	    		array_push($updated_machines, $machine);
+	    	}
+	    	return $updated_machines;
+    }
+
+    /**
+     * Return the status of the machine by doing a ping test
+     */
+    public function ping_test($ip) {
+    	$host = $ip; 
+		$port = 22; 
+		$waitTimeoutInSeconds = 1; 
+		if($fp = fsockopen($host,$port,$errCode,$errStr,$waitTimeoutInSeconds)){   
+		   return "ONLINE";
+		} else {
+		   return "OFFLINE";
+		} 
+		fclose($fp);
+    }
+
 }

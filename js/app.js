@@ -42,6 +42,46 @@ $(document).ready(function(){
 
     });
 
+        //Get Machine Status
+        if($('#status_total').length > 0) {
+            setInterval(function() {
+                var status_total = $('#status_total').text();
+                var machines = [];
+
+                for(var status_id = 1; status_id < status_total; status_id++) {    
+                    var ip = $('#machine_ip_'+ status_id).text();
+                    var machine = {
+                        id:status_id,
+                        ip_address:ip,
+                        status:'' 
+                    }
+                    machines.push(machine);
+                    }
+
+                    $.ajax({        
+                        url: "/service/get_machine_status",
+                        type: "get",
+                        dataType: "json",
+                        async: false,
+                        data: {machines : machines}
+                        }).done(function(response) {
+                            //console.log(response.status );
+                            $.each(response.status, function(index, value) {
+                                if(value.status == 'ONLINE') {
+                                    $('#status_'+ value.id).html("<span class='button success tiny radius'>Online</span>");
+                                } else {
+                                    $('#status_'+ value.id).html("<span class='button tiny warning radius'>Offline</span>");
+                                }
+                            });
+                            
+                        }).fail(function(jqXHR, textStatus, errorThrown) {
+                            //alert("Error submitting data!");
+                            console.log(jqXHR, textStatus, errorThrown);
+                        });
+                    
+                }, 10000); 
+            } 
+
     function formatTime(strDate) {
         var date = new Date(strDate);
 
@@ -147,91 +187,8 @@ $(document).ready(function(){
         });
     }
     
-    if($('#mac').length > 0) {
-        var mac = $('#mac').text();
-        console.log("Mac: " + mac);
-        setInterval(function() {
-            $.ajax({        
-                url: "/service/",
-                type: "get",
-                dataType: "json",
-                data: {id : mac}
-                }).done(function(response) {
-                    console.log(response);
-                    var now_time = '';
-                    var next_time = '';
-                    if (typeof response.now['start'] == 'undefined') {
-                        response.now['start'] = '';
-                        response.now['end'] = '';
 
-                    } else {
-                        /*
-                        response.now['start'] = formatTime(response.now['start']);
-                        response.now['end'] = formatTime(response.now['end']);
-                        */
-                        now_time = response.now['start'] +" - "+ response.now['end'];
-                        
-                    }
-                    if (typeof response.next['start'] == 'undefined') {
-                        response.next['start'] = '';
-                        response.next['end'] = '';
-                    } else {
-                        /*
-                        response.next['start'] = formatTime(response.next['start']);
-                        response.next['end'] = formatTime(response.next['end']);
-                        */
-                        next_time = response.next['start'] +" - "+ response.next['end'];
-                    }
-                    $('.now').html("<h2><span style='color:green;'>Now</span> &nbsp &nbsp &nbsp"+ now_time +"<h3>" + response.now['description'] + "</h3>");
-                    $('.next').html("<h2><span style='color:green;'>Next</span> &nbsp &nbsp &nbsp"+ next_time +"<h3>" + response.next['description'] + "</h3>");
-                    //$('#next_ticker').append("<li><h2><span style='color:green;'>Next</span> &nbsp &nbsp &nbsp"+ next_time +"<h3>" + response.next['description'] + "</h3></li>");
-                }).fail(function(jqXHR, textStatus, errorThrown) {
-                    //alert("Error submitting data!");
-                    console.log(jqXHR, textStatus, errorThrown);
-                });
-            }, 3000000);
-    }
 
-    //Get Pi Status
-        if($('#status_total').length > 0) {
-            setInterval(function() {
-                var status_total = $('#status_total').text();
-                var devices = [];
-
-                for(var status_id = 0; status_id < status_total; status_id++) {    
-                    var mac = $('#status_mac_'+ status_id).text();
-                    var device = {
-                        id:status_id,
-                        device_mac:mac,
-                        status:'' 
-                    }
-                    devices.push(device);
-                    }
-
-                    $.ajax({        
-                        url: "/service/get_pi_status",
-                        type: "get",
-                        dataType: "json",
-                        async: false,
-                        data: {devices : devices}
-                        }).done(function(response) {
-                            //console.log(response.status );
-                            $.each(response.status, function(index, value) {
-                                //console.log(value);
-                                if(value.status == 'ONLINE') {
-                                    $('#status_'+ index).html("<span class='button success small'>Online</span>");
-                                } else {
-                                    $('#status_'+ index).html("<span class='button alert small'>Offline</span>");
-                                }
-                            });
-                            
-                        }).fail(function(jqXHR, textStatus, errorThrown) {
-                            //alert("Error submitting data!");
-                            console.log(jqXHR, textStatus, errorThrown);
-                        });
-                    
-                }, 10000); 
-            } 
 
             /*//Work developing on colorpicker function
         $.ajax({      
