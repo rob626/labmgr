@@ -29,6 +29,7 @@
 					<th>Torrent Client</th>
 					<th>Transport Type</th>
 					<th>Edit</th>
+					<th>Delete</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -62,7 +63,8 @@
 
 						echo "<td><form method='POST' action='/labmgr/edit_machine'>
 						<input type='hidden' name='machine_id' value='".$machine['machine_id']."'>
-						<input type='submit' class='button tiny radius' value='Edit'></form>
+						<input type='submit' class='button tiny radius' value='Edit'></form></td>";
+						echo "<td>
 						<form method='POST' action='/labmgr/delete_machine'>
 						<input type='hidden' name='machine_id' value='".$machine['machine_id']."'>
 						<input type='submit' class='button tiny radius alert' value='Delete'></form>
