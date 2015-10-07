@@ -699,6 +699,27 @@ class Labmgr extends CI_Controller {
 		}
 	}
 
+	public function manage_machines() {
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			$machines = $this->machine_model->get_machines();
+			$rooms = $this->room_model->get_rooms();
+			sort($machines);
+			$data['machines'] = $machines;
+			$data['rooms'] = $rooms;
+			$data['torrent_clients'] = $this->admin_model->get_torrent_clients();
+			$this->load->template('manage_machines', $data);
+
+		} else {
+			$machines = $this->machine_model->get_machines();
+			$rooms = $this->room_model->get_rooms();
+			sort($machines);
+			$data['machines'] = $machines;
+			$data['rooms'] = $rooms;
+			$data['torrent_clients'] = $this->admin_model->get_torrent_clients();
+			$this->load->template('manage_machines', $data);
+		}
+	}
+
 	/**
 	 * Delete a machine.
 	 */
