@@ -53,7 +53,7 @@
 						}
 						echo "<td>". $machine['seat'] ."</td>";
 
-						echo "<td id='status_".$counter."'></td>";
+						echo "<td id='status_".$counter."'><span class='button tiny radius alert-box secondary'>...</span></td>";
 						echo "<td><form method='POST' action='/labmgr/reboot_machine'>
 						<input type='hidden' name='machine_id' value='".$machine['machine_id']."'>
 						<input type='submit' class='button tiny radius' value='Reboot'></form></td>";

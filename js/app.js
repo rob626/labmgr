@@ -62,7 +62,7 @@ $(document).ready(function(){
                         url: "/service/get_machine_status",
                         type: "get",
                         dataType: "json",
-                        async: false,
+                        async: true,
                         data: {machines : machines}
                         }).done(function(response) {
                             //console.log(response.status );
