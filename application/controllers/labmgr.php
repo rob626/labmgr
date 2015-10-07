@@ -234,6 +234,19 @@ class Labmgr extends CI_Controller {
         return false;
     }
 
+    public function machine_status() {
+    	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			
+
+		} else {
+	    	$data['machines'] = $this->machine_model->get_machines();
+			$data['rooms'] = $this->room_model->get_rooms();
+			$this->load->template('machine_status', $data);
+		}
+
+    	
+    }
+
     public function start_vms_by_machine() {
     	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			/*echo "<pre>";
