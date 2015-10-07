@@ -801,6 +801,28 @@ class Labmgr extends CI_Controller {
 		}
 	}
 
+	public function reboot_machine() {
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			$machine_id = $this->input->post('machine_id');
+			$machine = $this->machine_model->get_machine($machine_id);
+			echo $this->machine_model->reboot($machine[0]['ip_address']);
+
+		} else {
+			echo "reload previous page.";
+		}
+	}
+
+	public function shutdown_machine() {
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			$machine_id = $this->input->post('machine_id');
+			$machine = $this->machine_model->get_machine($machine_id);
+			echo $this->machine_model->shutdown($machine[0]['ip_address']);
+
+		} else {
+			echo "reload previous page.";
+		}
+	}
+
 	public function do_upload()
 	{
 		$config['upload_path'] = './uploads/';

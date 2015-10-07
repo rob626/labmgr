@@ -99,4 +99,12 @@ class Machine_model extends CI_Model {
     	return shell_exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' "shutdown -r -t 0 -f"');
     }
 
+    /**
+     * Shutdown machine
+     */
+    public function shutdown($ip) {
+    	echo "Sending shutdown command to: ".$ip;
+    	return shell_exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' "shutdown -t 0 -f"');
+    }
+
 }

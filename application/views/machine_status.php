@@ -28,6 +28,7 @@
 					<th>Seat</th>
 					<th>Ping</th>
 					<th>Reboot</th>
+					<th>Shutdown</th>
 					<th>SSH</th>
 					<th>Torrent</th>
 					<th>Delete</th>
@@ -51,6 +52,8 @@
 							}
 						}
 						echo "<td>". $machine['seat'] ."</td>";
+
+						echo "<td>Yes/No</td>";
 						echo "<td><form method='POST' action='/labmgr/reboot_machine'>
 						<input type='hidden' name='machine_id' value='".$machine['machine_id']."'>
 						<input type='submit' class='button tiny radius' value='Reboot'></form></td>";
@@ -63,7 +66,7 @@
 						<input type='hidden' name='machine_id' value='".$machine['machine_id']."'>
 						<input type='submit' class='button tiny radius' value='SSH'></form></td>";
 
-						echo "<td><a class='button tiny radius' href='http://".$machine['ip_address'].":27555/gui/'>Torrent Client Web Interface</a></td>";
+						echo "<td><a target='_blank' class='button tiny radius' href='http://".$machine['ip_address'].":27555/gui/'>Web View</a></td>";
 
 						echo "<td>
 						<form method='POST' action='/labmgr/delete_machine'>
