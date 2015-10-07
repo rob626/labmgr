@@ -69,7 +69,7 @@ class Machine_model extends CI_Model {
 			'operating_system' => $operating_system,
 			'username' => $username,
 			'password' => $password,
-			'torrent_client' => $torrent_client,
+			'torrent_client_id' => $torrent_client,
 			'transport_type' => $transport_type,
     		'last_update_timestamp' => date("Y-m-d H:i:s")
     		)
