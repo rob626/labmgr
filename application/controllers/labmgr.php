@@ -385,6 +385,41 @@ class Labmgr extends CI_Controller {
 		}
     }
 
+    public function start_vms_by_classroom() {
+    	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			//echo "<pre>";
+			//print_r($_POST);
+			
+			$vm = $this->vm_model->get_vm($this->input->post('vm_id'));
+			$vm = $vm[0];
+			$machines = array();
+			$rooms = $this->input->post('room_ids');
+			foreach($rooms as $room) {
+				$machines = array_merge($machines, $this->machine_model->get_machines_by_room($room));
+			}
+			
+			foreach($machines as $machine) {
+				$this->getToken($machine['ip_address'], '27555', 'admin', 'web1sphere');
+
+				if($this->vmAdd($vm['path'], $machine['ip_address'], '27555', 'admin', 'web1sphere')) {
+					echo "Successfully sent to: " . $machine['ip_address'] . "<br>";
+				} else {
+					echo "Failed to send to: " . $machine['ip_address'] . "<br>";
+				}
+			}
+			/*
+			print_r($torrent);
+			echo "<br>Machines: <br>";
+			print_r($machines);
+			echo "</pre>";*/
+
+		} else {
+			$data['rooms'] = $this->room_model->get_rooms();
+			$data['vms'] = $this->vm_model->get_vms();
+			$this->load->template('start_vms_by_class', $data);
+		}
+    }
+
 	public function push_torrents_by_classroom() {
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			//echo "<pre>";
