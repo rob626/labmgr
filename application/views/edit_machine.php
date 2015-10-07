@@ -31,7 +31,7 @@
 			echo "<td><input type='text' name='operating_system' value='".$machine['operating_system']."'></td>";
 			echo "<td><input type='text' name='username' value='".$machine['username']."'></td>";
 			echo "<td><input type='text' name='password' value='".$machine['password']."'></td>";
-			echo "<td><input type='text' name='torrent_client' value='".$machine['torrent_client']."'></td>";
+			echo "<td><input type='text' name='torrent_client' value='".$machine['torrent_client_id']."'></td>";
 			echo "<td><input type='text' name='transport_type' value='".$machine['transport_type']."'></td>";
 		echo "</tr>";
 	}

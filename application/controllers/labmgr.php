@@ -264,6 +264,36 @@ class Labmgr extends CI_Controller {
 		}
     }
 
+    public function stop_vms_by_machine() {
+    	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			/*echo "<pre>";
+			print_r($_POST);
+			die(); */
+			$vm = $this->vm_model->get_vm($this->input->post('vm_id'));
+			$vm = $vm[0];
+			$machines = array();
+			$machine_ids = $this->input->post('machine_ids');
+			foreach($machine_ids as $id) {
+				$machines = array_merge($machines, $this->machine_model->get_machine($id));
+			}
+			
+			foreach($machines as $machine) {
+				echo $this->vm_model->stop_vm($machine['ip_address']);			
+			}
+			/*
+			print_r($torrent);
+			echo "<br>Machines: <br>";
+			print_r($machines);
+			echo "</pre>";*/
+
+		} else {
+			$data['machines'] = $this->machine_model->get_machines();
+			$data['rooms'] = $this->room_model->get_rooms();
+			$data['vms'] = $this->vm_model->get_vms();
+			$this->load->template('stop_vms_by_machine', $data);
+		}
+    }
+
     public function push_torrents_by_machine() {
     	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			//echo "<pre>";
@@ -399,13 +429,36 @@ class Labmgr extends CI_Controller {
 			}
 			
 			foreach($machines as $machine) {
-				$this->getToken($machine['ip_address'], '27555', 'admin', 'web1sphere');
+				$this->vm_model->start_vm($machine['ip_address']);
+			}
+			/*
+			print_r($torrent);
+			echo "<br>Machines: <br>";
+			print_r($machines);
+			echo "</pre>";*/
 
-				if($this->vmAdd($vm['path'], $machine['ip_address'], '27555', 'admin', 'web1sphere')) {
-					echo "Successfully sent to: " . $machine['ip_address'] . "<br>";
-				} else {
-					echo "Failed to send to: " . $machine['ip_address'] . "<br>";
-				}
+		} else {
+			$data['rooms'] = $this->room_model->get_rooms();
+			$data['vms'] = $this->vm_model->get_vms();
+			$this->load->template('start_vms_by_class', $data);
+		}
+    }
+
+    public function stop_vms_by_classroom() {
+    	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			//echo "<pre>";
+			//print_r($_POST);
+			
+			$vm = $this->vm_model->get_vm($this->input->post('vm_id'));
+			$vm = $vm[0];
+			$machines = array();
+			$rooms = $this->input->post('room_ids');
+			foreach($rooms as $room) {
+				$machines = array_merge($machines, $this->machine_model->get_machines_by_room($room));
+			}
+			
+			foreach($machines as $machine) {
+				$this->vm_model->stop_vm($machine['ip_address']);
 			}
 			/*
 			print_r($torrent);
@@ -606,6 +659,7 @@ class Labmgr extends CI_Controller {
 	 */
 	public function edit_machine() {
 		$machine_id = $this->input->post("machine_id");
+		//$data['torrent_client'] = $this->admin_model->get_torrent_clients();
 		$data['machines'] = $this->machine_model->get_machine($machine_id);
 		$this->load->template('edit_machine', $data);
 	}
