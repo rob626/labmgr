@@ -1,4 +1,6 @@
 $(document).ready(function(){
+    $(document).foundation();
+
    /* 
     if($('#time').length > 0) {
         setTimeout(function(){
@@ -6,7 +8,7 @@ $(document).ready(function(){
         }, 60000);
     }
     */
-    $(document).foundation();
+
 
     $('.datepicker').datetimepicker({ dateFormat: "yy-mm-dd" });
 
@@ -41,6 +43,38 @@ $(document).ready(function(){
             });
 
     });
+
+/*
+    $('#reboot_btn').click(function() {
+        console.log("Button pressed!");
+
+        var ip = $('#machine_ip_'+ status_id).text();
+        $.ajax({        
+            url: "/service/reboot_machine",
+            type: "get",
+            dataType: "json",
+            async: true,
+            data: {machine_id : machine_id}
+            }).done(function(response) {
+                console.log(response.status );
+                /*
+                $.each(response.status, function(index, value) {
+                    if(value.status == 'ONLINE') {
+                        $('#status_'+ value.id).html("<span class='button success tiny radius'>Online</span>");
+                    } else {
+                        $('#status_'+ value.id).html("<span class='button tiny warning radius'>Offline</span>");
+                    }
+                });
+                
+
+                $('#reboot_modal').foundation('reveal', 'open');
+                
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                //alert("Error submitting data!");
+                console.log(jqXHR, textStatus, errorThrown);
+            });
+    });
+*/
 
         //Get Machine Status
         if($('#status_total').length > 0) {

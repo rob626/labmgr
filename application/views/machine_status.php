@@ -54,10 +54,12 @@
 						echo "<td>". $machine['seat'] ."</td>";
 
 						echo "<td id='status_".$counter."'><span class='button tiny radius alert-box secondary'>...</span></td>";
+						
+						//echo "<td><div ='reboot_btn' class='button tiny radius'>Reboot</div></td>";
 						echo "<td><form method='POST' action='/labmgr/reboot_machine'>
 						<input type='hidden' name='machine_id' value='".$machine['machine_id']."'>
 						<input type='submit' class='button tiny radius' value='Reboot'></form></td>";
-
+						
 						echo "<td><form method='POST' action='/labmgr/shutdown_machine'>
 						<input type='hidden' name='machine_id' value='".$machine['machine_id']."'>
 						<input type='submit' class='button tiny radius' value='Shutdown'></form></td>";
@@ -87,4 +89,10 @@
 		</table>
 
 	</div>
+</div>
+
+<div id="reboot_modal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog"> 
+	<div id='reboot_modal_content'>
+	</div> 
+	<a class="close-reveal-modal" aria-label="Close">&#215;</a>
 </div>

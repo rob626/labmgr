@@ -27,4 +27,10 @@ class Service extends CI_Controller {
 		$data['status'] = $this->machine_model->ping_test_arr($devices);
 		echo json_encode($data);
 	}
+
+	public function reboot_machine() {
+		$machine_id = $this->input->get('machine_id');
+		$machine = $this->machine_model->get_machine($machine_id);
+		echo json_encode($this->machine_model->reboot($machine[0]['ip_address']));
+	}
 }
