@@ -68,6 +68,7 @@
 				<th>Script OS</th>
 				<th>Last Update Timestamp</th>
 				<th>Edit</th>
+				<th>Delete</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -86,9 +87,9 @@
 					echo "<td><form method='POST' action='/labmgr/edit_script'>
 					<input type='hidden' name='script_id' value='".$script['script_id']."'>
 					<input type='submit' class='button tiny radius' value='Edit'>
-					</form>
+					</form></td>";
 
-					<form method='POST' action='/labmgr/delete_script'>
+					echo "<td><form method='POST' action='/labmgr/delete_script'>
 					<input type='hidden' name='script_id' value='".$script['script_id']."'>
 					<input type='submit' class='button tiny radius alert' value='Delete'>
 					</form>

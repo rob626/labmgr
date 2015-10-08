@@ -621,6 +621,31 @@ class Labmgr extends CI_Controller {
 	}
 
 	/**
+	 * Edit a script
+	 */
+	public function edit_script() {
+		$script_id = $this->input->post("script_id");
+		$data['scripts'] = $this->script_model->get_script($script_id);
+		$this->load->template('edit_script', $data);
+	}
+
+	public function save_script_edits() {
+		$retval = $this->script_model->update_script(
+			$this->input->post('script_id'), 
+			$this->input->post('script_name'), 
+			$this->input->post('script_desc'),
+			$this->input->post('script_path'),
+			$this->input->post('script_parameter'),
+			$this->input->post('script_os')
+			);
+		if($retval) {
+			redirect('/labmgr/add_script');
+		} else {
+			echo "DB Error";
+		}
+	}
+
+	/**
 	 * Delete a script.
 	 */
 	public function delete_script() {
