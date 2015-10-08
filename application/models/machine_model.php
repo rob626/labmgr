@@ -96,7 +96,10 @@ class Machine_model extends CI_Model {
      */
     public function reboot($ip) {
     	echo "Sending reboot command to: ".$ip;
-    	return shell_exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' "shutdown -r -t 0 -f"');
+    	$output = array(
+    		'status' => "Sending reboot command to: ".$ip,
+    		'output' => shell_exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' "shutdown -r -t 0 -f"'));
+    	return $output;
     }
 
     /**

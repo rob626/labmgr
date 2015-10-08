@@ -82,8 +82,8 @@ class Vm_model extends CI_Model {
 	    /**
 	     * Start a VM
 	     */
-	    public function start_vm($ip) {
-	    	$path = 'C:/labs/AL1/vm/viper24vm1.vmx';
+	    public function start_vm($ip, $path) {
+	    	//$path = 'C:/labs/AL1/vm/viper24vm1.vmx';
 	    	$dropins_dir = '/cygdrive/c/labmgr-wd/dropins/start.gui-command';
 	    	$command = 'vmrun -T ws start '.$path;
 	    	/* $file_name = './start.gui-command';
@@ -104,8 +104,8 @@ class Vm_model extends CI_Model {
 	    /**
 	     * Stop a VM
 	     */
-	    public function stop_vm($ip) {
-	    	$path = 'C:/labs/AL1/vm/viper24vm1.vmx';
+	    public function stop_vm($ip, $path) {
+	    	//$path = 'C:/labs/AL1/vm/viper24vm1.vmx';
 	    	$dropins_dir = '/cygdrive/c/labmgr-wd/dropins/stop.gui-command';
 	    	$command = 'vmrun -T ws stop '.$path. ' hard';
 	    	

@@ -44,11 +44,11 @@ $(document).ready(function(){
 
     });
 
-/*
-    $('#reboot_btn').click(function() {
-        console.log("Button pressed!");
 
-        var ip = $('#machine_ip_'+ status_id).text();
+    $('.reboot_btn').click(function() {
+        console.log($(this).attr('id'));
+
+        var machine_id = $(this).attr('id');
         $.ajax({        
             url: "/service/reboot_machine",
             type: "get",
@@ -65,7 +65,7 @@ $(document).ready(function(){
                         $('#status_'+ value.id).html("<span class='button tiny warning radius'>Offline</span>");
                     }
                 });
-                
+                */
 
                 $('#reboot_modal').foundation('reveal', 'open');
                 
@@ -74,7 +74,7 @@ $(document).ready(function(){
                 console.log(jqXHR, textStatus, errorThrown);
             });
     });
-*/
+
 
         //Get Machine Status
         if($('#status_total').length > 0) {
