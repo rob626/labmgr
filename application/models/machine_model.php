@@ -104,7 +104,7 @@ class Machine_model extends CI_Model {
      */
     public function shutdown($ip) {
     	echo "Sending shutdown command to: ".$ip;
-    	return shell_exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' "shutdown -t 0 -f"');
+    	return shell_exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' "shutdown -s -t 0 -f"');
     }
 
     public function ping_test_arr($machines) {
