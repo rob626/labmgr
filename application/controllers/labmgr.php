@@ -485,7 +485,7 @@ class Labmgr extends CI_Controller {
 		} else {
 			$data['rooms'] = $this->room_model->get_rooms();
 			$data['vms'] = $this->vm_model->get_vms();
-			$this->load->template('start_vms_by_class', $data);
+			$this->load->template('stop_vms_by_class', $data);
 		}
     }
 
