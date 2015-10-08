@@ -1,16 +1,29 @@
+<div class='large-2 columns'>
+	<ul class='side-nav'>
+		<li><a href='/labmgr/add_machine'>Add Machine</a></li>
+		<li><a href='/labmgr/add_room'>Add Room</a></li>
+		<li><a href='/labmgr/manage_machines'>Manage Machines</a></li>
+		<li class='active'><a href='/labmgr/upload_torrent'>Manage Torrents</a></li>
+		<li><a href='/labmgr/add_vm'>Manage VMs</a></li>
+		<li><a href='/labmgr/add_script'>Manage Scripts</a></li>
+	</ul>
+</div> 
+
+
+
+<div class='large-10 columns'>
 <div class='panel'>
 		<h1>Upload Torrent</h1>
 </div>
-<div class='row'>
+
 <?php
 	echo form_open_multipart('labmgr/do_upload');
 	echo "<input type='file' name='torrent_file'>";
-	echo "<label>Hash: </label><input name='hash' type='text'>";
+	//echo "<label>Hash: </label><input name='hash' type='text'>";
 	echo "<input type='submit' class='button' value='Upload'>";
 	echo "</form>";
 
 ?>
-</div>
 <br>
 
 <div class='panel'>
@@ -25,6 +38,7 @@
 				<th>Torrent Path</th>
 				<th>Last Update Timestamp</th>
 				<th>Edit</th>
+				<th>Delete</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -41,9 +55,9 @@
 					echo "<td><form method='POST' action='/labmgr/edit_torrent'>
 					<input type='hidden' name='torrent_id' value='".$torrent['torrent_id']."'>
 					<input type='submit' class='button tiny radius' value='Edit'>
-					</form>
+					</form></td>";
 
-					<form method='POST' action='/labmgr/delete_torrent'>
+					echo "<td><form method='POST' action='/labmgr/delete_torrent'>
 					<input type='hidden' name='torrent_id' value='".$torrent['torrent_id']."'>
 					<input type='submit' class='button tiny radius alert' value='Delete'>
 					</form>
@@ -54,3 +68,4 @@
 			?>
 		</tbody>
 	</table>
+</div>

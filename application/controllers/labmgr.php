@@ -542,6 +542,29 @@ class Labmgr extends CI_Controller {
 			$data['torrents'] = $torrents;
 			$this->load->template('upload_torrent', $data);
 	}
+
+	/**
+	 * Edit a torrent
+	 */
+	public function edit_torrent() {
+		$torrent_id = $this->input->post("torrent_id");
+		$data['torrents'] = $this->torrent_model->get_torrent($torrent_id);
+		$this->load->template('edit_torrent', $data);
+	}
+
+	public function save_torrent_edits() {
+		$retval = $this->torrent_model->update_torrent(
+			$this->input->post('torrent_id'), 
+			$this->input->post('torrent_name'), 
+			$this->input->post('torrent_hash'),
+			$this->input->post('torrent_path')
+			);
+		if($retval) {
+			redirect('/labmgr/upload_torrent');
+		} else {
+			echo "DB Error";
+		}
+	}
 	
 	/**
 	 * Remove a torrent from the torrent table.
