@@ -1,5 +1,16 @@
+<div class='large-2 columns side-nav-color'>
+	<ul class='side-nav'>
+		<li class='active'><a href='/labmgr/machine_status'>View Machines (ping)</a></li>
+		<li><a href='/labmgr/'>View Machines (torrent)</a></li>
+		<li><a href='/labmgr/'>View Machines (vm data)</a></li>
+		<li><a href='/labmgr/'>Validate MAC / IP Mapping</a></li>
+	</ul>
+</div>
+
+
+<div class='large-10 columns'>
 <div class='panel'>
-	<h1>Edit Room</h1>
+	<h1>Edit Machine</h1>
 </div>
 
 <form method='POST' action='/labmgr/save_machine_edits'>
@@ -39,9 +50,7 @@
 </tbody>
 </table>
 <input type='hidden' name='machine_id' value='<?php echo $machines[0]['machine_id']; ?>'>
- <div class='row'>
- 	<div class="large-1 columns">
- 		<input class='button' type='submit' value='Submit'>
- 	</div>
- </div>
+ <input class='button' type='submit' value='Submit'>
+
 </form>
+</div>

@@ -45,19 +45,19 @@
 
 				<div class='large-4 columns'>
 					<label>OS</label>
-					<input type='text' name='operating_system'>
+					<input type='text' name='operating_system' value='Windows 7'>
 				</div>
 				
 				<div class='large-4 columns'>
 					<label>Username</label>
-					<input type='text' name='username'>
+					<input type='text' name='username' value='Admin'>
 				</div>
 			</div>
 
 			<div class='row'>
 				<div class='large-4 columns'>
 					<label>Password</label>
-					<input type='text' name='password'>
+					<input type='text' name='password' value='web1sphere'>
 				</div>
 				
 				<div class='large-4 columns'>
