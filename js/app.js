@@ -8,7 +8,11 @@ $(document).ready(function(){
         }, 60000);
     }
     */
+    $('.hidden').hide();
 
+    $('#overrides').click(function() {
+        $('.hidden').toggle();
+    });
 
     $('.datepicker').datetimepicker({ dateFormat: "yy-mm-dd" });
 

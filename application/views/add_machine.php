@@ -17,7 +17,7 @@
 		<form method='POST' action='/labmgr/add_machine'>
 
 			<div class='row'>
-				<div class='large-4 columns'>
+				<div class='large-6 columns'>
 					<label>Room</label>
 					<select name="room_id">
 						<?php foreach ($rooms as $room) { ?>
@@ -26,41 +26,46 @@
 					</select> 
 				</div>
 
-				<div class='large-4 columns'>
+				<div class='large-6 columns'>
 					<label>Seat</label>
 					<input type='text' name='seat'>
 				</div>
 				
-				<div class='large-4 columns'>
+				<div class='large-6 columns'>
 					<label>MAC Address</label>
 					<input type='text' name='mac_address'>
+				</div>
+
+				<div class='large-6 columns'>
+					<label>IP Address</label>
+					<input type='text' name='ip_address'>
 				</div>
 			</div>
 
 			<div class='row'>
-				<div class='large-4 columns'>
-					<label>IP Address</label>
-					<input type='text' name='ip_address'>
+				<div class='small-4 small-centered columns'>
+					<a class='button' id='overrides' href="#">Overrides</a>
 				</div>
+			</div>
 
-				<div class='large-4 columns'>
+			<div class='hidden row'>
+				<div class='large-6 columns'>
 					<label>OS</label>
 					<input type='text' name='operating_system' value='Windows 7'>
 				</div>
 				
-				<div class='large-4 columns'>
+				<div class='large-6 columns'>
 					<label>Username</label>
 					<input type='text' name='username' value='Admin'>
 				</div>
-			</div>
 
-			<div class='row'>
-				<div class='large-4 columns'>
+			
+				<div class='large-6 columns'>
 					<label>Password</label>
 					<input type='text' name='password' value='web1sphere'>
 				</div>
 				
-				<div class='large-4 columns'>
+				<div class='large-6 columns'>
 					<label>Torrent Client</label>
 					<select name="torrent_client_id">
 						<?php foreach ($torrent_clients as $torrent_client) { ?>
@@ -69,9 +74,9 @@
 					</select> 
 				</div>
 
-				<div class='large-4 columns'>
+				<div class='large-6 columns'>
 					<label>Transport Type</label>
-					<input type='text' name='transport_type'>
+					<input type='text' name='transport_type' value='SSH'>
 				</div>
 			</div>
 

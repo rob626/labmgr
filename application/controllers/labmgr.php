@@ -67,7 +67,10 @@ class Labmgr extends CI_Controller {
 
 	public function test() {
 		//echo FCPATH;
-		echo $this->machine_model->ping_test('192.168.1.179');
+		//echo $this->machine_model->ping_test('192.168.1.179');
+		echo "<pre>";
+		print_r($_SERVER['REMOTE_ADDR']);
+		echo "</pre>";
 		die();
 		define('0', 'UTORRENT_TORRENT_HASH');
 		$output = array(
