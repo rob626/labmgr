@@ -14,7 +14,7 @@
 	<div class='row'>
 		<div class='small-4 small-centered columns'>
 			<br>
-			<input type='submit' class='button large center' value='Start VMs'>
+			<input type='submit' class='button large center' value='Stop VMs'>
 		</div>
 	</div>
 
