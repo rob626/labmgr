@@ -55,11 +55,11 @@
 
 						echo "<td id='status_".$counter."'><span class='button tiny radius alert-box secondary'>...</span></td>";
 						
-						echo "<td><a href='#' id='".$machine['machine_id']."' class='reboot_btn button tiny radius'>Reboot</a></td>";
-						/*echo "<td><form method='POST' action='/labmgr/reboot_machine'>
+						//echo "<td><a href='#' id='".$machine['machine_id']."' class='reboot_btn button tiny radius'>Reboot</a></td>";
+						echo "<td><form method='POST' action='/labmgr/reboot_machine'>
 						<input type='hidden' name='machine_id' value='".$machine['machine_id']."'>
 						<input type='submit' class='button tiny radius' value='Reboot'></form></td>";
-						*/
+						
 						echo "<td><form method='POST' action='/labmgr/shutdown_machine'>
 						<input type='hidden' name='machine_id' value='".$machine['machine_id']."'>
 						<input type='submit' class='button tiny radius' value='Shutdown'></form></td>";
