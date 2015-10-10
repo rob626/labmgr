@@ -1,0 +1,6 @@
+TRUNCATE TABLE machine;
+TRUNCATE TABLE room;
+TRUNCATE TABLE script;
+TRUNCATE TABLE torrent;
+TRUNCATE TABLE torrent_client;
+TRUNCATE TABLE vm;
