@@ -1,6 +1,7 @@
 $(document).ready(function(){
     $(document).foundation();
 
+
    /* 
     if($('#time').length > 0) {
         setTimeout(function(){

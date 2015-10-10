@@ -10,6 +10,9 @@
 	<script src='/js/jquery-ui-timepicker-addon.js'></script>
 	<script src='/js/ckeditor/ckeditor.js'></script>
 	<script src='/js/jquery.dataTables.min.js'></script>
+	<script src='/js/jquery.ui.widget.js'></script>
+	<script src='/js/jquery.iframe-transport.js'></script>
+	<script src='/js/jquery.fileupload.js'></script>
 	<script src='/js/app.js'></script>
 
 	<!-- stylesheets -->
@@ -18,6 +21,7 @@
 	<link rel='stylesheet' href='/css/foundation.min.css' />
 	<link rel='stylesheet' href='/css/normalize.css' />
 	<link rel='stylesheet' href='/css/dataTables.jqueryui.css' />
+	<link rel='stylesheet' href='/css/jquery.fileupload.css' />
 	<link rel='stylesheet' href='/css/app.css' />
 	
 	<title>IBM - Lab Manager</title>

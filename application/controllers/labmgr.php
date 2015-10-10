@@ -399,15 +399,34 @@ class Labmgr extends CI_Controller {
 			} else {
 				$data = false;
 			}
+
+			$torrent_ids = $this->input->post('torrent_ids');
+			$torrents = array();
+			foreach($torrent_ids as $torrent_id) {
+				$t = $this->torrent_model->get_torrent($torrent_id);
+				array_push($torrents, $t[0]);
+			}
 			
+			/*
 			$torrent = $this->torrent_model->get_torrent($this->input->post('torrent_id'));
 			$torrent = $torrent[0];
+			*/
 			$machines = array();
 			$rooms = $this->input->post('room_ids');
 			foreach($rooms as $room) {
 				$machines = array_merge($machines, $this->machine_model->get_machines_by_room($room));
 			}
-			
+			foreach($torrents as $torrent) {
+				foreach($machines as $machine) {
+					$this->getToken($machine['ip_address'], '27555', 'admin', 'web1sphere');
+					$retval = $this->makeRequest($machine['ip_address'], '27555', 'admin', 'web1sphere', "?action=".($data ? "removedata" : "remove").$this->paramImplode("&hash=", $torrent['hash']), false);
+					if($retval) {
+						echo "Successfully sent to: " . $machine['ip_address'] . "<br>";
+					} else {
+						echo "Failed to send to: " . $machine['ip_address'] . "<br>";
+					}
+				}
+			}
 			foreach($machines as $machine) {
 				$this->getToken($machine['ip_address'], '27555', 'admin', 'web1sphere');
 				$retval = $this->makeRequest($machine['ip_address'], '27555', 'admin', 'web1sphere', "?action=".($data ? "removedata" : "remove").$this->paramImplode("&hash=", $torrent['hash']), false);
