@@ -38,7 +38,7 @@
 
 				<div class='large-6 columns'>
 					<label>IP Address</label>
-					<input type='text' name='ip_address'>
+					<input type='text' name='ip_address' value='<?php echo $_SERVER['REMOTE_ADDR'] ?>'>
 				</div>
 			</div>
 
