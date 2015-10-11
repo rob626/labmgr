@@ -9,7 +9,8 @@
 
 
 <div class='large-10 columns'>
-	<div class='row'>
+
+		<div class='row'>
 		<div class='large-3 columns'>
 			<label>Room</label>
 				<select id='room_filter' name="room_id">
@@ -18,7 +19,18 @@
 					<option value='<?php echo $room['room_id'] ?>'><?php echo $room['name'] ?> </option>
 					<?php } ?>
 				</select> 
+				<br>
 		</div>
+
+		<div class='large-5 columns'>
+			<br>
+			<a href='#' id='reboot_btn_test' class='button'>Reboot</a>
+			<a href='#' id='shutdown_btn' class='button'>Shutdown</a>
+			<br>
+			<a href='#' id='select_all'>Select All</a>&nbsp &nbsp  <a href='#' id='unselect_all'>Unselect All</a><br>
+
+		</div>
+	</div>
 
 		<table id='datatable'>
 			<thead>
@@ -27,11 +39,9 @@
 					<th>Room</th>
 					<th>Seat</th>
 					<th>Ping</th>
-					<th>Reboot</th>
-					<th>Shutdown</th>
 					<th>SSH</th>
 					<th>Torrent</th>
-					<th>Delete</th>
+					<th>Select</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -56,25 +66,25 @@
 						echo "<td id='status_".$counter."'><span class='button tiny radius alert-box secondary'>...</span></td>";
 						
 						//echo "<td><a href='#' id='".$machine['machine_id']."' class='reboot_btn button tiny radius'>Reboot</a></td>";
-						echo "<td><form method='POST' action='/labmgr/reboot_machine'>
+						/*echo "<td><form method='POST' action='/labmgr/reboot_machine'>
 						<input type='hidden' name='machine_id' value='".$machine['machine_id']."'>
 						<input type='submit' class='button tiny radius' value='Reboot'></form></td>";
 						
 						echo "<td><form method='POST' action='/labmgr/shutdown_machine'>
 						<input type='hidden' name='machine_id' value='".$machine['machine_id']."'>
 						<input type='submit' class='button tiny radius' value='Shutdown'></form></td>";
-
+						*/
 						echo "<td><form method='POST' action='/labmgr/ssh_machine'>
 						<input type='hidden' name='machine_id' value='".$machine['machine_id']."'>
 						<input type='submit' class='button tiny radius' value='SSH'></form></td>";
 
 						echo "<td><a target='_blank' class='button tiny radius' href='http://".$machine['ip_address'].":27555/gui/'>Web View</a></td>";
 
-						echo "<td>
+						echo "<td><input class='checkbox' type='checkbox' name='machine_ids[]' value='".$machine['machine_id']."'></td>";/*"<td>
 						<form method='POST' action='/labmgr/delete_machine'>
 						<input type='hidden' name='machine_id' value='".$machine['machine_id']."'>
 						<input type='submit' class='button tiny radius alert' value='Delete'></form>
-						</td>";
+						</td>";*/
 						echo "</tr>";
 						$counter++;
 
@@ -87,8 +97,8 @@
 			
 			</tbody>
 		</table>
+		
 
-	</div>
 </div>
 
 <div id="reboot_modal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog"> 

@@ -95,10 +95,14 @@ class Machine_model extends CI_Model {
      * Reboot machine
      */
     public function reboot($ip) {
-    	echo "Sending reboot command to: ".$ip;
+    	//echo "Sending reboot command to: ".$ip;
     	$output = array(
     		'status' => "Sending reboot command to: ".$ip,
-    		'output' => shell_exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' "shutdown -r -t 0 -f"'));
+    		'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' "shutdown -r -t 0 -f"', $cmd_output, $exit_status),
+    		'cmd_output' => $cmd_output,
+    		'exit_status' => $exit_status
+    		);
+  
     	return $output;
     }
 
@@ -106,8 +110,15 @@ class Machine_model extends CI_Model {
      * Shutdown machine
      */
     public function shutdown($ip) {
-    	echo "Sending shutdown command to: ".$ip;
-    	return shell_exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' "shutdown -s -t 0 -f"');
+    	//echo "Sending shutdown command to: ".$ip;
+    	$output = array(
+    		'status' => "Sending shutdown command to: ".$ip,
+    		'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' "shutdown -s -t 0 -f"', $cmd_output, $exit_status),
+    		'cmd_output' => $cmd_output,
+    		'exit_status' => $exit_status
+    		);
+
+    	return $output;
     }
 
     public function ping_test_arr($machines) {

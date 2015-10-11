@@ -33,4 +33,10 @@ class Service extends CI_Controller {
 		$machine = $this->machine_model->get_machine($machine_id);
 		echo json_encode($this->machine_model->reboot($machine[0]['ip_address']));
 	}
+
+	public function shutdown_machine() {
+		$machine_id = $this->input->get('machine_id');
+		$machine = $this->machine_model->get_machine($machine_id);
+		echo json_encode($this->machine_model->shutdown($machine[0]['ip_address']));
+	}
 }

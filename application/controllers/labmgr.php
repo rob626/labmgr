@@ -66,10 +66,35 @@ class Labmgr extends CI_Controller {
 	}
 
 	public function test() {
+		/*
+		for($i=0; $i<10; $i++) {
+			$device['device_ip'] = '172.20.124.173';
+			$device['status'] = 'Some Status';
+			$message = $device['device_ip'].": ". $device['status'] . " " . date("Y-m-d H:i:s");
+			//'7064640911@txt.att.net',
+			$num = array('4124892645@vtext.com');
+			$this->load->library('email');
+			$conf = array(
+				'protocol' => 'smtp',
+				'smtp_host' => '9.17.195.168',
+				'mailtype' => 'html',
+				'charset' => 'utf-8' 
+				);
+
+			$this->email->initialize($conf);
+			$this->email->from('rabush@us.ibm.com', 'ICT Management Console');
+			$this->email->to($num); 
+			//$this->email->subject('Email Text Test 2');
+			$this->email->message($message);	
+
+			$this->email->send();
+		}
+		echo $this->email->print_debugger();
+		die(); */
 		//echo FCPATH;
 		//echo $this->machine_model->ping_test('192.168.1.179');
 		echo "<pre>";
-		print_r($_SERVER['REMOTE_ADDR']);
+		$this->machine_model->reboot('172.20.128.64');
 		echo "</pre>";
 		die();
 		define('0', 'UTORRENT_TORRENT_HASH');
