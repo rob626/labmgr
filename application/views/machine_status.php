@@ -78,7 +78,7 @@
 						<input type='hidden' name='machine_id' value='".$machine['machine_id']."'>
 						<input type='submit' class='button tiny radius' value='SSH'></form></td>";
 
-						echo "<td><a target='_blank' class='button tiny radius' href='http://".$machine['ip_address'].":27555/gui/'>Web View</a></td>";
+						echo "<td><a target='_blank' class='button tiny radius' href='http://admin:web1sphere@".$machine['ip_address'].":27555/gui/'>Web View</a></td>";
 
 						echo "<td><input class='checkbox' type='checkbox' name='machine_ids[]' value='".$machine['machine_id']."'></td>";/*"<td>
 						<form method='POST' action='/labmgr/delete_machine'>
