@@ -289,7 +289,7 @@ class Labmgr extends CI_Controller {
 			}
 			
 			foreach($machines as $machine) {
-				echo $this->vm_model->start_vm($machine['ip_address']);			
+				echo $this->vm_model->start_vm($machine['ip_address'], $vm['path']);			
 			}
 			/*
 			print_r($torrent);
@@ -319,7 +319,7 @@ class Labmgr extends CI_Controller {
 			}
 			
 			foreach($machines as $machine) {
-				echo $this->vm_model->stop_vm($machine['ip_address']);			
+				echo $this->vm_model->stop_vm($machine['ip_address'], $vm['path']);			
 			}
 			/*
 			print_r($torrent);
