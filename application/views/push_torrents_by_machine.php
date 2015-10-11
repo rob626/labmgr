@@ -21,10 +21,12 @@
 	<div class='row'>
 		<div class='large-6 columns'>
 			<h2>Torrents</h2>
-			
+
 			<?php
 				foreach($torrents as $torrent) {
-					echo "<input type='radio' name='torrent_id' value='".$torrent['torrent_id']."'><label>".$torrent['name']."</label><br>";
+					//echo "<input type='radio' name='torrent_id' value='".$torrent['torrent_id']."'><label>".$torrent['name']."</label><br>";
+					echo "<input type='checkbox' class='checkbox' name='torrent_ids[]' value='".$torrent['torrent_id']."'><label>".$torrent['name']."</label><br>";
+
 				}
 			?>
 		</div>

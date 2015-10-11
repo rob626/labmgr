@@ -339,22 +339,28 @@ class Labmgr extends CI_Controller {
     	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			//echo "<pre>";
 			//print_r($_POST);
+			$torrent_ids = $this->input->post('torrent_ids');
+			$torrents = array();
+			foreach($torrent_ids as $torrent_id) {
+				$t = $this->torrent_model->get_torrent($torrent_id);
+				array_push($torrents, $t[0]);
+			}
 			
-			$torrent = $this->torrent_model->get_torrent($this->input->post('torrent_id'));
-			$torrent = $torrent[0];
 			$machines = array();
 			$machine_ids = $this->input->post('machine_ids');
 			foreach($machine_ids as $id) {
 				$machines = array_merge($machines, $this->machine_model->get_machine($id));
 			}
 			
-			foreach($machines as $machine) {
-				$this->getToken($machine['ip_address'], '27555', 'admin', 'web1sphere');
+			foreach($torrents as $torrent) {
+				foreach($machines as $machine) {
+					$this->getToken($machine['ip_address'], '27555', 'admin', 'web1sphere');
 
-				if($this->torrentAdd($torrent['path'], $machine['ip_address'], '27555', 'admin', 'web1sphere')) {
-					echo "Successfully sent to: " . $machine['ip_address'] . "<br>";
-				} else {
-					echo "Failed to send to: " . $machine['ip_address'] . "<br>";
+					if($this->torrentAdd($torrent['path'], $machine['ip_address'], '27555', 'admin', 'web1sphere')) {
+						echo "Successfully sent to: " . $machine['ip_address'] . "<br>";
+					} else {
+						echo "Failed to send to: " . $machine['ip_address'] . "<br>";
+					}
 				}
 			}
 			/*
