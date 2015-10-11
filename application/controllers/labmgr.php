@@ -614,6 +614,30 @@ class Labmgr extends CI_Controller {
 	}
 
 	/**
+	 * Edit a vm
+	 */
+	public function edit_vm() {
+		$vm_id = $this->input->post("vm_id");
+		$data['vms'] = $this->vm_model->get_vm($vm_id);
+		$this->load->template('edit_vm', $data);
+	}
+
+	public function save_vm_edits() {
+		$retval = $this->vm_model->update_vm(
+			$this->input->post('vm_id'), 
+			$this->input->post('vm_name'),
+			$this->input->post('vm_path'), 
+			$this->input->post('vm_hypervisor'),
+			$this->input->post('vm_snapshot')
+			);
+		if($retval) {
+			redirect('/labmgr/add_vm');
+		} else {
+			echo "DB Error";
+		}
+	}
+
+	/**
 	 * Edit a torrent
 	 */
 	public function edit_torrent() {
