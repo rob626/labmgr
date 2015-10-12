@@ -87,18 +87,22 @@ class Vm_model extends CI_Model {
 	    	$path = str_replace('\\', '/', $path);
 	    	$dropins_dir = '/cygdrive/c/labmgr-wd/dropins/start.gui-command';
 	    	$command = 'vmrun -T ws start "'.$path.'"';
-	    	/* $file_name = './start.gui-command';
-	    	$file = fopen($file_name, "w");
-	    	echo fwrite($file, $command);
-	    	fclose($file);*/
+    	
 	    	$file = './uploads/start.gui-command';
 	    	file_put_contents($file, $command);
+	    	/*
 	    	echo "Sending start vm command to: ".$ip;
-
 	    	echo "<br>Cert: " . FCPATH . 'certs/labmgr';
 	    	echo "<br>Command: " . $command;
-	    
-	    	return shell_exec('scp -i ./certs/labmgr '.$file.' IBM_USER@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/');
+			*/
+	    	$output = array(
+	    		'status' => "Sending start vm command to: ".$ip,
+	    		'output' => shell_exec('scp -i ./certs/labmgr '.$file.' IBM_USER@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/'),
+	    		'cmd_output' => '',
+	    		'exit_status' => ''
+    		);
+	    	return $output;
+	    	//return shell_exec('scp -i ./certs/labmgr '.$file.' IBM_USER@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/');
 	    	//return shell_exec('./scripts/start_vm.sh');
 	    	//return shell_exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' "echo '.$command.' > '.$dropins_dir.'"');
 	    	//return shell_exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' "echo '.$command.'> '.$dropins_dir.'"');	    	//return shell_exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' touch file.txt');
@@ -135,11 +139,21 @@ class Vm_model extends CI_Model {
 	    	
 	    	$file = './uploads/stop.gui-command';
 	    	file_put_contents($file, $command);
+	    	/*
 	    	echo "Sending stop vm command to: ".$ip;
 
 	    	echo "<br>Cert: " . FCPATH . 'certs/labmgr';
 	    	echo "<br>Command: " . $command;
-	    	return shell_exec('scp -i ./certs/labmgr '.$file.' IBM_USER@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/');
+	    	*/
+	    	//return shell_exec('scp -i ./certs/labmgr '.$file.' IBM_USER@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/');
+	    	
+	    	$output = array(
+	    		'status' => "Sending stop vm command to: ".$ip,
+	    		'output' => shell_exec('scp -i ./certs/labmgr '.$file.' IBM_USER@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/'),
+	    		'cmd_output' => '',
+	    		'exit_status' => ''
+    		);
+	    	return $output;
 	    	//return shell_exec('./scripts/start_vm.sh');
 	    	//return shell_exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' "echo '.$command.' > '.$dropins_dir.'"');
 	    	//return shell_exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' touch file.txt');

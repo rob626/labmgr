@@ -50,9 +50,30 @@ $(document).ready(function(){
 
     });
 
+    $('#start_vms_form').on('submit', function(e) {
+        e.preventDefault();
+        var data = $('#start_vms_form :input').serializeArray();
+
+        $.ajax({        
+            url: "/service/start_stop_vms",
+            type: "get",
+            dataType: "json",
+            async: true,
+            data: {data : data}
+            }).done(function(response) {
+                console.log(response[0].status);
+                $('#status_modal_content').append("<h3>"+response[0].status+"</h3>")
+                $('#status_modal').foundation('reveal', 'open');
+                
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                //alert("Error submitting data!");
+                console.log(jqXHR, textStatus, errorThrown);
+            });
+    });
+
     $('#reboot_btn_test').click(function() {
         var machines = [];
-        $('input:checkbox.checkbox').each(function () {
+        $('input:checkbox.checkbox').each(function() {
             if(this.checked) {
                 machines.push($(this).val());
             }

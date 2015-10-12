@@ -10,7 +10,7 @@
 
 
 <div class='large-10 columns'>
-	<form method='POST' action='/labmgr/start_vms_by_machine'>
+	<form method='POST' id='start_vms_form' action='/labmgr/start_vms_by_machine'>
 	<div class='row'>
 		<div class='small-4 small-centered columns'>
 			<br>
@@ -46,7 +46,7 @@
 			<div id='machine_list'>
 			<?php
 				foreach($machines as $machine) {
-					echo "<input type='checkbox' class='machine-checkboxes' name='machine_ids[]' value='".$machine['machine_id']."'><label>Seat: ".$machine['seat']. ' ('.$machine['ip_address'].")</label><br>";
+					echo "<input type='checkbox' class='checkbox' name='machine_ids[]' value='".$machine['machine_id']."'><label>Seat: ".$machine['seat']. ' ('.$machine['ip_address'].")</label><br>";
 				}
 			?>
 			</div>

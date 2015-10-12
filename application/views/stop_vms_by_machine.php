@@ -11,10 +11,11 @@
 
 
 <div class='large-10 columns'>
-	<form method='POST' action='/labmgr/stop_vms_by_machine'>
+	<form method='POST' id='start_vms_form' action='/labmgr/stop_vms_by_machine'>
 	<div class='row'>
 		<div class='small-4 small-centered columns'>
 			<br>
+			<input type='hidden' name='stop_vm_by_machine' value='1'>
 			<input type='submit' class='button large center' value='Stop VMs'>
 		</div>
 	</div>
