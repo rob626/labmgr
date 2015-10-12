@@ -280,6 +280,8 @@ class Labmgr extends CI_Controller {
 			/*echo "<pre>";
 			print_r($_POST);
 			die(); */
+
+			$start_vm_option = $this->input->post('start_vm_option');
 			$vm = $this->vm_model->get_vm($this->input->post('vm_id'));
 			$vm = $vm[0];
 			$machines = array();
@@ -288,12 +290,16 @@ class Labmgr extends CI_Controller {
 				$machines = array_merge($machines, $this->machine_model->get_machine($id));
 			}
 			
-			foreach($machines as $machine) {
-				$this->vm_model->revert_vm($machine['ip_address'], $vm['path'],$vm['snapshot']);
+			if($start_vm_option == 'revert_start_vm' || $start_vm_option == 'revert_vm') {
+				foreach($machines as $machine) {
+					$this->vm_model->revert_vm($machine['ip_address'], $vm['path'],$vm['snapshot']);
+				}
 			}
-
-			foreach($machines as $machine) {
-				echo $this->vm_model->start_vm($machine['ip_address'], $vm['path']);			
+			
+			if($start_vm_option == 'revert_start_vm' || $start_vm_option == 'start_vm') {
+				foreach($machines as $machine) {
+					echo $this->vm_model->start_vm($machine['ip_address'], $vm['path']);			
+				}
 			}
 			/*
 			print_r($torrent);
