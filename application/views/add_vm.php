@@ -35,7 +35,7 @@
 
 				<div class='large-3 columns'>
 					<label>Snapshot</label>
-					<input type='text' name='snapshot'>
+					<input type='text' name='snapshot' value='clean'>
 				</div>
 			</div>
 
@@ -62,6 +62,7 @@
 					<th>Hypervisor</th>
 					<th>Snapshot</th>
 					<th>Edit</th>
+					<th>Delete</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -78,8 +79,8 @@
 
 						echo "<td><form method='POST' action='/labmgr/edit_vm'>
 						<input type='hidden' name='vm_id' value='".$vm['vm_id']."'>
-						<input type='submit' class='button tiny radius' value='Edit'></form>
-						<form method='POST' action='/labmgr/delete_vm'>
+						<input type='submit' class='button tiny radius' value='Edit'></form></td>";
+						echo "<td><form method='POST' action='/labmgr/delete_vm'>
 						<input type='hidden' name='vm_id' value='".$vm['vm_id']."'>
 						<input type='submit' class='button tiny radius alert' value='Delete'></form>
 						</td>";

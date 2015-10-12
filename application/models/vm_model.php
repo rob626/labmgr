@@ -86,20 +86,41 @@ class Vm_model extends CI_Model {
 	    	//$path = 'C:/labs/AL1/vm/viper24vm1.vmx';
 	    	$path = str_replace('\\', '/', $path);
 	    	$dropins_dir = '/cygdrive/c/labmgr-wd/dropins/start.gui-command';
-	    	$command = 'vmrun -T ws start '.$path;
+	    	$command = 'vmrun -T ws start "'.$path.'"';
 	    	/* $file_name = './start.gui-command';
 	    	$file = fopen($file_name, "w");
 	    	echo fwrite($file, $command);
 	    	fclose($file);*/
-
+	    	$file = './uploads/start.gui-command';
+	    	file_put_contents($file, $command);
 	    	echo "Sending start vm command to: ".$ip;
 
 	    	echo "<br>Cert: " . FCPATH . 'certs/labmgr';
 	    	echo "<br>Command: " . $command;
-	    	//return shell_exec('scp -i ./certs/labmgr '.$file_name.' IBM_USER@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/');
+	    
+	    	return shell_exec('scp -i ./certs/labmgr '.$file.' IBM_USER@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/');
 	    	//return shell_exec('./scripts/start_vm.sh');
-	    	return shell_exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' "echo '.$command.' > '.$dropins_dir.'"');
-	    	//return shell_exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' touch file.txt');
+	    	//return shell_exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' "echo '.$command.' > '.$dropins_dir.'"');
+	    	//return shell_exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' "echo '.$command.'> '.$dropins_dir.'"');	    	//return shell_exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' touch file.txt');
+	    }
+
+		/**
+	     * Revert to snapshot for a VM
+	     */
+	    public function revert_vm($ip, $path, $snapshot) {
+	    	$path = str_replace('\\', '/', $path);
+	    	//$path = 'C:/labs/AL1/vm/viper24vm1.vmx';
+	    	$path = str_replace('\\', '/', $path);
+	    	$dropins_dir = '/cygdrive/c/labmgr-wd/dropins/revert.gui-command';
+	    	$command = 'vmrun -T ws revertToSnapshot "'.$path. '" clean';
+	    	
+	    	$file = './uploads/revert.gui-command';
+	    	file_put_contents($file, $command);
+	    	echo "Sending revert vm command to: ".$ip;
+
+	    	echo "<br>Cert: " . FCPATH . 'certs/labmgr';
+	    	echo "<br>Command: " . $command;
+	    	return shell_exec('scp -i ./certs/labmgr '.$file.' IBM_USER@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/');
 	    }
 
 	    /**
@@ -108,15 +129,19 @@ class Vm_model extends CI_Model {
 	    public function stop_vm($ip, $path) {
 	    	$path = str_replace('\\', '/', $path);
 	    	//$path = 'C:/labs/AL1/vm/viper24vm1.vmx';
+	    	$path = str_replace('\\', '/', $path);
 	    	$dropins_dir = '/cygdrive/c/labmgr-wd/dropins/stop.gui-command';
-	    	$command = 'vmrun -T ws stop '.$path. ' hard';
+	    	$command = 'vmrun -T ws stop "'.$path. '" hard';
 	    	
+	    	$file = './uploads/stop.gui-command';
+	    	file_put_contents($file, $command);
 	    	echo "Sending stop vm command to: ".$ip;
 
 	    	echo "<br>Cert: " . FCPATH . 'certs/labmgr';
 	    	echo "<br>Command: " . $command;
+	    	return shell_exec('scp -i ./certs/labmgr '.$file.' IBM_USER@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/');
 	    	//return shell_exec('./scripts/start_vm.sh');
-	    	return shell_exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' "echo '.$command.' > '.$dropins_dir.'"');
+	    	//return shell_exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' "echo '.$command.' > '.$dropins_dir.'"');
 	    	//return shell_exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' touch file.txt');
 	    }
 
