@@ -167,6 +167,12 @@ class Service extends CI_Controller {
 					$output[] = $this->vm_model->revert_vm($machine['ip_address'], $vm['path'],$vm['snapshot']);
 				}
 			}
+			
+			if($start_vm_option == 'revert_start_vm' || $start_vm_option == 'start_vm') {
+				foreach($machines as $machine) {
+					$output[] = $this->vm_model->start_vm($machine['ip_address'], $vm['path']);			
+				}
+			}
 		}
 
 		echo json_encode($output);
