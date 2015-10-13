@@ -62,7 +62,9 @@ $(document).ready(function(){
             data: {data : data}
             }).done(function(response) {
                 $('#status_modal_content').html("");
-                $('#status_modal_content').append("<h3>"+response[0].status+"</h3>")
+                $.each(response, function(index, value) {
+                    $('#status_modal_content').append("<h3>"+value.status+"</h3>")
+                });
                 $('#status_modal').foundation('reveal', 'open');
                 
             }).fail(function(jqXHR, textStatus, errorThrown) {
@@ -73,7 +75,7 @@ $(document).ready(function(){
 
     $('#start_vms_class_form').on('submit', function(e) {
         e.preventDefault();
-        var data = $('#start_vms_form :input').serializeArray();
+        var data = $('#start_vms_class_form :input').serializeArray();
 
         $.ajax({        
             url: "/service/start_stop_vms_classroom",
@@ -83,7 +85,9 @@ $(document).ready(function(){
             data: {data : data}
             }).done(function(response) {
                 $('#status_modal_content').html("");
-                $('#status_modal_content').append("<h3>"+response[0].status+"</h3>")
+                $.each(response, function(index, value) {
+                    $('#status_modal_content').append("<h3>"+value.status+"</h3>")
+                });
                 $('#status_modal').foundation('reveal', 'open');
                 
             }).fail(function(jqXHR, textStatus, errorThrown) {

@@ -98,7 +98,7 @@ class Vm_model extends CI_Model {
 	    	$output = array(
 	    		'status' => "Sending start vm command to: ".$ip,
 	    		'output' => shell_exec('scp -i ./certs/labmgr '.$file.' IBM_USER@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/'),
-	    		'cmd_output' => '',
+	    		'cmd' => $command,
 	    		'exit_status' => ''
     		);
 	    	return $output;
@@ -120,11 +120,19 @@ class Vm_model extends CI_Model {
 	    	
 	    	$file = './uploads/revert.gui-command';
 	    	file_put_contents($file, $command);
-	    	echo "Sending revert vm command to: ".$ip;
+	    	/*echo "Sending revert vm command to: ".$ip;
 
 	    	echo "<br>Cert: " . FCPATH . 'certs/labmgr';
 	    	echo "<br>Command: " . $command;
 	    	return shell_exec('scp -i ./certs/labmgr '.$file.' IBM_USER@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/');
+	    	*/
+	    	$output = array(
+	    		'status' => "Sending revert vm command to: ".$ip,
+	    		'output' => shell_exec('scp -i ./certs/labmgr '.$file.' IBM_USER@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/'),
+	    		'cmd' => $command,
+	    		'exit_status' => ''
+    		);
+	    	return $output;
 	    }
 
 	    /**
@@ -150,7 +158,7 @@ class Vm_model extends CI_Model {
 	    	$output = array(
 	    		'status' => "Sending stop vm command to: ".$ip,
 	    		'output' => shell_exec('scp -i ./certs/labmgr '.$file.' IBM_USER@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/'),
-	    		'cmd_output' => '',
+	    		'cmd' => $command,
 	    		'exit_status' => ''
     		);
 	    	return $output;

@@ -109,12 +109,15 @@ class Service extends CI_Controller {
 				$vm = $vm[0];
 			}
 			if($d['name'] == 'room_ids[]') {
-				array_push($machines, $this->room_model->get_machines_by_room($d['value'])[0]);
+				$m = $this->machine_model->get_machines_by_room($d['value']);
+				array_push($machines, $this->machine_model->get_machines_by_room($d['value']));
 			}
 			if($d['name'] == 'stop_vm_by_class') {
 				$stop_vm = 1;
 			}
 		}
+		$machines = $machines[0];
+		//print_r($machines);
 
 		if($stop_vm) {
 			foreach($machines as $machine) {
