@@ -253,7 +253,7 @@ class Service extends CI_Controller {
 			foreach($torrents as $torrent) {
 				foreach($machines as $machine) {
 					$this->getToken($machine['ip_address'], '27555', 'admin', 'web1sphere');
-					$retval = $this->makeRequest($machine['ip_address'], '27555', 'admin', 'web1sphere', "?action=".($data ? "removedata" : "remove").$this->paramImplode("&hash=", $torrent['hash']), false);
+					$retval = $this->makeRequest($machine['ip_address'], '27555', 'admin', 'web1sphere', "?action=".($delete_option ? "removedata" : "remove").$this->paramImplode("&hash=", $torrent['hash']), false);
 					if($retval) {
 						$output['status'] = "Successfully sent to: " . $machine['ip_address'] . "<br>";
 					} else {
