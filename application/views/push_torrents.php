@@ -1,6 +1,6 @@
 <div class='large-2 columns'>
 	<ul class='side-nav'>
-		<li><a href='/labmgr/push_torrents_by_classroom'>Push by Classroom</a></li>
+		<li class='active'><a href='/labmgr/push_torrents_by_classroom'>Push by Classroom</a></li>
 		<li><a href='/labmgr/push_torrents_by_machine'>Push by Machine</a></li>
 		<hr>
 		<li><a href='/labmgr/delete_torrents_by_classroom'>Delete by Classroom</a></li>
@@ -10,7 +10,7 @@
 
 
 <div class='large-10 columns'>
-	<form method='POST' action='/labmgr/push_torrents_by_classroom'>
+	<form method='POST' id='push_delete_torrents_class_form' action='/labmgr/push_torrents_by_classroom'>
 	<div class='row'>
 		<div class='small-4 small-centered columns'>
 			<br>
