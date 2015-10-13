@@ -64,8 +64,8 @@ $(document).ready(function(){
                 $('#status_modal_content').html("");
                 $.each(response, function(index, value) {
                     $('#status_modal_content').append("<h3>"+value.status+"</h3>")
+                    $('#status_modal').foundation('reveal', 'open');
                 });
-                $('#status_modal').foundation('reveal', 'open');
                 
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 //alert("Error submitting data!");
@@ -87,8 +87,33 @@ $(document).ready(function(){
                 $('#status_modal_content').html("");
                 $.each(response, function(index, value) {
                     $('#status_modal_content').append("<h3>"+value.status+"</h3>")
+                    $('#status_modal').foundation('reveal', 'open');
+
                 });
-                $('#status_modal').foundation('reveal', 'open');
+                
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                //alert("Error submitting data!");
+                console.log(jqXHR, textStatus, errorThrown);
+            });
+    });
+
+    $('#push_delete_torrents_class_form').on('submit', function(e) {
+        e.preventDefault();
+        var data = $('#push_delete_torrents_class_form :input').serializeArray();
+
+        $.ajax({        
+            url: "/service/push_delete_torrents_classroom",
+            type: "get",
+            dataType: "json",
+            async: true,
+            data: {data : data}
+            }).done(function(response) {
+                $('#status_modal_content').html("");
+                $.each(response, function(index, value) {
+                    $('#status_modal_content').append("<h3>"+value.status+"</h3>")
+                    $('#status_modal').foundation('reveal', 'open');
+
+                });
                 
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 //alert("Error submitting data!");

@@ -97,7 +97,7 @@ class Vm_model extends CI_Model {
 			*/
 	    	$output = array(
 	    		'status' => "Sending start vm command to: ".$ip,
-	    		'output' => shell_exec('scp -i ./certs/labmgr '.$file.' IBM_USER@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/'),
+	    		'output' => shell_exec('scp -i ./certs/labmgr -o StrictHostKeyChecking=no '.$file.' IBM_USER@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/'),
 	    		'cmd' => $command,
 	    		'exit_status' => ''
     		);
@@ -128,7 +128,7 @@ class Vm_model extends CI_Model {
 	    	*/
 	    	$output = array(
 	    		'status' => "Sending revert vm command to: ".$ip,
-	    		'output' => shell_exec('scp -i ./certs/labmgr '.$file.' IBM_USER@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/'),
+	    		'output' => shell_exec('scp -i ./certs/labmgr -o StrictHostKeyChecking=no '.$file.' IBM_USER@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/'),
 	    		'cmd' => $command,
 	    		'exit_status' => ''
     		);
@@ -154,10 +154,10 @@ class Vm_model extends CI_Model {
 	    	echo "<br>Command: " . $command;
 	    	*/
 	    	//return shell_exec('scp -i ./certs/labmgr '.$file.' IBM_USER@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/');
-	    	
+
 	    	$output = array(
 	    		'status' => "Sending stop vm command to: ".$ip,
-	    		'output' => shell_exec('scp -i ./certs/labmgr '.$file.' IBM_USER@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/'),
+	    		'output' => shell_exec('scp -i ./certs/labmgr -o StrictHostKeyChecking=no '.$file.' IBM_USER@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/'),
 	    		'cmd' => $command,
 	    		'exit_status' => ''
     		);
