@@ -14,6 +14,7 @@
 	<div class='row'>
 		<div class='small-4 small-centered columns'>
 			<br>
+			<input type='hidden' name='stop_vm_by_machine' value='1'>
 			<input type='submit' class='button large center' value='Stop VMs'>
 		</div>
 	</div>

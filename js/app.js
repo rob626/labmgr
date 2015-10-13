@@ -61,7 +61,28 @@ $(document).ready(function(){
             async: true,
             data: {data : data}
             }).done(function(response) {
-                console.log(response[0].status);
+                $('#status_modal_content').html("");
+                $('#status_modal_content').append("<h3>"+response[0].status+"</h3>")
+                $('#status_modal').foundation('reveal', 'open');
+                
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                //alert("Error submitting data!");
+                console.log(jqXHR, textStatus, errorThrown);
+            });
+    });
+
+    $('#start_vms_class_form').on('submit', function(e) {
+        e.preventDefault();
+        var data = $('#start_vms_form :input').serializeArray();
+
+        $.ajax({        
+            url: "/service/start_stop_vms_classroom",
+            type: "get",
+            dataType: "json",
+            async: true,
+            data: {data : data}
+            }).done(function(response) {
+                $('#status_modal_content').html("");
                 $('#status_modal_content').append("<h3>"+response[0].status+"</h3>")
                 $('#status_modal').foundation('reveal', 'open');
                 

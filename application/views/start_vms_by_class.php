@@ -10,7 +10,7 @@
 
 
 <div class='large-10 columns'>
-	<form method='POST' action='/labmgr/start_vms_by_classroom'>
+	<form method='POST' id='start_vms_class_form' action='/labmgr/start_vms_by_classroom'>
 	<div class='row'>
 		<div class='small-4 small-centered columns'>
 			<br>
