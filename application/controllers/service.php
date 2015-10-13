@@ -70,7 +70,6 @@ class Service extends CI_Controller {
 
 		if($stop_vm) {
 			foreach($machines as $machine) {
-				echo "inside stop vm";
 					$output[] = $this->vm_model->stop_vm($machine['ip_address'], $vm['path']);
 				}
 
