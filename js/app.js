@@ -64,8 +64,8 @@ $(document).ready(function(){
                 $('#status_modal_content').html("");
                 $.each(response, function(index, value) {
                     $('#status_modal_content').append("<h3>"+value.status+"</h3>")
+                    $('#status_modal').foundation('reveal', 'open');
                 });
-                $('#status_modal').foundation('reveal', 'open');
                 
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 //alert("Error submitting data!");
@@ -87,8 +87,9 @@ $(document).ready(function(){
                 $('#status_modal_content').html("");
                 $.each(response, function(index, value) {
                     $('#status_modal_content').append("<h3>"+value.status+"</h3>")
+                    $('#status_modal').foundation('reveal', 'open');
+
                 });
-                $('#status_modal').foundation('reveal', 'open');
                 
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 //alert("Error submitting data!");
