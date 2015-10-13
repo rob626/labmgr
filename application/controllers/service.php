@@ -70,6 +70,7 @@ class Service extends CI_Controller {
 
 		if($stop_vm) {
 			foreach($machines as $machine) {
+				echo "inside stop vm";
 					$output[] = $this->vm_model->stop_vm($machine['ip_address'], $vm['path']);
 				}
 
@@ -112,14 +113,13 @@ class Service extends CI_Controller {
 				$m = $this->machine_model->get_machines_by_room($d['value']);
 				array_push($machines, $this->machine_model->get_machines_by_room($d['value']));
 			}
-			if($d['name'] == 'stop_vm_by_class') {
+			if($d['name'] == 'stop_vm_by_machine') {
 				$stop_vm = 1;
 			}
 		}
 		$machines = $machines[0];
-		//print_r($machines);
 
-		if($stop_vm) {
+		if($stop_vm == 1) {
 			foreach($machines as $machine) {
 					$output[] = $this->vm_model->stop_vm($machine['ip_address'], $vm['path']);
 				}
