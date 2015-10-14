@@ -40,6 +40,7 @@
 					<th>Seat</th>
 					<th>Ping</th>
 					<th>SSH</th>
+					<th>Watchdog Log</th>
 					<th>Torrent</th>
 					<th>Select</th>
 				</tr>
@@ -77,7 +78,7 @@
 						echo "<td><form method='POST' action='/labmgr/ssh_machine'>
 						<input type='hidden' name='machine_id' value='".$machine['machine_id']."'>
 						<input type='submit' class='button tiny radius' value='SSH'></form></td>";
-
+						echo "<td><a class='button tiny radius view_log_btn' id='".$machine['machine_id']."' href='#'>View Log</a></td>";
 						echo "<td><a target='_blank' class='button tiny radius' href='http://admin:web1sphere@".$machine['ip_address'].":27555/gui/'>Web View</a></td>";
 
 						echo "<td><input class='checkbox' type='checkbox' name='machine_ids[]' value='".$machine['machine_id']."'></td>";/*"<td>

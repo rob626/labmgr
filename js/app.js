@@ -122,6 +122,34 @@ $(document).ready(function(){
             });
     });
 
+    $('.view_log_btn').click(function() {
+        var machine_id = $(this).attr('id');
+        $.ajax({        
+            url: "/service/view_watchdog_log",
+            type: "get",
+            dataType: "json",
+            async: true,
+            data: {machine_id : machine_id}
+            }).done(function(response) {
+                console.log(response);
+                
+                $('#status_modal_content').html("<h2>"+response.status+"</h2>");
+                $('#status_modal').foundation('reveal', 'open');
+                response.cmd_output.reverse();
+                $.each(response.cmd_output, function(index, value) {
+                    $('#status_modal_content').append("<h4>"+value+"</h4>")
+                    
+
+                });
+                
+                
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                //alert("Error submitting data!");
+                console.log(jqXHR, textStatus, errorThrown);
+            });
+        
+    });
+
     $('#reboot_btn_test').click(function() {
         var machines = [];
         $('input:checkbox.checkbox').each(function() {

@@ -285,4 +285,10 @@ class Service extends CI_Controller {
 		echo json_encode($output);
 	}
 
+	public function view_watchdog_log() {
+		$machine_id = $this->input->get('machine_id');
+		$machine = $this->machine_model->get_machine($machine_id);
+		echo json_encode($this->machine_model->view_watchdog_log($machine[0]['ip_address']));
+	}
+
 }
