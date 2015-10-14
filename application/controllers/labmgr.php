@@ -66,6 +66,7 @@ class Labmgr extends CI_Controller {
 	}
 
 	public function test() {
+		print_r($this->machine_model->clean_dropins('172.20.128.72'));
 		/*
 		for($i=0; $i<10; $i++) {
 			$device['device_ip'] = '172.20.124.173';

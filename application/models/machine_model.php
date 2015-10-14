@@ -145,4 +145,18 @@ class Machine_model extends CI_Model {
 		fclose($fp);
     }
 
+    /**
+     * Clean up (delete) the dropins directory.
+     */
+    public function clean_dropins($ip) {
+    	$output = array(
+    		'status' => "Sending rm -rf command to: ".$ip,
+    		'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' "rm -rf /cygdrive/c/labmgr-wd/dropins/* "', $cmd_output, $exit_status),
+    		'cmd_output' => $cmd_output,
+    		'exit_status' => $exit_status
+    	);
+
+    	return $output;
+    }
+
 }
