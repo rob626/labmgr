@@ -66,10 +66,10 @@ class Labmgr extends CI_Controller {
 	}
 
 	public function test() {
-		$data = $this->machine_model->disk_usage('172.20.128.72');
+		$data = $this->vm_model->stop_all_vms('172.20.128.72');
 	
 		echo "<pre>";
-		print_r($data['cmd_output']);
+		print_r($data);
 		echo "</pre>";
 		/*
 		for($i=0; $i<10; $i++) {

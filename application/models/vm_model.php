@@ -167,4 +167,35 @@ class Vm_model extends CI_Model {
 	    	//return shell_exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' touch file.txt');
 	    }
 
+	    /**
+	     * Stop all running VMs on a machine.
+	     */
+	    public function stop_all_vms($ip) {
+	    	$list_output = array(
+	    		'status' => "Attempting to gather running VMs: ".$ip,
+	    		'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' "vmrun -T ws list"', $cmd_output, $exit_status),
+	    		'cmd_output' => $cmd_output,
+	    		'exit_status' => $exit_status
+	    		);
+
+	    	$command = '';
+	    	$file = './uploads/stop'.uniqid().'.bat';
+	    	unset($list_output['cmd_output'][0]);
+	    	foreach($list_output['cmd_output'] as $list) {
+	    		$command .= 'vmrun -T ws stop "'.$list. '" hard \r\n'.PHP_EOL;
+	    		file_put_contents($file, $command, FILE_APPEND);
+	    	}
+
+	    	
+	    	
+
+	    	$output = array(
+	    		'status' => "Sending stop all VMs command to: ".$ip,
+	    		'output' => shell_exec('scp -i ./certs/labmgr -o StrictHostKeyChecking=no '.$file.' IBM_USER@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/'),
+	    		'cmd' => $command,
+	    		'exit_status' => ''
+    		);
+	    	return $output;
+	    }
+
 	}
