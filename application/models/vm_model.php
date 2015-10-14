@@ -185,7 +185,7 @@ class Vm_model extends CI_Model {
 	    		$command .= 'vmrun -T ws stop "'.$list. '" hard \r\n'.PHP_EOL;
 	    		file_put_contents($file, $command, FILE_APPEND);
 	    	}
-
+	    	file_put_contents($file, 'taskkill /f /im vmware.exe'.PHP_EOL, FILE_APPEND);
 	    	
 	    	
 

@@ -39,6 +39,7 @@
 					<th>Room</th>
 					<th>Seat</th>
 					<th>Ping</th>
+					<th>Disk Usage</th>
 					<th>SSH</th>
 					<th>Watchdog Log</th>
 					<th>Torrent</th>
@@ -49,6 +50,7 @@
 				<?php
 				if(!empty($machines)) {
 					$counter = 1;
+
 					foreach($machines as $machine) {
 						echo "<tr>";
 						echo "<td><span style='display:none;' id='machine_ip_".$counter."'>".$machine['ip_address']."</span><form method='POST' action='/labmgr/edit_machine'>
@@ -65,7 +67,7 @@
 						echo "<td>". $machine['seat'] ."</td>";
 
 						echo "<td id='status_".$counter."'><span class='button tiny radius alert-box secondary'>...</span></td>";
-						
+						echo "<td>".$machine['disk_usage'][1]."</td>";
 						//echo "<td><a href='#' id='".$machine['machine_id']."' class='reboot_btn button tiny radius'>Reboot</a></td>";
 						/*echo "<td><form method='POST' action='/labmgr/reboot_machine'>
 						<input type='hidden' name='machine_id' value='".$machine['machine_id']."'>

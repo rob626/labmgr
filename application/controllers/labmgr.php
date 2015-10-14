@@ -273,6 +273,11 @@ class Labmgr extends CI_Controller {
 
 		} else {
 	    	$data['machines'] = $this->machine_model->get_machines();
+			foreach($data['machines'] as $key => $machine) {
+				$usage = $this->machine_model->disk_usage($machine['ip_address']);
+				$machine['disk_usage'] = $usage['cmd_output'];
+				$data['machines'][$key] = $machine;
+			}
 			$data['rooms'] = $this->room_model->get_rooms();
 			$this->load->template('machine_status', $data);
 		}
