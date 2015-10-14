@@ -173,4 +173,18 @@ class Machine_model extends CI_Model {
     	return $output;
     }
 
+    /**
+     * Connect to a remote machine and view disk usage.
+	 */
+    public function disk_usage($ip) {
+    	$output = array(
+    		'status' => "Attempting to read remote disk usage: ".$ip,
+    		'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' "df -h "', $cmd_output, $exit_status),
+    		'cmd_output' => $cmd_output,
+    		'exit_status' => $exit_status
+    	);
+
+    	return $output;
+    }
+
 }

@@ -10,7 +10,11 @@ class Admin extends CI_Controller {
 
 	public function index()
 	{
-		echo "Admin controller";
+		$this->load->template('/admin/home');
+	}
+
+	public function view_watchdog_log() {
+		echo "placeholder for the view to the watchdog log.";
 	}
 
 	/**

@@ -88,7 +88,7 @@ class Vm_model extends CI_Model {
 	    	$dropins_dir = '/cygdrive/c/labmgr-wd/dropins/start.gui-command';
 	    	$command = 'vmrun -T ws start "'.$path.'"';
     	
-	    	$file = './uploads/start.gui-command';
+	    	$file = './uploads/start'.uniqid().'.gui-command';
 	    	file_put_contents($file, $command);
 	    	/*
 	    	echo "Sending start vm command to: ".$ip;
@@ -118,7 +118,7 @@ class Vm_model extends CI_Model {
 	    	$dropins_dir = '/cygdrive/c/labmgr-wd/dropins/revert.gui-command';
 	    	$command = 'vmrun -T ws revertToSnapshot "'.$path. '" clean';
 	    	
-	    	$file = './uploads/revert.gui-command';
+	    	$file = './uploads/revert'.uniqid().'.gui-command';
 	    	file_put_contents($file, $command);
 	    	/*echo "Sending revert vm command to: ".$ip;
 
@@ -145,7 +145,7 @@ class Vm_model extends CI_Model {
 	    	$dropins_dir = '/cygdrive/c/labmgr-wd/dropins/stop.gui-command';
 	    	$command = 'vmrun -T ws stop "'.$path. '" hard';
 	    	
-	    	$file = './uploads/stop.gui-command';
+	    	$file = './uploads/stop'.uniqid().'.gui-command';
 	    	file_put_contents($file, $command);
 	    	/*
 	    	echo "Sending stop vm command to: ".$ip;

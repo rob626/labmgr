@@ -66,7 +66,7 @@ class Labmgr extends CI_Controller {
 	}
 
 	public function test() {
-		$data = $this->machine_model->view_watchdog_log('172.20.128.72');
+		$data = $this->machine_model->disk_usage('172.20.128.72');
 	
 		echo "<pre>";
 		print_r($data['cmd_output']);
