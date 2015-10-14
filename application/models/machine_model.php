@@ -159,4 +159,18 @@ class Machine_model extends CI_Model {
     	return $output;
     }
 
+    /**
+     * Connect to a remote machine and view the watch dog's log file.
+	 */
+    public function view_watchdog_log($ip) {
+    	$output = array(
+    		'status' => "Attempting to read remote logfile: ".$ip,
+    		'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' "cat /cygdrive/c/labmgr-wd/labmgr-logfile.log "', $cmd_output, $exit_status),
+    		'cmd_output' => $cmd_output,
+    		'exit_status' => $exit_status
+    	);
+
+    	return $output;
+    }
+
 }
