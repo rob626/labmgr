@@ -227,7 +227,62 @@ class Service extends CI_Controller {
 
 		echo json_encode($output);
 	}
+	/**
+	 *
+	 */
+	public function push_delete_torrents() {
+		$data = $this->input->get('data');
+		$start_vm_option = '';
+		$torrents = array();
+		$machines = array();
+		$delete = 0;
 
+		foreach($data as $d) {
+			if($d['name'] == 'start_vm_option') {
+				$start_vm_option = $d['value'];
+			}
+			if($d['name'] == 'torrent_ids[]') {
+				array_push($torrents, $this->torrent_model->get_torrent($d['value'])[0]);
+
+			}
+			if($d['name'] == 'machine_ids[]') {
+				array_push($machines, $this->machine_model->get_machine($d['value']));
+			}
+			if($d['name'] == 'delete_option') {
+				$delete_option = $d['value'];
+			}
+		}
+		$machines = $machines[0];
+		
+		if($delete == 1) {
+			foreach($torrents as $torrent) {
+				foreach($machines as $machine) {
+					$this->getToken($machine['ip_address'], '27555', 'admin', 'web1sphere');
+					$retval = $this->makeRequest($machine['ip_address'], '27555', 'admin', 'web1sphere', "?action=".($delete_option ? "removedata" : "remove").$this->paramImplode("&hash=", $torrent['hash']), false);
+					if($retval) {
+						$output['status'] = "Successfully sent to: " . $machine['ip_address'] . "<br>";
+					} else {
+						$output['status'] = "Failed to send to: " . $machine['ip_address'] . "<br>";
+					}
+				}
+			}
+
+		} else {
+			foreach($torrents as $torrent) {
+				foreach($machines as $machine) {
+					$this->getToken($machine['ip_address'], '27555', 'admin', 'web1sphere');
+					if($this->torrentAdd($torrent['path'], $machine['ip_address'], '27555', 'admin', 'web1sphere')) {
+						$output[]['status'] = "Successfully sent to: " . $machine['ip_address'] . "<br>";
+					} else {
+						$output[]['status'] = "Failed to send to: " . $machine['ip_address'] . "<br>";
+					}				
+				}
+			}
+
+		}
+
+		echo json_encode($output);
+	}
 	/**
 	 *
 	 */

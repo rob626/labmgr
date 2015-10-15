@@ -50,7 +50,7 @@
 				<?php
 				if(!empty($machines)) {
 					$counter = 1;
-
+			
 					foreach($machines as $machine) {
 						echo "<tr>";
 						echo "<td><span style='display:none;' id='machine_ip_".$counter."'>".$machine['ip_address']."</span><form method='POST' action='/labmgr/edit_machine'>

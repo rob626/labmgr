@@ -10,7 +10,7 @@
 
 
 <div class='large-10 columns'>
-	<form method='POST' action='/labmgr/push_torrents_by_machine'>
+	<form method='POST' id='push_delete_torrents_form' action='/labmgr/push_torrents_by_machine'>
 	<div class='row'>
 		<div class='small-4 small-centered columns'>
 			<br>
