@@ -121,6 +121,30 @@ $(document).ready(function(){
             });
     });
 
+    $('#push_delete_torrents_form').on('submit', function(e) {
+        e.preventDefault();
+        var data = $('#push_delete_torrents_form :input').serializeArray();
+        $('#status_modal_content').html("");
+        $('#status_modal').foundation('reveal', 'open');
+        
+        $.ajax({        
+            url: "/service/push_delete_torrents",
+            type: "get",
+            dataType: "json",
+            async: true,
+            data: {data : data}
+            }).done(function(response) {
+                
+                $.each(response, function(index, value) {
+                    $('#status_modal_content').append("<h3>"+value.status+"</h3>")
+                });
+                
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                //alert("Error submitting data!");
+                console.log(jqXHR, textStatus, errorThrown);
+            });
+    });
+
     $('.view_log_btn').click(function() {
         var machine_id = $(this).attr('id');
         $.ajax({        

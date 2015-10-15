@@ -12,6 +12,12 @@
 
 
 <div class='large-10 columns'>
+	<?php if(!empty($status)) {
+		echo "<div data-alert class='alert-box success radius'>
+  Upload Successful
+  <a href='#' class='close'>&times;</a></div>";
+	} ?>
+	
 <div class='panel'>
 		<h1>Upload Torrent</h1>
 </div>

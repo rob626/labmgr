@@ -24,6 +24,7 @@
 		<div class='large-6 columns'>
 			<h2>VMs</h2>
 			<?php
+				echo "<input type='radio' name='stop_all' value='stop_all'><label>Stop All</label><br>";
 				foreach($vms as $vm) {
 					echo "<input type='radio' name='vm_id' value='".$vm['vm_id']."'><label>".$vm['name']."</label><br>";
 				}

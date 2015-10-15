@@ -641,9 +641,10 @@ class Labmgr extends CI_Controller {
 	/**
 	 * Add a torrent.
 	 */
-	public function upload_torrent() {
+	public function upload_torrent($status) {
 			$torrents = $this->torrent_model->get_torrents();
 			$data['torrents'] = $torrents;
+			$data['status'] = $status;
 			$this->load->template('upload_torrent', $data);
 	}
 
@@ -1025,7 +1026,7 @@ class Labmgr extends CI_Controller {
 				$hash,
 				$upload_data['full_path']
 				);
-			$this->upload_torrent();
+			$this->upload_torrent('Success');
 		}
 	}
 }
