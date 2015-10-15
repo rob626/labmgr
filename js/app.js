@@ -101,6 +101,8 @@ $(document).ready(function(){
     $('#push_delete_torrents_class_form').on('submit', function(e) {
         e.preventDefault();
         var data = $('#push_delete_torrents_class_form :input').serializeArray();
+        $('#status_modal_content').html("");
+        $('#status_modal').foundation('reveal', 'open');
 
         $.ajax({        
             url: "/service/push_delete_torrents_classroom",
@@ -109,11 +111,8 @@ $(document).ready(function(){
             async: true,
             data: {data : data}
             }).done(function(response) {
-                $('#status_modal_content').html("");
                 $.each(response, function(index, value) {
                     $('#status_modal_content').append("<h3>"+value.status+"</h3>")
-                    $('#status_modal').foundation('reveal', 'open');
-
                 });
                 
             }).fail(function(jqXHR, textStatus, errorThrown) {
@@ -138,8 +137,6 @@ $(document).ready(function(){
                 response.cmd_output.reverse();
                 $.each(response.cmd_output, function(index, value) {
                     $('#status_modal_content').append("<h4>"+value+"</h4>")
-                    
-
                 });
                 
                 

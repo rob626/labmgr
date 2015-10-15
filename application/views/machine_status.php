@@ -39,7 +39,7 @@
 					<th>Room</th>
 					<th>Seat</th>
 					<th>Ping</th>
-					<th>Disk Usage</th>
+					<th>Disk</th>
 					<th>SSH</th>
 					<th>Watchdog Log</th>
 					<th>Torrent</th>
@@ -67,7 +67,19 @@
 						echo "<td>". $machine['seat'] ."</td>";
 
 						echo "<td id='status_".$counter."'><span class='button tiny radius alert-box secondary'>...</span></td>";
-						echo "<td>".$machine['disk_usage'][1]."</td>";
+						echo "<td>";
+						if($machine['disk_usage'] > 95) {
+							echo "<span class='button tiny alert radius'>".$machine['disk_usage']."%</span>" ;
+						} elseif($machine['disk_usage'] > 89) {
+							echo "<span class='button tiny warning radius'>".$machine['disk_usage']."%</span>" ;
+						} elseif($machine['disk_usage'] > 79) {
+							echo "<span class='button tiny success radius'>".$machine['disk_usage']."%</span>" ;
+						} elseif($machine['disk_usage'] > 49) {
+							echo "<span class='button tiny info radius'>".$machine['disk_usage']."%</span>" ;
+						}  else {
+							echo "<span class='button tiny secondary radius'>".$machine['disk_usage']."%</span>" ;
+						}
+						echo "</td>";
 						//echo "<td><a href='#' id='".$machine['machine_id']."' class='reboot_btn button tiny radius'>Reboot</a></td>";
 						/*echo "<td><form method='POST' action='/labmgr/reboot_machine'>
 						<input type='hidden' name='machine_id' value='".$machine['machine_id']."'>
