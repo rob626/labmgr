@@ -52,7 +52,6 @@
 				<?php
 				if(!empty($machines)) {
 					$counter = 1;
-			
 					foreach($machines as $machine) {
 						echo "<tr>";
 						echo "<td><span style='display:none;' id='machine_ip_".$counter."'>".$machine['ip_address']."</span><form method='POST' action='/labmgr/edit_machine'>
@@ -70,20 +69,24 @@
 
 						echo "<td id='status_".$counter."'><span class='button tiny radius alert-box secondary'>...</span></td>";
 						echo "<td id='disk_usage_".$counter."'>";
-						if($machine['disk_usage'] > 95) {
-							echo "<span class='button tiny alert radius'>".$machine['disk_usage']."%</span>" ;
-						} elseif($machine['disk_usage'] > 89) {
-							echo "<span class='button tiny warning radius'>".$machine['disk_usage']."%</span>" ;
-						} elseif($machine['disk_usage'] > 79) {
-							echo "<span class='button tiny success radius'>".$machine['disk_usage']."%</span>" ;
-						} elseif($machine['disk_usage'] > 49) {
-							echo "<span class='button tiny info radius'>".$machine['disk_usage']."%</span>" ;
-						}  else {
-							echo "<span class='button tiny secondary radius'>".$machine['disk_usage']."%</span>" ;
-						}
+						
 						echo "</td>";
-						echo "<td>". "-- / --"."</td>";
-						echo "<td>". "-- / --"."</td>";
+						echo "<td>";
+							$total = count($machine['torrents']);
+							$seeds = 0;
+							$total_bytes = 0;
+							$remaining_bytes = 0;
+							foreach($machine['torrents'] as $torrent) {
+								if($torrent['21'] == 'Seeding 100.0 %') {
+									$seeds++;
+								}
+								$total_bytes += $torrent['3'];
+								$remaining_bytes += $torrent['18'];
+							}
+							echo $seeds." / ".$total;
+						echo "</td>";
+						$completed_bytes = $total_bytes - $remaining_bytes;
+						echo "<td>". sprintf('%02.2f', ($completed_bytes/1024/1024/1024)) .' / '. sprintf('%02.2f', ($total_bytes/1024/1024/1024)) ."</td>";
 						//echo "<td><a href='#' id='".$machine['machine_id']."' class='reboot_btn button tiny radius'>Reboot</a></td>";
 						/*echo "<td><form method='POST' action='/labmgr/reboot_machine'>
 						<input type='hidden' name='machine_id' value='".$machine['machine_id']."'>
