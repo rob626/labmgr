@@ -116,7 +116,7 @@ class Vm_model extends CI_Model {
 	    	//$path = 'C:/labs/AL1/vm/viper24vm1.vmx';
 	    	$path = str_replace('\\', '/', $path);
 	    	$dropins_dir = '/cygdrive/c/labmgr-wd/dropins/revert.gui-command';
-	    	$command = 'vmrun -T ws revertToSnapshot "'.$path. '" clean';
+	    	$command = 'vmrun -T ws revertToSnapshot "'.$path. '" '.$snapshot;
 	    	
 	    	$file = './uploads/revert'.uniqid().'.gui-command';
 	    	file_put_contents($file, $command);
