@@ -65,12 +65,21 @@ class Labmgr extends CI_Controller {
 		echo "</pre>";
 	}
 
+
 	public function test() {
 		$data = $this->makeRequest("?list=1");
-	
+
+		$usage = "C:/cygwin/64 932G 818G 11G 1288% /";
+		$pos = strrpos($usage, "%");
+		$percent_used = substr($usage, $pos-4,2);
+
+
 		echo "<pre>";
-		print_r($data);
+		print_r($pos);
+		print_r("======");
+		print_r($percent_used);
 		echo "</pre>";
+		die();
 		/*
 		for($i=0; $i<10; $i++) {
 			$device['device_ip'] = '172.20.124.173';
@@ -275,14 +284,13 @@ class Labmgr extends CI_Controller {
 	    	$data['machines'] = $this->machine_model->get_machines();
 			foreach($data['machines'] as $key => $machine) {
 				$usage = $this->machine_model->disk_usage($machine['ip_address']);
-				$machine['disk_usage'] = $usage['cmd_output'];
+				$pos = strrpos($usage['cmd_output'][1], "%");
+				$machine['disk_usage'] = substr($usage['cmd_output'][1], $pos-3,3);
 				$data['machines'][$key] = $machine;
 			}
 			$data['rooms'] = $this->room_model->get_rooms();
 			$this->load->template('machine_status', $data);
 		}
-
-    	
     }
 
     public function start_vms_by_machine() {

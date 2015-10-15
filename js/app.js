@@ -103,7 +103,7 @@ $(document).ready(function(){
         var data = $('#push_delete_torrents_class_form :input').serializeArray();
         $('#status_modal_content').html("");
         $('#status_modal').foundation('reveal', 'open');
-        
+
         $.ajax({        
             url: "/service/push_delete_torrents_classroom",
             type: "get",
@@ -111,7 +111,6 @@ $(document).ready(function(){
             async: true,
             data: {data : data}
             }).done(function(response) {
-                
                 $.each(response, function(index, value) {
                     $('#status_modal_content').append("<h3>"+value.status+"</h3>")
                 });
@@ -162,8 +161,6 @@ $(document).ready(function(){
                 response.cmd_output.reverse();
                 $.each(response.cmd_output, function(index, value) {
                     $('#status_modal_content').append("<h4>"+value+"</h4>")
-                    
-
                 });
                 
                 

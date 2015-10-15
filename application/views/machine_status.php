@@ -39,9 +39,11 @@
 					<th>Room</th>
 					<th>Seat</th>
 					<th>Ping</th>
-					<th>Disk Usage</th>
+					<th>Disk</th>
+					<th>Torrent<br>Seeds</th>
+					<th>Torrent<br>Sizes</th>
 					<th>SSH</th>
-					<th>Watchdog Log</th>
+					<th>Watchdog<br>Log</th>
 					<th>Torrent</th>
 					<th>Select</th>
 				</tr>
@@ -67,7 +69,21 @@
 						echo "<td>". $machine['seat'] ."</td>";
 
 						echo "<td id='status_".$counter."'><span class='button tiny radius alert-box secondary'>...</span></td>";
-						echo "<td>".$machine['disk_usage'][1]."</td>";
+						echo "<td>";
+						if($machine['disk_usage'] > 95) {
+							echo "<span class='button tiny alert radius'>".$machine['disk_usage']."%</span>" ;
+						} elseif($machine['disk_usage'] > 89) {
+							echo "<span class='button tiny warning radius'>".$machine['disk_usage']."%</span>" ;
+						} elseif($machine['disk_usage'] > 79) {
+							echo "<span class='button tiny success radius'>".$machine['disk_usage']."%</span>" ;
+						} elseif($machine['disk_usage'] > 49) {
+							echo "<span class='button tiny info radius'>".$machine['disk_usage']."%</span>" ;
+						}  else {
+							echo "<span class='button tiny secondary radius'>".$machine['disk_usage']."%</span>" ;
+						}
+						echo "</td>";
+						echo "<td>". "-- / --"."</td>";
+						echo "<td>". "-- / --"."</td>";
 						//echo "<td><a href='#' id='".$machine['machine_id']."' class='reboot_btn button tiny radius'>Reboot</a></td>";
 						/*echo "<td><form method='POST' action='/labmgr/reboot_machine'>
 						<input type='hidden' name='machine_id' value='".$machine['machine_id']."'>
@@ -80,8 +96,8 @@
 						echo "<td><form method='POST' action='/labmgr/ssh_machine'>
 						<input type='hidden' name='machine_id' value='".$machine['machine_id']."'>
 						<input type='submit' class='button tiny radius' value='SSH'></form></td>";
-						echo "<td><a class='button tiny radius view_log_btn' id='".$machine['machine_id']."' href='#'>View Log</a></td>";
-						echo "<td><a target='_blank' class='button tiny radius' href='http://admin:web1sphere@".$machine['ip_address'].":27555/gui/'>Web View</a></td>";
+						echo "<td><a class='button tiny radius view_log_btn' id='".$machine['machine_id']."' href='#'>WD Log</a></td>";
+						echo "<td><a target='_blank' class='button tiny radius' href='http://admin:web1sphere@".$machine['ip_address'].":27555/gui/'>WebUI</a></td>";
 
 						echo "<td><input class='checkbox' type='checkbox' name='machine_ids[]' value='".$machine['machine_id']."'></td>";/*"<td>
 						<form method='POST' action='/labmgr/delete_machine'>
