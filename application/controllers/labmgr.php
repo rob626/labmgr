@@ -282,13 +282,15 @@ class Labmgr extends CI_Controller {
 
 		} else {
 	    	$data['machines'] = $this->machine_model->get_machines();
-	    	/*
+	    	
+	    	
 			foreach($data['machines'] as $key => $machine) {
-				$usage = $this->machine_model->disk_usage($machine['ip_address']);
-				$pos = strrpos($usage['cmd_output'][1], "%");
-				$machine['disk_usage'] = substr($usage['cmd_output'][1], $pos-3,3);
+				$this->getToken($machine['ip_address'], '27555', 'admin', 'web1sphere');
+				$torrent_data = $this->makeRequest($machine['ip_address'], '27555', 'admin', 'web1sphere', '?list=1');
+				$machine['torrents'] = $torrent_data['torrents'];
+				
 				$data['machines'][$key] = $machine;
-			} */
+			} 
 			$data['rooms'] = $this->room_model->get_rooms();
 			$this->load->template('machine_status', $data);
 		}
