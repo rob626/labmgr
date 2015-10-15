@@ -45,7 +45,7 @@ class Labmgr extends CI_Controller {
 			'pass' => 'web1sphere'
 			);
 		$this->load->library('utorrent', $params); */
-		$machine['ip_address'] = '192.168.15.110';
+		$machine['ip_address'] = '172.20.128.72';
 		echo "Running utorrent lib... <br>";
 		echo "<pre>";
 		$this->getToken($machine['ip_address'], '27555', 'admin', 'web1sphere');
@@ -66,7 +66,7 @@ class Labmgr extends CI_Controller {
 	}
 
 	public function test() {
-		$data = $this->vm_model->stop_all_vms('172.20.128.72');
+		$data = $this->makeRequest("?list=1");
 	
 		echo "<pre>";
 		print_r($data);

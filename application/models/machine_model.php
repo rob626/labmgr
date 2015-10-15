@@ -125,6 +125,7 @@ class Machine_model extends CI_Model {
     	$updated_machines = array();
 	    	foreach($machines as $machine) {
 	    		$machine['status'] = $this->ping_test($machine['ip_address']);
+                $machine['disk_usage'] = $this->disk_usage($machine['ip_address'])['cmd_output'][1];
 	    		array_push($updated_machines, $machine);
 	    	}
 	    	return $updated_machines;
