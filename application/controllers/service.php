@@ -196,6 +196,9 @@ class Service extends CI_Controller {
 				$vm = $this->vm_model->get_vm($d['value']);
 				$vm = $vm[0];
 			}
+			if($d['name'] == 'stop_all') {
+				$stop_all = $d['value'];
+			}
 			if($d['name'] == 'room_ids[]') {
 				$m = $this->machine_model->get_machines_by_room($d['value']);
 				array_push($machines, $this->machine_model->get_machines_by_room($d['value']));
@@ -207,9 +210,16 @@ class Service extends CI_Controller {
 		$machines = $machines[0];
 
 		if($stop_vm == 1) {
-			foreach($machines as $machine) {
+			if($stop_all == 'stop_all') {
+				foreach($machines as $machine) {
+					$output[] = $this->vm_model->stop_all_vms($machine['ip_address'], $vm['path']);
+				}
+			} else {
+				foreach($machines as $machine) {
 					$output[] = $this->vm_model->stop_vm($machine['ip_address'], $vm['path']);
 				}
+			}
+			
 
 		} else {
 			if($start_vm_option == 'revert_start_vm' || $start_vm_option == 'revert_vm') {
