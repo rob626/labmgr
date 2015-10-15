@@ -69,7 +69,7 @@
 						echo "<td>". $machine['seat'] ."</td>";
 
 						echo "<td id='status_".$counter."'><span class='button tiny radius alert-box secondary'>...</span></td>";
-						echo "<td>";
+						echo "<td id='disk_usage_".$counter."'>";
 						if($machine['disk_usage'] > 95) {
 							echo "<span class='button tiny alert radius'>".$machine['disk_usage']."%</span>" ;
 						} elseif($machine['disk_usage'] > 89) {
