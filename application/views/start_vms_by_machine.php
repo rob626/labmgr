@@ -16,9 +16,9 @@
 			<br>
 			<input type='submit' class='button large center' value='Make it so...'>
 			<br>
-			<input type='radio' checked name='start_vm_option' value='start_vm'><label>Start</label>
+			<input type='radio' name='start_vm_option' value='start_vm'><label>Start</label>
 			<input type='radio' name='start_vm_option' value='revert_vm'><label>Revert</label>
-			<input type='radio' name='start_vm_option' value='revert_start_vm'><label>Revert & Start</label>
+			<input type='radio' checked name='start_vm_option' value='revert_start_vm'><label>Revert & Start</label>
 		</div>
 	</div>
 
