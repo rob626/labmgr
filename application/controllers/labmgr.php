@@ -633,6 +633,16 @@ class Labmgr extends CI_Controller {
 	
 	}
 
+	public function run_single_cmd_class() {
+		if($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+		} else {
+			$data['machines'] = $this->machine_model->get_machines();
+			$data['rooms'] = $this->room_model->get_rooms();
+			$this->load->template('run_single_cmd_class', $data);
+		}
+	}
+
 	private function send($ip, $file) {
 		$params = array(
 				'host' => $ip,

@@ -365,4 +365,27 @@ class Service extends CI_Controller {
 		echo json_encode($this->machine_model->view_watchdog_log($machine[0]['ip_address']));
 	}
 
+	public function run_cmd() {
+		$data = $this->input->get('data');
+		print_r($data);
+		$machines = array();
+
+		foreach($data as $d) {
+			if($d['name'] == 'room_ids[]') {
+				array_push($machines, $this->machine_model->get_machines_by_room($d['value']));
+			}
+			if($d['name'] == 'cmd') {
+				$cmd = $d['value'];
+			}
+		}
+		$machines = $machines[0];
+
+		foreach($machines as $machine) {
+			$output[] = $this->script_model->run_script($machine['ip_address'], $cmd);
+
+		}
+
+		echo json_encode($output);
+	}
+
 }

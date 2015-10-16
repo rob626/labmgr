@@ -274,6 +274,20 @@ $(document).ready(function(){
             });
     });
 
+        if($('#torrent_seeds_1').length > 0) {
+            var status_total = $('#status_total').text();
+            var machines = [];
+            for(var status_id = 1; status_id < status_total; status_id++) {    
+                var ip = $('#machine_ip_'+ status_id).text();
+                var machine = {
+                    id:status_id,
+                    ip_address:ip,
+                    status:'' 
+                }
+                machines.push(machine);
+            }
+
+        }
 
         //Get Machine Status
         if($('#status_total').length > 0) {

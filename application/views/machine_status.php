@@ -51,7 +51,7 @@
 			<tbody>
 				<?php
 				if(!empty($machines)) {
-					$counter = 1;
+					$counter = 1;	
 					foreach($machines as $machine) {
 						echo "<tr>";
 						echo "<td><span style='display:none;' id='machine_ip_".$counter."'>".$machine['ip_address']."</span><form method='POST' action='/labmgr/edit_machine'>
@@ -71,7 +71,7 @@
 						echo "<td id='disk_usage_".$counter."'>";
 						
 						echo "</td>";
-						echo "<td>";
+						echo "<td id='torrent_seeds_'".$counter.">";
 							$total = count($machine['torrents']);
 							$seeds = 0;
 							$total_bytes = 0;
@@ -86,7 +86,7 @@
 							echo $seeds." / ".$total;
 						echo "</td>";
 						$completed_bytes = $total_bytes - $remaining_bytes;
-						echo "<td>". sprintf('%02.2f', ($completed_bytes/1024/1024/1024)) .' / '. sprintf('%02.2f', ($total_bytes/1024/1024/1024)) ."</td>";
+						echo "<td id='torrent_size_'".$counter.">>". sprintf('%02.2f', ($completed_bytes/1024/1024/1024)) .' / '. sprintf('%02.2f', ($total_bytes/1024/1024/1024)) ."</td>";
 						//echo "<td><a href='#' id='".$machine['machine_id']."' class='reboot_btn button tiny radius'>Reboot</a></td>";
 						/*echo "<td><form method='POST' action='/labmgr/reboot_machine'>
 						<input type='hidden' name='machine_id' value='".$machine['machine_id']."'>

@@ -41,7 +41,7 @@
 			<li><a href='/labmgr/push_torrents_by_classroom'>Torrents</a></li>
 			<li><a href='/labmgr/start_vms_by_machine'>VMs</a></li>
 			<li><a href='/labmgr/machine_status'>Machine Status</a></li>
-			<li><a href='/labmgr/add_script'>Scripts</a></li>
+			<li><a href='/labmgr/run_single_cmd_class'>Scripts</a></li>
 			<li><a href='/admin'>Admin</a></li>
 		</ul>
 	</section>
