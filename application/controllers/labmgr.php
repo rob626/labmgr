@@ -288,7 +288,6 @@ class Labmgr extends CI_Controller {
 				$this->getToken($machine['ip_address'], '27555', 'admin', 'web1sphere');
 				$torrent_data = $this->makeRequest($machine['ip_address'], '27555', 'admin', 'web1sphere', '?list=1');
 				$machine['torrents'] = $torrent_data['torrents'];
-				
 				$data['machines'][$key] = $machine;
 			} 
 			$data['rooms'] = $this->room_model->get_rooms();
