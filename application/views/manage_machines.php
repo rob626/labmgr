@@ -25,8 +25,8 @@
 					<th>MAC Address</th>
 					<th>IP Address</th>
 					<th>OS</th>
-					<th>Username</th>
-					<th>Password</th>
+					<th>Torrent<br>Username</th>
+					<th>Torrent<br>Password</th>
 					<th>Torrent Client</th>
 					<th>Transport Type</th>
 					<th>Edit</th>
@@ -53,13 +53,14 @@
 						echo "<td>".$machine['operating_system']."</td>";
 						echo "<td>".$machine['username']."</td>";
 						echo "<td>".$machine['password']."</td>";
-						foreach($torrent_clients as $torrent_client_key => $torrent_client_value) {
+						/*foreach($torrent_clients as $torrent_client_key => $torrent_client_value) {
 							if($torrent_client_value['torrent_client_id'] == $machine['torrent_client_id']) {
 								echo "<td>". $torrent_client_value['name'] ."</td>";
 							} else {
-								//echo "<td></td>";
+								echo "<td>-</td>";
 							}
-						}
+						}*/
+						echo "<td>-</td>";
 						echo "<td>".$machine['transport_type']."</td>";
 
 						echo "<td><form method='POST' action='/labmgr/edit_machine'>

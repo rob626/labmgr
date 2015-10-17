@@ -38,11 +38,10 @@
 	<table id='datatable'>
 		<thead>
 			<tr>
-				<th>Torrent ID</th>
-				<th>Torrent Name</th>
-				<th>Torrent Hash</th>
-				<th>Torrent Path</th>
-				<th>Last Update Timestamp</th>
+				<th>Torrent<br>ID</th>
+				<th>Torrent<br>Name</th>
+				<th>Torrent<br>Hash</th>
+				<th>Torrent<br>Path</th>
 				<th>Edit</th>
 				<th>Delete</th>
 			</tr>
@@ -55,9 +54,8 @@
 					echo "<tr>";
 					echo "<td>".$torrent['torrent_id']."</td>";
 					echo "<td>".$torrent['name']."</td>";
-					echo "<td>".$torrent['hash']."</td>";
+					echo "<td>".substr($torrent['hash'],0,4)."...</td>";
 					echo "<td>".$torrent['path']."</td>";
-					echo "<td>".$torrent['last_update_timestamp']."</td>";
 					echo "<td><form method='POST' action='/labmgr/edit_torrent'>
 					<input type='hidden' name='torrent_id' value='".$torrent['torrent_id']."'>
 					<input type='submit' class='button tiny radius' value='Edit'>
