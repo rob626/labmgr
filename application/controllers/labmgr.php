@@ -646,8 +646,8 @@ class Labmgr extends CI_Controller {
 			foreach($rooms as $room) {
 				$machines = array_merge($machines, $this->machine_model->get_machines_by_room($room));
 			}
-			foreach ($$machines as $machine) {
-				print_r($this->machine_model->run_cmd($cmd));
+			foreach($machines as $machine) {
+				print_r($this->machine_model->run_cmd($cmd, $machine['ip_address']));
 			}
 			
 		} else {
