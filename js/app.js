@@ -50,6 +50,27 @@ $(document).ready(function(){
 
     });
 
+    $('#room_filter_machine_status').change(function() {
+        var room_id = $(this).val();
+         $.ajax({        
+            url: "/service/get_machines_by_room",
+            type: "get",
+            dataType: "json",
+            data: {room_id : room_id}
+            }).done(function(response) {
+                //console.log(response);
+                var params = [
+                "room="+room_id
+                ];
+                window.location.href = "http://" + window.location.host + window.location.pathname + '?' + params.join('&');
+                
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                //alert("Error submitting data!");
+                console.log(jqXHR, textStatus, errorThrown);
+            });
+
+    });
+
     $('#start_vms_form').on('submit', function(e) {
         e.preventDefault();
         var data = $('#start_vms_form :input').serializeArray();

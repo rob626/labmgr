@@ -302,6 +302,7 @@ class Service extends CI_Controller {
 
 		echo json_encode($output);
 	}
+	
 	/**
 	 *
 	 */
@@ -359,12 +360,18 @@ class Service extends CI_Controller {
 		echo json_encode($output);
 	}
 
+	/**
+	 * View the remote machine's watchdog log.
+	 */
 	public function view_watchdog_log() {
 		$machine_id = $this->input->get('machine_id');
 		$machine = $this->machine_model->get_machine($machine_id);
 		echo json_encode($this->machine_model->view_watchdog_log($machine[0]['ip_address']));
 	}
 
+	/**
+	 * Run a single command.
+	 */
 	public function run_cmd() {
 		$data = $this->input->get('data');
 		print_r($data);
@@ -387,5 +394,7 @@ class Service extends CI_Controller {
 
 		echo json_encode($output);
 	}
+
+
 
 }

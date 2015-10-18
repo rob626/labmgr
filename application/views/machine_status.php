@@ -13,7 +13,7 @@
 		<div class='row'>
 		<div class='large-3 columns'>
 			<label>Room</label>
-				<select id='room_filter' name="room_id">
+				<select id='room_filter_machine_status' name="room_id">
 					<option value='-1'>All Rooms</option>
 					<?php foreach ($rooms as $room) { ?>
 					<option value='<?php echo $room['room_id'] ?>'><?php echo $room['name'] ?> </option>
@@ -87,7 +87,7 @@
 						echo "</td>";
 						$completed_bytes = $total_bytes - $remaining_bytes;
 
-						echo "<td id='torrent_size_'".$counter.">>". sprintf('%02.2f', ($completed_bytes/1024/1024/1024)) .' / '. sprintf('%02.2f', ($total_bytes/1024/1024/1024)) ."</td>";
+						echo "<td id='torrent_size_".$counter."'>". sprintf('%02.2f', ($completed_bytes/1024/1024/1024)) .' / '. sprintf('%02.2f', ($total_bytes/1024/1024/1024)) ."</td>";
 
 						//echo "<td><a href='#' id='".$machine['machine_id']."' class='reboot_btn button tiny radius'>Reboot</a></td>";
 						/*echo "<td><form method='POST' action='/labmgr/reboot_machine'>
