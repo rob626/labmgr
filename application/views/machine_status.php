@@ -86,7 +86,9 @@
 							echo $seeds." / ".$total;
 						echo "</td>";
 						$completed_bytes = $total_bytes - $remaining_bytes;
+
 						echo "<td id='torrent_size_'".$counter.">>". sprintf('%02.2f', ($completed_bytes/1024/1024/1024)) .' / '. sprintf('%02.2f', ($total_bytes/1024/1024/1024)) ."</td>";
+
 						//echo "<td><a href='#' id='".$machine['machine_id']."' class='reboot_btn button tiny radius'>Reboot</a></td>";
 						/*echo "<td><form method='POST' action='/labmgr/reboot_machine'>
 						<input type='hidden' name='machine_id' value='".$machine['machine_id']."'>

@@ -40,7 +40,7 @@
 	</table>
 	<input type='hidden' name='torrent_id' value='<?php echo $torrents[0]['torrent_id']; ?>'>
 	<input class='button' type='submit' value='Submit'>
-	<a href='/labmgr/add_torrent' class='button'>Cancel</a>
+	<a href='/labmgr/upload_torrent' class='button'>Cancel</a>
 	 </div>
 	</form>
 </div>

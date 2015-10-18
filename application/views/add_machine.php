@@ -32,13 +32,13 @@
 				</div>
 				
 				<div class='large-6 columns'>
-					<label>MAC Address</label>
-					<input type='text' name='mac_address'>
+					<label>IP Address</label>
+					<input type='text' name='ip_address' value='<?php echo $_SERVER['REMOTE_ADDR'] ?>'>
 				</div>
 
 				<div class='large-6 columns'>
-					<label>IP Address</label>
-					<input type='text' name='ip_address' value='<?php echo $_SERVER['REMOTE_ADDR'] ?>'>
+					<label>MAC Address</label>
+					<input type='text' name='mac_address'>
 				</div>
 			</div>
 
