@@ -1,7 +1,7 @@
 <div class='large-2 columns'>
 	<ul class='side-nav'>
 		<li class='active'><a href='/labmgr/run_single_cmd_class'>Run Single Command by Class</a></li>
-		<li><a href='/labmgr/run_single_cmd_machine'>Run Single Command by Classby Machine</a></li>
+		<li><a href='/labmgr/run_single_cmd_machine'>Run Single Command by Machine</a></li>
 	</ul>
 </div>
 
