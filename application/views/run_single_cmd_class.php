@@ -17,9 +17,8 @@
 
 	<div class='row'>
 		<div class='large-6 columns'>
-			<h2>Run Command</h2>
+			<h2>Run Command (ex: ls -ltr)</h2>
 			
-
 			<label>Command</label><input name='cmd' type='text'>
 		</div>
 

@@ -190,4 +190,18 @@ class Machine_model extends CI_Model {
     	return $output;
     }
 
+    /*
+     *
+     */
+    public function run_cmd($cmd, $ip) {
+        $output = array(
+            'status' => "Running command on: ".$ip,
+            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' "'.$cmd.'"', $cmd_output, $exit_status),
+            'cmd_output' => $cmd_output,
+            'exit_status' => $exit_status
+        );
+
+        return $output;
+    }
+
 }
