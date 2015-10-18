@@ -14,6 +14,7 @@
 		<div class='large-3 columns'>
 			<label>Room</label>
 				<select id='room_filter_machine_status' name="room_id">
+					<option>Select Room</option>
 					<option value='-1'>All Rooms</option>
 					<?php foreach ($rooms as $room) { ?>
 					<option value='<?php echo $room['room_id'] ?>'><?php echo $room['name'] ?> </option>

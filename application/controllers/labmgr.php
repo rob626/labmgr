@@ -283,7 +283,7 @@ class Labmgr extends CI_Controller {
 		} else {
 			$room_id = $this->input->get('room');
 
-			if (empty($room_id)) {
+			if (empty($room_id) || $room_id == -1){
 				$data['machines'] = $this->machine_model->get_machines();
 			} else {
 				$data['machines'] = $this->machine_model->get_machines_by_room($room_id);
