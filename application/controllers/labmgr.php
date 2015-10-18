@@ -641,12 +641,24 @@ class Labmgr extends CI_Controller {
 	public function run_single_cmd_class() {
 		if($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$cmd = $this->input->post('cmd');
-			$this->machine_model->run_cmd($cmd);
+			$machines = array();
+			$rooms = $this->input->post('room_ids');
+			foreach($rooms as $room) {
+				$machines = array_merge($machines, $this->machine_model->get_machines_by_room($room));
+			}
+			foreach ($$machines as $machine) {
+				print_r($this->machine_model->run_cmd($cmd));
+			}
+			
 		} else {
 			$data['machines'] = $this->machine_model->get_machines();
 			$data['rooms'] = $this->room_model->get_rooms();
 			$this->load->template('run_single_cmd_class', $data);
 		}
+	}
+
+	public function run_single_cmd_machine() {
+
 	}
 
 	private function send($ip, $file) {
