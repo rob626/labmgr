@@ -24,7 +24,7 @@
 			<a href='#' id='select_all'>Select All</a>&nbsp &nbsp  <a href='#' id='unselect_all'>Unselect All</a><br>
 
 			<?php
-				sort($torrents);
+				asort($torrents);
 				foreach($torrents as $torrent) {
 					//echo "<input type='radio' name='torrent_id' value='".$torrent['torrent_id']."'><label>".$torrent['name']."</label><br>";
 					echo "<input type='checkbox' class='checkbox' name='torrent_ids[]' value='".$torrent['torrent_id']."'><label>".$torrent['name']."</label><br>";

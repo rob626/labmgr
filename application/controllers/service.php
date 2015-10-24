@@ -336,12 +336,14 @@ class Service extends CI_Controller {
 			}
 			if($d['name'] == 'room_ids[]') {
 				array_push($machines, $this->machine_model->get_machines_by_room($d['value']));
+				
 			}
 			if($d['name'] == 'delete_option') {
 				$delete_option = $d['value'];
 			}
 		}
-		$machines = $machines[0];
+
+		//$machines = $machines[0];
 
 		if($delete == 1) {
 			foreach($torrents as $torrent) {
@@ -359,12 +361,15 @@ class Service extends CI_Controller {
 		} else {
 			foreach($torrents as $torrent) {
 				foreach($machines as $machine) {
-					$this->getToken($machine['ip_address'], '27555', 'admin', 'web1sphere');
-					if($this->torrentAdd($torrent['path'], $machine['ip_address'], '27555', 'admin', 'web1sphere')) {
-						$output[]['status'] = "Successfully sent to: " . $machine['ip_address'] . "<br>";
-					} else {
-						$output[]['status'] = "Failed to send to: " . $machine['ip_address'] . "<br>";
-					}				
+					foreach($machine as $m) {
+						$this->getToken($m['ip_address'], '27555', 'admin', 'web1sphere');
+						if($this->torrentAdd($torrent['path'], $m['ip_address'], '27555', 'admin', 'web1sphere')) {
+							$output[]['status'] = "Successfully sent to: " . $m['ip_address'] . "<br>";
+						} else {
+							$output[]['status'] = "Failed to send to: " . $m['ip_address'] . "<br>";
+						}
+					}
+									
 				}
 			}
 
