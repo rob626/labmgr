@@ -312,6 +312,7 @@ $(document).ready(function(){
                                 var seeds = 0;
                                 var total_bytes = 0;
                                 var remaining_bytes = 0;
+                                var total_speed = 0;
                  
                                 $.each(value2.torrents, function(torrent_index, torrent_value) {
                                     if(torrent_value['21'] == 'Seeding 100.0 %') {
@@ -319,10 +320,11 @@ $(document).ready(function(){
                                     }
                                     total_bytes += torrent_value['3'];
                                     remaining_bytes += torrent_value['18'];
+                                    total_speed += torrent_value[9];
                                 });
                                 var completed_bytes = total_bytes - remaining_bytes;
                                 $('#torrent_seeds_'+ value2.id).html(seeds+"/"+total) ;
-                                $('#torrent_size_'+ value2.id).html((completed_bytes/1024/1024/1024).toFixed(2)+"/"+(total_bytes/1024/1024/1024).toFixed(2)) ;
+                                $('#torrent_size_'+ value2.id).html(((completed_bytes/total_bytes)*100).toFixed(0)+"% @"+(total_speed/1024/1024).toFixed(0)+"<br>"+(completed_bytes/1024/1024/1024).toFixed(0)+"/"+(total_bytes/1024/1024/1024).toFixed(0)) ;
                             });
                             
                             

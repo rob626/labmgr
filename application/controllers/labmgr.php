@@ -67,17 +67,12 @@ class Labmgr extends CI_Controller {
 
 
 	public function test() {
-		$data = $this->makeRequest("?list=1");
-
-		$usage = "C:/cygwin/64 932G 818G 11G 1288% /";
-		$pos = strrpos($usage, "%");
-		$percent_used = substr($usage, $pos-4,2);
+		$this->getToken('192.168.15.103', '27555', 'admin', 'web1sphere');
+				$torrent_data = $this->makeRequest('192.168.15.103', '27555', 'admin', 'web1sphere', '?list=1');
 
 
 		echo "<pre>";
-		print_r($pos);
-		print_r("======");
-		print_r($percent_used);
+		print_r($torrent_data);
 		echo "</pre>";
 		die();
 		/*

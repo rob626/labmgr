@@ -42,7 +42,7 @@
 					<th>Ping</th>
 					<th>Disk<br>Usage</th>
 					<th>Torrent<br>Seeds</th>
-					<th>Torrent<br>Sizes</th>
+					<th>Torrent<br>Sizes (GB)</th>
 					<th>Running<br>VMs</th>
 					<th>SSH</th>
 					<th>Watchdog<br>Log</th>
@@ -74,22 +74,11 @@
 						
 						echo "</td>";
 						echo "<td id='torrent_seeds_".$counter."'>";
-							$total = count($machine['torrents']);
-							$seeds = 0;
-							$total_bytes = 0;
-							$remaining_bytes = 0;
-							foreach($machine['torrents'] as $torrent) {
-								if($torrent['21'] == 'Seeding 100.0 %') {
-									$seeds++;
-								}
-								$total_bytes += $torrent['3'];
-								$remaining_bytes += $torrent['18'];
-							}
-							echo $seeds." / ".$total;
+							
 						echo "</td>";
-						$completed_bytes = $total_bytes - $remaining_bytes;
+						
 
-						echo "<td id='torrent_size_".$counter."'>". sprintf('%02.2f', ($completed_bytes/1024/1024/1024)) .' / '. sprintf('%02.2f', ($total_bytes/1024/1024/1024)) ."</td>";
+						echo "<td id='torrent_size_".$counter."'>0</td>";
 						echo "<td>". " - " ."</td>";  // VM count
 						//echo "<td><a href='#' id='".$machine['machine_id']."' class='reboot_btn button tiny radius'>Reboot</a></td>";
 						/*echo "<td><form method='POST' action='/labmgr/reboot_machine'>
