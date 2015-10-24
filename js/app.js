@@ -284,18 +284,56 @@ $(document).ready(function(){
     });
 
         if($('#torrent_seeds_1').length > 0) {
-            var status_total = $('#status_total').text();
-            var machines = [];
-            for(var status_id = 1; status_id < status_total; status_id++) {    
-                var ip = $('#machine_ip_'+ status_id).text();
-                var machine = {
-                    id:status_id,
-                    ip_address:ip,
-                    status:'' 
+            setInterval(function() { 
+                var status_total = $('#status_total').text();
+                var machines = [];
+                for(var status_id = 1; status_id < status_total; status_id++) {    
+                    var ip = $('#machine_ip_'+ status_id).text();
+                    var machine = {
+                        id:status_id,
+                        ip_address:ip,
+                        status:'' 
+                    }
+                    machines.push(machine);
                 }
-                machines.push(machine);
-            }
 
+                $.ajax({        
+                    url: "/service/get_torrent_status",
+                    type: "get",
+                    dataType: "json",
+                    async: true,
+                    data: {machines : machines}
+                    }).done(function(response) {
+                        //console.log(response);
+                        $.each(response, function(index, value) {
+                            $.each(value, function(index2, value2) {
+                   
+                                var total = value2.torrents.length;
+                                var seeds = 0;
+                                var total_bytes = 0;
+                                var remaining_bytes = 0;
+                 
+                                $.each(value2.torrents, function(torrent_index, torrent_value) {
+                                    if(torrent_value['21'] == 'Seeding 100.0 %') {
+                                        seeds++;
+                                    }
+                                    total_bytes += torrent_value['3'];
+                                    remaining_bytes += torrent_value['18'];
+                                });
+                                var completed_bytes = total_bytes - remaining_bytes;
+                                $('#torrent_seeds_'+ value2.id).html(seeds+"/"+total) ;
+                                $('#torrent_size_'+ value2.id).html((completed_bytes/1024/1024/1024).toFixed(2)+"/"+(total_bytes/1024/1024/1024).toFixed(2)) ;
+                            });
+                            
+                            
+                        });
+                        
+                    }).fail(function(jqXHR, textStatus, errorThrown) {
+                        //alert("Error submitting data!");
+                        console.log(jqXHR, textStatus, errorThrown);
+                    });
+
+                }, 10000); 
         }
 
         //Get Machine Status
@@ -323,7 +361,7 @@ $(document).ready(function(){
                         }).done(function(response) {
 
                             $.each(response.status, function(index, value) {
-                                console.log(response.disk_usage);
+                                //console.log(response.disk_usage);
                                 if (value.disk_usage == false) {
                                     $('#disk_usage_'+ value.id).html("<span class='button tiny secondary radius'>--</span>") ;
                                 } else {
@@ -349,7 +387,7 @@ $(document).ready(function(){
                             
                         }).fail(function(jqXHR, textStatus, errorThrown) {
                             //alert("Error submitting data!");
-                            console.log(jqXHR, textStatus, errorThrown);
+                            //console.log(jqXHR, textStatus, errorThrown);
                         });
                     
                 }, 10000); 

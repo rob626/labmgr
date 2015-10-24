@@ -73,7 +73,7 @@
 						echo "<td id='disk_usage_".$counter."'><span class='button tiny radius alert-box secondary'>...</span></td>";
 						
 						echo "</td>";
-						echo "<td id='torrent_seeds_'".$counter.">";
+						echo "<td id='torrent_seeds_".$counter."'>";
 							$total = count($machine['torrents']);
 							$seeds = 0;
 							$total_bytes = 0;

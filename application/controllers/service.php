@@ -129,6 +129,19 @@ class Service extends CI_Controller {
 		echo json_encode($this->machine_model->shutdown($machine[0]['ip_address']));
 	}
 
+	public function get_torrent_status() {
+		$machines = $this->input->get('machines');
+
+		foreach($machines as $key => $machine) {
+				$this->getToken($machine['ip_address'], '27555', 'admin', 'web1sphere');
+				$torrent_data = $this->makeRequest($machine['ip_address'], '27555', 'admin', 'web1sphere', '?list=1');
+				$machine['torrents'] = $torrent_data['torrents'];
+				$data['machines'][$key] = $machine;
+			}
+
+		echo json_encode($data);
+	}
+
 	/**
 	 *
 	 */
@@ -302,7 +315,7 @@ class Service extends CI_Controller {
 
 		echo json_encode($output);
 	}
-	
+
 	/**
 	 *
 	 */
