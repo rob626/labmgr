@@ -324,16 +324,20 @@ $(document).ready(function(){
 
                             $.each(response.status, function(index, value) {
                                 console.log(response.disk_usage);
-                                if(value.disk_usage > 95) {
-                                    $('#disk_usage_'+ value.id).html("<span class='button tiny alert radius'>"+value.disk_usage+"%</span>") ;
-                                } else if(value.disk_usage > 89) {
-                                    $('#disk_usage_'+ value.id).html("<span class='button tiny warning radius'>"+value.disk_usage+"%</span>");
-                                } else if(value.disk_usage > 79) {
-                                    $('#disk_usage_'+ value.id).html("<span class='button tiny success radius'>"+value.disk_usage+"%</span>");
-                                } else if(value.disk_usage > 49) {
-                                    $('#disk_usage_'+ value.id).html("<span class='button tiny info radius'>"+value.disk_usage+"%</span>");
-                                }  else {
-                                    $('#disk_usage_'+ value.id).html("<span class='button tiny secondary radius'>"+value.disk_usage+"%</span>");
+                                if (value.disk_usage == false) {
+                                    $('#disk_usage_'+ value.id).html("<span class='button tiny secondary radius'>--</span>") ;
+                                } else {
+                                    if(value.disk_usage > 95) {
+                                        $('#disk_usage_'+ value.id).html("<span class='button tiny alert radius'>"+value.disk_usage+"%</span>") ;
+                                    } else if(value.disk_usage > 89) {
+                                        $('#disk_usage_'+ value.id).html("<span class='button tiny warning radius'>"+value.disk_usage+"%</span>");
+                                    } else if(value.disk_usage > 79) {
+                                        $('#disk_usage_'+ value.id).html("<span class='button tiny success radius'>"+value.disk_usage+"%</span>");
+                                    } else if(value.disk_usage > 49) {
+                                        $('#disk_usage_'+ value.id).html("<span class='button tiny info radius'>"+value.disk_usage+"%</span>");
+                                    }  else {
+                                        $('#disk_usage_'+ value.id).html("<span class='button tiny secondary radius'>"+value.disk_usage+"%</span>");
+                                    }
                                 }
 
                                 if(value.status == 'ONLINE') {
