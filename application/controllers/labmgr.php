@@ -879,6 +879,7 @@ class Labmgr extends CI_Controller {
 	public function edit_machine() {
 		$machine_id = $this->input->post("machine_id");
 		//$data['torrent_client'] = $this->admin_model->get_torrent_clients();
+		$data['rooms'] = $this->room_model->get_rooms();
 		$data['machines'] = $this->machine_model->get_machine($machine_id);
 		$this->load->template('edit_machine', $data);
 	}

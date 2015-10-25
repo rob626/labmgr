@@ -35,7 +35,15 @@
 	foreach($machines as $machine) {
 		echo "<tr>";
 			echo "<td>".$machine['machine_id']."</td>";
-			echo "<td><input type='text' name='room_id' value='".$machine['room_id']."'></td>";
+			echo "<td>";
+			echo "<select name='room_id'>
+					<option>Select Room</option>
+					<option value='-1'>All Rooms</option>";
+					foreach ($rooms as $room) { 
+						echo "<option value='".$room['room_id']."'>".$room['name']."</option>";
+					} 
+				 
+			echo "</select></td>";
 			echo "<td><input type='text' name='seat' value='".$machine['seat']."'></td>";
 			echo "<td><input type='text' name='mac_address' value='".$machine['mac_address']."'></td>";
 			echo "<td><input type='text' name='ip_address' value='".$machine['ip_address']."'></td>";
