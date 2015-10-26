@@ -1,10 +1,12 @@
-<div class='large-2 columns'>
+<div class='large-2 columns side-nav-color'>
 	<ul class='side-nav'>
 		<li class='active'><a href='/labmgr/push_torrents_by_classroom'>Push by Classroom</a></li>
 		<li><a href='/labmgr/push_torrents_by_machine'>Push by Machine</a></li>
 		<hr>
 		<li><a href='/labmgr/delete_torrents_by_classroom'>Delete by Classroom</a></li>
 		<li><a href='/labmgr/delete_torrents_by_machine'>Delete by Machine</a></li>
+		<hr>
+		<li><a href='/labmgr/upload_torrent'>Manage Torrents</a></li>
 	</ul>
 </div>
 

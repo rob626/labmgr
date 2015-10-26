@@ -1,12 +1,14 @@
-<div class='large-2 columns'>
+<div class='large-2 columns side-nav-color'>
 	<ul class='side-nav'>
-		<li><a href='/labmgr/add_machine'>Add Machine</a></li>
 		<li class='active'><a href='/labmgr/add_room'>Manage Rooms</a></li>
-		<li><a href='/labmgr/manage_machines'>Manage Machines</a></li>
-		<li><a href='/labmgr/upload_torrent'>Manage Torrents</a></li>
-		<li><a href='/labmgr/add_vm'>Manage VMs</a></li>
-		<li><a href='/labmgr/add_script'>Manage Scripts</a></li>
 	</ul>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 </div> 
 
 <div class='large-10 columns'>

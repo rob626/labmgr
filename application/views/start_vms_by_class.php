@@ -5,6 +5,8 @@
 		<hr>
 		<li><a href='/labmgr/stop_vms_by_classroom'>Stop by Classroom</a></li>
 		<li><a href='/labmgr/stop_vms_by_machine'>Stop by Machine</a></li>
+		<hr>
+		<li><a href='/labmgr/add_vm'>Manage VMs</a></li>
 	</ul>
 </div>
 

@@ -38,9 +38,12 @@
 	<section class='top-bar-section'>
 		<ul class='left'>
 			<li><a href='/labmgr/add_machine'>Manage/Register</a></li>
+			<li>
+			<li><a href='/labmgr/register_machine'>Register Machine</a></li>				
+			<li><a href='/labmgr/add_room'>Rooms</a></li>
+			<li><a href='/labmgr/machine_status'>Machines</a></li>
 			<li><a href='/labmgr/push_torrents_by_classroom'>Torrents</a></li>
 			<li><a href='/labmgr/start_vms_by_classroom'>VMs</a></li>
-			<li><a href='/labmgr/machine_status'>Machine Status</a></li>
 			<li><a href='/labmgr/run_single_cmd_class'>Scripts</a></li>
 			<li><a href='/admin'>Admin</a></li>
 		</ul>

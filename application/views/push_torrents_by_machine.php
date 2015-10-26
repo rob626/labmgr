@@ -5,6 +5,8 @@
 		<hr>
 		<li><a href='/labmgr/delete_torrents_by_classroom'>Delete by Classroom</a></li>
 		<li><a href='/labmgr/delete_torrents_by_machine'>Delete by Machine</a></li>
+		<hr>
+		<li><a href='/labmgr/upload_torrent'>Manage Torrents</a></li>
 	</ul>
 </div>
 
