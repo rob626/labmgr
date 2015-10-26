@@ -4,7 +4,9 @@
 		<li><a href='/labmgr/run_single_cmd_machine'>Run Single Command by Machine</a></li>
 		<hr>
 		<li class='active'><a href='/labmgr/add_script'>Manage Scripts</a></li>
+		<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 	</ul>
+
 </div>
 
 <div class='large-10 columns'>

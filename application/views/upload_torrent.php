@@ -8,6 +8,7 @@
 		<hr>
 		<li class='active'><a href='/labmgr/upload_torrent'>Manage Torrents</a></li>
 	</ul>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </div>
 
 <div class='large-10 columns'>

@@ -5,6 +5,7 @@
 		<hr>
 		<li><a href='/labmgr/add_script'>Manage Scripts</a></li>
 	</ul>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </div>
 
 

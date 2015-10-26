@@ -7,6 +7,7 @@
 		<li><a href='/labmgr/add_vm'>Manage VMs</a></li>
 		<li><a href='/labmgr/add_script'>Manage Scripts</a></li>
 	</ul>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </div> 
 
 <div class='large-10 columns'>

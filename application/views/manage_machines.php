@@ -3,9 +3,8 @@
 		<li><a href='/labmgr/machine_status'>Machines status</a></li>
 		<hr>
 		<li class='active'><a href='/labmgr/manage_machines'>Manage Machines</a></li>
-		<br>
-		<br>
 	</ul>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </div>
 
 <div class='large-10 columns'>

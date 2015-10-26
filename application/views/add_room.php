@@ -2,13 +2,7 @@
 	<ul class='side-nav'>
 		<li class='active'><a href='/labmgr/add_room'>Manage Rooms</a></li>
 	</ul>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </div> 
 
 <div class='large-10 columns'>
