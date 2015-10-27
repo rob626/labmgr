@@ -86,7 +86,7 @@ class Admin_model extends CI_Model {
             'exit_status' => $exit_status
         );
 
-        $backups = scandir('./database/backups/');
+        $backups = scandir(DB_BACKUP_DIR);
         foreach($backups as $key => $value) {
             if($value == '.' || $value == '..') {
                     unset($backups[$key]);
@@ -94,6 +94,20 @@ class Admin_model extends CI_Model {
         }
         $output['current_backups'] = $backups;
         return $output;
+    }
+
+    /*
+     * Get current backups
+     */
+    public function get_db_backups() {
+        $backups = scandir(DB_BACKUP_DIR);
+        foreach($backups as $key => $value) {
+            if($value == '.' || $value == '..') {
+                    unset($backups[$key]);
+            }
+        }
+
+        return $backups;
     }
 
 }

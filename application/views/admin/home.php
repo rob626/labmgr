@@ -6,7 +6,7 @@
 		<hr>
 		<li><a id='db_reset' href='#'>Database Reset</a></li>
 		<li><a href='/labmgr/'>Database Import from Master</a></li>
-		<li><a href='/labmgr/'>Database Export</a></li>
+		<li><a href='/admin/export_db'>Database Export</a></li>
 		<li><a href='/labmgr/'>Database Import</a></li>
 		<hr>
 		<li><a href='/labmgr/'>Watchdog dropins cleanup</a></li>

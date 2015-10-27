@@ -37,5 +37,16 @@ define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
 
+
+/*
+|--------------------------------------------------------------------------
+| Database import and export 
+|--------------------------------------------------------------------------
+|
+| 
+|
+*/
+define('DB_BACKUP_DIR', './database/backups/');
+
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
