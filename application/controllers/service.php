@@ -416,5 +416,17 @@ class Service extends CI_Controller {
 		echo json_encode($output);
 	}
 
+	public function truncate_db() {
+		$data = $this->input->get('data');
+		$output = array(
+            'status' => "Running script...",
+            'output' => exec('./database/truncate_db.sh', $cmd_output, $exit_status),
+            'cmd_output' => $cmd_output,
+            'exit_status' => $exit_status
+        );
+
+        echo json_encode($output);
+	}
+
 
 }

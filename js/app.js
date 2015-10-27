@@ -59,6 +59,38 @@ $(document).ready(function(){
 
     });
 
+    $('#db_reset').click(function() {
+        if(window.confirm("Are you sure")) {
+            $('#status_modal_content').html("");
+            $('#status_modal').foundation('reveal', 'open');
+            var data = 'truncate';
+            $.ajax({        
+                url: "/service/truncate_db",
+                type: "get",
+                dataType: "json",
+                async: true,
+                data: {data : data}
+                }).done(function(response) {
+                    console.log(response);
+                    $.each(response, function(index, value) {
+                        $('#status_modal_content').append("<h3>"+value.status+"</h3>");
+
+                        $.each(value.cmd_output, function(index, value) {
+                            $('#status_modal_content').append("<h4>"+value+"</h4>")
+                        });
+
+                    });
+                    
+                }).fail(function(jqXHR, textStatus, errorThrown) {
+                    //alert("Error submitting data!");
+                    console.log(jqXHR, textStatus, errorThrown);
+                });
+            
+        } else {
+            
+        }
+    });
+
     $('#run_single_cmd_class_form').on('submit', function(e) {
         e.preventDefault();
         var data = $('#run_single_cmd_class_form :input').serializeArray();
