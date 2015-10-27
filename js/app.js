@@ -555,9 +555,22 @@ $(document).ready(function(){
         });
     }
 
-    
     if($('#datatable').length > 0) {
         $('#datatable').dataTable({
+            "paging": false,
+            "order": [[ 1, 'asc' ], [ 2, 'asc']]
+        });
+    }
+
+    if($('#machine_datatable').length > 0) {
+        $('#machine_datatable').dataTable({
+            "paging": false,
+            "order": [[ 1, 'asc' ], [ 2, 'asc']]
+        });
+    }
+
+    if($('#datatable2').length > 0) {
+        $('#datatable2').dataTable({
             "paging": false,
             "order": [[ 1, 'asc' ]]
         });
