@@ -4,7 +4,7 @@
 		<li><a href='/labmgr/'>Validate MAC / IP Mapping</a></li>
 		<li><a href='/labmgr/'>Set global defaults</a></li>
 		<hr>
-		<li><a href='/labmgr/'>Database Reset</a></li>
+		<li><a href='/admin/truncate_db'>Database Reset</a></li>
 		<li><a href='/labmgr/'>Database Import from Master</a></li>
 		<li><a href='/labmgr/'>Database Export</a></li>
 		<li><a href='/labmgr/'>Database Import</a></li>
