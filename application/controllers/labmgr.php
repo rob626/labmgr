@@ -642,7 +642,9 @@ class Labmgr extends CI_Controller {
 				$machines = array_merge($machines, $this->machine_model->get_machines_by_room($room));
 			}
 			foreach($machines as $machine) {
+				echo "<pre>";
 				print_r($this->machine_model->run_cmd($cmd, $machine['ip_address']));
+				echo "</pre>";
 			}
 			
 		} else {
@@ -972,42 +974,6 @@ class Labmgr extends CI_Controller {
 			$this->load->template('add_machine', $data);
 		}
 	}
-
-		/**
-	 * Add a machine.
-	 */
-	public function register_machine() {
-		
-		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-			$retval = $this->machine_model->add_machine(
-				$this->input->post('room_id'),
-				$this->input->post('seat'),
-				$this->input->post('mac_address'),
-				$this->input->post('ip_address'),
-				$this->input->post('operating_system'),
-				$this->input->post('username'),
-				$this->input->post('password'),
-				$this->input->post('torrent_client_id'),
-				$this->input->post('transport_type') 
-				);
-
-			if($retval) {
-				redirect('/labmgr/register_machine');
-			} else {
-				echo "DB Error";
-			}
-
-		} else {
-			$machines = $this->machine_model->get_machines();
-			$rooms = $this->room_model->get_rooms();
-			sort($machines);
-			$data['machines'] = $machines;
-			$data['rooms'] = $rooms;
-			$data['torrent_clients'] = $this->admin_model->get_torrent_clients();
-			$this->load->template('register_machine', $data);
-		}
-	}
-
 
 	public function manage_machines() {
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {

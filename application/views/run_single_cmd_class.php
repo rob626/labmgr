@@ -9,11 +9,11 @@
 
 
 <div class='large-10 columns'>
-	<form method='POST' id='run_single_cmd_class_form' action=''>
+	<form method='POST' id='run_single_cmd_class_form' action='/labmgr/run_single_cmd_class'>
 	<div class='row'>
 		<div class='small-4 small-centered columns'>
 			<br>
-			<input type='submit' class='button large center' value='Run'>
+			<input type='submit' class='button large center' value='Run...'>
 		</div>
 	</div>
 

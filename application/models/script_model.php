@@ -81,18 +81,4 @@ class Script_model extends CI_Model {
 	    	return $this->db->trans_status();
 	    }
 
-	    /**
-	     * Run a command on a machine.
-	     */
-	    public function run_cmd($ip, $cmd) {
-	    	$output = array(
-	    		'status' => "Sending rm -rf command to: ".$ip,
-	    		'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' "'.$cmd.'"', $cmd_output, $exit_status),
-	    		'cmd_output' => $cmd_output,
-	    		'exit_status' => $exit_status
-	    	);
-
-    	return $output;
-	    }
-
 	}

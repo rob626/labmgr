@@ -195,7 +195,7 @@ class Machine_model extends CI_Model {
      */
     public function run_cmd($cmd, $ip) {
         $output = array(
-            'status' => "Running command on: ".$ip,
+            'status' => "Running command,".$cmd.", on: ".$ip,
             'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' "'.$cmd.'"', $cmd_output, $exit_status),
             'cmd_output' => $cmd_output,
             'exit_status' => $exit_status
