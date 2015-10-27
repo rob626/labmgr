@@ -7,6 +7,9 @@
 		<li><a href='/labmgr/'>Database Import from Master</a></li>
 		<li><a href='/labmgr/'>Database Export</a></li>
 		<li><a href='/labmgr/'>Database Import</a></li>
+		<hr>
+		<li><a href='/labmgr/'>Watchdog dropins cleanup</a></li>
+		<li><a href='/labmgr/'>Watchdog full cleanup</a></li>
 	</ul>
 	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </div> 

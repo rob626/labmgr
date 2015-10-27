@@ -4,6 +4,11 @@
 		<li><a href='/labmgr/run_single_cmd_machine'>Run Single Command by Machine</a></li>
 		<hr>
 		<li><a href='/labmgr/add_script'>Manage Scripts</a></li>
+		<hr>
+		<li><a href='/labmgr/'>Copy file by Class</a></li>
+		<li><a href='/labmgr/'>Copy file by Machine</a></li>
+		<li><a href='/labmgr/'>Copy directory by Class</a></li>		
+		<li><a href='/labmgr/'>Copy directory by Machine</a></li>	
 	</ul>
 	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </div>
@@ -20,9 +25,9 @@
 
 	<div class='row'>
 		<div class='large-6 columns'>
-			<h2>Run Command (ex: ls -ltr)</h2>
+			<h2>Run Command</h2>
 			
-			<label>Command</label><input name='cmd' type='text'>
+			<label>Command (ex: ls -ltr /cygdrive/c/temp/)</label><input name='cmd' type='text'>
 		</div>
 
 		<div class='large-6 columns'>
