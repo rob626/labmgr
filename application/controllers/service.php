@@ -428,5 +428,10 @@ class Service extends CI_Controller {
         echo json_encode($output);
 	}
 
+	public function export_db() {
+		$output = $this->admin_model->export_db();
+
+		echo json_encode($output);
+	}
 
 }

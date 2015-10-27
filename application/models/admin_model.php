@@ -75,4 +75,25 @@ class Admin_model extends CI_Model {
     	return $this->db->trans_status();
     }
 
+    /**
+     * Export the current database.
+     */
+    public function export_db() {
+        $output = array(
+            'status' => "Running script...",
+            'output' => exec('./database/backup_db.sh', $cmd_output, $exit_status),
+            'cmd_output' => $cmd_output,
+            'exit_status' => $exit_status
+        );
+
+        $backups = scandir('./database/backups/');
+        foreach($backups as $key => $value) {
+            if($value == '.' || $value == '..') {
+                    unset($backups[$key]);
+            }
+        }
+        $output['current_backups'] = $backups;
+        return $output;
+    }
+
 }
