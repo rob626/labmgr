@@ -16,5 +16,16 @@
 </div> 
 
 <div class='large-10 columns'>
-	<h1>Admin Home</h1>
+	<form method='POST' id='run_single_cmd_class_form' action='/labmgr/run_single_cmd_class'>
+		<div class='row'>
+			<div class="panel callout radius">
+				<h3>Reset Database:</h3>
+				<p>This function creates a backup of the current database and then clears all the data.</p>
+			</div>
+			<div class='small-4 small-centered columns'>
+				<br>
+				<a id='db_reset' class='button large center' href='#'>Reset DB</a>
+			</div>
+		</div>
+	</div>
 </div>
