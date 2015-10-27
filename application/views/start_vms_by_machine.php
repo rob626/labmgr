@@ -8,6 +8,7 @@
 		<hr>
 		<li><a href='/labmgr/add_vm'>Manage VMs</a></li>
 	</ul>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </div>
 
 

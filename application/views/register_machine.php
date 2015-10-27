@@ -1,9 +1,8 @@
 <div class='large-2 columns side-nav-color'>
 	<ul class='side-nav'>
 		<li class='active'><a href='/labmgr/add_machine'>Add Machine</a></li>
-		<br>
-		<br>
 	</ul>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </div> 
 
 <div class='large-10 columns'>

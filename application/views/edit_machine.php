@@ -1,10 +1,10 @@
 <div class='large-2 columns side-nav-color'>
 	<ul class='side-nav'>
-		<li class='active'><a href='/labmgr/machine_status'>View Machines (ping)</a></li>
-		<li><a href='/labmgr/'>View Machines (torrent)</a></li>
-		<li><a href='/labmgr/'>View Machines (vm data)</a></li>
-		<li><a href='/labmgr/'>Validate MAC / IP Mapping</a></li>
+		<li class='active'><a href='/labmgr/machine_status'>Machines status</a></li>
+		<hr>
+		<li><a href='/labmgr/manage_machines'>Manage Machines</a></li>
 	</ul>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </div>
 
 

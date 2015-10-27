@@ -4,7 +4,13 @@
 		<li class='active'><a href='/labmgr/run_single_cmd_machine'>Run Single Command by Machine</a></li>
 		<hr>
 		<li><a href='/labmgr/add_script'>Manage Scripts</a></li>
+		<hr>
+		<li><a href='/labmgr/'>Copy file by Class</a></li>
+		<li><a href='/labmgr/'>Copy file by Machine</a></li>
+		<li><a href='/labmgr/'>Copy directory by Class</a></li>		
+		<li><a href='/labmgr/'>Copy directory by Machine</a></li>	
 	</ul>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </div>
 
 
