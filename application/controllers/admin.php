@@ -66,4 +66,15 @@ class Admin extends CI_Controller {
 		}
 	}
 
+	public function truncate_db() {
+		$output = array(
+            'status' => "Running script...",
+            'output' => exec('./database/truncate_db.sh', $cmd_output, $exit_status),
+            'cmd_output' => $cmd_output,
+            'exit_status' => $exit_status
+        );
+
+        redirect('/admin');
+	}
+
 }
