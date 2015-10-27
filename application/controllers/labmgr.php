@@ -940,6 +940,37 @@ class Labmgr extends CI_Controller {
 		}
 	}
 
+	public function register_machine() {
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			$retval = $this->machine_model->add_machine(
+				$this->input->post('room_id'),
+				$this->input->post('seat'),
+				$this->input->post('mac_address'),
+				$this->input->post('ip_address'),
+				$this->input->post('operating_system'),
+				$this->input->post('username'),
+				$this->input->post('password'),
+				$this->input->post('torrent_client_id'),
+				$this->input->post('transport_type') 
+				);
+
+			if($retval) {
+				redirect('/labmgr/register_machine');
+			} else {
+				echo "DB Error";
+			}
+
+		} else {
+			$machines = $this->machine_model->get_machines();
+			$rooms = $this->room_model->get_rooms();
+			sort($machines);
+			$data['machines'] = $machines;
+			$data['rooms'] = $rooms;
+			$data['torrent_clients'] = $this->admin_model->get_torrent_clients();
+			$this->load->template('register_machine', $data);
+		}
+	}
+
 	/**
 	 * Add a machine.
 	 */

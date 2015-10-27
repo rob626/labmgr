@@ -60,7 +60,10 @@ $(document).ready(function(){
     });
 
     $('#db_reset').click(function() {
-        if(window.confirm("Are you sure")) {
+
+        if(window.confirm("Are you sure?")) {
+            location.href = this.href;
+
             $('#status_modal_content').html("");
             $('#status_modal').foundation('reveal', 'open');
             var data = 'truncate';
@@ -71,14 +74,12 @@ $(document).ready(function(){
                 async: true,
                 data: {data : data}
                 }).done(function(response) {
-                    console.log(response);
-                    $.each(response, function(index, value) {
-                        $('#status_modal_content').append("<h3>"+value.status+"</h3>");
+                    //console.log(response);
 
-                        $.each(value.cmd_output, function(index, value) {
-                            $('#status_modal_content').append("<h4>"+value+"</h4>")
-                        });
+                    $('#status_modal_content').append("<h3>"+response.status+"</h3>");
 
+                    $.each(response.cmd_output, function(index, value) {
+                        $('#status_modal_content').append("<h4>"+value+"</h4>")
                     });
                     
                 }).fail(function(jqXHR, textStatus, errorThrown) {
