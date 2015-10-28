@@ -746,12 +746,33 @@ class Labmgr extends CI_Controller {
 	public function add_vm() {
 		
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-			$retval = $this->vm_model->add_vm(
-				$this->input->post('name'), 
-				$this->input->post('path'),
-				$this->input->post('hypervisor'),
-				$this->input->post('snapshot')
-				);
+
+			if(!empty($this->input->post('multiple'))) {
+				$multiples = $this->input->post('multiple');
+				$multiple_arr = explode(';', $multiples);
+				foreach($multiple_arr as $line) {
+					$line_arr = explode(',', $line);
+					if(!empty($line_arr[0])) {
+						$name = $line_arr[0];
+						$path = $line_arr[1];
+						$retval = $this->vm_model->add_vm(
+							$name,
+							$path,
+							'',
+							'clean'
+							);
+					}
+				}
+
+			} else {
+				$retval = $this->vm_model->add_vm(
+					$this->input->post('name'), 
+					$this->input->post('path'),
+					$this->input->post('hypervisor'),
+					$this->input->post('snapshot')
+					);
+			}
+
 			if($retval) {
 				redirect('/labmgr/add_vm');
 			} else {

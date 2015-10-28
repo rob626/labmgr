@@ -15,6 +15,8 @@
 <div class='large-10 columns'>
 	<form method='POST' id='start_vms_form' action='/labmgr/start_vms_by_machine'>
 	<div class='row'>
+		<div class='small-2 columns'>
+		</div>
 		<div class='small-4 small-centered columns'>
 			<br>
 			<input type='submit' class='button large center' value='Make it so...'>
@@ -22,6 +24,11 @@
 			<input type='radio' name='start_vm_option' value='start_vm'><label>Start</label>
 			<input type='radio' name='start_vm_option' value='revert_vm'><label>Revert</label>
 			<input type='radio' checked name='start_vm_option' value='revert_start_vm'><label>Revert & Start</label>
+		</div>
+		<div class='small-4  columns'>
+			<label>Snapshot</label><input type='text' name='snapshot' placeholder='<default>'> 
+		</div>
+		<div class='small-2 columns'>
 		</div>
 	</div>
 
