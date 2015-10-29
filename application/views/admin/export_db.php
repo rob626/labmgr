@@ -35,6 +35,7 @@
 
 	<form method='POST' action='/admin/export_db'>
 		<h2>Export Database</h2>
+		<label>Filename (optional):</label><input type='text' name='backup_filename' placeholder='labmgr.<current date>.db.sql'>
 		<input type='submit' value='Export' class='button'>
 
 	</form>

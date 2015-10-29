@@ -34,8 +34,8 @@
 	?>
 
 	<form method='POST' action='/admin/export_db'>
-		<h2>Export Database</h2>
-		<input type='submit' value='Export' class='button'>
+		<h2>Import Database</h2>
+		<input type='submit' value='Import' class='button'>
 
 	</form>
 	</div>
