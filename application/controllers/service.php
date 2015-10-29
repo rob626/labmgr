@@ -170,6 +170,9 @@ class Service extends CI_Controller {
 			if($d['name'] == 'stop_vm_by_machine') {
 				$stop_vm = 1;
 			}
+			if($d['name'] == 'snapshot') {
+				$vm['snapshot'] = $d['value'];
+			}
 		}
 
 		if($stop_vm) {
@@ -209,6 +212,7 @@ class Service extends CI_Controller {
 		$vm = '';
 		$machines = array();
 		$stop_vm = 0;
+		$snapshot = NULL;
 
 		foreach($data as $d) {
 			if($d['name'] == 'start_vm_option') {
@@ -217,6 +221,7 @@ class Service extends CI_Controller {
 			if($d['name'] == 'vm_id') {
 				$vm = $this->vm_model->get_vm($d['value']);
 				$vm = $vm[0];
+
 			}
 			if($d['name'] == 'stop_all') {
 				$stop_all = $d['value'];
@@ -227,6 +232,9 @@ class Service extends CI_Controller {
 			}
 			if($d['name'] == 'stop_vm_by_machine') {
 				$stop_vm = 1;
+			}
+			if($d['name'] == 'snapshot') {
+				$vm['snapshot'] = $d['value'];
 			}
 		}
 		$machines = $machines[0];

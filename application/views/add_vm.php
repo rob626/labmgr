@@ -42,6 +42,14 @@
 				</div>
 			</div>
 
+			<div class='row'>
+				<div class='large-12 columns'>
+					<label>Add Multiple (<a href='#' data-reveal-id='script-modal'>Click Here for script to generate proper format.</a>)</label>
+					<textarea name='multiple' rows='3'></textarea>
+					<br>
+				</div>
+			</div>
+
 
 			<div class='row'>
 				<div class='large-1 columns'>
@@ -98,4 +106,13 @@
 			</tbody>
 		</table>
 		</div>
+</div>
+
+<div id="script-modal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+	<h2 id='modalTitle'>Paste me!</h2>
+	<div class='panel'>
+		for /F %%F in ('dir /B %* 2^> nul') do (
+	</div>
+
+	<a class="close-reveal-modal" aria-label="Close">&#215;</a>
 </div>

@@ -35,7 +35,7 @@
 		</div>
 	</div>
 
-		<table id='datatable'>
+		<table id='machine_datatable'>
 			<thead>
 				<tr>
 					<th>IP Address</th>

@@ -72,17 +72,18 @@ class Admin extends CI_Controller {
 		}
 	}
 
+	/**
+	 * Export the current db to a backup file
+	 */
 	public function export_db() {
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			$data = $this->admin_model->export_db();
+			$this->load->template('admin/export_db', $data);
 		} else {
-			
+			$data['current_backups'] = $this->admin_model->get_db_backups();
+			$this->load->template('admin/export_db', $data);
 		}
-		$output = $this->admin_model->export_db();
-		echo "<pre>";
-		print_r($output);
-		echo "</pre>";
 
-		echo json_encode($output);
 	}
 
 }
