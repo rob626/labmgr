@@ -111,7 +111,30 @@
 <div id="script-modal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
 	<h2 id='modalTitle'>Paste me!</h2>
 	<div class='panel'>
-		for /F %%F in ('dir /B %* 2^> nul') do (
+		<h4>If you have a format like C:\Labs\A001\vm1\worksation.vmx and you want the VM name to be A001-vm1, 
+			use the following code:</h4>
+		echo off <br>
+		dir /s/b *.vmx | findstr /v .vmx. > delete.me<br>
+		for /f "tokens=*" %l in (delete.me) do for /f "tokens=1,2,3,4,5,6 delims=\/ " %a in ("%~pl%") do echo %b-%c,%l;<br>
+		del delete.me<br>
+		echo on<br>
+		<br>
+		<h4>If you have a format like C:\Labs\A001\vm1\worksation.vmx and you want the VM name to be A001, 
+			use the following code:</h4>
+		echo off <br>
+		dir /s/b *.vmx | findstr /v .vmx. > delete.me<br>
+		for /f "tokens=*" %l in (delete.me) do for /f "tokens=1,2,3,4,5,6 delims=\/ " %a in ("%~pl%") do echo %b,%l;<br>
+		del delete.me<br>
+		echo on<br>
+		<br>
+		<h4>If you have a format like C:\Labs\A001\vm1\worksation.vmx and you want the VM name to be vm1, 
+			use the following code:</h4>
+		echo off <br>
+		dir /s/b *.vmx | findstr /v .vmx. > delete.me<br>
+		for /f "tokens=*" %l in (delete.me) do for /f "tokens=1,2,3,4,5,6 delims=\/ " %a in ("%~pl%") do echo %c,%l;<br>
+		del delete.me<br>
+		echo on<br>
+		<br>
 	</div>
 
 	<a class="close-reveal-modal" aria-label="Close">&#215;</a>
