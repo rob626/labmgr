@@ -78,13 +78,23 @@ class Admin_model extends CI_Model {
     /**
      * Export the current database.
      */
-    public function export_db() {
-        $output = array(
-            'status' => "Running script...",
-            'output' => exec('./database/backup_db.sh', $cmd_output, $exit_status),
-            'cmd_output' => $cmd_output,
-            'exit_status' => $exit_status
-        );
+    public function export_db($backup_file=NULL) {
+        if(empty($backup_file)) {
+            $output = array(
+                'status' => "Running script...",
+                'output' => exec('./database/backup_db.sh', $cmd_output, $exit_status),
+                'cmd_output' => $cmd_output,
+                'exit_status' => $exit_status
+            );
+        } else {
+            $output = array(
+                'status' => "Running script...",
+                'output' => exec('./database/backup_db.sh '. $backup_file, $cmd_output, $exit_status),
+                'cmd_output' => $cmd_output,
+                'exit_status' => $exit_status
+            );
+        }
+        
 
         $backups = scandir(DB_BACKUP_DIR);
         foreach($backups as $key => $value) {
