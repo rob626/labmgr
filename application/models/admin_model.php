@@ -107,8 +107,8 @@ class Admin_model extends CI_Model {
     }
 
     public function import_db($backup_file) {
-        $backup_file = DB_BACKUP_DIR.'/'.$backup_file;
-        
+        $backup_file = DB_BACKUP_DIR.$backup_file;
+
         $output = array(
                 'status' => "Running import script...",
                 'output' => exec('./database/import_db.sh ' . $backup_file, $cmd_output, $exit_status),

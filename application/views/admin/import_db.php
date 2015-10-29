@@ -14,12 +14,12 @@
 	</ul>
 	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </div> 
-
+<form method='POST' action='/admin/import_db'>
 <div class='large-10 columns'>
 	<div class='row'>
-		<?php print_r($output);if(!empty($output)) {
+		<?php if(!empty($output)) {
 			echo "<div data-alert class='alert-box success radius'>
-	  ".$output." Created
+	  ".$output."
 	  <a href='#' class='close'>&times;</a></div>";
 		} ?>
 
@@ -34,7 +34,7 @@
 
 	?>
 
-	<form method='POST' action='/admin/import_db'>
+	
 		<h2>Import Database</h2>
 		<input type='submit' value='Import' class='button'>
 

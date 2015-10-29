@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ ! -d "$1" ]]; then
+if [[ ! $1 ]]; then
         echo "Missing file to import"
         exit -2
 fi
