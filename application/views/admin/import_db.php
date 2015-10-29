@@ -17,7 +17,7 @@
 
 <div class='large-10 columns'>
 	<div class='row'>
-		<?php if(!empty($output)) {
+		<?php print_r($output);if(!empty($output)) {
 			echo "<div data-alert class='alert-box success radius'>
 	  ".$output." Created
 	  <a href='#' class='close'>&times;</a></div>";
@@ -27,13 +27,14 @@
 	<?php  
 		echo "<ol>";
 		foreach($current_backups as $backup) {
-			echo "<li><a href='/database/backups/".$backup."'>".$backup."</a></li>";
+			echo "<input type='radio' name='backup_filename' value='".$backup."'><label>".$backup."</label><br>";
+
 		}
 		echo "</ol>";
 
 	?>
 
-	<form method='POST' action='/admin/export_db'>
+	<form method='POST' action='/admin/import_db'>
 		<h2>Import Database</h2>
 		<input type='submit' value='Import' class='button'>
 

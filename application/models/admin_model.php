@@ -106,6 +106,26 @@ class Admin_model extends CI_Model {
         return $output;
     }
 
+    public function import_db($backup_file) {
+        $backup_file = DB_BACKUP_DIR.'/'.$backup_file;
+        
+        $output = array(
+                'status' => "Running import script...",
+                'output' => exec('./database/import_db.sh ' . $backup_file, $cmd_output, $exit_status),
+                'cmd_output' => $cmd_output,
+                'exit_status' => $exit_status
+            );
+
+        $backups = scandir(DB_BACKUP_DIR);
+        foreach($backups as $key => $value) {
+            if($value == '.' || $value == '..') {
+                    unset($backups[$key]);
+            }
+        }
+        $output['current_backups'] = $backups;
+        return $output;
+    }
+
     /*
      * Get current backups
      */

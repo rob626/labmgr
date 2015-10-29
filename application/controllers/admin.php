@@ -81,4 +81,19 @@ class Admin extends CI_Controller {
 
 	}
 
+	/**
+	 * Import a database from a backup file.
+	 */
+	public function import_db() {
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+			$data = $this->admin_model->import_db($this->input->post('backup_filename'));
+			$this->load->template('admin/import_db', $data);
+		} else {
+			$data['current_backups'] = $this->admin_model->get_db_backups();
+			$this->load->template('admin/import_db', $data);
+		}
+
+	}
+
 }
