@@ -1,1 +1,0 @@
-vmrun -T ws revertToSnapshot "C:/Labs/I97/vm1/RHEL64-64bit.vmx" clean

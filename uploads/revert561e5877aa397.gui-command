@@ -1,1 +1,0 @@
-vmrun -T ws revertToSnapshot "C:/Labs/A114/vm1/InterconnectLab.vmx" clean

@@ -1,1 +1,0 @@
-vmrun -T ws start "C:/Labs/A001/vm1/RHEL64-32bit.vmx"
