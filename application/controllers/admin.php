@@ -13,6 +13,12 @@ class Admin extends CI_Controller {
 		$this->load->template('/admin/home');
 	}
 
+	public function db_reset()
+	{
+		$this->load->template('/admin/db_reset');
+	}
+
+
 	public function view_watchdog_log() {
 		echo "placeholder for the view to the watchdog log.";
 	}
