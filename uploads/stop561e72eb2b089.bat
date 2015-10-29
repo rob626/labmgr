@@ -1,0 +1,1 @@
+vmrun -T ws stop "Total running VMs: 1" hard \nvmrun -T ws stop "C:\Labs\A114\vm1\InterconnectLab.vmx" hard \n

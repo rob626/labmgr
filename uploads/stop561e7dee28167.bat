@@ -1,0 +1,1 @@
+vmrun -T ws stop "C:\Labs\A178\vm1\A178.vmx" hard \r\n

@@ -1,0 +1,1 @@
+vmrun -T ws stop "C:\Labs\A114\vm1\InterconnectLab.vmx" hard

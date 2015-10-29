@@ -1,0 +1,1 @@
+vmrun -T ws start "C:/Labs/A114/vm1/InterconnectLab.vmx"
