@@ -1102,16 +1102,28 @@ class Labmgr extends CI_Controller {
 		}
 		else {
 			$upload_data = $this->upload->data();
+			echo "<pre>";
+			print_r($upload_data);
+			echo "</pre>";
+			die();
 			$this->bencoded->FromFile($upload_data['full_path']);
 			$hash = $this->bencoded->InfoHash();
 
 			$this->torrent_model->add_torrent(
 				$upload_data['raw_name'],
 				$hash,
-				$upload_data['full_path']
+				$upload_data['full_path'],
+				file_get_contents($upload_data['full_path'])
 				);
 			$this->upload_torrent('Success');
 		}
+	}
+
+	public function test_upload() {
+		$data = $this->torrent_model->get_torrent(33)[0];
+		header("Content Type: application/octet-stream");
+		echo $data['torrent_file'];
+
 	}
 }
 

@@ -237,16 +237,20 @@ class Service extends CI_Controller {
 				$vm['snapshot'] = $d['value'];
 			}
 		}
-		$machines = $machines[0];
+		//$machines = $machines[0];
 
 		if($stop_vm == 1) {
 			if($stop_all == 'stop_all') {
 				foreach($machines as $machine) {
-					$output[] = $this->vm_model->stop_all_vms($machine['ip_address'], $vm['path']);
+					foreach($machine as $m) {
+						$output[] = $this->vm_model->stop_all_vms($machine['ip_address'], $vm['path']);
+					}
 				}
 			} else {
 				foreach($machines as $machine) {
-					$output[] = $this->vm_model->stop_vm($machine['ip_address'], $vm['path']);
+					foreach($machine as $m) {
+						$output[] = $this->vm_model->stop_vm($machine['ip_address'], $vm['path']);
+					}
 				}
 			}
 			
@@ -254,13 +258,17 @@ class Service extends CI_Controller {
 		} else {
 			if($start_vm_option == 'revert_start_vm' || $start_vm_option == 'revert_vm') {
 				foreach($machines as $machine) {
-					$output[] = $this->vm_model->revert_vm($machine['ip_address'], $vm['path'],$vm['snapshot']);
+					foreach($machine as $m) {
+						$output[] = $this->vm_model->revert_vm($machine['ip_address'], $vm['path'],$vm['snapshot']);
+					}
 				}
 			}
 			
 			if($start_vm_option == 'revert_start_vm' || $start_vm_option == 'start_vm') {
 				foreach($machines as $machine) {
-					$output[] = $this->vm_model->start_vm($machine['ip_address'], $vm['path']);			
+					foreach($machine as $m) {
+						$output[] = $this->vm_model->start_vm($machine['ip_address'], $vm['path']);				
+					}
 				}
 			}
 		}
@@ -292,30 +300,36 @@ class Service extends CI_Controller {
 				$delete_option = $d['value'];
 			}
 		}
-		$machines = $machines[0];
+		//$machines = $machines[0];
 		
 		if($delete == 1) {
 			foreach($torrents as $torrent) {
 				foreach($machines as $machine) {
-					$this->getToken($machine['ip_address'], '27555', 'admin', 'web1sphere');
-					$retval = $this->makeRequest($machine['ip_address'], '27555', 'admin', 'web1sphere', "?action=".($delete_option ? "removedata" : "remove").$this->paramImplode("&hash=", $torrent['hash']), false);
-					if($retval) {
-						$output['status'] = "Successfully sent to: " . $machine['ip_address'] . "<br>";
-					} else {
-						$output['status'] = "Failed to send to: " . $machine['ip_address'] . "<br>";
+					foreach($machine as $m) {
+						$this->getToken($m['ip_address'], '27555', 'admin', 'web1sphere');
+						$retval = $this->makeRequest($m['ip_address'], '27555', 'admin', 'web1sphere', "?action=".($delete_option ? "removedata" : "remove").$this->paramImplode("&hash=", $torrent['hash']), false);
+						if($retval) {
+							$output['status'] = "Successfully sent to: " . $m['ip_address'] . "<br>";
+						} else {
+							$output['status'] = "Failed to send to: " . $m['ip_address'] . "<br>";
+						}
 					}
+					
 				}
 			}
 
 		} else {
 			foreach($torrents as $torrent) {
 				foreach($machines as $machine) {
-					$this->getToken($machine['ip_address'], '27555', 'admin', 'web1sphere');
-					if($this->torrentAdd($torrent['path'], $machine['ip_address'], '27555', 'admin', 'web1sphere')) {
-						$output[]['status'] = "Successfully sent to: " . $machine['ip_address'] . "<br>";
-					} else {
-						$output[]['status'] = "Failed to send to: " . $machine['ip_address'] . "<br>";
-					}				
+					foreach($machine as $m) {
+						$this->getToken($m['ip_address'], '27555', 'admin', 'web1sphere');
+						if($this->torrentAdd($torrent['path'], $m['ip_address'], '27555', 'admin', 'web1sphere')) {
+							$output[]['status'] = "Successfully sent to: " . $m['ip_address'] . "<br>";
+						} else {
+							$output[]['status'] = "Failed to send to: " . $m['ip_address'] . "<br>";
+						}	
+					}
+								
 				}
 			}
 
