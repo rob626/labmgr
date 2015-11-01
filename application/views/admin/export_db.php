@@ -1,16 +1,14 @@
 <div class='large-2 columns  side-nav-color'>
 	<ul class='side-nav'>
-		<li><a href='/admin/view_watchdog_log'>View Watchdog Log</a></li>
-		<li><a href='/labmgr/'>Validate MAC / IP Mapping</a></li>
-		<li><a href='/labmgr/'>Set global defaults</a></li>
+		<li><a href='/admin/set_global_defaults'>Set global defaults</a></li>
+		<li><a href='/admin/validate_ips'>Validate MAC / IP Mapping</a></li>
+		<li><a href='/admin/validate_seats'>Validate Seats</a></li>
 		<hr>
-		<li><a id='db_reset' href='#'>Database Reset</a></li>
-		<li><a href='/labmgr/'>Database Import from Master</a></li>
+		<li><a href='/admin/db_reset'>Database Reset</a></li>
 		<li class='active'><a href='/admin/export_db'>Database Export</a></li>
-		<li><a href='/labmgr/'>Database Import</a></li>
+		<li><a href='/admin/import_db'>Database Import</a></li>
 		<hr>
-		<li><a href='/labmgr/'>Watchdog dropins cleanup</a></li>
-		<li><a href='/labmgr/'>Watchdog full cleanup</a></li>
+		<li><a href='/admin/cleanup_watchdog'>Watchdog dropins & full cleanups</a></li>
 	</ul>
 	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </div> 

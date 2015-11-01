@@ -4,11 +4,11 @@
 		<li><a href='/admin/validate_ips'>Validate MAC / IP Mapping</a></li>
 		<li><a href='/admin/validate_seats'>Validate Seats</a></li>
 		<hr>
-		<li class='active'><a href='/admin/db_reset'>Database Reset</a></li>
+		<li><a href='/admin/db_reset'>Database Reset</a></li>
 		<li><a href='/admin/export_db'>Database Export</a></li>
 		<li><a href='/admin/import_db'>Database Import</a></li>
 		<hr>
-		<li><a href='/admin/cleanup_watchdog'>Watchdog dropins & full cleanups</a></li>
+		<li class='active'><a href='/admin/cleanup_watchdog'>Watchdog dropins & full cleanups</a></li>
 	</ul>
 	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </div> 
@@ -18,12 +18,18 @@
 		<div class='row'>
 			<br>
 			<div class="panel callout radius">
-				<h3>Reset Database:</h3>
-				<p>This function creates a backup of the current database and then clears all the data.</p>
+				<h3>Cleanup Watchdog:</h3>
+				<p>This function cleans up the watchdog installations on the client machines. 
+					<br><br>
+				</p>
 			</div>
+			Pulldown for ALL or specific classroom (forget about machine list... not really needed)
+			2 Buttons with descriptsions
+			- Cleanup dropins directory (just deletes all entries in the dropins)
+			- Full cleanup (removes log file, dropins entries, hasbeenrun entries)
 			<div class='small-4 small-centered columns'>
 				<br>
-				<a id='db_reset' class='button large center' href='#'>Reset DB</a>
+				<a id='cleanup_watchdog' class='button large center' href='#'>Make it happen...</a>
 			</div>
 		</div>
 	</div>

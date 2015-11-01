@@ -14,5 +14,17 @@
 </div> 
 
 <div class='large-10 columns'>
-	<h1>Admin Home</h1>
+	<form method='POST' id='run_single_cmd_class_form' action='/labmgr/run_single_cmd_class'>
+		<div class='row'>
+			<br>
+			<div class="panel callout radius">
+				<h3>Set Global Defaults:</h3>
+				<p>Set the defaults for the local labmgr envirnment.</p>
+			</div>
+			<div class='small-4 small-centered columns'>
+				<br>
+				<a id='Save' class='button large center' href='#'>Save</a>
+			</div>
+		</div>
+	</div>
 </div>

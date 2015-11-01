@@ -19,8 +19,22 @@ class Admin extends CI_Controller {
 	}
 
 
-	public function view_watchdog_log() {
-		echo "placeholder for the view to the watchdog log.";
+	public function set_global_defaults() 
+	{
+		$this->load->template('/admin/set_global_defaults');
+	}
+
+	public function validate_ips() 
+	{
+		$this->load->template('/admin/validate_ips');
+	}
+	public function validate_seats() 
+	{
+		$this->load->template('/admin/validate_seats');
+	}
+	public function cleanup_watchdog() 
+	{
+		$this->load->template('/admin/cleanup_watchdog');
 	}
 
 	/**
