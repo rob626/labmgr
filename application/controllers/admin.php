@@ -28,13 +28,20 @@ class Admin extends CI_Controller {
 	{
 		$this->load->template('/admin/validate_ips');
 	}
+
 	public function validate_seats() 
 	{
 		$this->load->template('/admin/validate_seats');
 	}
+
 	public function cleanup_watchdog() 
 	{
 		$this->load->template('/admin/cleanup_watchdog');
+	}
+
+	public function reporting_twitter() 
+	{
+		$this->load->template('/admin/reporting_twitter');
 	}
 
 	/**

@@ -9,6 +9,8 @@
 		<li><a href='/admin/import_db'>Database Import</a></li>
 		<hr>
 		<li class='active'><a href='/admin/cleanup_watchdog'>Watchdog dropins & full cleanups</a></li>
+		<hr>
+		<li><a href='/admin/reporting_twitter'>Reporting - twitter</a></li>
 	</ul>
 	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </div> 
