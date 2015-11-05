@@ -1056,7 +1056,7 @@ class Labmgr extends CI_Controller {
 			$this->input->post('machine_id')
 			);
 		if($retval) {
-			redirect('/labmgr/add_machine');
+			redirect('/labmgr/manage_machines');
 		} else {
 			echo "DB Error";
 		}
