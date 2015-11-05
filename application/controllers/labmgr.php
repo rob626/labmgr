@@ -1102,10 +1102,10 @@ class Labmgr extends CI_Controller {
 		}
 		else {
 			$upload_data = $this->upload->data();
-			echo "<pre>";
+			/*echo "<pre>";
 			print_r($upload_data);
 			echo "</pre>";
-			die();
+			die(); */
 			$this->bencoded->FromFile($upload_data['full_path']);
 			$hash = $this->bencoded->InfoHash();
 
