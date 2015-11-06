@@ -243,7 +243,7 @@ class Service extends CI_Controller {
 			if($stop_all == 'stop_all') {
 				foreach($machines as $machine) {
 					foreach($machine as $m) {
-						$output[] = $this->vm_model->stop_all_vms($m['ip_address'], $vm['path']);
+						$output[] = $this->vm_model->stop_all_vms($m['ip_address']);
 					}
 				}
 			} else {
