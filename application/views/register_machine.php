@@ -8,9 +8,9 @@
 <div class='large-10 columns'>
 	<div class='row'>
 		<div class='panel'>
-			<h1>Add Machine</h1>
+			<h1>Register Machine</h1>
 		</div>
-		<form method='POST' action='/labmgr/add_machine'>
+		<form method='POST' action='/labmgr/register_machine'>
 
 			<div class='row'>
 				<div class='large-6 columns'>

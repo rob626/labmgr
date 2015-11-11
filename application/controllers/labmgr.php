@@ -996,7 +996,6 @@ class Labmgr extends CI_Controller {
 	 * Add a machine.
 	 */
 	public function add_machine() {
-		
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$retval = $this->machine_model->add_machine(
 				$this->input->post('room_id'),
