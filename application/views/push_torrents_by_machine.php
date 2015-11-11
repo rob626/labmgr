@@ -26,7 +26,10 @@
 			<h2>Torrents</h2>
 
 			<?php
-				asort($torrents);
+				usort($torrents, function($a, $b) {
+				    return strcasecmp($a['name'], $b['name']);
+				});
+				
 				foreach($torrents as $torrent) {
 					//echo "<input type='radio' name='torrent_id' value='".$torrent['torrent_id']."'><label>".$torrent['name']."</label><br>";
 					echo "<input type='checkbox' class='checkbox' name='torrent_ids[]' value='".$torrent['torrent_id']."'><label>".$torrent['name']."</label><br>";
