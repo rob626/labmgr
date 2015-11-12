@@ -370,27 +370,28 @@ $(document).ready(function(){
                         //console.log(response);
                         $.each(response, function(index, value) {
                             $.each(value, function(index2, value2) {
-                   
-                                var total = value2.torrents.length;
-                                var seeds = 0;
-                                var total_bytes = 0;
-                                var remaining_bytes = 0;
-                                var total_speed = 0;
-                 
-                                $.each(value2.torrents, function(torrent_index, torrent_value) {
-                                    if(torrent_value['21'] == 'Seeding 100.0 %') {
-                                        seeds++;
+                                if(value2.torrents == null) {
+                                    var total = value2.torrents.length;
+                                    var seeds = 0;
+                                    var total_bytes = 0;
+                                    var remaining_bytes = 0;
+                                    var total_speed = 0;
+                     
+                                    $.each(value2.torrents, function(torrent_index, torrent_value) {
+                                        if(torrent_value['21'] == 'Seeding 100.0 %') {
+                                            seeds++;
+                                        }
+                                        total_bytes += torrent_value['3'];
+                                        remaining_bytes += torrent_value['18'];
+                                        total_speed += torrent_value[9];
+                                    });
+                                    var completed_bytes = total_bytes - remaining_bytes;
+                                    $('#torrent_seeds_'+ value2.id).html(seeds+"/"+total) ;
+                                    if(total_bytes == 0) {
+                                        $('#torrent_size_'+ value2.id).html("- @"+(total_speed/1024/1024).toFixed(0)+"<br>"+(completed_bytes/1024/1024/1024).toFixed(0)+"/"+(total_bytes/1024/1024/1024).toFixed(0));
+                                    } else {
+                                        $('#torrent_size_'+ value2.id).html(((completed_bytes/total_bytes)*100).toFixed(0)+"% @"+(total_speed/1024/1024).toFixed(0)+"<br>"+(completed_bytes/1024/1024/1024).toFixed(0)+"/"+(total_bytes/1024/1024/1024).toFixed(0)) ;
                                     }
-                                    total_bytes += torrent_value['3'];
-                                    remaining_bytes += torrent_value['18'];
-                                    total_speed += torrent_value[9];
-                                });
-                                var completed_bytes = total_bytes - remaining_bytes;
-                                $('#torrent_seeds_'+ value2.id).html(seeds+"/"+total) ;
-                                if(total_bytes == 0) {
-                                    $('#torrent_size_'+ value2.id).html("- @"+(total_speed/1024/1024).toFixed(0)+"<br>"+(completed_bytes/1024/1024/1024).toFixed(0)+"/"+(total_bytes/1024/1024/1024).toFixed(0));
-                                } else {
-                                    $('#torrent_size_'+ value2.id).html(((completed_bytes/total_bytes)*100).toFixed(0)+"% @"+(total_speed/1024/1024).toFixed(0)+"<br>"+(completed_bytes/1024/1024/1024).toFixed(0)+"/"+(total_bytes/1024/1024/1024).toFixed(0)) ;
                                 }
                             });
                             
