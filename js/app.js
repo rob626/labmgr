@@ -371,6 +371,10 @@ $(document).ready(function(){
                         $.each(response, function(index, value) {
                             $.each(value, function(index2, value2) {
                                 if(value2.torrents == null) {
+                                    console.log('this is null');
+                                    $('#torrent_seeds_'+ value2.id).html('--');
+                                    $('#torrent_size_'+ value2.id).html('--');
+                                } else {
                                     var total = value2.torrents.length;
                                     var seeds = 0;
                                     var total_bytes = 0;
