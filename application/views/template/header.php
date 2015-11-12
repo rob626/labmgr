@@ -13,6 +13,7 @@
 	<script src='/js/jquery.ui.widget.js'></script>
 	<script src='/js/jquery.iframe-transport.js'></script>
 	<script src='/js/jquery.fileupload.js'></script>
+	<script src='/js/modernizr.js'></script>
 	<script src='/js/app.js'></script>
 
 	<!-- stylesheets -->

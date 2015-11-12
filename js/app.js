@@ -388,7 +388,7 @@ $(document).ready(function(){
                                     var completed_bytes = total_bytes - remaining_bytes;
                                     $('#torrent_seeds_'+ value2.id).html(seeds+"/"+total) ;
                                     if(total_bytes == 0) {
-                                        $('#torrent_size_'+ value2.id).html("- @"+(total_speed/1024/1024).toFixed(0)+"<br>"+(completed_bytes/1024/1024/1024).toFixed(0)+"/"+(total_bytes/1024/1024/1024).toFixed(0));
+                                        $('#torrent_size_'+ value2.id).html("<span data-tooltip aria-haspopup='true' class='has-tip' title='This is a tooltip'>- @"+(total_speed/1024/1024).toFixed(0)+"<br>"+(completed_bytes/1024/1024/1024).toFixed(0)+"/"+(total_bytes/1024/1024/1024).toFixed(0)+'</span>');
                                     } else {
                                         $('#torrent_size_'+ value2.id).html(((completed_bytes/total_bytes)*100).toFixed(0)+"% @"+(total_speed/1024/1024).toFixed(0)+"<br>"+(completed_bytes/1024/1024/1024).toFixed(0)+"/"+(total_bytes/1024/1024/1024).toFixed(0)) ;
                                     }
