@@ -37,20 +37,47 @@
 			echo "<td>".$machine['machine_id']."</td>";
 			echo "<td>";
 			echo "<select name='room_id'>
-					<option>Select Room</option>
-					<option value='-1'>All Rooms</option>";
-					foreach ($rooms as $room) { 
-						echo "<option value='".$room['room_id']."'>".$room['name']."</option>";
+					<option>Select Room</option>";
+					foreach ($rooms as $room) {
+						if($room['room_id'] == $machine['room_id']) {
+							echo "<option selected value='".$room['room_id']."'>".$room['name']."</option>";
+						} else {
+							echo "<option value='".$room['room_id']."'>".$room['name']."</option>";
+						}
+						
 					} 
 				 
 			echo "</select></td>";
 			echo "<td><input type='text' name='seat' value='".$machine['seat']."'></td>";
 			echo "<td><input type='text' name='mac_address' value='".$machine['mac_address']."'></td>";
 			echo "<td><input type='text' name='ip_address' value='".$machine['ip_address']."'></td>";
-			echo "<td><input type='text' name='operating_system' value='".$machine['operating_system']."'></td>";
+			echo "<td><select name='os_id'>
+					<option>Select OS</option>";
+					foreach ($operating_systems as $operating_system) {
+						if($operating_system['os_id'] == $machine['os_id']) {
+							echo "<option selected value='".$operating_system['os_id']."'>".$operating_system['name']."</option>";
+						} else {
+							echo "<option value='".$operating_system['os_id']."'>".$operating_system['name']."</option>";
+						}
+						
+					} 
+					echo "</td>";
+
+
 			echo "<td><input type='text' name='username' value='".$machine['username']."'></td>";
 			echo "<td><input type='text' name='password' value='".$machine['password']."'></td>";
-			echo "<td><input type='text' name='torrent_client' value='".$machine['torrent_client_id']."'></td>";
+			echo "<td><select name='torrent_client_id'>
+					<option>Select OS</option>";
+					foreach ($torrent_clients as $torrent_client) {
+						if($torrent_client['torrent_client_id'] == $machine['torrent_client_id']) {
+							echo "<option selected value='".$torrent_client['torrent_client_id']."'>".$torrent_client['name']."</option>";
+						} else {
+							echo "<option value='".$torrent_client['torrent_client_id']."'>".$torrent_client['name']."</option>";
+						}
+						
+					} 
+					echo "</td>";
+
 			echo "<td><input type='text' name='transport_type' value='".$machine['transport_type']."'></td>";
 		echo "</tr>";
 	}

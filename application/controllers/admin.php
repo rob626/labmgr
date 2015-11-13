@@ -94,6 +94,69 @@ class Admin extends CI_Controller {
 	}
 
 	/**
+	 * Add an operating system.
+	 */
+	public function add_operating_system() {
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			$retval = $this->admin_model->add_operating_system(
+				$this->input->post('os_name'), 
+				$this->input->post('os_desc')
+				);
+			if($retval) {
+				redirect('/admin/add_operating_system');
+			} else {
+				echo "DB Error";
+			}
+
+		} else {
+			$operating_systems = $this->admin_model->get_operating_systems();
+			sort($operating_systems);
+			$data['operating_systems'] = $operating_systems;
+
+			$this->load->template('/admin/add_operating_system', $data);
+		}
+	}
+
+	/**
+	 * Edit a operating_system
+	 */
+	public function edit_operating_system() {
+		$operating_system_id = $this->input->post("operating_system_id");
+		$data['operating_systems'] = $this->admin_model->get_operating_system($operating_system_id);
+		$this->load->template('/admin/edit_operating_system', $data);
+	}
+
+	/**
+	 * Save changes made to a operating_system.
+	 */
+	public function save_operating_system_edits() {
+		$retval = $this->admin_model->update_operating_system(
+			$this->input->post('os_id'), 
+			$this->input->post('os_name'), 
+			$this->input->post('os_desc')
+			);
+		if($retval) {
+			redirect('/admin/add_operating_system');
+		} else {
+			echo "DB Error";
+		}
+	}
+
+	/**
+	 * Delete a room.
+	 */
+	public function delete_operating_system() {
+		$retval = $this->admin_model->delete_operating_system(
+			$this->input->post('os_id')
+			);
+		if($retval) {
+			redirect('/admin/add_operating_system');
+		} else {
+			echo "DB Error";
+		}
+	}
+
+	/**
 	 * Export the current db to a backup file
 	 */
 	public function export_db() {

@@ -45,9 +45,14 @@
 			</div>
 
 			<div class='hidden row'>
+
 				<div class='large-6 columns'>
-					<label>OS</label>
-					<input type='text' name='operating_system' value='Windows 7'>
+					<label>Operating System</label>
+					<select name="os_id">
+						<?php foreach ($operating_systems as $operating_system) { ?>
+						<option value='<?php echo $operating_system['os_id'] ?>'><?php echo $operating_system['name'] ?> </option>
+						<?php } ?>
+					</select> 
 				</div>
 				
 				<div class='large-6 columns'>

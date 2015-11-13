@@ -903,6 +903,8 @@ class Labmgr extends CI_Controller {
 		$machine_id = $this->input->post("machine_id");
 		//$data['torrent_client'] = $this->admin_model->get_torrent_clients();
 		$data['rooms'] = $this->room_model->get_rooms();
+		$data['operating_systems'] = $this->admin_model->get_operating_systems();
+		$data['torrent_clients'] = $this->admin_model->get_torrent_clients();
 		$data['machines'] = $this->machine_model->get_machine($machine_id);
 		$this->load->template('edit_machine', $data);
 	}
@@ -968,7 +970,7 @@ class Labmgr extends CI_Controller {
 				$this->input->post('seat'),
 				$this->input->post('mac_address'),
 				$this->input->post('ip_address'),
-				$this->input->post('operating_system'),
+				$this->input->post('os_id'),
 				$this->input->post('username'),
 				$this->input->post('password'),
 				$this->input->post('torrent_client_id'),
@@ -984,9 +986,11 @@ class Labmgr extends CI_Controller {
 		} else {
 			$machines = $this->machine_model->get_machines();
 			$rooms = $this->room_model->get_rooms();
+			$operating_systems = $this->admin_model->get_operating_systems();
 			sort($machines);
 			$data['machines'] = $machines;
 			$data['rooms'] = $rooms;
+			$data['operating_systems'] = $operating_systems;
 			$data['torrent_clients'] = $this->admin_model->get_torrent_clients();
 			$this->load->template('register_machine', $data);
 		}

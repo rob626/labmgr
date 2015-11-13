@@ -76,6 +76,76 @@ class Admin_model extends CI_Model {
     }
 
     /**
+     * Get all operating_system data.
+     */
+    public function get_operating_systems() {
+        $q = "SELECT * FROM os";
+        $result = $this->db->query($q);
+        return $result->result_array();
+    }
+
+    /**
+     * Get operating_system data by operating_system ID.
+     */
+    public function get_operating_system($operating_system_id) {
+        $q = "SELECT * FROM os where os_id = ?";
+        $result = $this->db->query($q, $operating_system_id);
+        return $result->result_array();
+    }
+
+    /**
+     * Update operating_system data a operating_system ID.
+     */
+    public function update_operating_system($operating_system_id, $operating_system_name, $operating_system_desc) {
+        $this->db->trans_start();
+
+        $this->db->where('os_id', $operating_system_id);
+        $this->db->update('os', array(
+            'name' => $operating_system_name, 
+            'description' => $operating_system_desc,
+            'last_update_timestamp' => date("Y-m-d H:i:s")
+            )
+        );
+
+        $this->db->trans_complete();
+        return $this->db->trans_status();
+    }
+
+    /**
+     * Add a operating_system record.
+     */
+    public function add_operating_system($operating_system_name, $operating_system_desc) {
+        
+        $result = $this->db->query("SELECT * FROM os where name = ?", $operating_system_name);
+        $result = $result->result_array();
+
+        if(isset($result[0]['os_id'])) {
+            return $result[0]['os_id'];
+        } else {
+            $data = array(
+                'name' => $operating_system_name,
+                'description' => $operating_system_desc
+            );
+            $this->db->insert('os', $data);
+
+        return $this->db->insert_id();
+        }
+    }
+    
+
+    /**
+     * Delete a operating_system
+     */
+    public function delete_operating_system($operating_system_id) {
+        $this->db->trans_start();
+        $this->db->where('os_id', $operating_system_id);
+        $this->db->delete('os');
+        $this->db->trans_complete();
+        
+        return $this->db->trans_status();
+    }
+
+    /**
      * Export the current database.
      */
     public function export_db($backup_file=NULL) {
