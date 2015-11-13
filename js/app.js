@@ -59,6 +59,15 @@ $(document).ready(function(){
 
     });
 
+    $('#room_filter_register_machine').change(function() {
+        var room_id = $(this).val();
+        var params = [
+                "room="+room_id
+                ];
+                window.location.href = "http://" + window.location.host + window.location.pathname + '?' + params.join('&');
+
+    });
+
     $('#db_reset').click(function() {
 
         if(window.confirm("Are you sure?")) {

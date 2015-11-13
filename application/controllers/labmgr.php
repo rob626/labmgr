@@ -67,6 +67,10 @@ class Labmgr extends CI_Controller {
 
 
 	public function test() {
+
+		print_r($this->machine_model->get_next_seat());
+		die();
+
 		$this->getToken('192.168.15.103', '27555', 'admin', 'web1sphere');
 				$torrent_data = $this->makeRequest('192.168.15.103', '27555', 'admin', 'web1sphere', '?list=1');
 
@@ -984,10 +988,20 @@ class Labmgr extends CI_Controller {
 			}
 
 		} else {
+			$room_id = $this->input->get('room');
+
+			if (empty($room_id) || $room_id == -1){
+				$data['next_seat'] = '?';
+			} else {
+				$data['next_seat'] = $this->machine_model->get_next_seat($room_id);
+			}
+
 			$machines = $this->machine_model->get_machines();
 			$rooms = $this->room_model->get_rooms();
 			$operating_systems = $this->admin_model->get_operating_systems();
 			sort($machines);
+			
+			$data['current_room'] = $room_id;
 			$data['machines'] = $machines;
 			$data['rooms'] = $rooms;
 			$data['operating_systems'] = $operating_systems;

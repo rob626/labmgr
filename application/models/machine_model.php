@@ -14,6 +14,14 @@ class Machine_model extends CI_Model {
 		return $result->result_array();
 	}
 
+    public function get_next_seat($room_id) {
+        $q = "SELECT * FROM machine where room_id = ? ORDER by seat desc";
+        $result = $this->db->query($q, $room_id);
+        $result = $result->result_array();
+        return $result[0]['seat']+1;
+         
+    }
+
 	/**
 	 * Get machine data by machine ID.
 	 */

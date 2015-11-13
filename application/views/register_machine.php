@@ -15,16 +15,24 @@
 			<div class='row'>
 				<div class='large-6 columns'>
 					<label>Room</label>
-					<select name="room_id">
-						<?php foreach ($rooms as $room) { ?>
-						<option value='<?php echo $room['room_id'] ?>'><?php echo $room['name'] ?> </option>
-						<?php } ?>
+					<select id='room_filter_register_machine' name="room_id">
+						<option value='-1'>Select Room</option>
+						<?php foreach ($rooms as $room) { 
+
+							if($current_room == $room['room_id']) {
+								echo "<option selected value='" . $room['room_id']."'>" . $room['name'] ."</option>";
+
+							} else {
+								echo "<option value='" . $room['room_id']."'>" . $room['name'] ."</option>";
+
+							}
+						 } ?>
 					</select> 
 				</div>
 
 				<div class='large-6 columns'>
 					<label>Seat</label>
-					<input type='text' name='seat'>
+					<input type='text' name='seat' value='<?php echo $next_seat; ?>'>
 				</div>
 				
 				<div class='large-6 columns'>
