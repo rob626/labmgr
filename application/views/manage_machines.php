@@ -42,23 +42,30 @@
 							if($room_value['room_id'] == $machine['room_id']) {
 								echo "<td>". $room_value['name'] ."</td>";
 							} else {
-								//echo "<td></td>";
+								//echo "<td>-</td>";
 							}
 						}
 						echo "<td>". $machine['seat'] ."</td>";
 						echo "<td>". $machine['mac_address'] ."</td>";
 						echo "<td>". $machine['ip_address'] ."</td>";
-						echo "<td>".$machine['operating_system']."</td>";
+
+						foreach($operating_systems as $operating_system_key => $operating_system_value) {
+							if($operating_system_value['os_id'] == $machine['os_id']) {
+								echo "<td>". $operating_system_value['name'] ."</td>";
+							} else {
+								//echo "<td>-</td>";
+							}
+						}
 						echo "<td>".$machine['username']."</td>";
 						echo "<td>".$machine['password']."</td>";
-						/*foreach($torrent_clients as $torrent_client_key => $torrent_client_value) {
+						foreach($torrent_clients as $torrent_client_key => $torrent_client_value) {
 							if($torrent_client_value['torrent_client_id'] == $machine['torrent_client_id']) {
 								echo "<td>". $torrent_client_value['name'] ."</td>";
 							} else {
-								echo "<td>-</td>";
+								//echo "<td>-</td>";
 							}
-						}*/
-						echo "<td>-</td>";
+						}
+						
 						echo "<td>".$machine['transport_type']."</td>";
 
 						echo "<td><form method='POST' action='/labmgr/edit_machine'>

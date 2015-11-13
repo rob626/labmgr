@@ -1038,6 +1038,7 @@ class Labmgr extends CI_Controller {
 			$data['machines'] = $machines;
 			$data['rooms'] = $rooms;
 			$data['torrent_clients'] = $this->admin_model->get_torrent_clients();
+			$data['operating_systems'] = $this->admin_model->get_operating_systems();
 			$this->load->template('manage_machines', $data);
 
 		} else {
@@ -1047,6 +1048,7 @@ class Labmgr extends CI_Controller {
 			$data['machines'] = $machines;
 			$data['rooms'] = $rooms;
 			$data['torrent_clients'] = $this->admin_model->get_torrent_clients();
+			$data['operating_systems'] = $this->admin_model->get_operating_systems();
 			$this->load->template('manage_machines', $data);
 		}
 	}

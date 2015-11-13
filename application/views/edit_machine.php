@@ -14,32 +14,14 @@
 </div>
 
 <form method='POST' action='/labmgr/save_machine_edits'>
-<table id='datatable'>
-	<thead>
-		<tr>
-			<th>Machine ID</th>
-			<th>Room</th>
-			<th>Seat</th>
-			<th>MAC Address</th>
-			<th>IP Address</th>
-			<th>OS</th>
-			<th>Username</th>
-			<th>Password</th>
-			<th>Torrent Client</th>
-			<th>Transport Type</th>
-		</tr>
-	</thead>
-	<tbody>
 
-<?php
-	foreach($machines as $machine) {
-		echo "<tr>";
-			echo "<td>".$machine['machine_id']."</td>";
-			echo "<td>";
-			echo "<select name='room_id'>
+	<div class='row'>
+		<div class='large-4 columns'>
+			<label>Room</label>
+			<?php echo "<select name='room_id'>
 					<option>Select Room</option>";
 					foreach ($rooms as $room) {
-						if($room['room_id'] == $machine['room_id']) {
+						if($room['room_id'] == $machines[0]['room_id']) {
 							echo "<option selected value='".$room['room_id']."'>".$room['name']."</option>";
 						} else {
 							echo "<option value='".$room['room_id']."'>".$room['name']."</option>";
@@ -47,45 +29,80 @@
 						
 					} 
 				 
-			echo "</select></td>";
-			echo "<td><input type='text' name='seat' value='".$machine['seat']."'></td>";
-			echo "<td><input type='text' name='mac_address' value='".$machine['mac_address']."'></td>";
-			echo "<td><input type='text' name='ip_address' value='".$machine['ip_address']."'></td>";
-			echo "<td><select name='os_id'>
+			echo "</select>"; ?>
+		</div>
+
+		<div class='large-4 columns'>
+			<label>Seat</label>
+			<?php echo "<input type='text' name='seat' value='".$machines[0]['seat']."'>"; ?>
+		</div>
+
+		<div class='large-4 columns'>
+			<label>MAC Address</label>
+			<?php echo "<input type='text' name='mac_address' value='".$machines[0]['mac_address']."'>"; ?>
+		</div>
+	</div>
+
+	<div class='row'>
+		<div class='large-4 columns'>
+			<label>IP Address</label>
+			<?php echo "<input type='text' name='ip_address' value='".$machines[0]['ip_address']."'>"; ?>
+		</div>
+
+		<div class='large-4 columns'>
+			<label>Operating System</label>
+			<?php echo "<td><select name='os_id'>
 					<option>Select OS</option>";
 					foreach ($operating_systems as $operating_system) {
-						if($operating_system['os_id'] == $machine['os_id']) {
+						if($operating_system['os_id'] == $machines[0]['os_id']) {
 							echo "<option selected value='".$operating_system['os_id']."'>".$operating_system['name']."</option>";
 						} else {
 							echo "<option value='".$operating_system['os_id']."'>".$operating_system['name']."</option>";
 						}
 						
 					} 
-					echo "</td>";
+					echo "</select></td>";
+					?>
+		</div>
 
+		<div class='large-4 columns'>
+			<label>Username</label>
+			<?php echo "<input type='text' name='username' value='".$machines[0]['username']."'>"; ?>
+		</div>
+	</div>
 
-			echo "<td><input type='text' name='username' value='".$machine['username']."'></td>";
-			echo "<td><input type='text' name='password' value='".$machine['password']."'></td>";
+	<div class='row'> 
+		<div class='large-4 columns'>
+			<label>Password</label>
+			<?php echo "<input type='text' name='password' value='".$machines[0]['password']."'>"; ?>
+		</div>
+
+		<div class='large-4 columns'>
+			<label>Torrent Client</label>
+			<?php 
 			echo "<td><select name='torrent_client_id'>
 					<option>Select OS</option>";
 					foreach ($torrent_clients as $torrent_client) {
-						if($torrent_client['torrent_client_id'] == $machine['torrent_client_id']) {
+						if($torrent_client['torrent_client_id'] == $machines[0]['torrent_client_id']) {
 							echo "<option selected value='".$torrent_client['torrent_client_id']."'>".$torrent_client['name']."</option>";
 						} else {
 							echo "<option value='".$torrent_client['torrent_client_id']."'>".$torrent_client['name']."</option>";
 						}
 						
 					} 
-					echo "</td>";
+					echo "</select></td>";
+			?>
+		</div>
 
-			echo "<td><input type='text' name='transport_type' value='".$machine['transport_type']."'></td>";
-		echo "</tr>";
-	}
-?>
-</tbody>
-</table>
-<input type='hidden' name='machine_id' value='<?php echo $machines[0]['machine_id']; ?>'>
- <input class='button' type='submit' value='Submit'>
+		<div class='large-4 columns'>
+			<label>Transport Type</label>
+			<?php echo "<input type='text' name='transport_type' value='".$machines[0]['transport_type']."'>"; ?>
+		</div>
+	</div>
+<div class='row'>
+	<input type='hidden' name='machine_id' value='<?php echo $machines[0]['machine_id']; ?>'>
+	<input class='button' type='submit' value='Submit'>
+</div>
 
 </form>
 </div>
