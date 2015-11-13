@@ -940,10 +940,10 @@ class Labmgr extends CI_Controller {
 			$this->input->post('seat'),
 			$this->input->post('mac_address'),
 			$this->input->post('ip_address'),
-			$this->input->post('operating_system'),
+			$this->input->post('os_id'),
 			$this->input->post('username'),
 			$this->input->post('password'),
-			$this->input->post('torrent_client'),
+			$this->input->post('torrent_client_id'),
 			$this->input->post('transport_type') 
 			);
 		if($retval) {
