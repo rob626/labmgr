@@ -44,7 +44,10 @@ class Machine_model extends CI_Model {
      * Add a machine record.
      */
     public function add_machine($room_id, $seat, $mac_address, $ip_address, $operating_system, $username, $password, $torrent_client, $transport_type) {
-	
+	    if(empty($mac_address)) {
+            $mac_address = $this->get_mac($ip_address);
+        }
+
 		$data = array(
 			'room_id' => $room_id,
 			'seat' => $seat,
@@ -210,6 +213,26 @@ class Machine_model extends CI_Model {
         );
 
         return $output;
+    }
+
+    /**
+     * Returns MAC Address.
+     */
+    public function get_mac($ip) {
+
+        $output = array(
+            'status' => "Grepping for: ".$ip,
+            'output' => exec("arp -a " . $ip . " | awk '{print $4}'", $cmd_output, $exit_status),
+            'cmd_output' => $cmd_output,
+            'exit_status' => $exit_status
+        );
+
+        if(!empty($cmd_output[0]) && $cmd_output[0] != 'entries') {
+            return $cmd_output[0];
+        } else {
+            return 'Unable to get MAC Address.';
+        }
+
     }
 
 }

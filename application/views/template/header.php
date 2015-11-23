@@ -61,7 +61,6 @@
 					<li><a data-reveal-id="about_labmgr" href='#'>About</a></li>
 				</ul>
 			</li>
-			
 		</ul>
 		<?php } else { ?>
 			<ul class='left'>

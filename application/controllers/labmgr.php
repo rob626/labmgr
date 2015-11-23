@@ -69,6 +69,9 @@ class Labmgr extends MY_Controller {
 
 	public function test() {
 
+		print_r($this->machine_model->get_mac('172.16.5.2'));
+
+		/*
 		print_r($this->machine_model->get_next_seat());
 		die();
 
@@ -80,7 +83,7 @@ class Labmgr extends MY_Controller {
 		print_r($torrent_data);
 		echo "</pre>";
 		die();
-		/*
+		
 		for($i=0; $i<10; $i++) {
 			$device['device_ip'] = '172.20.124.173';
 			$device['status'] = 'Some Status';
