@@ -6,6 +6,7 @@ class Admin extends CI_Controller {
 		$this->load->model('room_model');
 		$this->load->model('machine_model');
 		$this->load->model('admin_model');
+		$this->load->model('user_model');
 	}
 
 	public function index()
@@ -42,6 +43,33 @@ class Admin extends CI_Controller {
 	public function reporting_twitter() 
 	{
 		$this->load->template('/admin/reporting_twitter');
+	}
+
+	/**
+	 * Add a torrent_client.
+	 */
+	public function add_user() {
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			$retval = $this->user_model->add_user(
+				$this->input->post('username'), 
+				$this->input->post('password'),
+				$this->input->post('role'),
+				$this->input->post('first_name'),
+				$this->input->post('last_name')
+				);
+			if($retval) {
+				redirect('/admin/add_user');
+			} else {
+				echo "Error";
+			}
+
+		} else {
+			$users = $this->user_model->get_users();
+			
+			$data['users'] = $users;
+
+			$this->load->template('/admin/add_user', $data);
+		}
 	}
 
 	/**

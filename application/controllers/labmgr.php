@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Labmgr extends CI_Controller {
+class Labmgr extends MY_Controller {
 
 	protected $token;
     protected $guid;
@@ -8,6 +8,7 @@ class Labmgr extends CI_Controller {
 
 	public function __construct() {
 		parent::__construct();
+
 		$this->load->model('room_model');
 		$this->load->model('torrent_model');
 		$this->load->model('machine_model');

@@ -18,12 +18,7 @@ class Login extends CI_Controller {
 			redirect('/');
 		} else {
 			$this->load->template('auth/login');
-		}
-
-		
-		
-
-		
+		}	
 	}
 }
 

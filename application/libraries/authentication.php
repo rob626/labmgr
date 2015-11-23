@@ -7,7 +7,7 @@
  	}
 
  	public function logged_in() {
- 		return (bool)$this->ci->session->userdata('uid');
+ 		return (bool)$this->ci->session->userdata('username');
  	}
 
  	public function logout() {
@@ -20,11 +20,6 @@
  	}
 
  	public function username() {
- 		return $this->ci->session->userdata('email');
- 	}
-
-
- 	public function is_authorized($tid) {
- 		return $this->ci->ticket_model->is_authorized_to_view_ticket($this->uid(), $tid);
+ 		return $this->ci->session->userdata('username');
  	}
  }
