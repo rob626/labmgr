@@ -20,6 +20,10 @@ class Login extends CI_Controller {
 			$this->load->template('auth/login');
 		}	
 	}
+
+	public function logout() {
+		$this->authentication->logout();
+	}
 }
 
 /* End of file login.php */

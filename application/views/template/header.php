@@ -37,6 +37,9 @@
 		</li>
 	</ul>
 	<section class='top-bar-section'>
+		<?php if($this->authentication->logged_in()) {
+
+		 ?>
 		<ul class='left'>
 			<li><a href='/labmgr/register_machine'>Register Machine</a></li>				
 			<li><a href='/labmgr/add_room'>Rooms</a></li>
@@ -51,7 +54,11 @@
 		<ul class='right'>
 			<li class='active'><a href='#'>Server Name / ID</a></li>
 		</ul>
-
+		<?php } else { ?>
+			<ul class='left'>
+				<li><a href='/login'>Please Login</a></li>
+			</ul>
+		<?php } ?>
 	</section>
 </nav>
 
