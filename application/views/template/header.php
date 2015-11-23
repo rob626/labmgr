@@ -52,7 +52,16 @@
 		</ul>
 
 		<ul class='right'>
-			<li class='active'><a href='#'>Server Name / ID</a></li>
+			<li class='has-dropdown active'>
+				<a href='#'><?php echo $this->authentication->username(); ?></a>
+				<ul class='dropdown'>
+					<li><a href='/login/logout'>Logout</a></li>
+					<li><a href='/admin/set_conference'>Set Conference Name</a></li>
+					<li><a href='/login/set_server'>Set Server Name</a></li>
+					<li><a data-reveal-id="about_labmgr" href='#'>About</a></li>
+				</ul>
+			</li>
+			
 		</ul>
 		<?php } else { ?>
 			<ul class='left'>
@@ -61,4 +70,10 @@
 		<?php } ?>
 	</section>
 </nav>
+
+<div id="about_labmgr" class="reveal-modal" data-reveal aria-labelledby="AboutLabmgr" aria-hidden="true" role="dialog">
+  <h2 id="modalTitle">About Labmgr</h2>
+  <p>Labmgr is a system that manages Labs.</p>
+  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+</div>
 
