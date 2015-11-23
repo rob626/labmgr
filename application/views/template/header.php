@@ -47,6 +47,11 @@
 			<li><a href='/labmgr/run_single_cmd_class'>Scripts</a></li>
 			<li><a href='/admin'>Admin</a></li>
 		</ul>
+
+		<ul class='right'>
+			<li class='active'><a href='#'>Server Name / ID</a></li>
+		</ul>
+
 	</section>
 </nav>
 
