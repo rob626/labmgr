@@ -73,6 +73,20 @@ class Admin extends CI_Controller {
 	}
 
 	/**
+	 * Delete a user.
+	 */
+	public function delete_user() {
+		$retval = $this->user_model->delete_user(
+			$this->input->post('user_id')
+			);
+		if($retval) {
+			redirect('/admin/add_user');
+		} else {
+			echo "DB Error";
+		}
+	}
+
+	/**
 	 * Add a torrent_client.
 	 */
 	public function add_torrent_client() {
