@@ -69,8 +69,8 @@ class Labmgr extends MY_Controller {
 
 	public function test() {
 
-		print_r($this->machine_model->get_mac('172.16.5.2'));
-
+		print_r($this->admin_model->validate_ips());
+		die();
 		/*
 		print_r($this->machine_model->get_next_seat());
 		die();

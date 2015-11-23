@@ -210,4 +210,28 @@ class Admin_model extends CI_Model {
         return $backups;
     }
 
+    /**
+     * This function looks at the MAC addresses in the 
+     * database and checks to see if they are still mapped
+     * to the IP addresses in the DB. 
+     */
+    public function validate_ips() {
+        $sql = "SELECT machine_id, ip_address, mac_address FROM machine;";
+        $result = $this->db->query($sql);
+        $machines = $result->result_array();
+
+        foreach($machines as $machine) {
+            if(!empty($machine['mac_address']) && $machine['mac_address'] != 'Unable to get MAC Address.') {
+                shell_exec("ping -n 2 " . $machine['ip_address']);
+                $mac = shell_exec("arp -a " . $machine['ip_address'] . " | awk '{print $4}'");
+            
+                if(trim($machine['mac_address']) == trim($mac)) {
+                    //echo "They match";
+                } else {
+                    echo "MAC in DB: " .$machine['mac_address']. " MAC from ARP: ".$mac." They don't match <br>";
+                }
+
+            }
+        }
+    }
 }
