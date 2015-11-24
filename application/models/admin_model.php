@@ -219,6 +219,7 @@ class Admin_model extends CI_Model {
         $sql = "SELECT machine_id, ip_address, mac_address FROM machine;";
         $result = $this->db->query($sql);
         $machines = $result->result_array();
+        $output = array();
 
         foreach($machines as $machine) {
             if(!empty($machine['mac_address']) && $machine['mac_address'] != 'Unable to get MAC Address.') {
@@ -228,10 +229,13 @@ class Admin_model extends CI_Model {
                 if(trim($machine['mac_address']) == trim($mac)) {
                     //echo "They match";
                 } else {
-                    echo "MAC in DB: " .$machine['mac_address']. " MAC from ARP: ".$mac." They don't match <br>";
+                    $output[] = "Validation Error! MAC in DB: " .$machine['mac_address']. " MAC from ARP: ".$mac." <br>";
+                    //echo "Validation Error! MAC in DB: " .$machine['mac_address']. " MAC from ARP: ".$mac." <br>";
                 }
 
             }
         }
+
+        return $output;
     }
 }

@@ -101,6 +101,30 @@ $(document).ready(function(){
         }
     });
 
+    $('#validate_mac_form').on('submit', function(e) {
+        e.preventDefault();
+        $('#status_modal_content').html("");
+        $('#status_modal').foundation('reveal', 'open');
+
+        $.ajax({        
+            url: "/service/validate_mac",
+            type: "get",
+            dataType: "json",
+            async: true,
+            
+            }).done(function(response) {
+                console.log(response);
+                $.each(response, function(index, value) {
+                    $('#status_modal_content').append("<h4>"+value+"</h4>");
+
+                });
+                
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                //alert("Error submitting data!");
+                console.log(jqXHR, textStatus, errorThrown);
+            });
+    });
+
     $('#run_single_cmd_class_form').on('submit', function(e) {
         e.preventDefault();
         var data = $('#run_single_cmd_class_form :input').serializeArray();

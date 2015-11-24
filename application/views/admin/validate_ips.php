@@ -16,7 +16,7 @@
 </div> 
 
 <div class='large-10 columns'>
-	<form method='POST' id='run_single_cmd_class_form' action='/labmgr/run_single_cmd_class'>
+	<form method='POST' id='validate_mac_form' action='/labmgr/validate_mac'>
 		<div class='row'>
 			<br>
 			<div class="panel callout radius">
@@ -35,8 +35,10 @@
 			button that says "Update selected IP addresses"
 			<div class='small-4 small-centered columns'>
 				<br>
-				<a id='validate_ips' class='button large center' href='#'>Make it happen...</a>
+				<input type='submit' class='button large center' value='Make it happen...'>
+				
 			</div>
 		</div>
+	</form>
 	</div>
 </div>

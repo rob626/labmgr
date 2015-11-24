@@ -410,6 +410,13 @@ class Service extends CI_Controller {
 	}
 
 	/**
+	 * View the remote machine's watchdog log.
+	 */
+	public function validate_mac() {
+		echo json_encode($this->admin_model->validate_ips());
+	}
+
+	/**
 	 * Run a single command.
 	 */
 	public function run_cmd() {
