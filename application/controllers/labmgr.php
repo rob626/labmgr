@@ -1003,8 +1003,11 @@ class Labmgr extends MY_Controller {
 			$machines = $this->machine_model->get_machines();
 			$rooms = $this->room_model->get_rooms();
 			$operating_systems = $this->admin_model->get_operating_systems();
+			$ip_guess = $_SERVER['REMOTE_ADDR'];
+
 			sort($machines);
 			
+			$data['mac_guess'] = $this->machine_model->get_mac($ip_guess);
 			$data['current_room'] = $room_id;
 			$data['machines'] = $machines;
 			$data['rooms'] = $rooms;

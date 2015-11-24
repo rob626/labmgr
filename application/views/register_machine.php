@@ -42,7 +42,7 @@
 
 				<div class='large-6 columns'>
 					<label>MAC Address</label>
-					<input type='text' placeholder='Leave blank for system to determine' name='mac_address'>
+					<input type='text'  value='<?php echo $mac_guess; ?>' name='mac_address'>
 				</div>
 			</div>
 
