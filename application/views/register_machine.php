@@ -6,6 +6,11 @@
 </div> 
 
 <div class='large-10 columns'>
+	<?php if(!empty($this->session->flashdata('status'))) {
+		echo "<div data-alert class='alert-box success radius'>
+  Machine Registered
+  <a href='#' class='close'>&times;</a></div>";
+	} ?>
 	<div class='row'>
 		<div class='panel'>
 			<h1>Register Machine</h1>

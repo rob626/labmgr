@@ -986,6 +986,7 @@ class Labmgr extends MY_Controller {
 				);
 
 			if($retval) {
+				$this->session->set_flashdata('status', $retval);
 				redirect('/labmgr/register_machine');
 			} else {
 				echo "DB Error";
