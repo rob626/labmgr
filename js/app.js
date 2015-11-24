@@ -488,11 +488,11 @@ $(document).ready(function(){
                                 }
 
                                 if(value.status == 'ONLINE') {
-                                    if(value.mac_status == 'TRUE') {
-                                        $('#status_'+ value.id).html("<span class='button success tiny radius'>Online</span>");
+                                    if(value.mac_status == 'FALSE') {
+                                        $('#status_'+ value.id).html("<span class='button alert tiny radius'>Online</span>");
 
                                     } else {
-                                        $('#status_'+ value.id).html("<span class='button alert tiny radius'>Online</span>");
+                                        $('#status_'+ value.id).html("<span class='button success tiny radius'>Online</span>");
                                     }
                                 } else {
                                     $('#status_'+ value.id).html("<span class='button tiny warning radius'>Offline</span>");
