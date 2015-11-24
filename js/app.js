@@ -451,8 +451,10 @@ $(document).ready(function(){
 
                 for(var status_id = 1; status_id < status_total; status_id++) {    
                     var ip = $('#machine_ip_'+ status_id).text();
+                    var machine_mac = $('#machine_mac_'+status_id).text();
                     var machine = {
                         id:status_id,
+                        mac_address:machine_mac,
                         ip_address:ip,
                         status:'' 
                     }
@@ -486,7 +488,12 @@ $(document).ready(function(){
                                 }
 
                                 if(value.status == 'ONLINE') {
-                                    $('#status_'+ value.id).html("<span class='button success tiny radius'>Online</span>");
+                                    if(value.mac_status == 'TRUE') {
+                                        $('#status_'+ value.id).html("<span class='button success tiny radius'>Online</span>");
+
+                                    } else {
+                                        $('#status_'+ value.id).html("<span class='button alert tiny radius'>Online</span>");
+                                    }
                                 } else {
                                     $('#status_'+ value.id).html("<span class='button tiny warning radius'>Offline</span>");
                                 }

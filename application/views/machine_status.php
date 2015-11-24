@@ -59,7 +59,9 @@
 					$counter = 1;	
 					foreach($machines as $machine) {
 						echo "<tr>";
-						echo "<td><span style='display:none;' id='machine_ip_".$counter."'>".$machine['ip_address']."</span><form method='POST' action='/labmgr/edit_machine'>
+						echo "<td><span style='display:none;' id='machine_ip_".$counter."'>".$machine['ip_address']."</span>
+						<span style='display:none;' id='machine_mac_".$counter."'>".$machine['mac_address']."</span>
+						<form method='POST' action='/labmgr/edit_machine'>
 						<input type='hidden' name='machine_id' value='".$machine['machine_id']."'>
 						<input type='submit' class='button tiny radius' value='".$machine['ip_address']."'></form></td>";
 

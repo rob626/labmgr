@@ -136,6 +136,16 @@ class Machine_model extends CI_Model {
     	$updated_machines = array();
 	    	foreach($machines as $machine) {
 	    		$machine['status'] = $this->ping_test($machine['ip_address']);
+                if($machine['status'] == 'ONLINE') {
+                    $mac = shell_exec("arp -a " . $machine['ip_address'] . " | awk '{print $4}'");
+                    if(trim($machine['mac_address']) == trim($mac)) {
+                        $machine['mac_status'] = 'TRUE';
+                    } else {
+                        $machine['mac_status'] = 'FALSE';
+                        //echo "Validation Error! MAC in DB: " .$machine['mac_address']. " MAC from ARP: ".$mac." <br>";
+                    }
+                }
+
                 $machine['disk_usage'] = $this->disk_usage($machine['ip_address'])['cmd_output'][1];
 	    		$pos = strrpos($machine['disk_usage'], "%");
                 $machine['disk_usage'] = substr($machine['disk_usage'], $pos-3,3);
