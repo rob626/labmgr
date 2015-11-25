@@ -136,6 +136,7 @@ class Machine_model extends CI_Model {
     	$updated_machines = array();
 	    	foreach($machines as $machine) {
 	    		$machine['status'] = $this->ping_test($machine['ip_address']);
+                $machine['disk_usage'] = false;
                 if($machine['status'] == 'ONLINE') {
                     $mac = shell_exec("arp -a " . $machine['ip_address'] . " | awk '{print $4}'");
                     if(trim($machine['mac_address']) == trim($mac)) {
@@ -144,11 +145,14 @@ class Machine_model extends CI_Model {
                         $machine['mac_status'] = 'FALSE';
                         //echo "Validation Error! MAC in DB: " .$machine['mac_address']. " MAC from ARP: ".$mac." <br>";
                     }
+
+                    $machine['disk_usage'] = $this->disk_usage($machine['ip_address'])['cmd_output'][1];
+                    if(!empty($machine['disk_usage'])) {
+                        $pos = strrpos($machine['disk_usage'], "%");
+                        $machine['disk_usage'] = substr($machine['disk_usage'], $pos-3,3);
+                    }
                 }
 
-                $machine['disk_usage'] = $this->disk_usage($machine['ip_address'])['cmd_output'][1];
-	    		$pos = strrpos($machine['disk_usage'], "%");
-                $machine['disk_usage'] = substr($machine['disk_usage'], $pos-3,3);
                 array_push($updated_machines, $machine);
 	    	}
 	    	return $updated_machines;
@@ -158,15 +162,13 @@ class Machine_model extends CI_Model {
      * Return the status of the machine by doing a ping test
      */
     public function ping_test($ip) {
-    	$host = $ip; 
-		$port = 22; 
-		$waitTimeoutInSeconds = 1; 
-		if($fp = fsockopen($host,$port,$errCode,$errStr,$waitTimeoutInSeconds)){   
+    	$output = exec("ping -c1 -n -W 1 ".$ip, $cmd_output, $exit_status);
+
+        if($exit_status == 0){   
 		   return "ONLINE";
 		} else {
 		   return "OFFLINE";
 		} 
-		fclose($fp);
     }
 
     /**

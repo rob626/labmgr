@@ -471,7 +471,7 @@ $(document).ready(function(){
 
                             $.each(response.status, function(index, value) {
                                 //console.log(response.disk_usage);
-                                if (value.disk_usage == false) {
+                                if (value.disk_usage == false || typeof(value.disk_usage) == 'undefined' || value.disk_usage == null || value.disk_usage == 'null') {
                                     $('#disk_usage_'+ value.id).html("<span class='button tiny secondary radius'>--</span>") ;
                                 } else {
                                     if(value.disk_usage > 95) {
@@ -504,7 +504,7 @@ $(document).ready(function(){
                             //console.log(jqXHR, textStatus, errorThrown);
                         });
                     
-                }, 10000); 
+                }, 5000); 
             } 
 
     function formatTime(strDate) {
