@@ -64,6 +64,7 @@
 		</ul>
 		<?php } else { ?>
 			<ul class='left'>
+				<li><a href='/login/register_machine'>Register Machine</a></li>
 				<li><a href='/login'>Please Login</a></li>
 			</ul>
 		<?php } ?>

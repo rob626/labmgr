@@ -224,9 +224,9 @@ class Admin_model extends CI_Model {
         foreach($machines as $machine) {
             if(!empty($machine['mac_address']) && $machine['mac_address'] != 'Unable to get MAC Address.') {
                 shell_exec("ping -n 2 " . $machine['ip_address']);
-                $mac = shell_exec("arp -a " . $machine['ip_address'] . " | awk '{print $4}'");
+                $arp_mac = shell_exec("arp -a " . $machine['ip_address'] . " | awk '{print $4}'");
             
-                if(trim($machine['mac_address']) == trim($mac)) {
+                if(trim($machine['mac_address']) == trim($mac_arp)) {
                     //echo "They match";
                 } else {
                     $output[] = "Validation Error! MAC in DB: " .$machine['mac_address']. " MAC from ARP: ".$mac." <br>";

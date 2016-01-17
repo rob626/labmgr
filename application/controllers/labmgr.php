@@ -1130,12 +1130,13 @@ class Labmgr extends MY_Controller {
 		}
 		else {
 			$upload_data = $this->upload->data();
-			/*echo "<pre>";
-			print_r($upload_data);
-			echo "</pre>";
-			die(); */
+			
 			$this->bencoded->FromFile($upload_data['full_path']);
 			$hash = $this->bencoded->InfoHash();
+			/*echo "<pre>";
+			print_r($this->bencoded->Root());
+			echo "</pre>";
+			die(); */
 
 			$this->torrent_model->add_torrent(
 				$upload_data['raw_name'],
