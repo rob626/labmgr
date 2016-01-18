@@ -47,6 +47,7 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 |
 */
 define('DB_BACKUP_DIR', './database/backups/');
+define('TORRENT_UPLOAD_DIR', './torrents/');
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

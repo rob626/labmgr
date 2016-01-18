@@ -15,6 +15,21 @@ class Torrent_model extends CI_Model {
 	}
 
 	/**
+	 * Get the torrents that have been uploaded
+	 * to the server machine so that we can add 
+	 * them all at once.
+	 */
+	public function get_torrents_on_server() {
+		$uploaded_torrents = scandir(TORRENT_UPLOAD_DIR);
+		foreach($uploaded_torrents as $key => $value) {
+            if($value == '.' || $value == '..') {
+                    unset($uploaded_torrents[$key]);
+            }
+        }
+        return $uploaded_torrents;
+	}
+
+	/**
 	 * Get torrent data by torrent ID.
 	 */
 	public function get_torrent($torrent_id) {

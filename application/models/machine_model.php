@@ -214,12 +214,26 @@ class Machine_model extends CI_Model {
     }
 
     /*
-     *
+     * Run a command on a machine.
      */
     public function run_cmd($cmd, $ip) {
         $output = array(
             'status' => "Running command,".$cmd.", on: ".$ip,
             'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' "'.$cmd.'"', $cmd_output, $exit_status),
+            'cmd_output' => $cmd_output,
+            'exit_status' => $exit_status
+        );
+
+        return $output;
+    }
+
+    /**
+     * Send a file to a machine using scp.
+     */
+    public function send_file($file, $remote_path, $ip) {
+        $output = array(
+            'status' => "Attempting to send file ".$file . " to " .$ip. " remote path: " . $remote_path,
+            'output' => exec('scp -i ./certs/labmgr -o "StrictHostKeyChecking no " '.$file.' IBM_USER@' . $ip . ':'.$remote_path, $cmd_output, $exit_status),
             'cmd_output' => $cmd_output,
             'exit_status' => $exit_status
         );

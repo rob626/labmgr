@@ -681,9 +681,10 @@ class Labmgr extends MY_Controller {
 	/**
 	 * Add a torrent.
 	 */
-	public function upload_torrent($status) {
+	public function upload_torrent($status = null) {
 			$torrents = $this->torrent_model->get_torrents();
 			$data['torrents'] = $torrents;
+			$data['uploaded_torrents'] = $this->torrent_model->get_torrents_on_server();
 			$data['status'] = $status;
 			$this->load->template('upload_torrent', $data);
 	}
@@ -1109,6 +1110,28 @@ class Labmgr extends MY_Controller {
 
 		} else {
 			echo "reload previous page.";
+		}
+	}
+
+	public function process_uploaded_torrents() {
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			$this->load->library('bencoded');
+			foreach($this->input->post('torrents') as $torrent) {
+				
+				$this->bencoded->FromFile(TORRENT_UPLOAD_DIR.$torrent);
+				$hash = $this->bencoded->InfoHash();
+
+				$insert_id = $this->torrent_model->add_torrent(
+				$torrent,
+				$hash,
+				TORRENT_UPLOAD_DIR.$torrent,
+				''
+				);
+			}
+
+			$this->upload_torrent('Success');
+		} else {
+			echo "Error, no post data.";
 		}
 	}
 

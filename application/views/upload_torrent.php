@@ -33,6 +33,19 @@
 <br>
 
 <div class='panel'>
+	<h1>Torrents Uploaded to Server</h1>
+</div>
+<?php
+	echo form_open_multipart('labmgr/process_uploaded_torrents');
+	foreach($uploaded_torrents as $torrent) {
+		echo "<input type='checkbox' class='checkbox' name='torrents[]' value='".$torrent."'><label>".$torrent."</label><br>";
+	}
+	echo "<input type='submit' class='button' value='Submit'>";
+	echo "</form>";
+?>
+
+
+<div class='panel'>
 	<h1>Existing Torrents</h1>
 </div>
 	<table id='datatable'>
