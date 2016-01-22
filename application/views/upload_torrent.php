@@ -35,6 +35,7 @@
 <div class='panel'>
 	<h1>Torrents Uploaded to Server</h1>
 </div>
+<a href='#' id='select_all'>Select All</a>&nbsp &nbsp  <a href='#' id='unselect_all'>Unselect All</a><br>
 <?php
 	echo form_open_multipart('labmgr/process_uploaded_torrents');
 	foreach($uploaded_torrents as $torrent) {
