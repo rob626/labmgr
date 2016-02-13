@@ -457,7 +457,7 @@ class Service extends CI_Controller {
 			if($d['name'] == 'machine_ids[]') {
 				array_push($machines, $this->machine_model->get_machine($d['value']));
 			}
-			if($d['name'] == 'cmd') {
+			if($d['name'] == 'remote_path') {
 				$cmd = $d['value'];
 			}
 		}
