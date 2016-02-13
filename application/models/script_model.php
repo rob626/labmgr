@@ -81,4 +81,14 @@ class Script_model extends CI_Model {
 	    	return $this->db->trans_status();
 	    }
 
+	    public function get_uploaded_files() {
+	    	$uploads = scandir(UPLOADS_DIR);
+	        foreach($uploads as $key => $value) {
+	            if($value == '.' || $value == '..') {
+	                    unset($uploads[$key]);
+	            }
+	        }
+	        return $uploads;
+		    }
+
 	}

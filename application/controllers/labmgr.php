@@ -648,6 +648,7 @@ class Labmgr extends MY_Controller {
 		} else {
 			$data['machines'] = $this->machine_model->get_machines();
 			$data['rooms'] = $this->room_model->get_rooms();
+			$data['files'] = $this->script_model->get_uploaded_files();
 			$this->load->template('copy_file_by_machine', $data);
 		}
 	}

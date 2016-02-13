@@ -445,6 +445,34 @@ class Service extends CI_Controller {
 		echo json_encode($output);
 	}
 
+	/**
+	 * Copy files from the server to remote machines.
+	 */
+	public function copy_file() {
+		$data = $this->input->get('data');
+		
+		$machines = array();
+
+		foreach($data as $d) {
+			if($d['name'] == 'machine_ids[]') {
+				array_push($machines, $this->machine_model->get_machine($d['value']));
+			}
+			if($d['name'] == 'cmd') {
+				$cmd = $d['value'];
+			}
+		}
+		//$machines = $machines[0];
+
+		foreach($machines as $machine) {
+			foreach($machine as $m) {
+				$output[] = $this->machine_model->send_file($file, $remote_path, $m['ip_address']);
+			}
+
+		}
+
+		echo json_encode($output);
+	}
+
 	public function truncate_db() {
 		$data = $this->input->get('data');
 		$output = array(

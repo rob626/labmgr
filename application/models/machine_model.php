@@ -233,7 +233,7 @@ class Machine_model extends CI_Model {
     public function send_file($file, $remote_path, $ip) {
         $output = array(
             'status' => "Attempting to send file ".$file . " to " .$ip. " remote path: " . $remote_path,
-            'output' => exec('scp -i ./certs/labmgr -o "StrictHostKeyChecking no " '.$file.' IBM_USER@' . $ip . ':'.$remote_path, $cmd_output, $exit_status),
+            'output' => exec('scp -r -i ./certs/labmgr -o "StrictHostKeyChecking no " '.$file.' IBM_USER@' . $ip . ':'.$remote_path, $cmd_output, $exit_status),
             'cmd_output' => $cmd_output,
             'exit_status' => $exit_status
         );

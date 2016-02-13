@@ -27,7 +27,13 @@
 		<div class='large-6 columns'>
 			<div class='row'>
 				<h2>Local File</h2>
-				<input name='cmd' type='text'>
+
+				<select id='local_file' name='local_file'>
+					<?php foreach ($files as $file) { ?>
+					<option value='<?php echo $file; ?>'><?php echo $file; ?> </option>
+					<?php } ?>
+				</select>
+
 			</div>
 			<div class='row'>
 				<h2>Remote Path</h2>
