@@ -56,8 +56,8 @@
 				<a href='#'><?php echo $this->authentication->username(); ?></a>
 				<ul class='dropdown'>
 					<li><a href='/login/logout'>Logout</a></li>
-					<li><a href='/admin/set_conference'>Set Conference Name</a></li>
-					<li><a href='/login/set_server'>Set Server Name</a></li>
+					<li><a href='/admin/add_conference'>Set Conference Name</a></li>
+					<li><a href='/admin/add_server'>Set Server Name</a></li>
 					<li><a data-reveal-id="about_labmgr" href='#'>About</a></li>
 				</ul>
 			</li>

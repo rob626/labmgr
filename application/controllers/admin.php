@@ -7,6 +7,8 @@ class Admin extends CI_Controller {
 		$this->load->model('machine_model');
 		$this->load->model('admin_model');
 		$this->load->model('user_model');
+		$this->load->model('conference_model');
+		$this->load->model('server_model');
 	}
 
 	public function index()
@@ -43,6 +45,74 @@ class Admin extends CI_Controller {
 	public function reporting_twitter() 
 	{
 		$this->load->template('/admin/reporting_twitter');
+	}
+
+	/**
+	 * Manage conferences.
+	 */
+	public function add_conference() {
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			$retval = $this->conference_model->add_conference(
+				$this->input->post('conference_name'), 
+				$this->input->post('conference_desc')
+				);
+			if($retval) {
+				redirect('/admin/add_conference');
+			} else {
+				echo "Error";
+			}
+		} else {
+			$data['conferences'] = $this->conference_model->get_conferences();
+			$this->load->template('/admin/add_conference', $data);
+		}
+	}
+
+	/**
+	 * Delete a conference.
+	 */
+	public function delete_conference() {
+		$retval = $this->conference_model->delete_conference(
+			$this->input->post('conference_id')
+			);
+		if($retval) {
+			redirect('/admin/add_conference');
+		} else {
+			echo "DB Error";
+		}
+	}
+
+	/**
+	 * Manage servers.
+	 */
+	public function add_server() {
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			$retval = $this->server_model->add_server(
+				$this->input->post('server_name'), 
+				$this->input->post('server_desc')
+				);
+			if($retval) {
+				redirect('/admin/add_server');
+			} else {
+				echo "Error";
+			}
+		} else {
+			$data['servers'] = $this->server_model->get_servers();
+			$this->load->template('/admin/add_server', $data);
+		}
+	}
+
+	/**
+	 * Delete a server.
+	 */
+	public function delete_server() {
+		$retval = $this->server_model->delete_server(
+			$this->input->post('server_id')
+			);
+		if($retval) {
+			redirect('/admin/add_server');
+		} else {
+			echo "DB Error";
+		}
 	}
 
 	/**
