@@ -22,4 +22,14 @@
  	public function username() {
  		return $this->ci->session->userdata('username');
  	}
+
+ 	public function conference() {
+ 		$data = $this->ci->conference_model->get_conference(1);
+ 		return $data[0]['name'];
+ 	}
+
+ 	public function server() {
+ 		$data = $this->ci->server_model->get_server(1);
+ 		return $data[0]['name'];
+ 	}
  }

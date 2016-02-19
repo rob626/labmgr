@@ -52,6 +52,9 @@
 		</ul>
 
 		<ul class='right'>
+			<li><a href='#'><?php echo $this->authentication->conference(); ?></a></li>
+			<li><a href='#'><?php echo $this->authentication->server(); ?></a></li>
+
 			<li class='has-dropdown active'>
 				<a href='#'><?php echo $this->authentication->username(); ?></a>
 				<ul class='dropdown'>
