@@ -38,7 +38,7 @@
 
 				<div class='large-3 columns'>
 					<label>Snapshot</label>
-					<input type='text' name='snapshot' value='clean'>
+					<input type='text' name='snapshot' value='startlab'>
 				</div>
 			</div>
 

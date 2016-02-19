@@ -780,7 +780,7 @@ class Labmgr extends MY_Controller {
 							$name,
 							$path,
 							'',
-							'clean'
+							'startlab'
 							);
 					}
 				}
