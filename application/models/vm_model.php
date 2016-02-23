@@ -219,8 +219,7 @@ class Vm_model extends CI_Model {
 	    	$find_result = str_replace('/', '\\', $find_result);
 	    	$match=false;
 	    	foreach($vms as $vm) {
-
-	    		if(trim($vm['path']) == trim($find_result)) {
+	    		if(strcasecmp(trim($vm['path']), trim($find_result)) == 0) {
 	    			$match = true;
 	    		}
 	    	}
