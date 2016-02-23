@@ -675,7 +675,14 @@ class Labmgr extends MY_Controller {
 	}
 
 	public function run_single_cmd_machine() {
-
+		if($_SERVER['REQUEST_METHOD'] === 'POST') {
+			//handled in service.
+			
+		} else {
+			$data['machines'] = $this->machine_model->get_machines();
+			$data['rooms'] = $this->room_model->get_rooms();
+			$this->load->template('run_single_cmd_machine', $data);
+		}
 	}
 
 	private function send($ip, $file) {

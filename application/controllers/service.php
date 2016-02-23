@@ -461,11 +461,38 @@ class Service extends CI_Controller {
 				$root = $d['value'];
 			}
 		}
+		foreach($machines as $machine) {
+			foreach($machine as $m) {
+				$output[] = $this->vm_model->validate_vmx($root, $m['ip_address']);
+			}
+
+		}
+		
+	}
+
+
+	/*	
+	 * Run a single command.
+	 */
+	public function run_cmd_machine() {
+		$data = $this->input->get('data');
+		
+		$machines = array();
+
+		foreach($data as $d) {
+			if($d['name'] == 'machine_ids[]') {
+				array_push($machines, $this->machine_model->get_machine($d['value']));
+			}		
+
+			if($d['name'] == 'cmd') {
+				$cmd = $d['value'];
+			}
+		}
 		//$machines = $machines[0];
 
 		foreach($machines as $machine) {
 			foreach($machine as $m) {
-				$output[] = $this->vm_model->validate_vmx($root, $m['ip_address']);
+				$output[] = $this->machine_model->run_cmd($cmd, $m['ip_address']);
 			}
 
 		}
@@ -486,7 +513,10 @@ class Service extends CI_Controller {
 				array_push($machines, $this->machine_model->get_machine($d['value']));
 			}
 			if($d['name'] == 'remote_path') {
-				$cmd = $d['value'];
+				$remote_path = $d['value'];
+			}
+			if($d['name'] == 'local_file') {
+				$file = UPLOADS_DIR . $d['value'];
 			}
 		}
 		//$machines = $machines[0];
