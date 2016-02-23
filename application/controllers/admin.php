@@ -47,6 +47,12 @@ class Admin extends CI_Controller {
 		$this->load->template('/admin/reporting_twitter');
 	}
 
+	public function validate_vmx() {
+		$data['machines'] = $this->machine_model->get_machines();
+		$data['rooms'] = $this->room_model->get_rooms();
+		$this->load->template('/admin/validate_vmx', $data);
+	}
+
 	/**
 	 * Manage conferences.
 	 */

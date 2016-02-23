@@ -199,4 +199,47 @@ class Vm_model extends CI_Model {
 	    	return $output;
 	    }
 
+	public function validate_vmx($root, $ip) {
+		$output = array(
+	    		'status' => "Attemping to find files in: " . $root . ' on ' .$ip,
+	    		'output' => '',
+	    		'cmd_output' => '',
+	    		'exit_status' => ''
+    		);
+		$list_output = array(
+    		'status' => "Attempting to find files: ".$ip,
+    		'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' "find '.$root.' -name *.vmx"', $cmd_output, $exit_status),
+    		'cmd_output' => $cmd_output,
+    		'exit_status' => $exit_status
+	    );
+
+	    $vms = $this->get_vms();
+
+	    $bad_list = array();
+	    $good_list = array();
+	    foreach($cmd_output as $find_result) {
+	    	$match=false;
+	    	foreach($vms as $vm) {
+	    		if($vm['path'] == $find_result) {
+	    			$match = true;
+	    		}
+	    	}
+	    	if($match) {
+	    		$output['cmd_output'][] = "<font color='green'> Match: " .$find_result .'</font><br>';
+	    	} else {
+	    		$output['cmd_output'][] = "<font color='red'> No match: " . $find_result  . '</font><br>';
+	    	}
+
+	    }
+
+	    /*
+	    echo "<pre>";
+	    print_r($list_output);
+	    print_r($vms);
+	    echo "</pre>";
+	    die(); */ 
+
+		return $output;
 	}
+
+}
