@@ -215,14 +215,12 @@ class Vm_model extends CI_Model {
 
 	    $vms = $this->get_vms();
 
-	    $bad_list = array();
-	    $good_list = array();
 	    foreach($cmd_output as $find_result) {
 	    	$find_result = str_replace('/', '\\', $find_result);
 	    	$match=false;
 	    	foreach($vms as $vm) {
 
-	    		if($vm['path'] == $find_result) {
+	    		if(trim($vm['path']) == trim($find_result)) {
 	    			$match = true;
 	    		}
 	    	}
