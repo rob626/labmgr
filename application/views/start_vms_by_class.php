@@ -7,6 +7,7 @@
 		<li><a href='/labmgr/stop_vms_by_machine'>Stop by Machine</a></li>
 		<hr>
 		<li><a href='/labmgr/add_vm'>Manage VMs</a></li>
+		<li><a href='/admin/validate_vmx'>Validate VMX's</a></li>
 	</ul>
 	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </div>
