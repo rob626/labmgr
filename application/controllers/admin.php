@@ -27,9 +27,24 @@ class Admin extends CI_Controller {
 		$this->load->template('/admin/set_global_defaults');
 	}
 
-	public function validate_ips() 
-	{
-		$this->load->template('/admin/validate_ips');
+	public function validate_ips() {
+		if($_SERVER['REQUEST_METHOD'] === 'POST') {
+			echo "Running... <br>";
+			$from = $this->input->post('from_1') .'.'.$this->input->post('from_2') .'.'.$this->input->post('from_3') .'.'.$this->input->post('from_4');
+			$to = $this->input->post('to_1') .'.'.$this->input->post('to_2') .'.'.$this->input->post('to_3') .'.'.$this->input->post('to_4');
+
+			$from_long = ip2long($from);
+			$to_long = ip2long($to);
+
+
+			for($i = $from_long; $i <= $to_long; $i++) {
+				$data = $this->admin_model->validate_mac(long2ip($i));
+				print_r($data);
+			}
+
+		} else {
+			$this->load->template('/admin/validate_ips');
+		}	
 	}
 
 	public function validate_seats() 

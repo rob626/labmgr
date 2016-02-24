@@ -103,6 +103,8 @@ $(document).ready(function(){
 
     $('#validate_mac_form').on('submit', function(e) {
         e.preventDefault();
+        var data = $('#validate_mac_form :input').serializeArray();
+
         $('#status_modal_content').html("");
         $('#status_modal').foundation('reveal', 'open');
 

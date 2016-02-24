@@ -16,7 +16,7 @@
 </div> 
 
 <div class='large-10 columns'>
-	<form method='POST' id='validate_mac_form' action='/labmgr/validate_mac'>
+	<form method='POST' action='/admin/validate_ips'>
 		<div class='row'>
 			<br>
 			<div class="panel callout radius">
@@ -35,6 +35,39 @@
 			button that says "Update selected IP addresses"
 			<div class='small-4 small-centered columns'>
 				<br>
+				<div class='row'>
+					<div class='small-3 columns'>
+						<input type='text' name='from_1'>
+					</div>
+					<div class='small-3 columns'>
+						<input type='text' name='from_2'>
+					</div>
+					<div class='small-3 columns'>
+						<input type='text' name='from_3'>
+					</div>
+					<div class='small-3 columns'>
+						<input type='text' name='from_4'>
+					</div>
+				</div>
+				
+				<div class='row'>
+					<p>To:</p>
+				</div>
+
+				<div class='row'>
+					<div class='small-3 columns'>
+						<input type='text' name='to_1'>
+					</div>
+					<div class='small-3 columns'>
+						<input type='text' name='to_2'>
+					</div>
+					<div class='small-3 columns'>
+						<input type='text' name='to_3'>
+					</div>
+					<div class='small-3 columns'>
+						<input type='text' name='to_4'>
+					</div>
+				</div>
 				<input type='submit' class='button large center' value='Make it happen...'>
 				
 			</div>
