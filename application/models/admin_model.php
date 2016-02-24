@@ -243,21 +243,24 @@ class Admin_model extends CI_Model {
      * Validate MAC addresses against IPs. This is the inverse of the above function.
      */
     public function validate_mac($ip) {
-        $output = array();
+        $output = '';
         shell_exec("ping -n 2 " . $ip);
         $arp_mac = shell_exec("arp -a " . $ip . " | awk '{print $4}'");
         if(!empty($arp_mac)) {
             if(trim($arp_mac) != 'entries') {
                 $sql = "SELECT * FROM machine where mac_address = ?";
                 $result = $this->db->query($sql, trim($arp_mac));
-                $machine = $result->result_array();
-                $machine = $machine[0];
+                if($result->num_rows() == 1) {
+                    $machine = $result->result_array();
+                    $machine = $machine[0];
+                }
+                
                 if(!empty($machine)) {
                     if(trim($machine['ip_address']) == trim($ip)) {
                     // "They match";
                     } else {
-                        $output[] = "Validation Error: ". $machine;
-                        //$output[] = "Validation Error! RoomID: ".$machine['room_id']." Seat: "$machine['seat']" MAC:" .$machine['mac_address']. " Old IP: ".$machine['ip_address']." New IP: ".$ip." <br>";
+                        //$output = "Validation Error: ". $machine;
+                        $output = "Validation Error! RoomID: ".$machine['room_id']." Seat: ".$machine['seat']." MAC:" .$machine['mac_address']. " Old IP: ".$machine['ip_address']." New IP: ".$ip." <br>";
                         //echo "Validation Error! MAC in DB: " .$machine['mac_address']. " MAC from ARP: ".$mac." <br>";
                     }
                 }
