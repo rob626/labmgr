@@ -564,6 +564,8 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
                         }).done(function(response) {
 
                             $.each(response.status, function(index, value) {
+                                console.log(response);
+
                                 //console.log(response.disk_usage);
                                 if (value.disk_usage == false || typeof(value.disk_usage) == 'undefined' || value.disk_usage == null || value.disk_usage == 'null') {
                                     $('#disk_usage_'+ value.id).html("<span class='button tiny secondary radius'>--</span>") ;
@@ -591,8 +593,11 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
                                 } else {
                                     $('#status_'+ value.id).html("<span class='button tiny alert radius'>Offline</span>");
                                 }
+
+                                $('#lab_directories_'+ value.id).html(value.lab_directories);
                             });
                             
+
                         }).fail(function(jqXHR, textStatus, errorThrown) {
                             //alert("Error submitting data!");
                             //console.log(jqXHR, textStatus, errorThrown);
