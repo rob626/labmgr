@@ -1195,7 +1195,14 @@ class Labmgr extends MY_Controller {
 		echo $data['torrent_file'];
 
 	}
+
+	public function test_lab_directories() {
+		print_r($this->machine_model->lab_directories("9.44.159.108"));
+
+	}
 }
+
+
 
 /* End of file labmgr.php */
 /* Location: ./application/controllers/labmgr.php */

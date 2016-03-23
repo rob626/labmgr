@@ -137,6 +137,7 @@ class Machine_model extends CI_Model {
 	    	foreach($machines as $machine) {
 	    		$machine['status'] = $this->ping_test($machine['ip_address']);
                 $machine['disk_usage'] = false;
+                $machine['lab_directories'] = 0;
                 if($machine['status'] == 'ONLINE') {
                     $mac = shell_exec("arp -a " . $machine['ip_address'] . " | awk '{print $4}'");
                     if(trim($machine['mac_address']) == trim($mac)) {
@@ -151,6 +152,8 @@ class Machine_model extends CI_Model {
                         $pos = strrpos($machine['disk_usage'], "%");
                         $machine['disk_usage'] = substr($machine['disk_usage'], $pos-3,3);
                     }
+
+                    $machine['lab_directories'] = $this->lab_directories($machine['ip_address'])['cmd_output'][0];
                 }
 
                 array_push($updated_machines, $machine);
@@ -211,6 +214,20 @@ class Machine_model extends CI_Model {
     	);
 
     	return $output;
+    }
+
+    /**
+     * Connect to a remote machine and get count for lab directories.
+     */
+    public function lab_directories($ip) {
+        $output = array(
+            'status' => "Attempting to count lab directories: ".$ip,
+            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' "find /cygdrive/c/Labs/* -maxdepth 0 -type d | wc -l "', $cmd_output, $exit_status),
+            'cmd_output' => $cmd_output,
+            'exit_status' => $exit_status
+        );
+
+        return $output;
     }
 
     /*
