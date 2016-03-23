@@ -138,6 +138,7 @@ class Machine_model extends CI_Model {
 	    		$machine['status'] = $this->ping_test($machine['ip_address']);
                 $machine['disk_usage'] = false;
                 $machine['lab_directories'] = 0;
+                $machine['lab_directory_list'] = "";
                 if($machine['status'] == 'ONLINE') {
                     $mac = shell_exec("arp -a " . $machine['ip_address'] . " | awk '{print $4}'");
                     if(trim($machine['mac_address']) == trim($mac)) {
@@ -153,7 +154,8 @@ class Machine_model extends CI_Model {
                         $machine['disk_usage'] = substr($machine['disk_usage'], $pos-3,3);
                     }
 
-                    $machine['lab_directories'] = $this->lab_directories($machine['ip_address'])['cmd_output'][0];
+                    $machine['lab_directory_list'] = $this->lab_directories($machine['ip_address']);
+                    $machine['lab_directories'] = count( $machine['lab_directory_list']['cmd_output'] );
                 }
 
                 array_push($updated_machines, $machine);
@@ -222,7 +224,8 @@ class Machine_model extends CI_Model {
     public function lab_directories($ip) {
         $output = array(
             'status' => "Attempting to count lab directories: ".$ip,
-            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' "find /cygdrive/c/Labs/* -maxdepth 0 -type d | wc -l "', $cmd_output, $exit_status),
+            // 'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' "find /cygdrive/c/Labs/* -maxdepth 0 -type d | wc -l "', $cmd_output, $exit_status),
+            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' "find /cygdrive/c/Labs/* -maxdepth 0 -type d "', $cmd_output, $exit_status),
             'cmd_output' => $cmd_output,
             'exit_status' => $exit_status
         );

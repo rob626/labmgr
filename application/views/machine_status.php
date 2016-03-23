@@ -38,19 +38,45 @@
 		<table id='machine_datatable'>
 			<thead>
 				<tr>
-					<th>IP Address</th>
-					<th>Room</th>
-					<th>Seat</th>
-					<th>Ping</th>
-					<th>Disk<br>Usage</th>
-					<th>Torrent<br>Seeds</th>
-					<th>Torrent<br>Sizes (GB)</th>
-					<th>Lab<br>Dirs</th>
-					<th>Running<br>VMs</th>
-					<th>SSH</th>
-					<th>Watchdog<br>Log</th>
-					<th>Torrent</th>
-					<th>Select</th>
+					<th><span data-tooltip aria-haspopup="true" class="tip-top" title="Host IP address">
+						IP Address
+					</span></th>
+					<th><span data-tooltip aria-haspopup="true" class="tip-top" title="Room the host is in">
+						Room
+					</span></th>
+					<th><span data-tooltip aria-haspopup="true" class="tip-top" title="Seat number assigned to host">
+						Seat
+					</span></th>
+					<th><span data-tooltip aria-haspopup="true" class="tip-top" title="Is the host reachable">
+						Ping
+					</span></th>
+					<th><span data-tooltip aria-haspopup="true" class="tip-top" title="Disk usage percentage on client machine.  Color values: white=0-49%, blue=50-79%, green=80-89%, orange=90=94%, red=>95%">
+						Disk<br>Usage
+					</span></th>
+					<th><span data-tooltip aria-haspopup="true" class="tip-top" title="Number of torrent SEEDS / Number of TOTAL torrents.  5/5 indicates that there are 5 torrents and all are complete/seeding">
+						Torrent<br>Seeds
+					</span></th>
+					<th><span data-tooltip aria-haspopup="true" class="tip-top" title="Format is: &lt% of torrenting completed&gt, @ &ltcurrent speed&gt, &ltGB copied&gt / &ltTotal GB to copy&gt">
+						Torrent<br>Sizes (GB)
+					</span></th>
+					<th><span data-tooltip aria-haspopup="true" class="tip-top" title="Total number of Lab Directories in the lab root.">
+						Lab<br>Dirs
+					</th>
+					<th><span data-tooltip aria-haspopup="true" class="tip-top" title="Number of VMs running on host.  - means VMware not running, 0 means VMware running with no active VMs.">
+						Running<br>VMs
+					</th>
+					<th><span data-tooltip aria-haspopup="true" class="tip-top" title="Connect to host over SSH">
+						SSH
+					</th>
+					<th><span data-tooltip aria-haspopup="true" class="tip-top" title="View the host Watchdog log">
+						Watchdog<br>Log
+					</th>
+					<th><span data-tooltip aria-haspopup="true" class="tip-top" title="View the Web torrent client interface on this host">
+						Torrent
+					</th>
+					<th><span data-tooltip aria-haspopup="true" class="tip-top" title="Select host to Reboot or Shutdown">
+						Select
+					</th>
 				</tr>
 			</thead>
 			<tbody>
