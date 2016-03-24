@@ -115,7 +115,8 @@
 						echo "<td id='lab_directories_".$counter."'>-";	// Lab Dirs
 						echo "</td>";
 
-						echo "<td>". " - " ."</td>";  // VM count
+						echo "<td id='vm_count_".$counter."'> ... ";  // VM count
+						echo "</td>";
 
 						//echo "<td><a href='#' id='".$machine['machine_id']."' class='reboot_btn button tiny radius'>Reboot</a></td>";
 						/*echo "<td><form method='POST' action='/labmgr/reboot_machine'>

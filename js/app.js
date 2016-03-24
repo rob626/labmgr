@@ -595,6 +595,8 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
                                 }
 
                                 $('#lab_directories_'+ value.id).html(value.lab_directories);
+
+                                $('#vm_count_'+ value.id).html(value.vm_count);
                             });
                             
 

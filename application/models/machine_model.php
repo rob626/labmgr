@@ -139,6 +139,9 @@ class Machine_model extends CI_Model {
                 $machine['disk_usage'] = false;
                 $machine['lab_directories'] = 0;
                 $machine['lab_directory_list'] = "";
+                $machine['vm_count_list'] = "..";
+                $machine['vm_count'] = "..";
+                $machine['vm_process_count'] = "-";
                 if($machine['status'] == 'ONLINE') {
                     $mac = shell_exec("arp -a " . $machine['ip_address'] . " | awk '{print $4}'");
                     if(trim($machine['mac_address']) == trim($mac)) {
@@ -155,7 +158,14 @@ class Machine_model extends CI_Model {
                     }
 
                     $machine['lab_directory_list'] = $this->lab_directories($machine['ip_address']);
-                    $machine['lab_directories'] = count( $machine['lab_directory_list']['cmd_output'] );
+                    $machine['lab_directories'] = count($machine['lab_directory_list']['cmd_output']);
+
+                    $machine['vm_count_list'] = $this->vm_count_list($machine['ip_address']);
+                    $machine['vm_count'] = preg_replace('/\D/', '', $machine['vm_count_list']['cmd_output'][0]);
+                    $machine['vm_process_count'] = $this->vm_processes($machine['ip_address'])['cmd_output'][0];
+                    if ($machine['vm_process_count'] == 0) {
+                        $machine['vm_count'] = "-";
+                    }
                 }
 
                 array_push($updated_machines, $machine);
@@ -232,6 +242,35 @@ class Machine_model extends CI_Model {
 
         return $output;
     }
+
+    /**
+     * Connect to a remote machine and get count of vm images currently running.
+     */
+    public function vm_count_list($ip) {
+        $output = array(
+            'status' => "Attempting to count running vms: ".$ip,
+            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' "vmrun.exe -T ws list "', $cmd_output, $exit_status),
+            'cmd_output' => $cmd_output,
+            'exit_status' => $exit_status
+        );
+
+        return $output;
+    }
+
+    /**
+     * Connect to a remote machine and get count of vm images currently running.
+     */
+    public function vm_processes($ip) {
+        $output = array(
+            'status' => "Attempting to count running vmware processes: ".$ip,
+            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" IBM_USER@' . $ip . ' "ps -eW | grep -i vmware.exe | wc -l "', $cmd_output, $exit_status),
+            'cmd_output' => $cmd_output,
+            'exit_status' => $exit_status
+        );
+
+        return $output;
+    }
+
 
     /*
      * Run a command on a machine.
