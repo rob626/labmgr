@@ -151,7 +151,10 @@ class Machine_model extends CI_Model {
                         //echo "Validation Error! MAC in DB: " .$machine['mac_address']. " MAC from ARP: ".$mac." <br>";
                     }
 
-                    $machine['disk_usage'] = $this->disk_usage($machine['ip_address'])['cmd_output'][1];
+                    if(!empty($this->disk_usage($machine['ip_address'])['cmd_output'][1])){
+                        $machine['disk_usage'] = $this->disk_usage($machine['ip_address'])['cmd_output'][1];
+                    }
+                    
                     if(!empty($machine['disk_usage'])) {
                         $pos = strrpos($machine['disk_usage'], "%");
                         $machine['disk_usage'] = substr($machine['disk_usage'], $pos-3,3);
@@ -161,8 +164,13 @@ class Machine_model extends CI_Model {
                     $machine['lab_directories'] = count($machine['lab_directory_list']['cmd_output']);
 
                     $machine['vm_count_list'] = $this->vm_count_list($machine['ip_address']);
-                    $machine['vm_count'] = preg_replace('/\D/', '', $machine['vm_count_list']['cmd_output'][0]);
-                    $machine['vm_process_count'] = $this->vm_processes($machine['ip_address'])['cmd_output'][0];
+                    if(!empty($machine['vm_count_list']['cmd_output'][0])) {
+                        $machine['vm_count'] = preg_replace('/\D/', '', $machine['vm_count_list']['cmd_output'][0]);
+                        $machine['vm_process_count'] = $this->vm_processes($machine['ip_address'])['cmd_output'][0];
+                    }
+
+                    
+                    
                     if ($machine['vm_process_count'] == 0) {
                         $machine['vm_count'] = "-";
                     }
