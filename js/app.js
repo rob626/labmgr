@@ -595,13 +595,13 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
                                 }
 
                                 if(value.lab_directories > 0 ) {
-                                    $('#lab_directories_'+ value.id).html("<a href='#' data-reveal-id='vm_modal_"+value.id+"'>"+value.lab_directories+"</a><div id='vm_modal_"+value.id+"' class='reveal-modal' data-reveal aria-labelledby='modalTitle' aria-hidden='true' role='dialog'><h2 id='modalTitle'>Session Directories</h2><p class='lead'><pre>"+value.lab_directory_list+"</pre></p><a class='close-reveal-modal' aria-label='Close'>&#215;</a></div>");
+                                    $('#lab_directories_'+ value.id).html("<a href='#' data-reveal-id='lab_dirs_modal_"+value.id+"'>"+value.lab_directories+"</a><div id='lab_dirs_modal_"+value.id+"' class='reveal-modal' data-reveal aria-labelledby='modalTitle' aria-hidden='true' role='dialog'><h2 id='modalTitle'>Session Directories</h2><p class='lead'><pre>"+value.lab_directory_list+"</pre></p><a class='close-reveal-modal' aria-label='Close'>&#215;</a></div>");
                                 } else {
                                     $('#lab_directories_'+ value.id).html(value.lab_directories);
                                 }
 
                                 if(value.vm_count > 0 ) {
-                                    $('#vm_count_'+ value.id).html("<a href='#' data-reveal-id='vm_modal_"+value.id+"'>"+value.vm_count+"</a><div id='vm_modal_"+value.id+"' class='reveal-modal' data-reveal aria-labelledby='modalTitle' aria-hidden='true' role='dialog'><h2 id='modalTitle'>Running VMs</h2><p class='lead'>"+value.vm_count_list.cmd_output[1]+"</p><a class='close-reveal-modal' aria-label='Close'>&#215;</a></div>");
+                                    $('#vm_count_'+ value.id).html("<a href='#' data-reveal-id='vm_count_modal_"+value.id+"'>"+value.vm_count+"</a><div id='vm_count_modal_"+value.id+"' class='reveal-modal' data-reveal aria-labelledby='modalTitle' aria-hidden='true' role='dialog'><h2 id='modalTitle'>Running VMs</h2><p class='lead'>"+value.vm_count_list.cmd_output[1]+"</p><a class='close-reveal-modal' aria-label='Close'>&#215;</a></div>");
                                 } else {
                                     $('#vm_count_' + value.id).html(value.vm_count);
                                 }
