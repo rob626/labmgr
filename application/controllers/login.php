@@ -62,10 +62,14 @@ class Login extends CI_Controller {
 			$rooms = $this->room_model->get_rooms();
 			$operating_systems = $this->admin_model->get_operating_systems();
 			$ip_guess = $_SERVER['REMOTE_ADDR'];
+			$browser = get_browser(null, true);
+			$os_guess = $browser['platform'];
+			echo $os_guess;
 
 			sort($machines);
 			
 			$data['mac_guess'] = $this->machine_model->get_mac($ip_guess);
+			$data['os_guess'] = $os_guess;
 			$data['current_room'] = $room_id;
 			$data['machines'] = $machines;
 			$data['rooms'] = $rooms;
