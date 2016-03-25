@@ -300,6 +300,7 @@ class Labmgr extends MY_Controller {
 				$machine['torrents'] = $torrent_data['torrents'];
 				$data['machines'][$key] = $machine;
 			}  */
+
 			$data['rooms'] = $this->room_model->get_rooms();
 			$this->load->template('machine_status', $data);
 		}
