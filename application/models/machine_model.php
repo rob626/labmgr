@@ -258,7 +258,7 @@ class Machine_model extends CI_Model {
     public function vm_count_list($ip) {
         $output = array(
             'status' => "Attempting to count running vms: ".$ip,
-            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" ibm_user@' . $ip . ' "vmrun.exe -T ws list "', $cmd_output, $exit_status),
+            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" ibm_user@' . $ip . ' "vmrun -T ws list "', $cmd_output, $exit_status),
             'cmd_output' => $cmd_output,
             'exit_status' => $exit_status
         );
@@ -272,7 +272,7 @@ class Machine_model extends CI_Model {
     public function vm_processes($ip) {
         $output = array(
             'status' => "Attempting to count running vmware processes: ".$ip,
-            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" ibm_user@' . $ip . ' "ps -eW | grep -i vmware.exe | wc -l "', $cmd_output, $exit_status),
+            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" ibm_user@' . $ip . ' "ps -eW | grep -i vmware | wc -l "', $cmd_output, $exit_status),
             'cmd_output' => $cmd_output,
             'exit_status' => $exit_status
         );
