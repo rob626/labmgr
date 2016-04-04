@@ -353,7 +353,7 @@ class Machine_model extends CI_Model {
     public function delete_lab_dir($ip, $path) {
         $output = array(
             'status' => "Deleting dir: ".$path.", on: ".$ip,
-            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" ibm_user@' . $ip . ' "rm -rf '.$path.'"', $cmd_output, $exit_status),
+            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $ip . ' "rm -rf '.$path.'"', $cmd_output, $exit_status),
             'cmd_output' => $cmd_output,
             'exit_status' => $exit_status
         );

@@ -347,7 +347,7 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
     $('#delete_dirs_form').on('submit', function(e) {
         e.preventDefault();
         var data = $('#delete_dirs_form :input').serializeArray();
-        $('#status_modal_content').html("");
+        $('#status_modal_content').html("Please wait...");
         $('#status_modal').foundation('reveal', 'open');
         
         $.ajax({        
