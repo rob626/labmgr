@@ -1007,7 +1007,8 @@ class Labmgr extends MY_Controller {
 				);
 
 			if($retval) {
-				$this->session->set_flashdata('status', $retval);
+				$room_name=$this->room_model->get_room($this->input->post('room_id'));
+				$this->session->set_flashdata('status', 'machine-id: '.$retval.' room: '.$room_name[0]['name'].' / seat: '.$this->input->post('seat'));
 				redirect('/labmgr/register_machine');
 			} else {
 				echo "DB Error";
