@@ -244,8 +244,9 @@ class Admin_model extends CI_Model {
      */
     public function validate_mac($ip) {
         $output = '';
-        shell_exec("ping -n 2 " . $ip);
+        //shell_exec("ping -c 1 " . $ip);
         $arp_mac = shell_exec("arp -a " . $ip . " | awk '{print $4}'");
+        //echo $arp_mac . "<br>";
         if(!empty($arp_mac)) {
             if(trim($arp_mac) != 'entries') {
                 $sql = "SELECT * FROM machine where mac_address = ?";
@@ -257,16 +258,34 @@ class Admin_model extends CI_Model {
                 
                 if(!empty($machine)) {
                     if(trim($machine['ip_address']) == trim($ip)) {
-                    // "They match";
+                        //$output = $machine['ip_address'] .' = '. $ip;
                     } else {
                         //$output = "Validation Error: ". $machine;
+                        $machine['new_ip'] = $ip;
                         $output = "Validation Error! RoomID: ".$machine['room_id']." Seat: ".$machine['seat']." MAC:" .$machine['mac_address']. " Old IP: ".$machine['ip_address']." New IP: ".$ip." <br>";
                         //echo "Validation Error! MAC in DB: " .$machine['mac_address']. " MAC from ARP: ".$mac." <br>";
+                        return $machine;
                     }
                 }
             }
         }
+        
+    }
 
-        return $output;
+    /**
+     * Update IP address based on Machine ID.
+     */
+    public function update_validated_ip($id, $new_ip) {
+        $this->db->trans_start();
+
+        $this->db->where('machine_id', $id);
+        $this->db->update('machine', array(
+            'ip_address' => $new_ip, 
+            'last_update_timestamp' => date("Y-m-d H:i:s")
+            )
+        );
+
+        $this->db->trans_complete();
+        return $this->db->trans_status();
     }
 }

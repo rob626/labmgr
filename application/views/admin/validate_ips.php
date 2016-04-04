@@ -1,22 +1,9 @@
 <div class='large-2 columns  side-nav-color'>
-	<ul class='side-nav'>
-		<li><a href='/admin/set_global_defaults'>Set global defaults</a></li>
-		<li class='active'><a href='/admin/validate_ips'>Validate MAC / IP Mapping</a></li>
-		<li><a href='/admin/validate_seats'>Validate Seats</a></li>
-		<hr>
-		<li><a href='/admin/db_reset'>Database Reset</a></li>
-		<li><a href='/admin/export_db'>Database Export</a></li>
-		<li><a href='/admin/import_db'>Database Import</a></li>
-		<hr>
-		<li><a href='/admin/cleanup_watchdog'>Watchdog dropins & full cleanups</a></li>
-		<hr>
-		<li><a href='/admin/reporting_twitter'>Reporting - twitter</a></li>
-	</ul>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<?php $this->load->view('template/admin_left_nav'); ?>
 </div> 
 
 <div class='large-10 columns'>
-	<form method='POST' action='/admin/validate_ips'>
+	<form method='POST' id='validate_ips_form' action='/admin/validate_ips'>
 		<div class='row'>
 			<br>
 			<div class="panel callout radius">
@@ -73,5 +60,28 @@
 			</div>
 		</div>
 	</form>
+	<div class='row'>
+		<div id='validation_results'>
+			<h2>Results</h2>
+			<a href='#' id='select_all'>Select All</a>&nbsp &nbsp  <a href='#' id='unselect_all'>Unselect All</a><br>
+			<form  id='validation_result_form' action='/admin/update_ips'>
+				<table id='validation_results_table'>
+					<thead>
+						<tr>
+							<th>Select</th>
+							<th>Room</th>
+							<th>Seat</th>
+							<th>MAC</th>
+							<th>Old IP</th>
+							<th>New IP</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr></tr>
+					</tbody>
+				</table>
+				<input type='submit' class='button large' value='Update IP(s)'>
+			</form>
+		</div>
+		</div>
 	</div>
-</div>

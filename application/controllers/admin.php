@@ -39,12 +39,18 @@ class Admin extends CI_Controller {
 
 			for($i = $from_long; $i <= $to_long; $i++) {
 				$data = $this->admin_model->validate_mac(long2ip($i));
+				echo "<pre>";
 				print_r($data);
+				echo "</pre>";
 			}
 
 		} else {
 			$this->load->template('/admin/validate_ips');
 		}	
+	}
+
+	public function update_ips() {
+		print_r($_POST);
 	}
 
 	public function validate_seats() 
