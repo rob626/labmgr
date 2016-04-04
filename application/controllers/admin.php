@@ -319,4 +319,28 @@ class Admin extends CI_Controller {
 
 	}
 
+	/**
+	 * Deletes lab directory 
+	 */
+	public function delete_lab_dir() {
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+				/*echo "<pre>";
+				print_r($_POST);
+				die(); */
+
+
+				/*
+				print_r($torrent);
+				echo "<br>Machines: <br>";
+				print_r($machines);
+				echo "</pre>";*/
+
+			} else {
+				$data['machines'] = $this->machine_model->get_machines();
+				$data['rooms'] = $this->room_model->get_rooms();
+
+				$this->load->template('admin/delete_by_machine', $data);
+			}	
+		}
+
 }

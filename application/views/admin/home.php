@@ -3,6 +3,7 @@
 		<li class='active'><a href='/admin/set_global_defaults'>Set global defaults</a></li>
 		<li><a href='/admin/validate_ips'>Validate MAC / IP Mapping</a></li>
 		<li><a href='/admin/validate_seats'>Validate Seats</a></li>
+		<li><a href='/admin/add_operating_system'>Manage Operating Systems</a></li>
 		<hr>
 		<li><a href='/admin/db_reset'>Database Reset</a></li>
 		<li><a href='/admin/export_db'>Database Export</a></li>

@@ -344,6 +344,54 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
             });
     });
 
+    $('#delete_dirs_form').on('submit', function(e) {
+        e.preventDefault();
+        var data = $('#delete_dirs_form :input').serializeArray();
+        $('#status_modal_content').html("");
+        $('#status_modal').foundation('reveal', 'open');
+        
+        $.ajax({        
+            url: "/service/delete_dirs",
+            type: "get",
+            dataType: "json",
+            async: true,
+            data: {data : data}
+            }).done(function(response) {
+                
+                $.each(response, function(index, value) {
+                    $('#status_modal_content').append("<h3>"+value.status+"</h3>")
+                });
+                
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                //alert("Error submitting data!");
+                console.log(jqXHR, textStatus, errorThrown);
+            });
+    });
+
+    $('#folder_list_btn').click(function(e) {
+        e.preventDefault();
+        var data = $('#delete_dirs_form :input').serializeArray();
+        $('#status_modal_content').html("");
+        //$('#status_modal').foundation('reveal', 'open');
+        
+        $.ajax({        
+            url: "/service/delete_dirs_list",
+            type: "get",
+            dataType: "json",
+            async: true,
+            data: {data : data}
+            }).done(function(response) {
+                $('#folder_list').html('');
+                $.each(response, function(index, value) {
+                    $('#folder_list').append("<input type='checkbox' name='folder_ids[]' value='"+value+"'><label>"+value+"</label><br>")
+                }); 
+                
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                //alert("Error submitting data!");
+                console.log(jqXHR, textStatus, errorThrown);
+            });
+    });    
+
     $('.view_log_btn').click(function() {
         var machine_id = $(this).attr('id');
         $.ajax({        

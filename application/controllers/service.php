@@ -120,7 +120,7 @@ class Service extends CI_Controller {
 	public function reboot_machine() {
 		$machine_id = $this->input->get('machine_id');
 		$machine = $this->machine_model->get_machine($machine_id);
-		echo json_encode($this->machine_model->reboot($machine[0]['ip_address']));
+		echo json_encode($this->machine_model->reboot($machine[0]['ip_address'], $machine[0]['os_id']));
 	}
 
 	public function shutdown_machine() {
@@ -141,6 +141,61 @@ class Service extends CI_Controller {
 
 		echo json_encode($data);
 	}
+
+	/**
+	 * Get list of directories to delete.
+	 */
+	public function delete_dirs_list() {
+		$data = $this->input->get('data');
+		$machines = array();
+		$unique_list = array();
+
+		foreach($data as $d) {
+			if($d['name'] == 'machine_ids[]') {
+				array_push($machines, $this->machine_model->get_machine($d['value'])[0]);
+			}
+		}
+
+		foreach($machines as $machine) {
+			$output = $this->machine_model->lab_directories($machine['ip_address']);
+			$unique_list = array_merge($unique_list, $output['cmd_output']);
+		}
+		$unique_list = array_unique($unique_list);
+		sort($unique_list);
+
+		echo json_encode($unique_list);
+	}
+
+	public function delete_dirs() {
+		$data = $this->input->get('data');
+		$machines = array();
+		$dirs = array();
+
+		foreach($data as $d) {
+			if($d['name'] == 'machine_ids[]') {
+				array_push($machines, $this->machine_model->get_machine($d['value'])[0]);
+			}
+
+			if($d['name'] == 'folder_ids[]') {
+				$dirs[] = $d['value'];
+			}
+
+			if($d['name'] == 'dir' && !empty($d['value'])) {
+				$dirs[] = $d['value'];
+			}
+		}
+
+		foreach($machines as $machine) {
+			foreach($dirs as $dir) {
+				$output[] = $this->machine_model->delete_lab_dir($machine['ip_address'], $dir);
+			}
+			
+		}
+
+		echo json_encode($output);
+	}
+
+
 
 	/**
 	 *

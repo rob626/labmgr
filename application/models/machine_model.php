@@ -105,11 +105,28 @@ class Machine_model extends CI_Model {
 	/**
      * Reboot machine
      */
-    public function reboot($ip) {
+    public function reboot($ip, $os_id) {
     	//echo "Sending reboot command to: ".$ip;
+
+
+        switch ($os_id) {
+            case 1: //Windows
+                $cmd = 'shutdown -r -t 0 -f';
+                break;
+            case 2: //Linux
+                $cmd = 'sudo reboot';
+                break;
+            case 3: //Mac
+                $cmd = 'sudo reboot';
+                break;
+            default:
+                echo "Invalid OS";
+        }
+        
+
     	$output = array(
     		'status' => "Sending reboot command to: ".$ip,
-    		'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" ibm_user@' . $ip . ' "shutdown -r -t 0 -f"', $cmd_output, $exit_status),
+    		'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" ibm_user@' . $ip . ' "'.$cmd.'"', $cmd_output, $exit_status),
     		'cmd_output' => $cmd_output,
     		'exit_status' => $exit_status
     		);
@@ -241,10 +258,11 @@ class Machine_model extends CI_Model {
      * Connect to a remote machine and get count for lab directories.
      */
     public function lab_directories($ip) {
+
         $output = array(
             'status' => "Attempting to count lab directories: ".$ip,
             // 'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" ibm_user@' . $ip . ' "find /cygdrive/c/Labs/* -maxdepth 0 -type d | wc -l "', $cmd_output, $exit_status),
-            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" ibm_user@' . $ip . ' "find /cygdrive/c/Labs/* -maxdepth 0 -type d "', $cmd_output, $exit_status),
+            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $ip . ' "find /cygdrive/c/Labs/* -maxdepth 0 -type d "', $cmd_output, $exit_status),
             'cmd_output' => $cmd_output,
             'exit_status' => $exit_status
         );
@@ -327,6 +345,20 @@ class Machine_model extends CI_Model {
             return 'Unable to get MAC Address.';
         }
 
+    }
+
+    /**
+     * Delete lab dir from machine
+     */
+    public function delete_lab_dir($ip, $path) {
+        $output = array(
+            'status' => "Deleting dir: ".$path.", on: ".$ip,
+            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" ibm_user@' . $ip . ' "rm -rf '.$path.'"', $cmd_output, $exit_status),
+            'cmd_output' => $cmd_output,
+            'exit_status' => $exit_status
+        );
+
+        return $output;
     }
 
 }
