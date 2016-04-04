@@ -16,7 +16,7 @@
 </div> 
 
 <div class='large-10 columns'>
-	<form method='POST' action='/admin/validate_ips'>
+	<form method='POST' id='validate_ips_form' action='/admin/validate_ips'>
 		<div class='row'>
 			<br>
 			<div class="panel callout radius">
@@ -73,5 +73,27 @@
 			</div>
 		</div>
 	</form>
+	<div class='row'>
+		<div id='validation_results'>
+			<h2>Results</h2>
+			<form  id='validation_result_form' action='/admin/update_ips'>
+				<table id='validation_results_table'>
+					<thead>
+						<tr>
+							<th>Select</th>
+							<th>Room</th>
+							<th>Seat</th>
+							<th>MAC</th>
+							<th>Old IP</th>
+							<th>New IP</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr></tr>
+					</tbody>
+				</table>
+				<input type='submit' class='button large' value='Update IP(s)'>
+			</form>
+		</div>
+		</div>
 	</div>
-</div>

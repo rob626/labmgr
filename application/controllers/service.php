@@ -196,7 +196,6 @@ class Service extends CI_Controller {
 	}
 
 
-
 	/**
 	 *
 	 */
@@ -496,53 +495,73 @@ class Service extends CI_Controller {
 	}
 
 	/**
-	 * Validate vmx files
+	 * Validate IP/MAC address mapping
 	 */
 	public function validate_mac() {
 		$data = $this->input->get('data');
-		
+
 		$machines = array();
 		$from = '';
 		$to = '';
 
 		foreach($data as $d) {
 			if($d['name'] == 'from_1') {
-				$from .= $d['name'];
+				$from .= $d['value'];
 			}
 			if($d['name'] == 'from_2') {
-				$from .= '.'.$d['name'];
+				$from .= '.'.$d['value'];
 			}
 			if($d['name'] == 'from_3') {
-				$from .= '.'.$d['name'];
+				$from .= '.'.$d['value'];
 			}
 			if($d['name'] == 'from_4') {
-				$from .= '.'.$d['name'];
+				$from .= '.'.$d['value'];
 			}
 			if($d['name'] == 'to_1') {
-				$to .= '.'.$d['name'];
+				$to .= $d['value'];
 			}
 			if($d['name'] == 'to_2') {
-				$to .= '.'.$d['name'];
+				$to .= '.'.$d['value'];
 			}
 			if($d['name'] == 'to_3') {
-				$to .= '.'.$d['name'];
+				$to .= '.'.$d['value'];
 			}
 			if($d['name'] == 'to_4') {
-				$to .= '.'.$d['name'];
+				$to .= '.'.$d['value'];
 			}
 	
 		}
-			//$from .= $this->input->post('from_1') .'.'.$this->input->post('from_2') .'.'.$this->input->post('from_3') .'.'.$this->input->post('from_4');
-			//$to .= $this->input->post('to_1') .'.'.$this->input->post('to_2') .'.'.$this->input->post('to_3') .'.'.$this->input->post('to_4');
-
 			$from_long = ip2long($from);
 			$to_long = ip2long($to);
-
 
 			for($i = $from_long; $i <= $to_long; $i++) {
 				$output[] = $this->admin_model->validate_mac(long2ip($i));
 			}
+			$output = array_filter($output);
 
+		echo json_encode($output);
+	}
+
+	public function update_ips() {
+		$data = $this->input->get('data');
+		$machines = array();
+
+		foreach($data as $d) {
+			if($d['name'] == 'machine_ids[]') {
+				$update_info = explode('_', $d['value']);
+
+				$machine = $this->machine_model->get_machine($update_info[0]);
+				$machine[0]['new_ip'] = $update_info[1];
+				array_push($machines, $machine);
+			}
+		}
+
+		foreach($machines as $machine) {
+			foreach($machine as $m) {
+				$output[] = $this->admin_model->update_validated_ip($m['machine_id'], $m['new_ip']);
+			}
+
+		}
 		echo json_encode($output);
 	}
 

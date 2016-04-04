@@ -10,7 +10,7 @@ $(document).ready(function(){
     }
     */
     $('.hidden').hide();
-
+    $('#validation_results').hide();
     $('#overrides').click(function() {
         $('.hidden').toggle();
     });
@@ -488,7 +488,64 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
         }
     });
 
-    
+    $('#validate_ips_form').on('submit', function(e) {
+        e.preventDefault();
+        var data = $('#validate_ips_form :input').serializeArray();
+
+        $('#status_modal_content').html("Please Wait...");
+        $('#status_modal').foundation('reveal', 'open');
+
+        $.ajax({        
+            url: "/service/validate_mac",
+            type: "get",
+            dataType: "json",
+            async: true,
+            data: {data : data}
+            }).done(function(response) {
+                $('#status_modal').foundation('reveal', 'close');
+                $('#validation_results').show();
+                
+                $.each(response, function(index, value) {
+                    //console.log(value);
+                    $('#validation_results_table tr:last').after("<tr><td><input type='checkbox' class='checkbox' name='machine_ids[]' value='"+value.machine_id+"_"+value.new_ip+"'></td><td>"+value.room_id+"</td><td>"+value.seat+"</td><td>"+value.mac_address+"</td><td>"+value.ip_address+"</td><td style='font-weight:bold'>"+value.new_ip+"</td></tr>")
+                });
+ 
+                
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                //alert("Error submitting data!");
+                console.log(jqXHR, textStatus, errorThrown);
+            });
+    });
+
+    $('#validation_result_form').on('submit', function(e) {
+        e.preventDefault();
+        var data = $('#validation_result_form :input').serializeArray();
+
+        $('#status_modal_content').html("Please Wait...");
+        $('#status_modal').foundation('reveal', 'open');
+
+        $.ajax({        
+            url: "/service/update_ips",
+            type: "get",
+            dataType: "json",
+            async: true,
+            data: {data : data}
+            }).done(function(response) {
+                console.log(response);
+                if(response == true || response[0] == true) {
+                    $('#status_modal_content').html('<h3>Updated Successfuly</h3>');
+                } else {
+                    $('#status_modal_content').append("<h3>Error</h3>");
+                }
+                
+                
+ 
+                
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                //alert("Error submitting data!");
+                console.log(jqXHR, textStatus, errorThrown);
+            });
+    });
     
 
     $('.reboot_btn').click(function() {
