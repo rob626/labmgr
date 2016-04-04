@@ -76,6 +76,7 @@
 	<div class='row'>
 		<div id='validation_results'>
 			<h2>Results</h2>
+			<a href='#' id='select_all'>Select All</a>&nbsp &nbsp  <a href='#' id='unselect_all'>Unselect All</a><br>
 			<form  id='validation_result_form' action='/admin/update_ips'>
 				<table id='validation_results_table'>
 					<thead>
