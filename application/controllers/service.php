@@ -534,9 +534,25 @@ class Service extends CI_Controller {
 			$from_long = ip2long($from);
 			$to_long = ip2long($to);
 
-			for($i = $from_long; $i <= $to_long; $i++) {
-				$output[] = $this->admin_model->validate_mac(long2ip($i));
+			$current = $from_long;
+			$chunk_size = 50;
+
+			while($current < $to_long) {
+				shell_exec("fping -r 0 -t500 -q -g ".long2ip($current)." " . long2ip($current + $chunk_size));
+				$max = $current + $chunk_size;
+				if($max > $to_long) {
+					$max = $to_long;
+				}
+				for($i = $current; $i <= $max; $i++) {
+					$output[] = $this->admin_model->validate_mac(long2ip($i));
+				}
+
+				$current += $chunk_size;
 			}
+
+
+			
+			
 			$output = array_filter($output);
 
 		echo json_encode($output);

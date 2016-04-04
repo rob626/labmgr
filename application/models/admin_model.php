@@ -244,7 +244,7 @@ class Admin_model extends CI_Model {
      */
     public function validate_mac($ip) {
         $output = '';
-        shell_exec("ping -c 1 " . $ip);
+        //shell_exec("ping -c 1 " . $ip);
         $arp_mac = shell_exec("arp -a " . $ip . " | awk '{print $4}'");
         //echo $arp_mac . "<br>";
         if(!empty($arp_mac)) {
