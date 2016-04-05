@@ -381,7 +381,7 @@ class Machine_model extends CI_Model {
     }
 
     /**
-     * Find all the broken macs cause pete is a bitch.
+     * Find all the missing or null MAC addresses. 
      */
     public function get_broken_macs() {
         $q = "SELECT * FROM machine where mac_address like '%Unable to get MAC Address.%' OR mac_address is null OR mac_address = ''";
