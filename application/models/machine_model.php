@@ -361,18 +361,34 @@ class Machine_model extends CI_Model {
         return $output;
     }
 
+    /**
+     * Find all the broken MAC addresses in the DB and attempt to fix them.
+     */
     public function fix_broken_macs() {
-        $q = "SELECT * FROM machine where mac_address = 'Unable to get MAC Address.'";
-        $result = $this->db->query($q);
-        $result = $result->result_array();
-
+        $result = $this->get_broken_macs();
+        $output = array();
         foreach($result as $machine) {
             $mac = $this->get_mac($machine['ip_address']);
             if($mac != 'Unable to get MAC Address.') {
-                $this->update_machine($machine['machine_id'], $machine['room_id'], $machine['seat'], $mac, $machine['ip_address'], $machine['os_id'],$machine['username'],$machine['password'],$machine['torrent_client_id'], $machine['transport_type']);
+                $retval = $this->update_machine($machine['machine_id'], $machine['room_id'], $machine['seat'], $mac, $machine['ip_address'], $machine['os_id'],$machine['username'],$machine['password'],$machine['torrent_client_id'], $machine['transport_type']);
+                $machine['mac_address'] = $mac;
+                if($retval) {
+                    $output[] = $machine;
+                }
             }
-
         }
+        return $output;
+    }
+
+    /**
+     * Find all the broken macs cause pete is a bitch.
+     */
+    public function get_broken_macs() {
+        $q = "SELECT * FROM machine where mac_address like '%Unable to get MAC Address.%' OR mac_address is null OR mac_address = ''";
+        $result = $this->db->query($q);
+        $result = $result->result_array();
+
+        return $result;
     }
 
 }

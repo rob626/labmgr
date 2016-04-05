@@ -27,6 +27,18 @@ class Admin extends CI_Controller {
 		$this->load->template('/admin/set_global_defaults');
 	}
 
+	public function fix_macs() {
+		if($_SERVER['REQUEST_METHOD'] === 'POST') {
+			$data['rooms'] = $this->room_model->get_rooms();
+			$data['fixed_machines'] = $this->machine_model->fix_broken_macs();
+			$this->load->template('/admin/fix_broken_macs', $data);
+		} else {
+			$data['rooms'] = $this->room_model->get_rooms();
+			$data['broken_machines'] = $this->machine_model->get_broken_macs();
+			$this->load->template('/admin/fix_broken_macs', $data);
+		}
+	}
+
 	public function validate_ips() {
 		if($_SERVER['REQUEST_METHOD'] === 'POST') {
 			echo "Running... <br>";
