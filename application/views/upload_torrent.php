@@ -54,6 +54,7 @@
 			<tr>
 				<th>Torrent<br>ID</th>
 				<th>Torrent<br>Name</th>
+				<th>Torrent<br>Version</th>
 				<th>Torrent<br>Hash</th>
 				<th>Torrent<br>Path</th>
 				<th>Edit</th>
@@ -68,6 +69,7 @@
 					echo "<tr>";
 					echo "<td>".$torrent['torrent_id']."</td>";
 					echo "<td>".$torrent['name']."</td>";
+					echo "<td>".$torrent['torrent_version']."</td>";
 					echo "<td>".substr($torrent['hash'],0,4)."...</td>";
 					echo "<td>".$torrent['path']."</td>";
 					echo "<td><form method='POST' action='/labmgr/edit_torrent'>
