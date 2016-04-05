@@ -361,4 +361,18 @@ class Machine_model extends CI_Model {
         return $output;
     }
 
+    public function fix_broken_macs() {
+        $q = "SELECT * FROM machine where mac_address = 'Unable to get MAC Address.'";
+        $result = $this->db->query($q);
+        $result = $result->result_array();
+
+        foreach($result as $machine) {
+            $mac = $this->get_mac($machine['ip_address']);
+            if($mac != 'Unable to get MAC Address.') {
+                $this->update_machine($machine['machine_id'], $machine['room_id'], $machine['seat'], $mac, $machine['ip_address'], $machine['os_id'],$machine['username'],$machine['password'],$machine['torrent_client_id'], $machine['transport_type']);
+            }
+
+        }
+    }
+
 }

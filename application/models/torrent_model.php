@@ -38,10 +38,19 @@ class Torrent_model extends CI_Model {
 		return $result->result_array();
 	}
 
+	/**
+	 * Search for torrents with the same name.
+	 */
+	public function search_torrent_name($name) {
+		$q = "SELECT * FROM torrent where name = ?";
+		$result = $this->db->query($q, $name);
+		return $result->result_array();
+	}
+
 	    /**
 	     * Update torrent data a torrent ID.
 	     */
-	    public function update_torrent($torrent_id, $torrent_name, $hash, $torrent_path, $torrent_file = '') {
+	    public function update_torrent($torrent_id, $torrent_name, $hash, $torrent_path, $torrent_file = '', $torrent_version = 0) {
 	    	$this->db->trans_start();
 
 	    	$this->db->where('torrent_id', $torrent_id);
@@ -50,6 +59,7 @@ class Torrent_model extends CI_Model {
 	    		'hash' => $hash,
 	    		'path' => $torrent_path,
 	    		'torrent_file' => $torrent_file,
+	    		'torrent_version' => $torrent_version,
 	    		'last_update_timestamp' => date("Y-m-d H:i:s")
 	    		)
 	    	);
@@ -61,7 +71,7 @@ class Torrent_model extends CI_Model {
 	    /**
 	     * Add a torrent record.
 	     */
-	    public function add_torrent($torrent_name, $hash, $torrent_path, $torrent_file) {
+	    public function add_torrent($torrent_name, $hash, $torrent_path, $torrent_file, $torrent_version = 0) {
 	    	
 	    	$result = $this->db->query("SELECT * FROM torrent where hash = ?", $hash);
 	    	$result = $result->result_array();
@@ -73,7 +83,8 @@ class Torrent_model extends CI_Model {
 					'name' => $torrent_name,
 					'hash' => $hash,
 					'path' => $torrent_path,
-					'torrent_file' => $torrent_file
+					'torrent_file' => $torrent_file,
+					'torrent_version' => $torrent_version
 				);
 				$this->db->insert('torrent', $data);
 

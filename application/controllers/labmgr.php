@@ -1146,11 +1146,25 @@ class Labmgr extends MY_Controller {
 				$this->bencoded->FromFile(TORRENT_UPLOAD_DIR.$torrent);
 				$hash = $this->bencoded->InfoHash();
 
+				$filename = $torrent;
+				if (strpos($filename, '.') === FALSE) {
+					
+				} else {
+					$parts		= explode('.', $filename);
+					$ext		= array_pop($parts);
+					$filename	= array_shift($parts);
+
+					foreach ($parts as $part) {
+						$filename .= '.'.$part;
+					}
+				}
+
 				$insert_id = $this->torrent_model->add_torrent(
-				$torrent,
+				$filename,
 				$hash,
 				TORRENT_UPLOAD_DIR.$torrent,
-				''
+				'',
+				$this->compute_torrent_version($file_name)
 				);
 			}
 
@@ -1162,7 +1176,9 @@ class Labmgr extends MY_Controller {
 
 	public function do_upload()
 	{
-		$config['upload_path'] = './uploads/';
+		$path = './uploads/'.uniqid();
+		mkdir($path);
+		$config['upload_path'] = $path;
 		$config['allowed_types'] = '*';
 		$config['max_size']	= '10000';
 
@@ -1181,19 +1197,41 @@ class Labmgr extends MY_Controller {
 			
 			$this->bencoded->FromFile($upload_data['full_path']);
 			$hash = $this->bencoded->InfoHash();
-			/*echo "<pre>";
-			print_r($this->bencoded->Root());
-			echo "</pre>";
-			die(); */
 
-			$this->torrent_model->add_torrent(
-				$upload_data['raw_name'],
-				$hash,
-				$upload_data['full_path'],
-				file_get_contents($upload_data['full_path'])
+			if($this->compute_torrent_version($upload_data['raw_name']) > 0) {			
+
+				$this->torrent_model->add_torrent(
+					$upload_data['raw_name'],
+					$hash,
+					$upload_data['full_path'],
+					file_get_contents($upload_data['full_path']),
+					$this->compute_torrent_version($upload_data['raw_name'])
 				);
+
+			} else {
+				$this->torrent_model->add_torrent(
+					$upload_data['raw_name'],
+					$hash,
+					$upload_data['full_path'],
+					file_get_contents($upload_data['full_path']),
+					0
+				);
+			}
 			$this->upload_torrent('Success');
 		}
+	}
+
+	private function compute_torrent_version($torrent_name) {
+		$search_results = $this->torrent_model->search_torrent_name($torrent_name);
+			if(count($search_results > 0)) {
+				$counter = 0;
+				foreach($search_results as $result) {
+					if($result['torrent_version'] > $counter) {
+						$counter = $result['torrent_version'];
+					}
+				}
+			}
+		return	$counter += 1;
 	}
 
 	public function test_upload() {
@@ -1203,8 +1241,8 @@ class Labmgr extends MY_Controller {
 
 	}
 
-	public function test_lab_directories() {
-		print_r($this->machine_model->lab_directories("9.44.159.108"));
+	public function tester() {
+		print_r($this->machine_model->fix_broken_macs());
 
 	}
 }
