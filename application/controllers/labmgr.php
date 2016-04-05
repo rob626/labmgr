@@ -1152,16 +1152,14 @@ class Labmgr extends MY_Controller {
 					foreach ($parts as $part) {
 						$filename .= '.'.$part;
 					}
-
-					$filename .= '.'.$ext;
 				}
 
 				$insert_id = $this->torrent_model->add_torrent(
-				$file_name,
+				$filename,
 				$hash,
 				TORRENT_UPLOAD_DIR.$torrent,
 				'',
-				$this->compute_torrent_version($file_name);
+				$this->compute_torrent_version($file_name)
 				);
 			}
 
@@ -1195,14 +1193,14 @@ class Labmgr extends MY_Controller {
 			$this->bencoded->FromFile($upload_data['full_path']);
 			$hash = $this->bencoded->InfoHash();
 
-						
+			if($this->compute_torrent_version($upload_data['raw_name']) > 0) {			
 
 				$this->torrent_model->add_torrent(
 					$upload_data['raw_name'],
 					$hash,
 					$upload_data['full_path'],
 					file_get_contents($upload_data['full_path']),
-					$this->compute_torrent_version($upload_data['raw_name']);
+					$this->compute_torrent_version($upload_data['raw_name'])
 				);
 
 			} else {
@@ -1227,6 +1225,7 @@ class Labmgr extends MY_Controller {
 						$counter = $result['torrent_version'];
 					}
 				}
+			}
 		return	$counter += 1;
 	}
 
