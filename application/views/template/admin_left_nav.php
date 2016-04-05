@@ -1,4 +1,22 @@
 <ul class='side-nav'>
+	<?php 
+		$menu = array(
+			0 => array(
+				'link' => 'admin/set_global_defaults',
+				'text' => 'Set Global Defaults'
+				)
+			);
+		foreach($menu as $menu_item) {
+			if(uri_string() == $menu_item['link']) {
+				echo "<li class='active'><a href='".$menu_item['link']."'>".$menu_item['text']."</a></li>";
+			} else {
+				echo "<li><a href='".$menu_item['link']."'>".$menu_item['text']."</a></li>";
+
+			}
+		}
+	?>
+
+
 		<li><a href='/admin/set_global_defaults'>Set global defaults</a></li>
 		<li class='active'><a href='/admin/validate_ips'>Validate MAC / IP Mapping</a></li>
 		<li><a href='/admin/validate_seats'>Validate Seats</a></li>
