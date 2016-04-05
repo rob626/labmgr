@@ -80,7 +80,6 @@
 				</tr>
 			</thead>
 			<tbody>
-				<span data-tooltip aria-haspopup="true" class="has-tip" title="Tooltips are awesome, you should totally use them!">extended information</span>
 				<?php
 				if(!empty($machines)) {
 					$counter = 1;	
