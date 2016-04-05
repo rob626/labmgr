@@ -1133,6 +1133,11 @@ class Labmgr extends MY_Controller {
 		}
 	}
 
+	public function session_home() {
+		$this->load->template('session_home');
+	}
+
+
 	public function process_uploaded_torrents() {
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$this->load->library('bencoded');

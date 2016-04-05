@@ -1,15 +1,5 @@
 <div class='large-2 columns side-nav-color'>
-	<ul class='side-nav'>
-		<li class='active'><a href='/labmgr/start_vms_by_classroom'>Start by Classroom</a></li>
-		<li><a href='/labmgr/start_vms_by_machine'>Start by Machine</a></li>
-		<hr>
-		<li><a href='/labmgr/stop_vms_by_classroom'>Stop by Classroom</a></li>
-		<li><a href='/labmgr/stop_vms_by_machine'>Stop by Machine</a></li>
-		<hr>
-		<li><a href='/labmgr/add_vm'>Manage VMs</a></li>
-		<li><a href='/admin/validate_vmx'>Validate VMX's</a></li>
-	</ul>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<?php $this->load->view('template/vms_left_nav'); ?>
 </div>
 
 

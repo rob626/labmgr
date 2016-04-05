@@ -2,35 +2,35 @@
 	<?php 
 		$menu = array(
 			0 => array(
-				'link' => 'admin/set_global_defaults',
-				'text' => 'Set Global Defaults'
-				),
+				'text' => 'Set Global Defaults',       'link' => '/admin/set_global_defaults', 'spacer' => '<hr>'),
 			1 => array(
-				'link' => 'admin/validate_ips',
-				'text' => 'Validate MAC / IP Mapping'
-				)
+				'text' => 'Validate MAC / IP Mapping', 'link' => '/admin/validate_ips',        'spacer' => ''),
+			2 => array(
+				'text' => 'Validate Seats',            'link' => '/admin/validate_seats',      'spacer' => ''),
+			3 => array(
+				'text' => 'Validate VMX',              'link' => '/admin/validate_vmx',        'spacer' => '<hr>'),
+			4 => array(
+				'text' => 'Database Reset',            'link' => '/admin/db_reset',            'spacer' => ''),
+			5 => array(
+				'text' => 'Database Export',           'link' => '/admin/export_db',           'spacer' => ''),
+			6 => array(
+				'text' => 'Database Import',           'link' => '/admin/import_db',           'spacer' => '<hr>'),
+			7 => array(
+				'text' => 'Watchdog dropins & full cleanups','link' => '/admin/cleanup_watchdog','spacer' => '<hr>'),
+			8 => array(
+				'text' => 'Reporting - twitter',       'link' => '/admin/reporting_twitter',   'spacer' => '')
 			);
 
-
 		foreach($menu as $menu_item) {
-			if(uri_string() == $menu_item['link']) {
-				echo "<li class='active'><a href='".$menu_item['link']."'>".$menu_item['text']."</a></li>";
+			if("/".uri_string() == $menu_item['link']) {
+				echo "<li class='active'><a href='".$menu_item['link']."'>".$menu_item['text']."</a></li>".$menu_item['spacer'];
 			} else {
-				echo "<li><a href='".$menu_item['link']."'>".$menu_item['text']."</a></li>";
+				echo "<li><a href='".$menu_item['link']."'>".$menu_item['text']."</a></li>".$menu_item['spacer'];
 
 			}
 		}
 	?>
 
-		<li><a href='/admin/validate_seats'>Validate Seats</a></li>
-		<hr>
-		<li><a href='/admin/db_reset'>Database Reset</a></li>
-		<li><a href='/admin/export_db'>Database Export</a></li>
-		<li><a href='/admin/import_db'>Database Import</a></li>
-		<hr>
-		<li><a href='/admin/cleanup_watchdog'>Watchdog dropins & full cleanups</a></li>
-		<hr>
-		<li><a href='/admin/reporting_twitter'>Reporting - twitter</a></li>
 	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 </ul>

@@ -1,8 +1,5 @@
 <div class='large-2 columns side-nav-color'>
-	<ul class='side-nav'>
-		<li class='active'><a href='/labmgr/add_machine'>Add Machine</a></li>
-	</ul>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<?php $this->load->view('template/register_machine_left_nav'); ?>
 </div> 
 
 <div class='large-10 columns'>

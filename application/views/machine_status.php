@@ -1,12 +1,5 @@
 <div class='large-2 columns side-nav-color'>
-	<ul class='side-nav'>
-		<li class='active'><a href='/labmgr/machine_status'>Machines status</a></li>
-		<hr>
-		<li><a href='/labmgr/manage_machines'>Manage Machines</a></li>
-		<br>
-		<br>
-	</ul>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<?php $this->load->view('template/machines_left_nav'); ?>
 </div>
 
 
