@@ -1245,6 +1245,11 @@ class Labmgr extends MY_Controller {
 		print_r($this->machine_model->fix_broken_macs());
 
 	}
+
+	public function phptail() {
+		$this->logging->lfile('./application/logs/test.log');
+		$this->logging->lwrite("test message mofo");
+	}
 }
 
 
