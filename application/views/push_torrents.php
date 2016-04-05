@@ -32,8 +32,7 @@
 				});
 				foreach($torrents as $torrent) {
 					//echo "<input type='radio' name='torrent_id' value='".$torrent['torrent_id']."'><label>".$torrent['name']."</label><br>";
-					echo "<input type='checkbox' class='checkbox' name='torrent_ids[]' value='".$torrent['torrent_id']."'><label>".$torrent['name']."</label><br>";
-
+					echo "<input type='checkbox' class='checkbox' name='torrent_ids[]' value='".$torrent['torrent_id']."'><label>".$torrent['name']." - v".$torrent['torrent_version']."</label><br>";
 				}
 			?>
 

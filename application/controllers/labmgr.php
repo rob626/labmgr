@@ -1236,8 +1236,8 @@ class Labmgr extends MY_Controller {
 
 	}
 
-	public function test_lab_directories() {
-		print_r($this->machine_model->lab_directories("9.44.159.108"));
+	public function tester() {
+		print_r($this->machine_model->fix_broken_macs());
 
 	}
 }
