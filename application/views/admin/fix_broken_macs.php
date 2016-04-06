@@ -11,9 +11,12 @@
 	  <a href='#' class='close'>&times;</a></div>";
 		} ?>
 
-	<h2>Fix Missing MAC Addresses</h2>
-	<?php  
+	<div class='panel'>
 
+		<h2>Fix Missing MAC Addresses</h2>
+	
+	</div>
+<?php  
 		if(!empty($fixed_machines)) {
 			echo "<h3>Fixed Machines:</h3>";
 			echo "<pre>";

@@ -133,8 +133,8 @@ class Service extends CI_Controller {
 		$machines = $this->input->get('machines');
 
 		foreach($machines as $key => $machine) {
-				$this->getToken($machine['ip_address'], '27555', 'admin', 'web1sphere');
-				$torrent_data = $this->makeRequest($machine['ip_address'], '27555', 'admin', 'web1sphere', '?list=1');
+				$this->getToken($machine['ip_address'], '27555', $m['username'], $m['password']);
+				$torrent_data = $this->makeRequest($machine['ip_address'], '27555', $m['username'], $m['password'], '?list=1');
 				$machine['torrents'] = $torrent_data['torrents'];
 				$data['machines'][$key] = $machine;
 			}
@@ -360,8 +360,8 @@ class Service extends CI_Controller {
 			foreach($torrents as $torrent) {
 				foreach($machines as $machine) {
 					foreach($machine as $m) {
-						$this->getToken($m['ip_address'], '27555', 'admin', 'web1sphere');
-						$retval = $this->makeRequest($m['ip_address'], '27555', 'admin', 'web1sphere', "?action=".($delete_option ? "removedata" : "remove").$this->paramImplode("&hash=", $torrent['hash']), false);
+						$this->getToken($m['ip_address'], '27555', $m['username'], $m['password']);
+						$retval = $this->makeRequest($m['ip_address'], '27555', $m['username'], $m['password'], "?action=".($delete_option ? "removedata" : "remove").$this->paramImplode("&hash=", $torrent['hash']), false);
 						if($retval) {
 							$output['status'] = "Successfully sent to: " . $m['ip_address'] . "<br>";
 						} else {
@@ -376,8 +376,8 @@ class Service extends CI_Controller {
 			foreach($torrents as $torrent) {
 				foreach($machines as $machine) {
 					foreach($machine as $m) {
-						$this->getToken($m['ip_address'], '27555', 'admin', 'web1sphere');
-						if($this->torrentAdd($torrent['path'], $m['ip_address'], '27555', 'admin', 'web1sphere')) {
+						$this->getToken($m['ip_address'], '27555', $m['username'], $m['password']);
+						if($this->torrentAdd($torrent['path'], $m['ip_address'], '27555', $m['username'], $m['password'])) {
 							$output[]['status'] = "Successfully sent to: " . $m['ip_address'] . "<br>";
 						} else {
 							$output[]['status'] = "Failed to send to: " . $m['ip_address'] . "<br>";
@@ -424,8 +424,8 @@ class Service extends CI_Controller {
 		if($delete == 1) {
 			foreach($torrents as $torrent) {
 				foreach($machines as $machine) {
-					$this->getToken($machine['ip_address'], '27555', 'admin', 'web1sphere');
-					$retval = $this->makeRequest($machine['ip_address'], '27555', 'admin', 'web1sphere', "?action=".($delete_option ? "removedata" : "remove").$this->paramImplode("&hash=", $torrent['hash']), false);
+					$this->getToken($machine['ip_address'], '27555', $m['username'], $m['password']);
+					$retval = $this->makeRequest($machine['ip_address'], '27555', $m['username'], $m['password'], "?action=".($delete_option ? "removedata" : "remove").$this->paramImplode("&hash=", $torrent['hash']), false);
 					if($retval) {
 						$output['status'] = "Successfully sent to: " . $machine['ip_address'] . "<br>";
 					} else {
@@ -438,8 +438,8 @@ class Service extends CI_Controller {
 			foreach($torrents as $torrent) {
 				foreach($machines as $machine) {
 					foreach($machine as $m) {
-						$this->getToken($m['ip_address'], '27555', 'admin', 'web1sphere');
-						if($this->torrentAdd($torrent['path'], $m['ip_address'], '27555', 'admin', 'web1sphere')) {
+						$this->getToken($m['ip_address'], '27555', $m['username'], $m['password']);
+						if($this->torrentAdd($torrent['path'], $m['ip_address'], '27555', $m['username'], $m['password'])) {
 							$output[]['status'] = "Successfully sent to: " . $m['ip_address'] . "<br>";
 						} else {
 							$output[]['status'] = "Failed to send to: " . $m['ip_address'] . "<br>";

@@ -123,7 +123,7 @@
 						<input type='hidden' name='machine_id' value='".$machine['machine_id']."'>
 						<input type='submit' class='button tiny radius' value='SSH'></form></td>";
 						echo "<td><a class='button tiny radius view_log_btn' id='".$machine['machine_id']."' href='#'>WD Log</a></td>";
-						echo "<td><a target='_blank' class='button tiny radius' href='http://admin:web1sphere@".$machine['ip_address'].":27555/gui/'>WebUI</a></td>";
+						echo "<td><a target='_blank' class='button tiny radius' href='http://".$machine['username'].":".$machine['password']."@".$machine['ip_address'].":27555/gui/'>WebUI</a></td>";
 
 						echo "<td><input class='checkbox' type='checkbox' name='machine_ids[]' value='".$machine['machine_id']."'></td>";/*"<td>
 						<form method='POST' action='/labmgr/delete_machine'>
