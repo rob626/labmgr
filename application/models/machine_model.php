@@ -406,13 +406,38 @@ class Machine_model extends CI_Model {
      * if there are any duplicates.
      */
     public function validate_seats($room_id) {
-        $q = "SELECT * FROM machine where room_id = ?";
+        $q = "SELECT * FROM machine where room_id = ? order by seat";
         $result = $this->db->query($q, $room_id);
         $result = $result->result_array();
 
-        foreach($result as $machine) {
+        $output = array();
 
+        $seats = array();
+        foreach($result as $machine) {
+            $seats[] = $machine['seat'];
         }
+
+        for($i = 1; $i <= max($seats); $i++) {
+            echo "ON: " .$i." Seats value: " . $seats[$i] . "<br>";
+            if($i != $seats[$i]) {
+                $output['missing'][] = $i;
+            }
+        }
+
+        $seat_counts = array_count_values($seats);
+        $dupes = array();
+        if(!empty($seat_counts)) {
+            foreach($seat_counts as $key => $value) {
+                if($value > 1) {
+                    $dupes[] = $key;
+                }
+            }
+
+            $output['duplicates'] = $dupes;
+        }
+
+        return $output;
+
     }
 
 }
