@@ -18,12 +18,12 @@
 
 			<?php
 				usort($torrents, function($a, $b) {
-				    return strcasecmp($a['name'], $b['name']);
+				    return strcasecmp(trim($a['name']), trim($b['name']));
 				});
 
 				foreach($torrents as $torrent) {
 					//echo "<input type='radio' name='torrent_id' value='".$torrent['torrent_id']."'><label>".$torrent['name']."</label><br>";
-					echo "<input type='checkbox' class='' name='torrent_ids[]' value='".$torrent['torrent_id']."'><label>".$torrent['name']."</label><br>";
+					echo "<input type='checkbox' class='' name='torrent_ids[]' value='".$torrent['torrent_id']."'><label>".$torrent['name']." - v".$torrent['torrent_version']."</label><br>";
 
 				}
 			?>

@@ -19,7 +19,7 @@
 
 			<?php
 			usort($vms, function($a, $b) {
-					    return strcasecmp($a['name'], $b['name']);
+					    return strcasecmp(trim($a['name']), trim($b['name']));
 					});
 				echo "<input type='radio' name='stop_all' value='stop_all'><label>Stop All</label><br>";
 				foreach($vms as $vm) {

@@ -19,8 +19,11 @@
 		<div class='large-6 columns'>
 			<h2>Torrents</h2>
 			<?php
+				usort($torrents, function($a, $b) {
+					    return strcasecmp(trim($a['name']), trim($b['name']));
+					});
 				foreach($torrents as $torrent) {
-					echo "<input type='checkbox' name='torrent_ids[]' value='".$torrent['torrent_id']."'><label>".$torrent['name']."</label><br>";
+					echo "<input type='checkbox' class='' name='torrent_ids[]' value='".$torrent['torrent_id']."'><label>".$torrent['name']." - v".$torrent['torrent_version']."</label><br>";
 				}
 			?>
 		</div>

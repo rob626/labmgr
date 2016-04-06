@@ -17,9 +17,9 @@
 	<div class='large-4 columns'>
 		<br><br><br><br><br><br><br><br><br>
 		<h3>Additional Resources</h3>
-		<a href="http://labmgr.hopto.org">Local helper files</a><br>
+		<a href="/labdocs" target="_newtab">Local helper files</a><br>
 		<br>
-		<a href="http://labmgr.hopto.org">Labmgr documentation</a><br>
+		<a href="/documentation/index.html" target="_newtab">Labmgr documentation</a><br>
 		<br>
 		<a href="http://labmgr.hopto.org">Link to labmgr.hopto.org</a><br>
 		<a href="http://labmgr2.hopto.org">Link to labmgr2.hopto.org</a><br>

@@ -19,7 +19,7 @@
 
 			<?php
 				usort($torrents, function($a, $b) {
-				    return strcasecmp($a['name'], $b['name']);
+				    return strcasecmp(trim($a['name']), trim($b['name']));
 				});
 				foreach($torrents as $torrent) {
 					//echo "<input type='radio' name='torrent_id' value='".$torrent['torrent_id']."'><label>".$torrent['name']."</label><br>";
@@ -33,7 +33,7 @@
 			<h2>Classrooms</h2>
 			<?php
 				usort($name, function($a, $b) {
-				    return strcasecmp($a['name'], $b['name']);
+				    return strcasecmp(trim($a['name']), trim($b['name']));
 				});
 				foreach($rooms as $room) {
 					echo "<input type='checkbox' name='room_ids[]' value='".$room['room_id']."'><label>".$room['name']."</label><br>";
