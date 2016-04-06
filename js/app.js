@@ -488,6 +488,36 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
         }
     });
 
+    $('#mouse_move_btn').click(function() {
+        var machines = [];
+        $('input:checkbox.checkbox').each(function () {
+            if(this.checked) {
+                machines.push($(this).val());
+            }
+           
+        });
+
+        $('#reboot_modal_content').html("");
+        for(var i=0; i<machines.length; i++) {
+            $.ajax({        
+            url: "/service/mouse_move",
+            type: "get",
+            dataType: "json",
+            async: true,
+            data: {machine_id : machines[i]}
+            }).done(function(response) {
+
+                console.log(response.status );
+                $('#reboot_modal_content').append("<h3>"+response.status+"</h3>")
+                $('#reboot_modal').foundation('reveal', 'open');
+                
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                //alert("Error submitting data!");
+                console.log(jqXHR, textStatus, errorThrown);
+            });
+        }
+    });
+
     $('#validate_ips_form').on('submit', function(e) {
         e.preventDefault();
         var data = $('#validate_ips_form :input').serializeArray();
