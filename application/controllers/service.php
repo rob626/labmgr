@@ -139,6 +139,7 @@ class Service extends CI_Controller {
 		$machines = $this->input->get('machines');
 
 		foreach($machines as $key => $machine) {
+				$m = $this->machine_model->get_machine_ip($machine['ip_address']);
 				$this->getToken($machine['ip_address'], '27555', $m['username'], $m['password']);
 				$torrent_data = $this->makeRequest($machine['ip_address'], '27555', $m['username'], $m['password'], '?list=1');
 				$machine['torrents'] = $torrent_data['torrents'];
