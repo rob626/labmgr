@@ -159,6 +159,34 @@ class Machine_model extends CI_Model {
     	return $output;
     }
 
+    /**
+     * Mouse move
+     */
+    public function mouse_move($ip) {
+        $path = str_replace('\\', '/', $path);
+
+            $command = "echo Dim objResult > \delete-me.vbs \n";
+            $command .= "echo Set objShell = WScript.CreateObject(\"WScript.Shell\") >> \delete-me.vbs \n";
+            $command .= "echo objResult = objShell.sendkeys(\"{NUMLOCK}{NUMLOCK}\") >> \delete-me.vbs \n";
+            $command .= "\n";
+            $command .= "cscript //nologo \delete-me.vbs\n";
+            $command .= "\n";
+            $command .= "del \delete-me.vbs\n";
+
+            $file = './uploads/mouse_move.bat';
+
+            file_put_contents($file, $command);
+
+            $output = array(
+                'status' => "Sending mouse move to: ".$ip,
+                'output' => shell_exec('scp -i ./certs/labmgr -o StrictHostKeyChecking=no -o ConnectTimeout=1 '.$file.' ibm_user@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/'),
+                'cmd' => $command,
+                'exit_status' => ''
+            );
+
+        return $output;
+    }
+
     public function ping_test_arr($machines) {
     	$updated_machines = array();
 	    	foreach($machines as $machine) {

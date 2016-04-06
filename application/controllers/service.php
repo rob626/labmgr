@@ -129,6 +129,12 @@ class Service extends CI_Controller {
 		echo json_encode($this->machine_model->shutdown($machine[0]['ip_address']));
 	}
 
+	public function mouse_move() {
+		$machine_id = $this->input->get('machine_id');
+		$machine = $this->machine_model->get_machine($machine_id);
+		echo json_encode($this->machine_model->mouse_move($machine[0]['ip_address']));
+	}
+
 	public function get_torrent_status() {
 		$machines = $this->input->get('machines');
 

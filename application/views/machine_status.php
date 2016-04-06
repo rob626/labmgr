@@ -22,6 +22,7 @@
 			<br>
 			<a href='#' id='reboot_btn_test' class='button'>Reboot</a>
 			<a href='#' id='shutdown_btn' class='button'>Shutdown</a>
+			<a href='#' id='mouse_move_btn' class='button'>Mouse Move</a>
 			<br>
 			<a href='#' id='select_all'>Select All</a>&nbsp &nbsp  <a href='#' id='unselect_all'>Unselect All</a><br>
 
