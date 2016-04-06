@@ -22,6 +22,16 @@ class Machine_model extends CI_Model {
          
     }
 
+    /**
+     * Get machine by IP address.
+     */
+    public function get_machine_ip($ip) {
+        $q = "SELECT * FROM machine where ip_address = ?";
+        $result = $this->db->query($q, $ip);
+        $result = $result->result_array();
+        return $result[0];
+    }
+
 	/**
 	 * Get machine data by machine ID.
 	 */
@@ -389,6 +399,20 @@ class Machine_model extends CI_Model {
         $result = $result->result_array();
 
         return $result;
+    }
+
+    /**
+     * Determine if all seats are sequential and 
+     * if there are any duplicates.
+     */
+    public function validate_seats($room_id) {
+        $q = "SELECT * FROM machine where room_id = ?";
+        $result = $this->db->query($q, $room_id);
+        $result = $result->result_array();
+
+        foreach($result as $machine) {
+
+        }
     }
 
 }
