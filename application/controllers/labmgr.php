@@ -1252,8 +1252,28 @@ class Labmgr extends MY_Controller {
 
 	}
 
+	/**
+	 * Post things to twitter.
+	 * Account: labmgrstatus
+	 */
+	public function twitterfy($message) {
+		if(strlen($message) > 140) {
+			return "Message greater than 140 characters";
+		}
+		$this->load->library('twitteroauth');
+		$connection = $this->twitteroauth->create('rcsoDfKF2RVOCSn7ciSk3ZeEn','GDBfRBG7BJkkEA77Uj0Csy0PpECvE8DHlyYHNBACA4yRcnblmm','4150443137-GfSIIyrMgo4NtSLNYFv8HrR7xxs00VDIBjaOGhR','0zhD4SkuQtNeyWCmgVfKBWKTyf4UoQgWY1YRPVJ75JWSu');
+
+		$data = array(
+			'status' => $message
+			);
+		$result = $connection->post('statuses/update', $data);
+
+		return $result;
+	}
+
 	public function tester() {
-		print_r($this->machine_model->validate_seats(12));
+		$msg = "can you guys read this?";
+		print_r($this->twitterfy($msg));
 
 	}
 
