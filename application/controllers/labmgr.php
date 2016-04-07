@@ -1069,7 +1069,7 @@ class Labmgr extends MY_Controller {
 				);
 
 			if($retval) {
-				redirect('/labmgr/add_machine');
+				redirect('/labmgr/register_machine');
 			} else {
 				echo "DB Error";
 			}

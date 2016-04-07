@@ -1,11 +1,5 @@
 <div class='large-2 columns side-nav-color'>
-	<ul class='side-nav'>
-		<li><a href='/labmgr/run_single_cmd_class'>Run Single Command by Class</a></li>
-		<li><a href='/labmgr/run_single_cmd_machine'>Run Single Command by Machine</a></li>
-		<hr>
-		<li class='active'><a href='/labmgr/add_script'>Manage Scripts</a></li>
-	</ul>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<?php $this->load->view('template/scripts_left_nav'); ?>
 </div>
 
 <div class='large-10 columns'>

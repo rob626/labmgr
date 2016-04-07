@@ -20,6 +20,12 @@
 			8 => array(
 				'text' => 'Watchdog dropins & full cleanups','link' => '/admin/cleanup_watchdog','spacer' => '<hr>'),
 			9 => array(
+				'text' => 'Reporting - twitter',       'link' => '/admin/reporting_twitter',   'spacer' => '<hr>'),
+			10 => array(
+				'text' => 'Add Labmgr User','link' => '/admin/add_user','spacer' => ''),
+			11 => array(
+				'text' => 'Watchdog dropins & full cleanups','link' => '/admin/cleanup_watchdog','spacer' => ''),
+			12 => array(
 				'text' => 'Reporting - twitter',       'link' => '/admin/reporting_twitter',   'spacer' => '')
 			);
 
