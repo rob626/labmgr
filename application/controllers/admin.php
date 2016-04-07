@@ -67,7 +67,13 @@ class Admin extends CI_Controller {
 
 	public function validate_seats() 
 	{
-		$this->load->template('/admin/validate_seats');
+		$data['rooms'] = $this->room_model->get_rooms();
+		$seats = array();
+		foreach($data['rooms'] as $room) {
+			$seats[$room['name']] = $this->machine_model->validate_seats($room['room_id']);
+		}
+		$data['seats'] = $seats;
+		$this->load->template('/admin/validate_seats', $data);
 	}
 
 	public function cleanup_watchdog() 
