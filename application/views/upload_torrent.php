@@ -10,7 +10,7 @@
 	} ?>
 	
 <div class='panel'>
-		<h1>Upload Torrent</h1>
+		<h1>Upload Single Local Torrent File</h1>
 </div>
 
 <?php
@@ -24,7 +24,13 @@
 <br>
 
 <div class='panel'>
-	<h1>Torrents Uploaded to Server</h1>
+	<h1>Load Torrents From Server</h1>
+	<br>
+	Torrents can be bulk uploaded to the labmgr server file system and then from there, 
+	bulk uploaded into the labmgr DB.<br><br>
+	Use scp to upload the torrent files from your local system the the labmgr and put them into 
+	the /home/labmgr/uploads directory.  Once uploaded, the torrent files will appear in this list below.  
+	Select the torrent and click Submit to enter them into the DB.
 </div>
 <a href='#' id='select_all'>Select All</a>&nbsp &nbsp  <a href='#' id='unselect_all'>Unselect All</a><br>
 <?php
@@ -36,47 +42,4 @@
 	echo "</form>";
 ?>
 
-
-<div class='panel'>
-	<h1>Existing Torrents</h1>
-</div>
-	<table id='datatable'>
-		<thead>
-			<tr>
-				<th>Torrent<br>ID</th>
-				<th>Torrent<br>Name</th>
-				<th>Torrent<br>Version</th>
-				<th>Torrent<br>Hash</th>
-				<th>Torrent<br>Path</th>
-				<th>Edit</th>
-				<th>Delete</th>
-			</tr>
-		</thead>
-		<tbody>
-			<?php
-			if(!empty($torrents)) {
-				foreach($torrents as $torrent) {
-					
-					echo "<tr>";
-					echo "<td>".$torrent['torrent_id']."</td>";
-					echo "<td>".$torrent['name']."</td>";
-					echo "<td>".$torrent['torrent_version']."</td>";
-					echo "<td>".substr($torrent['hash'],0,4)."...</td>";
-					echo "<td>".$torrent['path']."</td>";
-					echo "<td><form method='POST' action='/labmgr/edit_torrent'>
-					<input type='hidden' name='torrent_id' value='".$torrent['torrent_id']."'>
-					<input type='submit' class='button tiny radius' value='Edit'>
-					</form></td>";
-
-					echo "<td><form method='POST' action='/labmgr/delete_torrent'>
-					<input type='hidden' name='torrent_id' value='".$torrent['torrent_id']."'>
-					<input type='submit' class='button tiny radius alert' value='Delete'>
-					</form>
-					</td>";
-					echo "</tr>";
-				}
-			}
-			?>
-		</tbody>
-	</table>
 </div>

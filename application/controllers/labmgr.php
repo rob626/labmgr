@@ -709,6 +709,17 @@ class Labmgr extends MY_Controller {
 	}
 
 	/**
+	 * Manage torrents.
+	 */
+	public function manage_torrents($status = null) {
+			$torrents = $this->torrent_model->get_torrents();
+			$data['torrents'] = $torrents;
+			$data['uploaded_torrents'] = $this->torrent_model->get_torrents_on_server();
+			$data['status'] = $status;
+			$this->load->template('manage_torrents', $data);
+	}
+
+	/**
 	 * Edit a vm
 	 */
 	public function edit_vm() {
@@ -749,7 +760,7 @@ class Labmgr extends MY_Controller {
 			$this->input->post('torrent_path')
 			);
 		if($retval) {
-			redirect('/labmgr/upload_torrent');
+			redirect('/labmgr/manage_torrents');
 		} else {
 			echo "DB Error";
 		}

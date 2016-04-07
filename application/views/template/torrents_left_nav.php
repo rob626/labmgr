@@ -3,15 +3,17 @@
 		$menu = array(
 
 			0 => array(
-				'text' => 'Push by Classroom',       'link' => '/labmgr/push_torrents_by_classroom',  'spacer' => ''),
+				'text' => 'Push by Classroom',     'link' => '/labmgr/push_torrents_by_classroom',  'spacer' => ''),
 			1 => array(
 				'text' => 'Push by Machine',       'link' => '/labmgr/push_torrents_by_machine',  'spacer' => '<hr>'),
 			2 => array(
-				'text' => 'Delete by Classroom',       'link' => '/labmgr/delete_torrents_by_classroom',  'spacer' => ''),
+				'text' => 'Delete by Classroom',   'link' => '/labmgr/delete_torrents_by_classroom',  'spacer' => ''),
 			3 => array(
-				'text' => 'Delete by Machine',       'link' => '/labmgr/delete_torrents_by_machine',  'spacer' => '<hr>'),
+				'text' => 'Delete by Machine',     'link' => '/labmgr/delete_torrents_by_machine',  'spacer' => '<hr>'),
 			4 => array(
-				'text' => 'Manage Torrents',       'link' => '/labmgr/upload_torrent', 'spacer' => '')
+				'text' => 'Upload Torrents',       'link' => '/labmgr/upload_torrent',  'spacer' => ''),
+			5 => array(
+				'text' => 'Manage Torrents',       'link' => '/labmgr/manage_torrents', 'spacer' => '')
 			);
 
 		foreach($menu as $menu_item) {
