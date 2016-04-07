@@ -201,7 +201,8 @@ class Vm_model extends CI_Model {
 
 	public function validate_vmx($root, $ip) {
 		$output = array(
-	    		'status' => "Attemping to find files in: " . $root . ' on ' .$ip,
+	    		//'status' => "Attemping to find files in: " . $root . ' on ' .$ip,
+	    		'status' => "Checking local vmx files under: " . $root . " on " .$ip. " against vmx files<br>listed in the labmgr DB (<font color='green'>green == matched</font>, <font color='red'>red == not matched</font>)<br><br>",
 	    		'output' => '',
 	    		'cmd_output' => '',
 	    		'exit_status' => ''
