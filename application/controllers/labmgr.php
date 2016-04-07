@@ -1247,7 +1247,7 @@ class Labmgr extends MY_Controller {
 	 */
 	public function twitterfy($message) {
 		if(strlen($message) > 140) {
-			return "Message greater than 140 characters".
+			return "Message greater than 140 characters";
 		}
 		$this->load->library('twitteroauth');
 		$connection = $this->twitteroauth->create('rcsoDfKF2RVOCSn7ciSk3ZeEn','GDBfRBG7BJkkEA77Uj0Csy0PpECvE8DHlyYHNBACA4yRcnblmm','4150443137-GfSIIyrMgo4NtSLNYFv8HrR7xxs00VDIBjaOGhR','0zhD4SkuQtNeyWCmgVfKBWKTyf4UoQgWY1YRPVJ75JWSu');
