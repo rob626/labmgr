@@ -46,10 +46,11 @@ class Conference_model extends CI_Model {
 	     */
 	    public function add_conference($conference_name, $conference_desc) {
 	    	
-	    	$result = $this->db->query("SELECT * FROM conference where name = ?", $conference_name);
+	    	$result = $this->db->query("SELECT * FROM conference");
 	    	$result = $result->result_array();
 
 	    	if(isset($result[0]['conference_id'])) {
+	    		$result = $this->conference_model->update_conference($result[0]['conference_id'], $conference_name, $conference_desc);
 	    		return $result[0]['conference_id'];
 	    	} else {
 	    		$data = array(
