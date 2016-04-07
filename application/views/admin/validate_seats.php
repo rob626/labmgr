@@ -2,6 +2,12 @@
 	<?php $this->load->view('template/admin_left_nav'); ?>
 </div> 
 
+
+<?php
+echo "<pre>";
+print_r($seats);
+echo "</pre>";
+?>
 <div class='large-10 columns'>
 	<form method='POST' id='run_single_cmd_class_form' action='/labmgr/run_single_cmd_class'>
 		<div class='row'>
@@ -26,5 +32,15 @@
 				<a id='validate_seats' class='button large center' href='#'>Make it happen...</a>
 			</div>
 		</div>
+
+		<?php
+
+			foreach($seats as $room_key => $room_value) {
+				echo "<h2>Room: ".$room_key."</h2>";
+				echo "<p>Missing Seats: ".."</p>";
+
+			}
+		?>
+
 	</div>
 </div>

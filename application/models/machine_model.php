@@ -451,33 +451,34 @@ class Machine_model extends CI_Model {
         $misses = array();
         $missing_seats="";
         $duplicate_seats="";
-        for($i = 1; $i <= max($seats); $i++) {
+        if(!empty($seats)) {
+            for($i = 1; $i <= max($seats); $i++) {
 
-            $this_seat_count=0;
-            if($seats[$i]=="") break;
+                $this_seat_count=0;
+                if($seats[$i]=="") break;
 
-            for($j = 1; $j <= max($seats); $j++) {
-                if($i == $seats[$j]) $this_seat_count++;
-                if($i>$seats[$i]) break;  // past where we are looking
-            }
-            //echo "ON Element: " .$i." Seats value: " . $seats[$i] . " (max=" . max($seats) .", count ".$this_seat_count. ")<br>";
-            if($this_seat_count==0) {
-                $misses[] = $i;
-                $missing_seats.=" $i, ";
-            }
-            if($this_seat_count>1) {
-                for($j = 1; $j< $this_seat_count; $j++) {
-                    $dupes[] = $i;
+                for($j = 1; $j <= max($seats); $j++) {
+                    if($i == $seats[$j]) $this_seat_count++;
+                    if($i>$seats[$i]) break;  // past where we are looking
                 }
-                $duplicate_seats.=" ".$i." (".$this_seat_count.")";
+                //echo "ON Element: " .$i." Seats value: " . $seats[$i] . " (max=" . max($seats) .", count ".$this_seat_count. ")<br>";
+                if($this_seat_count==0) {
+                    $misses[] = $i;
+                    $missing_seats.=" $i, ";
+                }
+                if($this_seat_count>1) {
+                    for($j = 1; $j< $this_seat_count; $j++) {
+                        $dupes[] = $i;
+                    }
+                    $duplicate_seats.=" ".$i." (".$this_seat_count.")";
+                }
             }
         }
-
         $output['missing_seats'] = $misses;
         $output['duplicates'] = $dupes;
 
-        echo "Missing - " .$missing_seats."<br>";
-        echo "Duplicate - " .$duplicate_seats."<br>";
+        //echo "Missing - " .$missing_seats."<br>";
+        //echo "Duplicate - " .$duplicate_seats."<br>";
 
         return $output;
 
