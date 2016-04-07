@@ -28,6 +28,7 @@ class Service extends CI_Controller {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_USERPWD, $user.":".$pass);
         curl_setopt($ch, CURLOPT_COOKIE, "GUID=".$this->guid);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
         $req = curl_exec($ch);
         curl_close($ch);
         return ($decode ? json_decode($req, true) : $req);
@@ -45,6 +46,7 @@ class Service extends CI_Controller {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_USERPWD, $user.":".$pass);
         curl_setopt($ch, CURLOPT_COOKIE, "GUID=".$this->guid);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
         $req = curl_exec($ch);
         curl_close($ch);
         return ($decode ? json_decode($req, true) : $req);
@@ -63,6 +65,7 @@ class Service extends CI_Controller {
         curl_setopt($ch, CURLOPT_USERPWD, $user.":".$pass);
         curl_setopt($ch, CURLOPT_COOKIE, "GUID=".$this->guid);
         curl_setopt($ch, CURLOPT_VERBOSE, true);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
         $req = curl_exec($ch);
         curl_close($ch);
         $json = json_decode($req, true);
@@ -86,6 +89,7 @@ class Service extends CI_Controller {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_USERPWD, $user.":".$pass);
         curl_setopt($ch, CURLOPT_HEADER, true);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
         $output = curl_exec($ch);
         $info = curl_getinfo($ch);
         curl_close($ch);
