@@ -457,6 +457,7 @@ class Machine_model extends CI_Model {
             if($seats[$i]=="") break;
 
             for($j = 1; $j <= max($seats); $j++) {
+                if($i>count($seats)-1) break;
                 if($i == $seats[$j]) $this_seat_count++;
                 if($i>$seats[$i]) break;  // past where we are looking
             }
