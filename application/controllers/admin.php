@@ -101,11 +101,7 @@ class Admin extends CI_Controller {
 				$this->input->post('conference_name'), 
 				$this->input->post('conference_desc')
 				);
-			if($retval) {
-				redirect('/admin/add_conference');
-			} else {
-				echo "Error";
-			}
+			redirect('/admin/');
 		} else {
 			$data['conferences'] = $this->conference_model->get_conferences();
 			$this->load->template('/admin/add_conference', $data);
@@ -135,11 +131,7 @@ class Admin extends CI_Controller {
 				$this->input->post('server_name'), 
 				$this->input->post('server_desc')
 				);
-			if($retval) {
-				redirect('/admin/add_server');
-			} else {
-				echo "Error";
-			}
+			redirect('/admin/');
 		} else {
 			$data['servers'] = $this->server_model->get_servers();
 			$this->load->template('/admin/add_server', $data);

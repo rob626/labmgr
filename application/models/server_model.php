@@ -46,10 +46,11 @@ class Server_model extends CI_Model {
 	     */
 	    public function add_server($server_name, $server_desc) {
 	    	
-	    	$result = $this->db->query("SELECT * FROM server where name = ?", $server_name);
+	    	$result = $this->db->query("SELECT * FROM server");
 	    	$result = $result->result_array();
 
 	    	if(isset($result[0]['server_id'])) {
+	    		$result = $this->server_model->update_server($result[0]['server_id'], $server_name, $server_desc);
 	    		return $result[0]['server_id'];
 	    	} else {
 	    		$data = array(

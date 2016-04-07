@@ -24,12 +24,12 @@
  	}
 
  	public function conference() {
- 		$data = $this->ci->conference_model->get_conference(1);
+ 		$data = $this->ci->conference_model->get_conferences();
  		return $data[0]['name'];
  	}
 
  	public function server() {
- 		$data = $this->ci->server_model->get_server(1);
+ 		$data = $this->ci->server_model->get_servers();
  		return $data[0]['name'];
  	}
  }
