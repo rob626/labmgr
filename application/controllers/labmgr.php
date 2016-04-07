@@ -1253,8 +1253,7 @@ class Labmgr extends MY_Controller {
 		$connection = $this->twitteroauth->create('rcsoDfKF2RVOCSn7ciSk3ZeEn','GDBfRBG7BJkkEA77Uj0Csy0PpECvE8DHlyYHNBACA4yRcnblmm','4150443137-GfSIIyrMgo4NtSLNYFv8HrR7xxs00VDIBjaOGhR','0zhD4SkuQtNeyWCmgVfKBWKTyf4UoQgWY1YRPVJ75JWSu');
 
 		$data = array(
-			'status' => $message,
-			'in_reply_to_status_id' => 1
+			'status' => $message
 			);
 		$result = $connection->post('statuses/update', $data);
 
@@ -1262,8 +1261,8 @@ class Labmgr extends MY_Controller {
 	}
 
 	public function tester() {
-		
-
+		$msg = "can you guys read this?";
+		print_r($this->twitterfy($msg));
 
 	}
 
