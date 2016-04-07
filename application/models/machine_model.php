@@ -452,24 +452,26 @@ class Machine_model extends CI_Model {
         $missing_seats="";
         $duplicate_seats="";
         if(!empty($seats)) {
-            for($i = 1; $i <= max($seats); $i++) {
+            for($i = 1; $i <= max($seats); $i++) {  // look to see if possible seats 1..max in the list
+                $this_seat_count=0; // start by assuming seat is not there
+                //if($seats[$i]=="") {echo "breaking2<br>"; break;}
 
-                $this_seat_count=0;
-                if($seats[$i]=="") break;
+                //echo "Count for room : " .count($seats)." ON Element: " .$i." Seats value: " . $seats[$i] . " (max=" . max($seats) .", count)<br>";
+                
+                for($j = 0; $j <= count($seats); $j++) { // loop through list of seats and count instances of this seat
+                    if($i == $seats[$j]) $this_seat_count++;
+                }
+                //echo "For Element: " .$i." Seats value: " . $seats[$i] . " (max=" . max($seats) .", count ".$this_seat_count. ")<br>";
 
-            for($j = 1; $j <= max($seats); $j++) {
-                if($i>count($seats)-1) break;
-                if($i == $seats[$j]) $this_seat_count++;
-                if($i>$seats[$i]) break;  // past where we are looking
-            }
-            //echo "ON Element: " .$i." Seats value: " . $seats[$i] . " (max=" . max($seats) .", count ".$this_seat_count. ")<br>";
-            if($this_seat_count==0) {
-                $misses[] = $i;
-                $missing_seats.=" $i, ";
-            }
-            if($this_seat_count>1) {
-                for($j = 1; $j< $this_seat_count; $j++) {
-                    $dupes[] = $i;
+                if($this_seat_count==0) {
+                    $misses[] = $i;
+                    //$missing_seats.=" $i, ";
+                }
+                if($this_seat_count>1) {
+                    for($j = 1; $j< $this_seat_count; $j++) {
+                        $dupes[] = $i;
+                    }
+                    //$duplicate_seats.=" $i (".$this_seat_count."), ";
                 }
             }
         }
