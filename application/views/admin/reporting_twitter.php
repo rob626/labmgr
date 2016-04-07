@@ -13,6 +13,11 @@
 			</div>
 			Include 2 inputs - twitter address and interval.<br><br>
 			Also include an explination of the twitter data format.
+
+			<div class='panel'>
+				Current Status: <?php if($enabled) { echo "<span class='success label'>Enabled</span>"; } else { echo "<span class='alert label'>Disabled</span>"; } ?>
+			</div>
+
 			<div class='small-4 small-centered columns'>
 				<br>
 				<a id='validate_ips' class='button large center' href='#'>Make it happen...</a>

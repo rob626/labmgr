@@ -9,6 +9,7 @@ class Admin extends CI_Controller {
 		$this->load->model('user_model');
 		$this->load->model('conference_model');
 		$this->load->model('server_model');
+		$this->load->model('twitter_model');
 	}
 
 	public function index()
@@ -83,7 +84,8 @@ class Admin extends CI_Controller {
 
 	public function reporting_twitter() 
 	{
-		$this->load->template('/admin/reporting_twitter');
+		$data['enabled'] = $this->twitter_model->twitter_enabled();
+		$this->load->template('/admin/reporting_twitter', $data);
 	}
 
 	public function validate_vmx() {
