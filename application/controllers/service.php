@@ -470,6 +470,15 @@ class Service extends CI_Controller {
 		echo json_encode($this->machine_model->view_watchdog_log($machine[0]['ip_address']));
 	}
 
+	/**
+	 * Launch SSH. This just basically returns the IP address
+	 */
+	public function ssh_machine() {
+		$machine_id = $this->input->get('machine_id');
+		$machine = $this->machine_model->get_machine($machine_id);
+		echo json_encode($machine);
+	}
+
 
 
 	/**

@@ -120,9 +120,7 @@
 						<input type='hidden' name='machine_id' value='".$machine['machine_id']."'>
 						<input type='submit' class='button tiny radius' value='Shutdown'></form></td>";
 						*/
-						echo "<td><form method='POST' action='/labmgr/ssh_machine'>
-						<input type='hidden' name='machine_id' value='".$machine['machine_id']."'>
-						<input type='submit' class='button tiny radius' value='SSH'></form></td>";
+						echo "<td><a class='button tiny radius ssh_machine_btn' id='".$machine['machine_id']."' href='#'>SSH</a></td>";
 						echo "<td><a class='button tiny radius view_log_btn' id='".$machine['machine_id']."' href='#'>WD Log</a></td>";
 						echo "<td><a target='_blank' class='button tiny radius' href='http://".$machine['username'].":".$machine['password']."@".$machine['ip_address'].":27555/gui/'>WebUI</a></td>";
 

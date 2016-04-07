@@ -159,6 +159,8 @@ $(document).ready(function(){
             });
     });
 
+
+
    $('#validate_vmx_form').on('submit', function(e) {
         e.preventDefault();
         var data = $('#validate_vmx_form :input').serializeArray();
@@ -408,6 +410,43 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
                 response.cmd_output.reverse();
                 $.each(response.cmd_output, function(index, value) {
                     $('#status_modal_content').append("<h4>"+value+"</h4>")
+                });
+                
+                
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                //alert("Error submitting data!");
+                console.log(jqXHR, textStatus, errorThrown);
+            });
+        
+    });
+
+   $('.ssh_machine_form').on('submit', function(e) {
+        e.preventDefault();
+        var data = $('#ssh_machine_form :input').serializeArray();
+        
+        $('#status_modal').foundation('reveal', 'open');
+        $.each(data, function(index, value) {
+
+        });
+        
+    });
+    $('.ssh_machine_btn').click(function() {
+        var machine_id = $(this).attr('id');
+        //$('#status_modal').addClass('full');
+        $('#status_modal_content').html("");
+        $.ajax({        
+            url: "/service/ssh_machine",
+            type: "get",
+            dataType: "json",
+            async: true,
+            data: {machine_id : machine_id}
+            }).done(function(response) {
+                console.log(response);
+                
+                $('#status_modal').foundation('reveal', 'open');
+
+                $.each(response, function(index, value) {
+                    $('#status_modal_content').append("<h4>IP Address: "+value.ip_address+"</h4><iframe height='100%' width='100%' src='http://"+$(location).attr('host')+":4200'></iframe>")
                 });
                 
                 
