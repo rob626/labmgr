@@ -445,24 +445,39 @@ class Machine_model extends CI_Model {
             $seats[] = $machine['seat'];
         }
 
-        for($i = 1; $i <= max($seats); $i++) {
-            echo "ON: " .$i." Seats value: " . $seats[$i] . "<br>";
-            if($i != $seats[$i]) {
-                $output['missing'][] = $i;
-            }
-        }
+        //echo "Seats - " .$seats[]."<br>";
 
-        $seat_counts = array_count_values($seats);
         $dupes = array();
-        if(!empty($seat_counts)) {
-            foreach($seat_counts as $key => $value) {
-                if($value > 1) {
-                    $dupes[] = $key;
-                }
-            }
+        $misses = array();
+        $missing_seats="";
+        $duplicate_seats="";
+        for($i = 1; $i <= max($seats); $i++) {
 
-            $output['duplicates'] = $dupes;
+            $this_seat_count=0;
+            if($seats[$i]=="") break;
+
+            for($j = 1; $j <= max($seats); $j++) {
+                if($i == $seats[$j]) $this_seat_count++;
+                if($i>$seats[$i]) break;  // past where we are looking
+            }
+            //echo "ON Element: " .$i." Seats value: " . $seats[$i] . " (max=" . max($seats) .", count ".$this_seat_count. ")<br>";
+            if($this_seat_count==0) {
+                $misses[] = $i;
+                $missing_seats.=" $i, ";
+            }
+            if($this_seat_count>1) {
+                for($j = 1; $j< $this_seat_count; $j++) {
+                    $dupes[] = $i;
+                }
+                $duplicate_seats.=" ".$i." (".$this_seat_count.")";
+            }
         }
+
+        $output['missing_seats'] = $misses;
+        $output['duplicates'] = $dupes;
+
+        echo "Missing - " .$missing_seats."<br>";
+        echo "Duplicate - " .$duplicate_seats."<br>";
 
         return $output;
 

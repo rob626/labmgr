@@ -1242,7 +1242,7 @@ class Labmgr extends MY_Controller {
 	}
 
 	public function tester() {
-		print_r($this->machine_model->validate_seats(2));
+		print_r($this->machine_model->validate_seats(12));
 
 	}
 
