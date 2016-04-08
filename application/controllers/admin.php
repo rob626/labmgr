@@ -366,4 +366,14 @@ class Admin extends CI_Controller {
 			$this->load->template('/admin/labmgr_manage_configs');
 		}
 
+	public function view_log_file() 
+	{
+		$this->load->template('/admin/view_log_file');
+	}
+
+	public function ticket_system() 
+	{
+		$this->load->template('/admin/ticket_system');
+	}
+
 }
