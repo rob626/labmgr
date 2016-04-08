@@ -337,6 +337,16 @@ class Admin extends CI_Controller {
 
 	}
 
+	public function delete_backup() {
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			$backup_file = $this->input->post('backup');
+			exec('rm -rf ./database/backups/'.$backup_file, $cmd_output, $exit_status);
+
+			$data['current_backups'] = $this->admin_model->get_db_backups();
+			$this->load->template('admin/import_db', $data);
+		}
+	}
+
 	/**
 	 * Deletes lab directory 
 	 */
