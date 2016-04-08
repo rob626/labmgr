@@ -2,31 +2,29 @@
 	<?php 
 		$menu = array(
 			0 => array(
-				'text' => 'Set Global Defaults',       'link' => '/admin/set_global_defaults', 'spacer' => '<hr>'),
-			1 => array(
 				'text' => 'Validate MAC / IP Mapping', 'link' => '/admin/validate_ips',        'spacer' => ''),
-			2 => array(
+			1 => array(
 				'text' => 'Fix Missing MAC addresses', 'link' => '/admin/fix_macs',            'spacer' => ''),
-			3 => array(
+			2 => array(
 				'text' => 'Validate Seats',            'link' => '/admin/validate_seats',      'spacer' => ''),
-			4 => array(
+			3 => array(
 				'text' => 'Validate VMX',              'link' => '/admin/validate_vmx',        'spacer' => '<hr>'),
-			5 => array(
+			4 => array(
 				'text' => 'Database Reset',            'link' => '/admin/db_reset',            'spacer' => ''),
-			6 => array(
+			5 => array(
 				'text' => 'Database Export',           'link' => '/admin/export_db',           'spacer' => ''),
-			7 => array(
+			6 => array(
 				'text' => 'Database Import',           'link' => '/admin/import_db',           'spacer' => '<hr>'),
-			8 => array(
+			7 => array(
 				'text' => 'Watchdog dropins & full cleanups','link' => '/admin/cleanup_watchdog','spacer' => '<hr>'),
-			9 => array(
+			8 => array(
 				'text' => 'Reporting - twitter',       'link' => '/admin/reporting_twitter',   'spacer' => '<hr>'),
+			9 => array(
+				'text' => 'Add Labmgr User',           'link' => '/admin/add_user',            'spacer' => ''),
 			10 => array(
-				'text' => 'Add Labmgr User','link' => '/admin/add_user','spacer' => ''),
+				'text' => 'Set Global Defaults',       'link' => '/admin/set_global_defaults', 'spacer' => ''),
 			11 => array(
-				'text' => 'Watchdog dropins & full cleanups','link' => '/admin/cleanup_watchdog','spacer' => ''),
-			12 => array(
-				'text' => 'Reporting - twitter',       'link' => '/admin/reporting_twitter',   'spacer' => '')
+				'text' => 'Labmgr Manage Config',      'link' => '/admin/labmgr_manage_configs', 'spacer' => '')
 			);
 
 		foreach($menu as $menu_item) {
