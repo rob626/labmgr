@@ -305,15 +305,17 @@ class Service extends CI_Controller {
 		//$machines = $machines[0];
 
 		if($stop_vm == 1) {
-			if($stop_all == 'stop_all') {
+			if(!empty($stop_all) && $stop_all == 'stop_all') {
 				foreach($machines as $machine) {
 					foreach($machine as $m) {
+						$this->logging->lwrite("Attempting to stop all VMs on machine: ".print_r($m, true));
 						$output[] = $this->vm_model->stop_all_vms($m['ip_address']);
 					}
 				}
 			} else {
 				foreach($machines as $machine) {
 					foreach($machine as $m) {
+						$this->logging->lwrite("Attempting to stop VM [".print_r($vm, true)."] on machine: ".print_r($m, true));
 						$output[] = $this->vm_model->stop_vm($m['ip_address'], $vm['path']);
 					}
 				}
