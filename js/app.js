@@ -108,9 +108,9 @@ $(document).ready(function(){
 
             $('#status_modal_content').html("");
             $('#status_modal').foundation('reveal', 'open');
-            var data = 'truncate';
+            var data = 'truncate_conference';
             $.ajax({        
-                url: "/service/truncate_db",
+                url: "/service/truncate_conference_db",
                 type: "get",
                 dataType: "json",
                 async: true,
