@@ -38,11 +38,11 @@ class Logging {
     private function lopen() {
         // in case of Windows set default log file
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-            $log_file_default = './application/logs/'.date("Y-m-d").'.log';
+            $log_file_default = './application/logs/labmgr-'.date("Y-m-d").'.log';
         }
         // set default log file for Linux and other systems
         else {
-            $log_file_default = './application/logs/'.date("Y-m-d").'.log';
+            $log_file_default = './application/logs/labmgr-'.date("Y-m-d").'.log';
         }
         // define log file from lfile method or use previously set default
         $lfile = $this->log_file ? $this->log_file : $log_file_default;

@@ -315,7 +315,7 @@ class Service extends CI_Controller {
 			} else {
 				foreach($machines as $machine) {
 					foreach($machine as $m) {
-						$this->logging->lwrite("Attempting to stop VM [".print_r($vm, true)."] on machine: ".print_r($m, true));
+						$this->logging->lwrite("Attempting to stop VM ".print_r($vm, true)." on machine: ".print_r($m, true));
 						$output[] = $this->vm_model->stop_vm($m['ip_address'], $vm['path']);
 					}
 				}
