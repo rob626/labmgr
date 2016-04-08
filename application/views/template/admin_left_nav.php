@@ -14,7 +14,7 @@
 			5 => array(
 				'text' => 'Database Export',           'link' => '/admin/export_db',           'spacer' => ''),
 			6 => array(
-				'text' => 'Database Import',           'link' => '/admin/import_db',           'spacer' => '<hr>'),
+				'text' => 'Database Import/Manage',    'link' => '/admin/import_db',           'spacer' => '<hr>'),
 			7 => array(
 				'text' => 'Ticket System',             'link' => '/admin/ticket_system',       'spacer' => ''),
 			8 => array(

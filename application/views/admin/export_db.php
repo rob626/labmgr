@@ -10,21 +10,14 @@
 	  <a href='#' class='close'>&times;</a></div>";
 		} ?>
 
-	<h2>Current Exports</h2>
-	<?php  
-		echo "<ol>";
-		foreach($current_backups as $backup) {
-			echo "<li><a href='/database/backups/".$backup."'>".$backup."</a></li>";
-		}
-		echo "</ol>";
-
-	?>
-
 	<form method='POST' action='/admin/export_db'>
 		<h2>Export Database</h2>
-		<label>Filename (optional):</label><input type='text' name='backup_filename' placeholder='labmgr.<current date>.db.sql'>
+		<label>Filename: </label><input type='text' name='backup_filename' value='labmgr.<?php echo date("Y-m-d_H:i:s");?>.db.sql'>
 		<input type='submit' value='Export' class='button'>
 
 	</form>
+
+	<p><br><br>To view a list of available backups, go to the Database Import/Manage page</p>
+
 	</div>
 </div>
