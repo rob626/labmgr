@@ -1,6 +1,6 @@
 #!/bin/bash
 DATABASE_NAME=labmgr
-BACKUPFILE=$(pwd)/database/$DATABASE_NAME.$(date +%Y%m%d%H%M%S).db.sql
+BACKUPFILE=$(pwd)/database/backups/$DATABASE_NAME.$(date +%Y%m%d%H%M%S).db.sql
 echo "Creating backup..." $BACKUPFILE
 mysqldump -u root $DATABASE_NAME > $BACKUPFILE
 echo "Truncating tables..."
