@@ -303,6 +303,7 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
         e.preventDefault();
         var data = $('#push_delete_torrents_class_form :input').serializeArray();
         $('#status_modal_content').html("");
+        $('#status_modal_content').append("<p>Please wait...<p>")
         $('#status_modal').foundation('reveal', 'open');
 
         $.ajax({        
@@ -313,7 +314,12 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
             data: {data : data}
             }).done(function(response) {
                 $.each(response, function(index, value) {
-                    $('#status_modal_content').append("<h3>"+value.status+"</h3>")
+                    if (value.status == false || typeof(value.status) == 'undefined' || value.status == null || value.status == 'null') {
+                        $('#status_modal_content').append("<h3>"+value+"</h3>")
+                    } else {
+                        $('#status_modal_content').append("<h3>"+value.status+"</h3>")
+                    }
+                    
                 });
                 
             }).fail(function(jqXHR, textStatus, errorThrown) {

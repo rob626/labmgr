@@ -412,6 +412,7 @@ class Service extends CI_Controller {
 		$torrents = array();
 		$machines = array();
 		$delete = 0;
+		$output = array();
 
 		foreach($data as $d) {
 			if($d['name'] == 'start_vm_option') {
@@ -427,6 +428,7 @@ class Service extends CI_Controller {
 			}
 			if($d['name'] == 'delete_option') {
 				$delete_option = $d['value'];
+				$delete = 1;
 			}
 		}
 
@@ -435,12 +437,14 @@ class Service extends CI_Controller {
 		if($delete == 1) {
 			foreach($torrents as $torrent) {
 				foreach($machines as $machine) {
-					$this->getToken($machine['ip_address'], '27555', $m['username'], $m['password']);
-					$retval = $this->makeRequest($machine['ip_address'], '27555', $m['username'], $m['password'], "?action=".($delete_option ? "removedata" : "remove").$this->paramImplode("&hash=", $torrent['hash']), false);
-					if($retval) {
-						$output['status'] = "Successfully sent to: " . $machine['ip_address'] . "<br>";
-					} else {
-						$output['status'] = "Failed to send to: " . $machine['ip_address'] . "<br>";
+					foreach($machine as $m) {
+						$this->getToken($m['ip_address'], '27555', $m['username'], $m['password']);
+						$retval = $this->makeRequest($m['ip_address'], '27555', $m['username'], $m['password'], "?action=".($delete_option ? "removedata" : "remove").$this->paramImplode("&hash=", $torrent['hash']), false);
+						if($retval) {
+							$output['status'] = "Successfully sent to: " . $m['ip_address'] . "<br>";
+						} else {
+							$output['status'] = "Failed to send to: " . $m['ip_address'] . "<br>";
+						}
 					}
 				}
 			}
