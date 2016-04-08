@@ -14,8 +14,8 @@
 
 	<div class='row'>
 		<div class='large-6 columns'>
-			<label>Root (C:/labs)</label>
-			<input type='text' name='root'>
+			<label>Root (C:/Labs)</label>
+			<input type='text' name='root' value='C:/Labs'>
 		</div>
 
 		<div class='large-6 columns'>

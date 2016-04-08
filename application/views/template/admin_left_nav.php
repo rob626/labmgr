@@ -16,15 +16,19 @@
 			6 => array(
 				'text' => 'Database Import',           'link' => '/admin/import_db',           'spacer' => '<hr>'),
 			7 => array(
-				'text' => 'Watchdog dropins & full cleanups','link' => '/admin/cleanup_watchdog','spacer' => '<hr>'),
+				'text' => 'Ticket System',             'link' => '/admin/ticket_system',       'spacer' => ''),
 			8 => array(
-				'text' => 'Reporting - twitter',       'link' => '/admin/reporting_twitter',   'spacer' => '<hr>'),
+				'text' => 'Log file',                  'link' => '/admin/view_log_file',       'spacer' => ''),
 			9 => array(
-				'text' => 'Add Labmgr User',           'link' => '/admin/add_user',            'spacer' => ''),
+				'text' => 'Watchdog dropins & full cleanups','link' => '/admin/cleanup_watchdog','spacer' => '<hr>'),
 			10 => array(
-				'text' => 'Set Global Defaults',       'link' => '/admin/set_global_defaults', 'spacer' => ''),
+				'text' => 'Reporting - twitter',       'link' => '/admin/reporting_twitter',   'spacer' => '<hr>'),
 			11 => array(
-				'text' => 'Labmgr Manage Config',      'link' => '/admin/labmgr_manage_configs', 'spacer' => '')
+				'text' => 'Add Labmgr User',           'link' => '/admin/add_user',            'spacer' => ''),
+			12 => array(
+				'text' => 'Set Global Defaults',       'link' => '/admin/set_global_defaults', 'spacer' => ''),
+			13 => array(
+				'text' => 'Labmgr Manage Configs',      'link' => '/admin/labmgr_manage_configs', 'spacer' => '')
 			);
 
 		foreach($menu as $menu_item) {
