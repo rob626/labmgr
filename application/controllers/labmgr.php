@@ -156,6 +156,7 @@ class Labmgr extends MY_Controller {
         curl_setopt($curl, CURLOPT_USERPWD, 'admin' . ":" . 'web1sphere');
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION, TRUE);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
         $response = curl_exec($curl);
 
 
@@ -208,6 +209,7 @@ class Labmgr extends MY_Controller {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_USERPWD, $user.":".$pass);
         curl_setopt($ch, CURLOPT_COOKIE, "GUID=".$this->guid);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
         $req = curl_exec($ch);
         curl_close($ch);
         return ($decode ? json_decode($req, true) : $req);
@@ -225,6 +227,7 @@ class Labmgr extends MY_Controller {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_USERPWD, $user.":".$pass);
         curl_setopt($ch, CURLOPT_COOKIE, "GUID=".$this->guid);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
         $req = curl_exec($ch);
         curl_close($ch);
         return ($decode ? json_decode($req, true) : $req);
@@ -243,6 +246,7 @@ class Labmgr extends MY_Controller {
         curl_setopt($ch, CURLOPT_USERPWD, $user.":".$pass);
         curl_setopt($ch, CURLOPT_COOKIE, "GUID=".$this->guid);
         curl_setopt($ch, CURLOPT_VERBOSE, true);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
         $req = curl_exec($ch);
         curl_close($ch);
         $json = json_decode($req, true);
@@ -266,6 +270,7 @@ class Labmgr extends MY_Controller {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_USERPWD, $user.":".$pass);
         curl_setopt($ch, CURLOPT_HEADER, true);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
         $output = curl_exec($ch);
         $info = curl_getinfo($ch);
         curl_close($ch);
@@ -686,16 +691,6 @@ class Labmgr extends MY_Controller {
 		}
 	}
 
-	private function send($ip, $file) {
-		$params = array(
-				'host' => $ip,
-				'port' => '27555',
-				'user' => 'admin',
-				'pass' => 'web1sphere'
-				);
-			$this->load->library('utorrent', $params);
-			return $this->utorrent->torrentAdd($file);
-	}
 
 	/**
 	 * Add a torrent.
@@ -1275,6 +1270,35 @@ class Labmgr extends MY_Controller {
 		$msg = "can you guys read this?";
 		print_r($this->twitterfy($msg));
 
+	}
+
+	/**
+	 * Create the message that will be published to Twitter.
+	 * This function will get all machines from the DB and gather
+	 * all status information about it including torrents.
+	 */
+	public function twitter_message() {
+		$machines = $this->machine_model->get_machines();
+
+		$machines = $this->machine_model->ping_test_arr($machines);
+
+		foreach($machines as $key => $machine) {
+				$this->getToken($machine['ip_address'], '27555', $machine['username'], $machine['password']);
+				$torrent_data = $this->makeRequest($machine['ip_address'], '27555', $machine['username'], $machine['password'], '?list=1');
+				$machine['torrents'] = $torrent_data['torrents'];
+				$data[$key] = $machine;
+			}
+		echo "<pre>";
+		print_r($data);
+		echo "</pre>";
+
+		foreach($data as $machine) {
+			//Do something with Machine.
+			//$message .= ''
+		}
+
+		
+		//echo $this->twitterfy($message);
 	}
 
 	public function phptail() {
