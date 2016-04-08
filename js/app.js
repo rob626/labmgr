@@ -70,7 +70,40 @@ $(document).ready(function(){
 
     $('#db_reset').click(function() {
 
-        if(window.confirm("Are you sure?")) {
+        if(window.confirm("Are you sure (FULL DB Reset)?")) {
+            location.href = this.href;
+
+            $('#status_modal_content').html("");
+            $('#status_modal').foundation('reveal', 'open');
+            var data = 'truncate';
+            $.ajax({        
+                url: "/service/truncate_db",
+                type: "get",
+                dataType: "json",
+                async: true,
+                data: {data : data}
+                }).done(function(response) {
+                    //console.log(response);
+
+                    $('#status_modal_content').append("<h3>"+response.status+"</h3>");
+
+                    $.each(response.cmd_output, function(index, value) {
+                        $('#status_modal_content').append("<h4>"+value+"</h4>")
+                    });
+                    
+                }).fail(function(jqXHR, textStatus, errorThrown) {
+                    //alert("Error submitting data!");
+                    console.log(jqXHR, textStatus, errorThrown);
+                });
+            
+        } else {
+            
+        }
+    });
+
+    $('#db_reset_conference').click(function() {
+
+        if(window.confirm("Are you sure (CONFERENCE DB Reset)?")) {
             location.href = this.href;
 
             $('#status_modal_content').html("");
