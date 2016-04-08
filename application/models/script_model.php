@@ -91,4 +91,18 @@ class Script_model extends CI_Model {
 	        return $uploads;
 		    }
 
-	}
+	/**
+	 * Run script on remote machine.
+	 */
+    public function run_script($script, $machine) {
+    	$output = array(
+            'status' => "Running script,".$script['name'].", on: ".$machine['ip_address'],
+            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $machine['ip_address'] . ' < '.$script['path'].'', $cmd_output, $exit_status),
+            'cmd_output' => $cmd_output,
+            'exit_status' => $exit_status
+        );
+
+        return $output;
+    }
+
+}
