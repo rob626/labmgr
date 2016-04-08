@@ -1302,8 +1302,7 @@ class Labmgr extends MY_Controller {
 	}
 
 	public function phptail() {
-		$this->logging->lfile('./application/logs/test.log');
-		$this->logging->lwrite("test message mofo");
+		$this->logging->lwrite("test message...");
 	}
 }
 
