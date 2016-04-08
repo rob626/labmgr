@@ -18,6 +18,13 @@ echo "</pre>";
 			<div class="panel callout radius">
 				<h3>Validate seats:</h3>
 				<p>This function checks to see if there are any duplicate or missing seats. 
+					<br><br>For missing seats, the list of seats for each room are inspected and 
+					any seats missing between 1 and the maximum seat number are listed.
+					<br><br>For duplicate seats, any seats in a room that are duplicated are listed.
+					If a seat is listed as a duplicate more than once, that means it has multiple 
+					duplicates.  For example, if seat 4 appears in a room 3 times, it will be listed
+					twice (since the first instance is not itself a duplicate).
+					seat number.
 				</p>
 			</div>
 		</div>
