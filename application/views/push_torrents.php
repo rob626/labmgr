@@ -42,5 +42,12 @@
 
 		</div>
 	</div>
+
+	<div class='row'>
+		<div class='large-6 columns'>
+			<br>
+			<input type='submit' class='button large center' value='Push Torrents'>
+		</div>
+	</div>
 	</form>
 </div>

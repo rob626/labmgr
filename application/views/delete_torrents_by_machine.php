@@ -47,5 +47,13 @@
 			</div>
 		</div>
 	</div>
+
+	<div class='row'>
+		<div class='large-6 columns'>
+			<br>
+			<input type='submit' class='button large center' value='Delete Torrents'>
+		</div>
+	</div>
+	
 	</form>
 </div>

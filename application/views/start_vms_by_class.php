@@ -47,5 +47,12 @@
 
 		</div>
 	</div>
+	<div class='row'>
+		<div class='large-6 columns'>
+			<br>
+			<input type='submit' class='button large center' value='Start VMs'>
+		</div>
+	</div>
+
 	</form>
 </div>
