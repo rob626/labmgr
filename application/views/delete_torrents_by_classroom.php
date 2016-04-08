@@ -6,28 +6,13 @@
 <div class='large-10 columns'>
 	<form method='POST' id='push_delete_torrents_class_form' action='/labmgr/delete_torrents_by_classroom'>
 	<div class='row'>
-		<div class='small-3 columns'>
-		</div>
-
-		<div class='small-3 columns'>
-		</div>
-
-		<div class='small-3 columns'>
+		<div class='small-6 small-centered columns'>
 			<br>
 			<input type='submit' class='button large center' value='Delete Torrents'><br>
-			
+			<input type='radio' checked name='delete_option' value='delete_torrent'><label>Delete Torrent</label>
+			<input type='radio' name='delete_option' value='delete_torrent_data'><label>Delete Torrent & Data</label>
+			<input type='radio' name='delete_option' value='delete_data'><label>Delete Data</label>
 		</div>
-
-
-
-		<div class='small-3 columns'>
-			<br>
-			<label><input type='radio' checked name='delete_option' value='delete_torrent'>Delete Torrent</label>
-			<label><input type='radio' name='delete_option' value='delete_torrent_data'>Delete Torrent & Data</label>
-			<label><input type='radio' name='delete_option' value='delete_data'>	Delete Data</label>
-		</div>
-
-		
 	</div>
 
 	<div class='row'>

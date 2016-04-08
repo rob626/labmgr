@@ -6,7 +6,7 @@ BACKUP_DIR=$(pwd)/database/backups
 if [[ $1 ]]; then
 	BACKUPFILE=$1
 else
-	BACKUPFILE=$DATABASE_NAME.$(date +%Y%m%d%H%M%S).db.sql
+	BACKUPFILE=$DATABASE_NAME_$(date +%Y-%m-%d_%H-%M-%S).db.sql
 fi
 
 echo "Creating backup..." $BACKUP_DIR/$BACKUPFILE

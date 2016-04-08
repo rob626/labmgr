@@ -29,21 +29,33 @@ echo "</pre>";
 			</div>
 		</div>
 		<br>
+
+		<div class='row'>
 		<?php
 
 			foreach($seats as $room_key => $room_value) {
-				echo "<h3>Room: ".$room_key."</h3>";
+				echo "<h4>Room: ".$room_key."</h4>";
 
 				echo "<p>";
 				echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Missing Seats: ";
-				foreach($room_value['missing_seats'] as $missing_seat) echo	$missing_seat." ";
+				$first_one=1;
+				foreach($room_value['missing_seats'] as $missing_seat) {
+					if ($first_one==0) echo ", ";
+					echo $missing_seat;
+					$first_one=0;
+				}
 				echo "<br>";
 
 				echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Duplicate Seats: ";
-				foreach($room_value['duplicates'] as $duplicate_seat) echo	$duplicate_seat." ";
+				$first_one=1;
+				foreach($room_value['duplicates'] as $duplicate_seat) {
+					if ($first_one==0) echo ", ";
+					echo $duplicate_seat;
+					$first_one=0;
+				}
 				echo "</p>";
 			}
 		?>
-
+		</div>
 	</div>
 </div>

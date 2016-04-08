@@ -12,7 +12,7 @@
 
 	<form method='POST' action='/admin/export_db'>
 		<h2>Export Database</h2>
-		<label>Filename: </label><input type='text' name='backup_filename' value='labmgr.<?php echo date("Y-m-d_H:i:s");?>.db.sql'>
+		<label>Filename (modify if you like, but leave the .db.sql extension): </label><input type='text' name='backup_filename' value='labmgr_<?php echo date("Y-m-d_H-i-s");?>.db.sql'>
 		<input type='submit' value='Export' class='button'>
 
 	</form>

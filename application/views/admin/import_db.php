@@ -58,7 +58,7 @@
 
 	
 		<h2>Import Database</h2>
-		<input type='submit' value='Import' class='button'>
+		<input type='submit' value='Import selected DB backup' class='button'>
 
 	</form>
 	</div>
