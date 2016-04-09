@@ -4,8 +4,7 @@
 
 
 <div class='large-10 columns'>
-
-		<div class='row'>
+	<div class='row'>
 		<div class='large-3 columns'>
 			<label>Room</label>
 				<select id='room_filter_machine_status' name="room_id">
@@ -25,10 +24,10 @@
 			<a href='#' id='mouse_move_btn' class='button'>Mouse Move</a>
 			<br>
 			<a href='#' id='select_all'>Select All</a>&nbsp &nbsp  <a href='#' id='unselect_all'>Unselect All</a><br>
-
 		</div>
 	</div>
 
+	<div class='row'>
 		<table id='machine_datatable'>
 			<thead>
 				<tr>
@@ -141,8 +140,7 @@
 			
 			</tbody>
 		</table>
-
-
+	</div>
 </div>
 
 <div id="reboot_modal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog"> 

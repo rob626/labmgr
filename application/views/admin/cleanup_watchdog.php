@@ -3,23 +3,54 @@
 </div> 
 
 <div class='large-10 columns'>
-	<form method='POST' id='run_single_cmd_class_form' action='/labmgr/run_single_cmd_class'>
 		<div class='row'>
 			<br>
 			<div class="panel callout radius">
 				<h3>Cleanup Watchdog:</h3>
-				<p>This function cleans up the watchdog installations on the client machines. 
+				<p>This function cleans up the watchdog data on the client machines. 
+					This includes the log file, the dropins, and the hassbeenrun directories.
 					<br><br>
 				</p>
 			</div>
-			Pulldown for ALL or specific classroom (forget about machine list... not really needed)
-			2 Buttons with descriptsions
-			- Cleanup dropins directory (just deletes all entries in the dropins)
-			- Full cleanup (removes log file, dropins entries, hasbeenrun entries)
-			<div class='small-4 small-centered columns'>
+
+			<div class='large-5 columns'>
 				<br>
-				<a id='cleanup_watchdog' class='button large center' href='#'>Make it happen...</a>
+				<a href='#' id='cleanup_watchdog_btn' class='button'>Cleanup Watchdog</a>
 			</div>
 		</div>
-	</div>
+
+		<!-- 
+		<div class='row'>
+			<div class='large-6 columns'>
+				<h2>Run Command (ex: ls -ltr)</h2>
+				
+				<label>Command</label><input name='cmd' type='text'>
+			</div>
+		</div>
+		-->
+
+		<div class='row'>
+			<div class='large-6 columns'>
+				<h2>Machines</h2>
+				<label>Show by Room</label>
+					<select id='room_filter' name="room_id">
+						<option value='-1'>All Rooms</option>
+						<?php foreach ($rooms as $room) { ?>
+						<option value='<?php echo $room['room_id'] ?>'><?php echo $room['name'] ?> </option>
+						<?php } ?>
+					</select> 
+			
+				<a href='#' id='select_all'>Select All</a>&nbsp &nbsp  <a href='#' id='unselect_all'>Unselect All</a><br>
+				<div id='machine_list'>
+					<?php
+						foreach($machines as $machine) {
+							echo "<input type='checkbox' class='checkbox' name='machine_ids[]' value='".$machine['machine_id']."'><label>Seat: ".$machine['seat']. ' ('.$machine['ip_address'].")</label><br>";
+						}
+					?>
+				</div>
+
+			</div>
+		</div>
 </div>
+
+

@@ -253,7 +253,7 @@ class Machine_model extends CI_Model {
     /**
      * Clean up (delete) the dropins directory.
      */
-    public function clean_dropins($ip) {
+    public function clean_watchdog_dropins($ip) {
     	$output = array(
     		'status' => "Sending rm -rf command to: ".$ip,
     		'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $ip . ' "rm -rf /cygdrive/c/labmgr-wd/dropins/* "', $cmd_output, $exit_status),
@@ -264,6 +264,33 @@ class Machine_model extends CI_Model {
     	return $output;
     }
 
+    /**
+     * Clean up (delete) the hasbeenrun directory.
+     */
+    public function clean_watchdog_hasbeenrun($ip) {
+        $output = array(
+            'status' => "Sending rm -rf command to: ".$ip,
+            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $ip . ' "rm -rf /cygdrive/c/labmgr-wd/hasbeenrun/* "', $cmd_output, $exit_status),
+            'cmd_output' => $cmd_output,
+            'exit_status' => $exit_status
+        );
+
+        return $output;
+    }
+
+    /**
+     * Clean up (delete) the wd logfile.
+     */
+    public function clean_watchdog_logfile($ip) {
+        $output = array(
+            'status' => "Sending rm -rf command to: ".$ip,
+            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $ip . ' "rm -rf /cygdrive/c/labmgr-wd/labmgr-logfile.log "', $cmd_output, $exit_status),
+            'cmd_output' => $cmd_output,
+            'exit_status' => $exit_status
+        );
+
+        return $output;
+    }
     /**
      * Connect to a remote machine and view the watch dog's log file.
 	 */

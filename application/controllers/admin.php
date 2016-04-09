@@ -79,7 +79,9 @@ class Admin extends CI_Controller {
 
 	public function cleanup_watchdog() 
 	{
-		$this->load->template('/admin/cleanup_watchdog');
+		$data['machines'] = $this->machine_model->get_machines();
+		$data['rooms'] = $this->room_model->get_rooms();
+		$this->load->template('/admin/cleanup_watchdog', $data);
 	}
 
 	public function reporting_twitter() 
