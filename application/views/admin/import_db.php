@@ -17,6 +17,7 @@
 			<tr>
 				<th>Select</th>
 				<th>Backup File</th>
+				<th></th>
 				<th>Edit</th>
 				<th>Delete</th>
 			</tr>
@@ -29,11 +30,14 @@
 					echo "<tr>";
 					echo "<td><input type='radio' name='backup_filename' value='".$backup."'></td>";
 					echo "<td>".$backup."</td>";
+
+					echo "<td><form></form></td>";
+
 					echo "<td><form method='POST' action='/admin/edit_backup'>
 					<input type='hidden' name='backup' value='".$backup."'>
 					<input type='submit' class='button tiny radius' value='Edit'>
-					</form></td>";
-
+					</form>
+					</td>";
 
 					echo "<td><form method='POST' action='/admin/delete_backup'>
 					<input type='hidden' name='backup' value='".$backup."'>

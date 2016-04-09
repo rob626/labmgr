@@ -211,6 +211,13 @@ class Admin_model extends CI_Model {
     }
 
     /**
+     * Change or update backup file name.
+     */
+    public function update_backup_name($old_name, $new_name) {
+         return rename(DB_BACKUP_DIR.$old_name, DB_BACKUP_DIR.$filename);
+    }
+
+    /**
      * This function looks at the MAC addresses in the 
      * database and checks to see if they are still mapped
      * to the IP addresses in the ARP. 
