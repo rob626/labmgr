@@ -142,7 +142,7 @@ class Service extends CI_Controller {
 	public function cleanup_watchdog() {
 		$machine_id = $this->input->get('machine_id');
 		$machine = $this->machine_model->get_machine($machine_id);
-		echo json_encode($this->machine_model->cleanup_watchdog($machine[0]['ip_address']));
+		echo json_encode($this->machine_model->cleanup_watchdog_hasbeenrun($machine[0]['ip_address']));
 	}
 
 	public function get_torrent_status() {

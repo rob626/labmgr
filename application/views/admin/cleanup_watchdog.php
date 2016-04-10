@@ -8,14 +8,19 @@
 			<div class="panel callout radius">
 				<h3>Cleanup Watchdog:</h3>
 				<p>This function cleans up the watchdog data on the client machines. 
-					This includes the log file, the dropins, and the hassbeenrun directories.
-					<br><br>
+					<br><br>&nbsp &nbsp- The cleanup dropins function removes the dropins and the hassbeenrun directories.
+					<br>&nbsp &nbsp- The cleanup full function removes the log file, as well as the dropins and the 
+					hassbeenrun directories.
 				</p>
 			</div>
 
 			<div class='large-5 columns'>
 				<br>
-				<a href='#' id='cleanup_watchdog_btn' class='button'>Cleanup Watchdog</a>
+				<a id='cleanup_watchdog_dropins' class='button' href='#'>Cleanup WD Dropins</a>
+				<a id='cleanup_watchdog_FULL' class='button' href='#'>Cleanup WD FULL</a>
+				<!--<a id='db_reset_conference' class='button large center' href='#'>CONFERENCE Reset</a>
+				<a id='db_reset' class='button large center' href='#'>FULL DB Reset</a> -->
+			</div>
 			</div>
 		</div>
 
