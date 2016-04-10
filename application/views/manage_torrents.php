@@ -2,11 +2,12 @@
 	<?php $this->load->view('template/torrents_left_nav'); ?>
 </div>
 
-<div class='panel'>
-	<h1>Existing Torrents</h1>
-</div>
+	<div class='panel'>
+		<h1>Existing Torrents</h1>
+	</div>
 
 <div class='large-10 columns'>
+	<div class='row'>
 	<table id='datatable'>
 		<thead>
 			<tr>
@@ -46,4 +47,5 @@
 			?>
 		</tbody>
 	</table>
+</div>
 </div>
