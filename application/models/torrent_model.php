@@ -50,7 +50,7 @@ class Torrent_model extends CI_Model {
 	    /**
 	     * Update torrent data a torrent ID.
 	     */
-	    public function update_torrent($torrent_id, $torrent_name, $hash, $torrent_path, $torrent_file = '', $torrent_version = 1) {
+	    public function update_torrent($torrent_id, $torrent_name, $hash, $torrent_path, $torrent_file = '', $torrent_version = 0) {
 	    	$this->db->trans_start();
 
 	    	$this->db->where('torrent_id', $torrent_id);

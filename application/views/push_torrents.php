@@ -32,7 +32,7 @@
 		<div class='large-6 columns'>
 			<h2>Classrooms</h2>
 			<?php
-				usort($name, function($a, $b) {
+				usort($rooms, function($a, $b) {
 				    return strcasecmp(trim($a['name']), trim($b['name']));
 				});
 				foreach($rooms as $room) {

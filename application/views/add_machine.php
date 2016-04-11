@@ -21,7 +21,11 @@
 				<div class='large-6 columns'>
 					<label>Room</label>
 					<select name="room_id">
-						<?php foreach ($rooms as $room) { ?>
+						<?php 
+						usort($rooms, function($a, $b) {
+							return strcasecmp(trim($a['name']), trim($b['name']));
+						});
+						foreach ($rooms as $room) { ?>
 						<option value='<?php echo $room['room_id'] ?>'><?php echo $room['name'] ?> </option>
 						<?php } ?>
 					</select> 

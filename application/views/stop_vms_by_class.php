@@ -31,6 +31,9 @@
 		<div class='large-6 columns'>
 			<h2>Classrooms</h2>
 			<?php
+				usort($rooms, function($a, $b) {
+					return strcasecmp(trim($a['name']), trim($b['name']));
+				});
 				foreach($rooms as $room) {
 					echo "<input type='checkbox' name='room_ids[]' value='".$room['room_id']."'><label>".$room['name']."</label><br>";
 				}

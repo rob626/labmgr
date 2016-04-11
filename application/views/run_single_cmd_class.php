@@ -23,6 +23,9 @@
 			<h4>Classrooms</h4>
 			<a href='#' id='select_all'>Select All</a>&nbsp &nbsp  <a href='#' id='unselect_all'>Unselect All</a><br>
 			<?php
+				usort($rooms, function($a, $b) {
+					return strcasecmp(trim($a['name']), trim($b['name']));
+				});
 				foreach($rooms as $room) {
 					echo "<input class='checkbox' type='checkbox' name='room_ids[]' value='".$room['room_id']."'><label>".$room['name']."</label><br>";
 				}
