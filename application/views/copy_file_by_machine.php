@@ -4,18 +4,27 @@
 
 
 <div class='large-10 columns'>
+	<br>
+	<div class="panel callout radius">
+		<h3>Copying by file or directory:</h3>
+		<p>To copy files or directories to the remote systems, first upload the file or directory to 
+			the ./labmgr/uploads folder on the server.  
+			<br><br>The file or directory is then available through Local File pulldown.
+		</p>
+	</div>
+
 	<form method='POST' id='copy_file_by_machine_form' action='/labmgr/'>
 	<div class='row'>
 		<div class='small-4 small-centered columns'>
 			<br>
-			<input type='submit' class='button large center' value='Run...'>
+			<input type='submit' class='button center' value='Copy File or Directory'>
 		</div>
 	</div>
 
 	<div class='row'>
 		<div class='large-6 columns'>
 			<div class='row'>
-				<h2>Local File</h2>
+				<h4>Local File or Directory</h4>
 
 				<select id='local_file' name='local_file'>
 					<?php foreach ($files as $file) { ?>
@@ -25,13 +34,13 @@
 
 			</div>
 			<div class='row'>
-				<h2>Remote Path</h2>
-				<input name='remote_path' type='text'>
+				<h4>Remote Path</h4>
+				<label>(ex: /cygdrive/c/temp/)</label><input name='remote_path' type='text'>
 			</div>
 		</div>
 
 		<div class='large-6 columns'>
-			<h2>Machines</h2>
+			<h4>Machines</h4>
 			<label>Show by Room</label>
 				<select id='room_filter' name="room_id">
 					<option value='-1'>All Rooms</option>

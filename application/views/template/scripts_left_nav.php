@@ -8,7 +8,7 @@
 			2 => array(
 				'text' => 'Manage Scripts',                'link' => '/labmgr/add_script',             'spacer' => '<hr>'),
 			3 => array(
-				'text' => 'Copy file ordir by Machine',    'link' => '/labmgr/copy_file_by_machine',    'spacer' => '')
+				'text' => 'Copy file or dir by Machine',    'link' => '/labmgr/copy_file_by_machine',    'spacer' => '')
 			);
 
 		foreach($menu as $menu_item) {
