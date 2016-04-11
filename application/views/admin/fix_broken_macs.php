@@ -16,6 +16,19 @@
 		<h2>Fix Missing MAC Addresses</h2>
 	
 	</div>
+
+	<br>
+	<div class="panel callout radius">
+		<h4>Fixing missing MAC addresses:</h4>
+		<p>To fix missing MAC addresses, the database is queried for missing MAC addresses.  Each of those
+			systems is pinged and the resulting MAC address is captured and added to the database.
+			<br><br>There are several situations where the MAC address update fails.
+			<br>&nbsp &nbsp- The machine is offline
+			<br>&nbsp &nbsp- The machine is behind a router
+			<br><br>When the Fix button is pressed, the resulting page lists only the machines that were fixed.
+		</p>
+	</div>
+
 <?php  
 		if(!empty($fixed_machines)) {
 			echo "<h3>Fixed Machines:</h3>";
@@ -29,6 +42,8 @@
 			$machines = $broken_machines;
 			echo "</pre>";
 		} ?>
+
+		<br><input type='submit' value='Fix' class='button'><br><br>
 
 		<table id='datatable'>
 			<thead>
@@ -62,6 +77,8 @@
 						
 
 					}
+				} else {
+					echo "No machines were fixed";
 				}
 				?>
 

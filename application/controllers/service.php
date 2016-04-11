@@ -140,7 +140,7 @@ class Service extends CI_Controller {
 	}
 
 	public function cleanup_watchdog() {
-		$this->logging->lfile("./application/logs/test_lfile");
+		//$this->logging->lfile("./application/logs/test_lfile");
 		$this->logging->lwrite("cleanup_watchdog (service)");
 
 		$data = $this->input->get('data');
