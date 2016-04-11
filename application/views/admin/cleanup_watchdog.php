@@ -35,7 +35,7 @@
 		-->
 
 		<div class='row'>
-			<form method='POST' id='cleanup_watchdog_dropins_form' action=''>
+			<form method='POST' id='cleanup_watchdog_form' action=''>
 			<div class='large-6 columns'>
 				<h2>Machines</h2>
 				<label>Show by Room</label>

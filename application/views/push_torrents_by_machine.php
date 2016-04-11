@@ -47,7 +47,8 @@
 			<div id='machine_list'>
 			<?php
 				foreach($machines as $machine) {
-					echo "<input type='checkbox' class='machine-checkboxes' name='machine_ids[]' value='".$machine['machine_id']."'><label>Seat: ".$machine['seat']. ' ('.$machine['ip_address'].")</label><br>";
+					$room=$this->room_model->get_room($machine['room_id']);
+					echo "<input type='checkbox' class='checkbox' name='machine_ids[]' value='".$machine['machine_id']."'><label>Seat: ".$machine['seat']. ' - room: '. $room[0]['name'] . ' ('.$machine['ip_address'].")</label><br>";
 				}
 			?>
 			</div>

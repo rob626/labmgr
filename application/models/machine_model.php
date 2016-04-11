@@ -256,7 +256,7 @@ class Machine_model extends CI_Model {
     public function cleanup_watchdog_dropins($ip) {
         //echo $ip;
     	$output = array(
-    		'status' => "Sending rm -rf command to: ".$ip,
+    		'status' => "Cleaning up dropins directory on: ".$ip,
     		'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $ip . ' "rm -rf /cygdrive/c/labmgr-wd/dropins/* "', $cmd_output, $exit_status),
     		'cmd_output' => $cmd_output,
     		'exit_status' => $exit_status
@@ -273,7 +273,7 @@ class Machine_model extends CI_Model {
         $this->logging->lwrite("clean_watchdog_hasbeenrun (model)");
 
         $output = array(
-            'status' => "Sending rm -rf command to: ".$ip,
+            'status' => "Cleaning up hasbeenrun directory on: ".$ip,
             'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $ip . ' "rm -rf /cygdrive/c/labmgr-wd/hasbeenrun/* "', $cmd_output, $exit_status),
             'cmd_output' => $cmd_output,
             'exit_status' => $exit_status
@@ -287,7 +287,7 @@ class Machine_model extends CI_Model {
      */
     public function cleanup_watchdog_logfile($ip) {
         $output = array(
-            'status' => "Sending rm -rf command to: ".$ip,
+            'status' => "Cleaning up watchdog logfile on: ".$ip,
             'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $ip . ' "rm -rf /cygdrive/c/labmgr-wd/labmgr-logfile.log "', $cmd_output, $exit_status),
             'cmd_output' => $cmd_output,
             'exit_status' => $exit_status

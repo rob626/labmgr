@@ -6,12 +6,8 @@
 			1 => array(
 				'text' => 'Add Torrent Client',    'link' => '/admin/add_torrent_client',    'spacer' => ''),
 			2 => array(
-				'text' => 'Add Torrent Client',    'link' => '/admin/edit_torrent_client',   'spacer' => ''),
+				'text' => 'Add Operating System',  'link' => '/admin/add_operating_system',  'spacer' => ''),
 			3 => array(
-				'text' => 'Add Torrent Client',    'link' => '/admin/add_operating_system',  'spacer' => ''),
-			4 => array(
-				'text' => 'Add Torrent Client',    'link' => '/admin/edit_operating_system', 'spacer' => '<hr>'),
-			5 => array(
 				'text' => 'Place Holder',          'link' => '/admin/reporting_twitter',     'spacer' => '')
 			);
 

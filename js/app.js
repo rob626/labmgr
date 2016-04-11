@@ -103,7 +103,7 @@ $(document).ready(function(){
 
     $('#cleanup_watchdog_dropins').click(function(e) {
         e.preventDefault();
-        var data = $('#cleanup_watchdog_dropins_form :input').serializeArray();
+        var data = $('#cleanup_watchdog_form :input').serializeArray();
 
         if(window.confirm("Are you sure (dropins cleanup)?")) {
             location.href = this.href;
@@ -112,6 +112,38 @@ $(document).ready(function(){
             $('#status_modal').foundation('reveal', 'open');
             $.ajax({        
                 url: "/service/cleanup_watchdog",
+                type: "get",
+                dataType: "json",
+                async: true,
+                data: {data : data}
+                }).done(function(response) {
+                    console.log(response);
+
+                    $.each(response, function(index, value) {
+                        $('#status_modal_content').append("<h4>"+value.status+"</h4>")
+                    });
+                    
+                }).fail(function(jqXHR, textStatus, errorThrown) {
+                    //alert("Error submitting data!");
+                    console.log(jqXHR, textStatus, errorThrown)
+                });
+            
+        } else {
+            
+        }
+    });
+
+    $('#cleanup_watchdog_FULL').click(function(e) {
+        e.preventDefault();
+        var data = $('#cleanup_watchdog_form :input').serializeArray();
+
+        if(window.confirm("Are you sure (FULL WD cleanup)?")) {
+            location.href = this.href;
+
+            $('#status_modal_content').html("");
+            $('#status_modal').foundation('reveal', 'open');
+            $.ajax({        
+                url: "/service/cleanup_watchdog_FULL",
                 type: "get",
                 dataType: "json",
                 async: true,
