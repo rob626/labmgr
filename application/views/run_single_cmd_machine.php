@@ -14,15 +14,15 @@
 
 	<div class='row'>
 		<div class='large-6 columns'>
-			<h2>Run Command (ex: ls -ltr)</h2>
+			<h4>Run Command</h4>
 			
-			<label>Command</label><input name='cmd' type='text'>
+			<label>Command (ex: ls -ltr /cygdrive/c/temp/)</label><input name='cmd' type='text'>
 		</div>
 
 		</div>
 
 		<div class='large-6 columns'>
-			<h2>Machines</h2>
+			<h4>Machines</h4>
 			<label>Show by Room</label>
 				<select id='room_filter' name="room_id">
 					<option value='-1'>All Rooms</option>

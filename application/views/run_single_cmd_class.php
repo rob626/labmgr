@@ -14,13 +14,13 @@
 
 	<div class='row'>
 		<div class='large-6 columns'>
-			<h2>Run Command</h2>
+			<h4>Run Command</h4>
 			
 			<label>Command (ex: ls -ltr /cygdrive/c/temp/)</label><input name='cmd' type='text'>
 		</div>
 
 		<div class='large-6 columns'>
-			<h2>Classrooms</h2>
+			<h4>Classrooms</h4>
 			<a href='#' id='select_all'>Select All</a>&nbsp &nbsp  <a href='#' id='unselect_all'>Unselect All</a><br>
 			<?php
 				foreach($rooms as $room) {

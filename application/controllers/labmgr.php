@@ -752,7 +752,8 @@ class Labmgr extends MY_Controller {
 			$this->input->post('torrent_id'), 
 			$this->input->post('torrent_name'), 
 			$this->input->post('torrent_hash'),
-			$this->input->post('torrent_path')
+			$this->input->post('torrent_path'),
+			$this->input->post('torrent_version')
 			);
 		if($retval) {
 			redirect('/labmgr/manage_torrents');
