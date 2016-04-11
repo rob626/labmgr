@@ -79,6 +79,9 @@ class Admin extends CI_Controller {
 
 	public function cleanup_watchdog() 
 	{
+		$this->logging->lfile("./application/logs/test_lfile");
+        $this->logging->lwrite("clean_watchdog (controller)");
+
 		$data['machines'] = $this->machine_model->get_machines();
 		$data['rooms'] = $this->room_model->get_rooms();
 		$this->load->template('/admin/cleanup_watchdog', $data);

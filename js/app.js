@@ -101,14 +101,15 @@ $(document).ready(function(){
         }
     });
 
-    $('#cleanup_watchdog_dropins').click(function() {
+    $('#cleanup_watchdog_dropins').click(function(e) {
+        e.preventDefault();
+        var data = $('#cleanup_watchdog_dropins_form :input').serializeArray();
 
         if(window.confirm("Are you sure (dropins cleanup)?")) {
             location.href = this.href;
 
             $('#status_modal_content').html("");
             $('#status_modal').foundation('reveal', 'open');
-            var data = 'cleanup_watchdog';
             $.ajax({        
                 url: "/service/cleanup_watchdog",
                 type: "get",
@@ -116,17 +117,15 @@ $(document).ready(function(){
                 async: true,
                 data: {data : data}
                 }).done(function(response) {
-                    //console.log(response);
+                    console.log(response);
 
-                    $('#status_modal_content').append("<h3>"+response.status+"</h3>");
-
-                    $.each(response.cmd_output, function(index, value) {
-                        $('#status_modal_content').append("<h4>"+value+"</h4>")
+                    $.each(response, function(index, value) {
+                        $('#status_modal_content').append("<h4>"+value.status+"</h4>")
                     });
                     
                 }).fail(function(jqXHR, textStatus, errorThrown) {
                     //alert("Error submitting data!");
-                    console.log(jqXHR, textStatus, errorThrown);
+                    console.log(jqXHR, textStatus, errorThrown)
                 });
             
         } else {
@@ -629,36 +628,6 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
         }
     });
 
-    $('#cleanup_watchdog_btn').click(function() {
-        var machines = [];
-        $('input:checkbox.checkbox').each(function () {
-            if(this.checked) {
-                machines.push($(this).val());
-            }
-           
-        });
-
-        $('#cleanup_modal_content').html("");
-        for(var i=0; i<machines.length; i++) {
-            $.ajax({        
-            url: "/service/cleanup_watchdog",
-            type: "get",
-            dataType: "json",
-            async: true,
-            data: {machine_id : machines[i]}
-            }).done(function(response) {
-
-                console.log(response.status );
-                $('# leanup_modal_content').append("<h3>"+response.status+"</h3>")
-                $('#cleanup_modal').foundation('reveal', 'open');
-                
-            }).fail(function(jqXHR, textStatus, errorThrown) {
-                //alert("Error submitting data!");
-                console.log(jqXHR, textStatus, errorThrown);
-            });
-        }
-    });
-
     $('#validate_ips_form').on('submit', function(e) {
         e.preventDefault();
         var data = $('#validate_ips_form :input').serializeArray();
@@ -708,9 +677,6 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
                 } else {
                     $('#status_modal_content').append("<h3>Error</h3>");
                 }
-                
-                
- 
                 
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 //alert("Error submitting data!");

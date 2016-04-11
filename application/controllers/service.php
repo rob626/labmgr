@@ -140,9 +140,31 @@ class Service extends CI_Controller {
 	}
 
 	public function cleanup_watchdog() {
-		$machine_id = $this->input->get('machine_id');
-		$machine = $this->machine_model->get_machine($machine_id);
-		echo json_encode($this->machine_model->cleanup_watchdog_hasbeenrun($machine[0]['ip_address']));
+		$this->logging->lfile("./application/logs/test_lfile");
+		$this->logging->lwrite("cleanup_watchdog (service)");
+
+		$data = $this->input->get('data');
+		$machines = array();
+
+		// Get the list of machines from the input data
+		foreach($data as $d) {
+			if($d['name'] == 'machine_ids[]') {
+				array_push($machines, $this->machine_model->get_machine($d['value'])[0]);
+			}
+		}
+
+		//print_r($machines);
+		// Call the function(s) for each machine and pass the ip address
+		foreach($machines as $machine) {
+			//echo "inside foreach loop 1<br>";
+			//print_r($machine);
+			$output[] = $this->machine_model->cleanup_watchdog_dropins($machine['ip_address']);
+			//echo "inside foreach loop 2<br>";
+			$output[] = $this->machine_model->cleanup_watchdog_hasbeenrun($machine['ip_address']);
+			//echo "inside foreach loop 3<br>";
+		}
+		
+		echo json_encode($output);	
 	}
 
 	public function get_torrent_status() {
