@@ -1283,7 +1283,6 @@ class Labmgr extends MY_Controller {
 	 */
 	public function twitter_message() {
 		$machines = $this->machine_model->get_machines();
-
 		$machines = $this->machine_model->ping_test_arr($machines);
 
 		foreach($machines as $key => $machine) {
@@ -1292,16 +1291,113 @@ class Labmgr extends MY_Controller {
 				$machine['torrents'] = $torrent_data['torrents'];
 				$data[$key] = $machine;
 			}
+
 		echo "<pre>";
 		print_r($data);
 		echo "</pre>";
 
-		foreach($data as $machine) {
-			//Do something with Machine.
-			//$message .= ''
-		}
+		/*
+		Ping: 578/598  (93%)  Tors: 578-1200/3000 (42%) @23 Data: 578-340000/980000 (37%) 
+		low disk: 66/55/22/33/44
 
+		Explained:
+
+		Ping <successful-pings> / <total-machines>  (<percentage-of-machines>%) 
+		Tors: <machines-counted-for-torrents-seeds> - <total-seeding-torrents> / <total-torrents> (<percentage-of-torrents-complete>%) @<ave-speed>
+		Data: <machines-counted-for-torrents-data> -  <total-torrent-data-moved-GB> / <total-torrent-data-TO-BE-moved-GB>  (<percentage-of-data-complete>%)  
+		Low disk: <machine-count-under-50%> / <machine-count-over-50%> / <machine-count-over-80%> / <machine-count-over-90%> / <machine-count-over-95%>
+		*/
+
+		$machine_count=0;
+		$online_machine_count=0;
+		$torrenting_machine_count=0;
+		$torrent_count=0;
+		$seed_count=0;
+		$torrent_ave_speed=0;
+		$data_transfered=0;
+		$data_to_be_transfered=0;
+		$disk_status_0=0;
+		$disk_status_50=0;
+		$disk_status_80=0;
+		$disk_status_90=0;
+		$disk_status_95=0;
+		$disk_status_100=0;
+
+		foreach($data as $machine) {
+			$machine_count++;
+			if($machine['status'] == 'ONLINE') $online_machine_count++;
+			/*if (($machine['disk_usage'] == false || typeof($machine['disk_usage']) == 'undefined' || $machine['disk_usage'] == null || $machine['disk_usage'] == 'null') {
+                // No disk usage data
+            } else {
+                if($machine['disk_usage'] = 100) {
+                    $disk_status_100++;
+                } else if($machine['disk_usage'] > 95) {
+                    $disk_status_95++;
+                } else if($machine['disk_usage'] > 90) {
+                    $disk_status_90++;
+                } else if($machine['disk_usage'] > 80) {
+                    $disk_status_80++;
+                } else if($machine['disk_usage'] > 50) {
+                    $disk_status_50++;
+                }  else {
+                    $disk_status_0++;
+                }
+            }*/
+            if (!empty($machine['disk_usage'])) {
+            	echo "d - {".$machine['disk_usage']."}<br>";
+            	if($machine['disk_usage'] == 100) {
+                    $disk_status_100++;
+                } elseif($machine['disk_usage'] > 95) {
+                    $disk_status_95++;
+                } elseif($machine['disk_usage'] > 90) {
+                    $disk_status_90++;
+                } elseif($machine['disk_usage'] > 80) {
+                    $disk_status_80++;
+                } elseif($machine['disk_usage'] > 50) {
+                    $disk_status_50++;
+                }  else {
+                    $disk_status_0++;
+                }
+            }
+            
+            if (!empty($machine['torrents'][0][21])) {
+            	$torrent_machine_count++;
+            	if($machine['torrents'][0][21] == 'Seeding 100.0 %') $seed_count++;
+            	$data_transfered+=$machine['torrents'][0][3];
+				$data_to_be_transfered+=$machine['torrents'][0][3];
+				$data_remaining+=$machine['torrents'][0][18];
+				$data_transfered=$data_to_be_transfered-$data_remaining;
+            }
+			
+			$data_to_be_transfered += $machine['torrents'][0][3];
+            /*total_bytes += torrent_value['3'];
+            remaining_bytes += torrent_value['18'];
+            total_speed += torrent_value[9];*/
+
+		}
 		
+		$message = sprintf("Ping: %d/%d (%.1f%%) Tors: %d %d/%d (%.1f%%) @%d Data: %d %d/%d (%.1f%%) Low Disk: %d/%d/%d/%d/%d/%d",
+			$online_machine_count, 
+			$machine_count, 
+			$online_machine_count/$machine_count * 100,
+			$torrenting_machine_count,
+			$seed_count,
+			$torrent_count,
+			$seed_count/$torrent_count * 100,
+			$torrent_ave_speed,
+			$torrenting_machine_count,
+			$data_transfered,
+			$data_to_be_transfered,
+			$data_transfered/$data_to_be_transfered * 100,
+			$disk_status_0,
+			$disk_status_50,
+			$disk_status_80,
+			$disk_status_90,
+			$disk_status_95,
+			$disk_status_100
+			);
+		
+		echo "<br><br>Twitter message (".strlen($message)."): " .$message."<br><br>";
 		//echo $this->twitterfy($message);
 	}
 
