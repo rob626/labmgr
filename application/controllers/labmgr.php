@@ -1344,9 +1344,11 @@ class Labmgr extends MY_Controller {
                     $disk_status_0++;
                 }
             }
+
+            if (!empty($machine['torrents'])) $torrenting_machine_count++;
             foreach($machine['torrents'] as $torrent) {
 	            if (!empty($torrent[21])) {
-	            	$torrent_machine_count++;
+	            	$torrent_count++;
 	            	if($torrent[21] == 'Seeding 100.0 %') $seed_count++;
 					$data_to_be_transfered+=$torrent[3];
 					$data_remaining+=$torrent[18];
@@ -1362,8 +1364,13 @@ class Labmgr extends MY_Controller {
 
 		$data_transfered=$data_to_be_transfered-$data_remaining;
 		$torrent_ave_speed=$torrent_speed / $torrent_machine_count;
+
+		$conference = $this->authentication->conference();
+		$server = $this->authentication->server();
 		
-		$message = sprintf("Ping: %d/%d (%.1f%%) Tors: %d %d/%d (%.1f%%) @%d Data: %d %d/%d (%.1f%%) Low Disk: %d/%d/%d/%d/%d/%d",
+		$message = sprintf("%s/%s Ping: %d/%d (%.1f%%) Tors: %d %d/%d (%.1f%%) @%d Data: %d %d/%d (%.1f%%) Low Disk: %d/%d/%d/%d/%d/%d",
+			$conference,
+			$server,
 			$online_machine_count, 
 			$machine_count, 
 			$online_machine_count/$machine_count * 100,
@@ -1373,8 +1380,8 @@ class Labmgr extends MY_Controller {
 			$seed_count/$torrent_count * 100,
 			$torrent_ave_speed,
 			$torrenting_machine_count,
-			$data_transfered,
-			$data_to_be_transfered,
+			$data_transfered/1024/1024/1024,
+			$data_to_be_transfered/1024/1024/1024,
 			$data_transfered/$data_to_be_transfered * 100,
 			$disk_status_0,
 			$disk_status_50,
