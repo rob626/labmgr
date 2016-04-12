@@ -29,47 +29,48 @@
 
 	</form>
 
-<div class='panel'>
-	<h1>Existing Rooms</h1>
-</div>
+	<div class='row'>
+		<div class='panel'>
+			<h1>Existing Rooms</h1>
+		</div>
 
-	<table id='datatable'>
-		<thead>
-			<tr>
-				<th>Room ID</th>
-				<th>Room Name</th>
-				<th>Room Description</th>
-				<th>Last Update Timestamp</th>
-				<th>Edit</th>
-				<th>Delete</th>
-			</tr>
-		</thead>
-		<tbody>
-			<?php
-			if(!empty($rooms)) {
-				foreach($rooms as $room) {
-					
-					echo "<tr>";
-					echo "<td>".$room['room_id']."</td>";
-					echo "<td>".$room['name']."</td>";
-					echo "<td>".$room['description']."</td>";
-					echo "<td>".$room['last_update_timestamp']."</td>";
-					echo "<td><form method='POST' action='/labmgr/edit_room'>
-					<input type='hidden' name='room_id' value='".$room['room_id']."'>
-					<input type='submit' class='button tiny radius' value='Edit'>
-					</form></td>";
+		<table id='datatable'>
+			<thead>
+				<tr>
+					<th>Room ID</th>
+					<th>Room Name</th>
+					<th>Room Description</th>
+					<th>Last Update Timestamp</th>
+					<th>Edit</th>
+					<th>Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php
+				if(!empty($rooms)) {
+					foreach($rooms as $room) {
+						
+						echo "<tr>";
+						echo "<td>".$room['room_id']."</td>";
+						echo "<td>".$room['name']."</td>";
+						echo "<td>".$room['description']."</td>";
+						echo "<td>".$room['last_update_timestamp']."</td>";
+						echo "<td><form method='POST' action='/labmgr/edit_room'>
+						<input type='hidden' name='room_id' value='".$room['room_id']."'>
+						<input type='submit' class='button tiny radius' value='Edit'>
+						</form></td>";
 
 
-					echo "<td><form method='POST' action='/labmgr/delete_room'>
-					<input type='hidden' name='room_id' value='".$room['room_id']."'>
-					<input type='submit' class='button tiny radius alert' value='Delete'>
-					</form>
-					</td>";
-					echo "</tr>";
+						echo "<td><form method='POST' action='/labmgr/delete_room'>
+						<input type='hidden' name='room_id' value='".$room['room_id']."'>
+						<input type='submit' class='button tiny radius alert' value='Delete'>
+						</form>
+						</td>";
+						echo "</tr>";
+					}
 				}
-			}
-			?>
-		</tbody>
-	</table>
-
+				?>
+			</tbody>
+		</table>
+	</div>
 </div>
