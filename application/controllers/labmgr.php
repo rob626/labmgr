@@ -748,11 +748,14 @@ class Labmgr extends MY_Controller {
 	}
 
 	public function save_torrent_edits() {
+		//print_r ($_POST);
+		//die();
 		$retval = $this->torrent_model->update_torrent(
 			$this->input->post('torrent_id'), 
 			$this->input->post('torrent_name'), 
 			$this->input->post('torrent_hash'),
 			$this->input->post('torrent_path'),
+			$this->input->post('torrent_file'),
 			$this->input->post('torrent_version')
 			);
 		if($retval) {
