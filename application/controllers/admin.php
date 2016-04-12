@@ -277,7 +277,7 @@ class Admin extends CI_Controller {
 	 * Edit a operating_system
 	 */
 	public function edit_operating_system() {
-		$operating_system_id = $this->input->post("operating_system_id");
+		$operating_system_id = $this->input->post("os_id");
 		$data['operating_systems'] = $this->admin_model->get_operating_system($operating_system_id);
 		$this->load->template('/admin/edit_operating_system', $data);
 	}

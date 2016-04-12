@@ -50,7 +50,7 @@ class Torrent_model extends CI_Model {
 	    /**
 	     * Update torrent data a torrent ID.
 	     */
-	    public function update_torrent($torrent_id, $torrent_name, $hash, $torrent_path, $torrent_file = '', $torrent_version = 0) {
+	    public function update_torrent($torrent_id, $torrent_name, $hash, $torrent_path, $torrent_file = '', $torrent_version = 1) {
 	    	$this->db->trans_start();
 
 	    	$this->db->where('torrent_id', $torrent_id);
@@ -71,7 +71,7 @@ class Torrent_model extends CI_Model {
 	    /**
 	     * Add a torrent record.
 	     */
-	    public function add_torrent($torrent_name, $hash, $torrent_path, $torrent_file, $torrent_version = 0) {
+	    public function add_torrent($torrent_name, $hash, $torrent_path, $torrent_file, $torrent_version = 1) {
 	    	
 	    	$result = $this->db->query("SELECT * FROM torrent where hash = ?", $hash);
 	    	$result = $result->result_array();
