@@ -1314,6 +1314,7 @@ class Labmgr extends MY_Controller {
 		$torrent_count=0;
 		$seed_count=0;
 		$torrent_ave_speed=0;
+		$torrent_speed;
 		$data_transfered=0;
 		$data_to_be_transfered=0;
 		$disk_status_0=0;
@@ -1326,23 +1327,7 @@ class Labmgr extends MY_Controller {
 		foreach($data as $machine) {
 			$machine_count++;
 			if($machine['status'] == 'ONLINE') $online_machine_count++;
-			/*if (($machine['disk_usage'] == false || typeof($machine['disk_usage']) == 'undefined' || $machine['disk_usage'] == null || $machine['disk_usage'] == 'null') {
-                // No disk usage data
-            } else {
-                if($machine['disk_usage'] = 100) {
-                    $disk_status_100++;
-                } else if($machine['disk_usage'] > 95) {
-                    $disk_status_95++;
-                } else if($machine['disk_usage'] > 90) {
-                    $disk_status_90++;
-                } else if($machine['disk_usage'] > 80) {
-                    $disk_status_80++;
-                } else if($machine['disk_usage'] > 50) {
-                    $disk_status_50++;
-                }  else {
-                    $disk_status_0++;
-                }
-            }*/
+
             if (!empty($machine['disk_usage'])) {
             	echo "d - {".$machine['disk_usage']."}<br>";
             	if($machine['disk_usage'] == 100) {
@@ -1359,22 +1344,24 @@ class Labmgr extends MY_Controller {
                     $disk_status_0++;
                 }
             }
-            
-            if (!empty($machine['torrents'][0][21])) {
-            	$torrent_machine_count++;
-            	if($machine['torrents'][0][21] == 'Seeding 100.0 %') $seed_count++;
-            	$data_transfered+=$machine['torrents'][0][3];
-				$data_to_be_transfered+=$machine['torrents'][0][3];
-				$data_remaining+=$machine['torrents'][0][18];
-				$data_transfered=$data_to_be_transfered-$data_remaining;
-            }
-			
-			$data_to_be_transfered += $machine['torrents'][0][3];
+            foreach($machine['torrents'] as $torrent) {
+	            if (!empty($torrent[21])) {
+	            	$torrent_machine_count++;
+	            	if($torrent[21] == 'Seeding 100.0 %') $seed_count++;
+					$data_to_be_transfered+=$torrent[3];
+					$data_remaining+=$torrent[18];
+					$torrent_speed+=$torrent[9];
+	            }
+	        }
+
             /*total_bytes += torrent_value['3'];
             remaining_bytes += torrent_value['18'];
             total_speed += torrent_value[9];*/
 
 		}
+
+		$data_transfered=$data_to_be_transfered-$data_remaining;
+		$torrent_ave_speed=$torrent_speed / $torrent_machine_count;
 		
 		$message = sprintf("Ping: %d/%d (%.1f%%) Tors: %d %d/%d (%.1f%%) @%d Data: %d %d/%d (%.1f%%) Low Disk: %d/%d/%d/%d/%d/%d",
 			$online_machine_count, 
