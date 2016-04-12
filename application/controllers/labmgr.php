@@ -1292,9 +1292,9 @@ class Labmgr extends MY_Controller {
 				$data[$key] = $machine;
 			}
 
-		echo "<pre>";
+		/*echo "<pre>";
 		print_r($data);
-		echo "</pre>";
+		echo "</pre>";*/
 
 		/*
 		IL16/SL Ping: 578/598  (93%)  Tors: 578-1200/3000 (42%) @5/23 Data: 578-340000/980000 (37%) 
@@ -1375,7 +1375,8 @@ class Labmgr extends MY_Controller {
 		$conference = $this->authentication->conference();
 		$server = $this->authentication->server();
 		
-		$message = sprintf("%s/%s Ping: %d/%d (%.1f%%) Tors: %d %d/%d (%.1f%%) @%d/%d Data: %d %d/%d (%.1f%%) Low Disk: %d/%d/%d/%d/%d/%d",
+		$message = sprintf("%s - %s/%s Ping: %d/%d (%.1f%%) Tors: %d %d/%d (%.1f%%) @%d/%d Data: %d %d/%d (%.1f%%) Low Disk: %d/%d/%d/%d/%d/%d",
+			date("Y-m-d H:i"),
 			$conference,
 			$server,
 			$online_machine_count, 
