@@ -258,7 +258,7 @@ class Admin_model extends CI_Model {
             if(trim($arp_mac) != 'entries') {
                 $sql = "SELECT * FROM machine where mac_address = ?";
                 $result = $this->db->query($sql, trim($arp_mac));
-                if($result->num_rows() == 1) {
+                if($result->num_rows() >= 1) {
                     $machine = $result->result_array();
                     $machine = $machine[0];
                 }
