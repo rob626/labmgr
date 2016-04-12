@@ -67,7 +67,7 @@
 				
 				<div class='large-6 columns'>
 					<label>Username</label>
-					<input type='text' name='username' value='Admin'>
+					<input type='text' name='username' value='admin'>
 				</div>
 
 			
