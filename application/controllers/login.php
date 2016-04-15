@@ -167,7 +167,8 @@ class Login extends CI_Controller {
             $this->logging->lwrite($twitter_log_entry);
 
             $this_machine_downloading=0;
-            if (!empty($machine)) {
+
+            if (!empty($machine['torrents'])) {
 	            foreach($machine['torrents'] as $torrent) {
 		            if (!empty($torrent[21])) {
 		            	$torrent_count++;
