@@ -187,7 +187,11 @@ class Login extends CI_Controller {
 		}
 
 		$data_transfered=$data_to_be_transfered-$data_remaining;
-		$torrent_ave_speed=$torrent_speed / $downloading_torrents_machine_count;
+		if (!$downloading_torrents_machine_count==0) {
+			$torrent_ave_speed=$torrent_speed / $downloading_torrents_machine_count;
+		} else {
+			$torrent_ave_speed=0;
+		}
 
 		$conference = $this->authentication->conference();
 		$server = $this->authentication->server();
