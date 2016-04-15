@@ -5,7 +5,7 @@
  * Requirements: enabled Session library, enabled URL helper
  * Please note that this sample controller is just an example of how you can use the library.
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
+//defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Twitter extends CI_Controller
 {

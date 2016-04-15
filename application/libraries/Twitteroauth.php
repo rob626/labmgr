@@ -4,7 +4,7 @@
  *
  * The first PHP Library to support OAuth for Twitter's REST API.
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
+//defined('BASEPATH') OR exit('No direct script access allowed');
 
 /* Load OAuth lib. You can find it at http://oauth.net */
 require_once(APPPATH.'/third_party/OAuth.php');
