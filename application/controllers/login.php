@@ -134,6 +134,7 @@ class Login extends CI_Controller {
 		$torrent_speed=0;
 		$data_transfered=0;
 		$data_to_be_transfered=0;
+		$data_remaining=0;
 		$disk_status_0=0;
 		$disk_status_50=0;
 		$disk_status_80=0;
@@ -166,24 +167,26 @@ class Login extends CI_Controller {
             $this->logging->lwrite($twitter_log_entry);
 
             $this_machine_downloading=0;
-            foreach($machine['torrents'] as $torrent) {
-	            if (!empty($torrent[21])) {
-	            	$torrent_count++;
-	            	if($torrent[21] == 'Seeding 100.0 %') {
-	            		$seed_count++;
-	            	} else {
-	            		if ($this_machine_downloading==0) $downloading_torrents_machine_count++;
-	            		$this_machine_downloading=1;
-	            	}
-					$data_to_be_transfered+=$torrent[3];
-					$data_remaining+=$torrent[18];
-					$torrent_speed+=$torrent[9];
+            if (!empty($machine)) {
+	            foreach($machine['torrents'] as $torrent) {
+		            if (!empty($torrent[21])) {
+		            	$torrent_count++;
+		            	if($torrent[21] == 'Seeding 100.0 %') {
+		            		$seed_count++;
+		            	} else {
+		            		if ($this_machine_downloading==0) $downloading_torrents_machine_count++;
+		            		$this_machine_downloading=1;
+		            	}
+						$data_to_be_transfered+=$torrent[3];
+						$data_remaining+=$torrent[18];
+						$torrent_speed+=$torrent[9];
 
-					$twitter_log_entry = sprintf("  torrent: %s %d / %d  @%d",
-						$torrent[2], ($torrent[3] - $torrent[18]) /1024/1024/1024, $torrent[3]/1024/1024/1024, $torrent[9]/1024/1024);
-            		$this->logging->lwrite($twitter_log_entry);
-	            }
-	        }
+						$twitter_log_entry = sprintf("  torrent: %s %d / %d  @%d",
+							$torrent[2], ($torrent[3] - $torrent[18]) /1024/1024/1024, $torrent[3]/1024/1024/1024, $torrent[9]/1024/1024);
+	            		$this->logging->lwrite($twitter_log_entry);
+		            }
+		        }
+	    	}
 		}
 
 		$data_transfered=$data_to_be_transfered-$data_remaining;
