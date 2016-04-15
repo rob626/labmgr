@@ -9,6 +9,8 @@
 			<div class="panel callout radius">
 				<h3>Reporting - twitter:</h3>
 				<p>This function Allows you to enabke/disable status reporting to twitter.
+					<br><br>Use crontab -e to update the crontab for websrvr (update the path to point at the labmgr root directory):
+					<br><br>&nbsp &nbsp*/10 * * * * cd /home/robert/labmgr/; php index.php login tester >> ˜/twitter.log
 				</p>
 			</div>
 			Include 2 inputs - twitter address and interval.<br><br>
