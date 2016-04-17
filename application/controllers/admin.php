@@ -354,9 +354,21 @@ class Admin extends CI_Controller {
 
 	public function edit_backup() {
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-			print_r($_POST);
-			die();
-			$backup_file = $this->input->post('backup');
+			$data['backup_file'] = $this->input->post('backup');
+			$this->load->template('admin/edit_backup', $data);
+
+		} else {
+
+		}
+	}
+
+	public function save_edit_backup() {
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			$new_backup_file = $this->input->post('new_backup_file');
+			$old_backup_file = $this->input->post('old_backup_file');
+			rename(DB_BACKUP_DIR.$old_backup_file, DB_BACKUP_DIR.$new_backup_file);
+
+			redirect('/admin/import_db');
 
 		} else {
 
