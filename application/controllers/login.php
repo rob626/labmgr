@@ -85,12 +85,9 @@ class Login extends CI_Controller {
 
 
 	public function tester() {
-		$machines = $this->machine_model->get_machine(73);
-		foreach($machines as $key => $machine) {
-			$this->utorrent_model->getToken($machine['ip_address'], '27555', $machine['username'], $machine['password']);
-			$torrent_data = $this->utorrent_model->makeRequest($machine['ip_address'], '27555', $machine['username'], $machine['password'], '?list=1');
-			print_r($torrent_data);
-		}
+		echo "<pre>";
+		print_r($this->twitter_model->twitterfy('This is a test. ' . date("Y-m-d H:i:s")));
+		echo "</pre>";
 	}
 
 	/**
