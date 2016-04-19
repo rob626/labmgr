@@ -21,9 +21,9 @@
 		<br>
 		<a href="/documentation/index.html" target="_newtab">Labmgr documentation</a><br>
 		<br>
-		<a href="http://labmgr.hopto.org">Link to labmgr.hopto.org</a><br>
-		<a href="http://labmgr2.hopto.org">Link to labmgr2.hopto.org</a><br>
-		<a href="http://labmgr3.hopto.org">Link to labmgr3.hopto.org</a><br>
-		<a href="http://labmgr4.hopto.org">Link to labmgr4.hopto.org</a><br>
+		<a href="http://ibm.biz/labmgr1">Link to labmgr1</a><br>
+		<a href="http://ibm.biz/labmgr2">Link to labmgr2</a><br>
+		<a href="http://ibm.biz/labmgr3">Link to labmgr3</a><br>
+		<a href="http://ibm.biz/labmgr4">Link to labmgr4</a><br>
 	</div>
 </div>	
