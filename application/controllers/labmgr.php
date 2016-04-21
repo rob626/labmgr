@@ -355,6 +355,7 @@ class Labmgr extends MY_Controller {
     	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			/*echo "<pre>";
 			print_r($_POST);
+			echo "</pre>";
 			die(); */
 			$vm = $this->vm_model->get_vm($this->input->post('vm_id'));
 			$vm = $vm[0];
@@ -598,6 +599,38 @@ class Labmgr extends MY_Controller {
 			$data['rooms'] = $this->room_model->get_rooms();
 			$data['vms'] = $this->vm_model->get_vms();
 			$this->load->template('stop_vms_by_class', $data);
+		}
+    }
+
+    public function find_vms_by_classroom() {
+    	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			// not going to get here since the post it taken by the js
+			$this->logging->lwrite("find_vms_by_classroom (controller - POST)");
+			$vm = $this->vm_model->get_vm($this->input->post('vm_id'));
+			$vm = $vm[0];
+			$machines = array();
+			$rooms = $this->input->post('room_ids');
+			foreach($rooms as $room) {
+				$machines = array_merge($machines, $this->machine_model->get_machines_by_room($room));
+			}
+
+			foreach($machines as $machine) {
+				if ($this->vm_model->find_vm($machine['ip_address'], $vm['path']) == 1) {
+					$this_room_name = $this->room_model->get_room($machine['room_id'])[0]['name'];
+					$this->logging->lwrite("...Located VM: Seat ".$machine['seat']." (".$machine['ip_address'].") in Room ".$this_room_name."<br>");
+				}
+			}
+			
+			echo "<pre>";
+			echo "<br>Machines: <br>";
+			print_r($machines);
+			echo "</pre>";
+
+		} else {
+			$this->logging->lwrite("find_vms_by_classroom (controller)");
+			$data['rooms'] = $this->room_model->get_rooms();
+			$data['vms'] = $this->vm_model->get_vms();
+			$this->load->template('find_vms_by_class', $data);
 		}
     }
 

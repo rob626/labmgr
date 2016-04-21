@@ -168,6 +168,21 @@ class Vm_model extends CI_Model {
 	    }
 
 	    /**
+	     * Finds a VM
+	     */
+	    public function find_vm($ip, $path) {
+
+	    	$output = array(
+	    		'status' => "Finding VM on machine: ".$ip,
+	    		'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $ip . ' "vmrun -T ws list"', $cmd_output, $exit_status),
+	    		'cmd' => $cmd_output,
+	    		'exit_status' => ''
+    		);
+
+	    	return $output;
+	    }
+
+	    /**
 	     * Stop all running VMs on a machine.
 	     */
 	    public function stop_all_vms($ip) {

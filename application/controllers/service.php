@@ -240,11 +240,9 @@ class Service extends CI_Controller {
 			if($d['name'] == 'machine_ids[]') {
 				array_push($machines, $this->machine_model->get_machine($d['value'])[0]);
 			}
-
 			if($d['name'] == 'folder_ids[]') {
 				$dirs[] = $d['value'];
 			}
-
 			if($d['name'] == 'dir' && !empty($d['value'])) {
 				$dirs[] = $d['value'];
 			}
@@ -254,7 +252,6 @@ class Service extends CI_Controller {
 			foreach($dirs as $dir) {
 				$output[] = $this->machine_model->delete_lab_dir($machine['ip_address'], $dir);
 			}
-			
 		}
 
 		echo json_encode($output);
@@ -340,7 +337,6 @@ class Service extends CI_Controller {
 			if($d['name'] == 'vm_id') {
 				$vm = $this->vm_model->get_vm($d['value']);
 				$vm = $vm[0];
-
 			}
 			if($d['name'] == 'stop_all') {
 				$stop_all = $d['value'];
@@ -396,6 +392,45 @@ class Service extends CI_Controller {
 
 		echo json_encode($output);
 	}
+
+	/**
+	 *
+	 */
+	public function find_vms_classroom() {
+		$this->logging->lwrite("find_vms_by_classroom (service)");
+
+		$data = $this->input->get('data');
+		$vm = '';
+		$machines = array();
+
+		//print_r($data);
+
+		foreach($data as $d) {
+			if($d['name'] == 'vm_id') {
+				$vm = $this->vm_model->get_vm($d['value']);
+				$vm = $vm[0];
+			}
+			if($d['name'] == 'room_ids[]') {
+				array_push($machines, $this->machine_model->get_machines_by_room($d['value']));
+			}
+		}
+
+		foreach($machines as $machine) {
+			foreach($machine as $m) {	
+				$o = $this->vm_model->find_vm($m['ip_address'], $vm['path']);
+				if (in_array($vm['path'], $o['cmd'])) {
+					$this_room_name = $this->room_model->get_room($m['room_id'])[0]['name'];
+					//print_r($this_room_name);
+					$this->logging->lwrite("...Located VM ".$vm['path'].": Seat ".$m['seat']." (".$m['ip_address'].") in Room ".$this_room_name);
+					$o['status'] = "VM running: Seat ".$m['seat']." (".$m['ip_address'].") in Room ";//.$this_room_name);
+					$output[] = $o;	
+				}		
+			}
+		}			
+
+		echo json_encode($output);
+	}
+
 	/**
 	 *
 	 */
@@ -476,11 +511,9 @@ class Service extends CI_Controller {
 			}
 			if($d['name'] == 'torrent_ids[]') {
 				array_push($torrents, $this->torrent_model->get_torrent($d['value'])[0]);
-
 			}
 			if($d['name'] == 'room_ids[]') {
 				array_push($machines, $this->machine_model->get_machines_by_room($d['value']));
-				
 			}
 			if($d['name'] == 'delete_option') {
 				$delete_option = $d['value'];
@@ -566,7 +599,6 @@ class Service extends CI_Controller {
 			foreach($machine as $m) {
 				$output[] = $this->machine_model->run_cmd($cmd, $m['ip_address']);
 			}
-
 		}
 
 		echo json_encode($output);
@@ -651,8 +683,8 @@ class Service extends CI_Controller {
 			foreach($machine as $m) {
 				$output[] = $this->admin_model->update_validated_ip($m['machine_id'], $m['new_ip']);
 			}
-
 		}
+
 		echo json_encode($output);
 	}
 
@@ -672,12 +704,13 @@ class Service extends CI_Controller {
 				$root = $d['value'];
 			}
 		}
+
 		foreach($machines as $machine) {
 			foreach($machine as $m) {
 				$output[] = $this->vm_model->validate_vmx($root, $m['ip_address']);
 			}
-
 		}
+
 		echo json_encode($output);
 	}
 
@@ -705,7 +738,6 @@ class Service extends CI_Controller {
 			foreach($machine as $m) {
 				$output[] = $this->machine_model->run_cmd($cmd, $m['ip_address']);
 			}
-
 		}
 
 		echo json_encode($output);
@@ -736,7 +768,6 @@ class Service extends CI_Controller {
 			foreach($machine as $m) {
 				$output[] = $this->machine_model->send_file($file, $remote_path, $m['ip_address']);
 			}
-
 		}
 
 		echo json_encode($output);

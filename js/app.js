@@ -396,6 +396,34 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
             });
     });
 
+    $('#find_vms_class_form').on('submit', function(e) {
+        e.preventDefault();
+        var data = $('#find_vms_class_form :input').serializeArray();
+        $('#status_modal_content').html("");
+        $('#status_modal_content').append("<p>Please wait...<p>")
+        $('#status_modal').foundation('reveal', 'open');
+
+        $.ajax({        
+            url: "/service/find_vms_classroom",
+            type: "get",
+            dataType: "json",
+            async: true,
+            data: {data : data}
+            }).done(function(response) {
+                console.log(response);
+                $.each(response, function(index, value) {
+                    $('#status_modal_content').append("<h3>"+value.status+"</h3>")
+                });
+                $('#status_modal_content').append("<p>Done.<p>")
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                //alert("Error submitting data!");
+                console.log(jqXHR, textStatus, errorThrown);
+                $('#status_modal_content').append("<p>Done.<p>")
+            });
+
+    });
+
+
     $('#push_delete_torrents_class_form').on('submit', function(e) {
         e.preventDefault();
         var data = $('#push_delete_torrents_class_form :input').serializeArray();
