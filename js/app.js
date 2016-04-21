@@ -74,6 +74,7 @@ $(document).ready(function(){
             location.href = this.href;
 
             $('#status_modal_content').html("");
+            $('#status_modal_content').append("<p>Please wait...<p>");
             $('#status_modal').foundation('reveal', 'open');
             var data = 'truncate';
             $.ajax({        
@@ -90,10 +91,11 @@ $(document).ready(function(){
                     $.each(response.cmd_output, function(index, value) {
                         $('#status_modal_content').append("<h4>"+value+"</h4>")
                     });
-                    
+                    $('#status_modal_content').append("<p>Done.<p>");
                 }).fail(function(jqXHR, textStatus, errorThrown) {
                     //alert("Error submitting data!");
                     console.log(jqXHR, textStatus, errorThrown);
+                    $('#status_modal_content').append("<p>Done.<p>");
                 });
             
         } else {
@@ -109,6 +111,7 @@ $(document).ready(function(){
             location.href = this.href;
 
             $('#status_modal_content').html("");
+            $('#status_modal_content').append("<p>Please wait...<p>");
             $('#status_modal').foundation('reveal', 'open');
             $.ajax({        
                 url: "/service/cleanup_watchdog",
@@ -122,10 +125,11 @@ $(document).ready(function(){
                     $.each(response, function(index, value) {
                         $('#status_modal_content').append("<h4>"+value.status+"</h4>")
                     });
-                    
+                    $('#status_modal_content').append("<p>Done.<p>");
                 }).fail(function(jqXHR, textStatus, errorThrown) {
                     //alert("Error submitting data!");
-                    console.log(jqXHR, textStatus, errorThrown)
+                    console.log(jqXHR, textStatus, errorThrown);
+                    $('#status_modal_content').append("<p>Done.<p>");
                 });
             
         } else {
@@ -141,6 +145,7 @@ $(document).ready(function(){
             location.href = this.href;
 
             $('#status_modal_content').html("");
+            $('#status_modal_content').append("<p>Please wait...<p>");
             $('#status_modal').foundation('reveal', 'open');
             $.ajax({        
                 url: "/service/cleanup_watchdog_FULL",
@@ -154,10 +159,11 @@ $(document).ready(function(){
                     $.each(response, function(index, value) {
                         $('#status_modal_content').append("<h4>"+value.status+"</h4>")
                     });
-                    
+                    $('#status_modal_content').append("<p>Done.<p>");
                 }).fail(function(jqXHR, textStatus, errorThrown) {
                     //alert("Error submitting data!");
-                    console.log(jqXHR, textStatus, errorThrown)
+                    console.log(jqXHR, textStatus, errorThrown);
+                    $('#status_modal_content').append("<p>Done.<p>");
                 });
             
         } else {
@@ -171,6 +177,7 @@ $(document).ready(function(){
             location.href = this.href;
 
             $('#status_modal_content').html("");
+            $('#status_modal_content').append("<p>Please wait...<p>");
             $('#status_modal').foundation('reveal', 'open');
             var data = 'truncate_conference';
             $.ajax({        
@@ -187,10 +194,11 @@ $(document).ready(function(){
                     $.each(response.cmd_output, function(index, value) {
                         $('#status_modal_content').append("<h4>"+value+"</h4>")
                     });
-                    
+                    $('#status_modal_content').append("<p>Done.<p>");
                 }).fail(function(jqXHR, textStatus, errorThrown) {
                     //alert("Error submitting data!");
                     console.log(jqXHR, textStatus, errorThrown);
+                    $('#status_modal_content').append("<p>Done.<p>");
                 });
             
         } else {
@@ -203,6 +211,7 @@ $(document).ready(function(){
         var data = $('#validate_mac_form :input').serializeArray();
 
         $('#status_modal_content').html("");
+        $('#status_modal_content').append("<p>Please wait...<p>");
         $('#status_modal').foundation('reveal', 'open');
 
         $.ajax({        
@@ -215,12 +224,12 @@ $(document).ready(function(){
                 console.log(response);
                 $.each(response, function(index, value) {
                     $('#status_modal_content').append("<h4>"+value+"</h4>");
-
                 });
-                
+                $('#status_modal_content').append("<p>Done.<p>");
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 //alert("Error submitting data!");
                 console.log(jqXHR, textStatus, errorThrown);
+                $('#status_modal_content').append("<p>Done.<p>");
             });
     });
 
@@ -231,6 +240,7 @@ $(document).ready(function(){
         var data = $('#copy_file_by_machine_form :input').serializeArray();
         console.log(data);
         $('#status_modal_content').html("");
+        $('#status_modal_content').append("<p>Please wait...<p>");
         $('#status_modal').foundation('reveal', 'open');
 
         $.ajax({        
@@ -247,12 +257,12 @@ $(document).ready(function(){
                     $.each(value.exit_status, function(index, value) {
                         $('#status_modal_content').append("<h4>"+value+"</h4>")
                     });
-
                 });
-                
+                $('#status_modal_content').append("<p>Done.<p>");
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 //alert("Error submitting data!");
                 console.log(jqXHR, textStatus, errorThrown);
+                $('#status_modal_content').append("<p>Done.<p>");
             });
     });
 
@@ -263,6 +273,7 @@ $(document).ready(function(){
         var data = $('#validate_vmx_form :input').serializeArray();
         console.log(data);
         $('#status_modal_content').html("");
+        $('#status_modal_content').append("<p>Please wait...<p>");
         $('#status_modal').foundation('reveal', 'open');
 
         $.ajax({        
@@ -279,12 +290,13 @@ $(document).ready(function(){
                     $.each(value.cmd_output, function(index, value) {
                         $('#status_modal_content').append("<h4>"+value+"</h4>")
                     });
-
+                    $('#status_modal_content').append("<p>Done.<p>");
                 });
                 
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 //alert("Error submitting data!");
                 console.log(jqXHR, textStatus, errorThrown);
+                $('#status_modal_content').append("<p>Done.<p>");
             });
     });
 
@@ -293,6 +305,7 @@ $(document).ready(function(){
         var data = $('#run_single_cmd_class_form :input').serializeArray();
         console.log(data);
         $('#status_modal_content').html("");
+        $('#status_modal_content').append("<p>Please wait...<p>");
         $('#status_modal').foundation('reveal', 'open');
 
         $.ajax({        
@@ -309,12 +322,12 @@ $(document).ready(function(){
                     $.each(value.cmd_output, function(index, value) {
                         $('#status_modal_content').append("<h4>"+value+"</h4>")
                     });
-
                 });
-                
+                $('#status_modal_content').append("<p>Done.<p>");
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 //alert("Error submitting data!");
                 console.log(jqXHR, textStatus, errorThrown);
+                $('#status_modal_content').append("<p>Done.<p>");
             });
     });
 
@@ -323,6 +336,7 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
         var data = $('#run_single_cmd_machine_form :input').serializeArray();
         console.log(data);
         $('#status_modal_content').html("");
+        $('#status_modal_content').append("<p>Please wait...<p>");
         $('#status_modal').foundation('reveal', 'open');
 
         $.ajax({        
@@ -337,14 +351,15 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
                     $('#status_modal_content').append("<h3>"+value.status+"</h3>");
 
                     $.each(value.cmd_output, function(index, value) {
-                        $('#status_modal_content').append("<h4>"+value+"</h4>")
+                        $('#status_modal_content').append("<h4>"+value+"</h4>");
                     });
 
                 });
-                
+                $('#status_modal_content').append("<p>Done.<p>");
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 //alert("Error submitting data!");
                 console.log(jqXHR, textStatus, errorThrown);
+                $('#status_modal_content').append("<p>Done.<p>");
             });
     });
 
@@ -352,6 +367,7 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
         e.preventDefault();
         var data = $('#start_vms_form :input').serializeArray();
         $('#status_modal_content').html("");
+        $('#status_modal_content').append("<p>Please wait...<p>");
         $('#status_modal').foundation('reveal', 'open');
 
         $.ajax({        
@@ -363,12 +379,12 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
             }).done(function(response) {
                 $.each(response, function(index, value) {
                     $('#status_modal_content').append("<h3>"+value.status+"</h3>")
-
                 });
-                
+                $('#status_modal_content').append("<p>Done.<p>");
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 //alert("Error submitting data!");
                 console.log(jqXHR, textStatus, errorThrown);
+                $('#status_modal_content').append("<p>Done.<p>");
             });
     });
 
@@ -376,6 +392,7 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
         e.preventDefault();
         var data = $('#start_vms_class_form :input').serializeArray();
         $('#status_modal_content').html("");
+        $('#status_modal_content').append("<p>Please wait...<p>");
         $('#status_modal').foundation('reveal', 'open');
 
         $.ajax({        
@@ -386,13 +403,13 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
             data: {data : data}
             }).done(function(response) {
                 $.each(response, function(index, value) {
-                    $('#status_modal_content').append("<h3>"+value.status+"</h3>")
-
+                    $('#status_modal_content').append("<h3>"+value.status+"</h3>");
                 });
-                
+                $('#status_modal_content').append("<p>Done.<p>");
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 //alert("Error submitting data!");
                 console.log(jqXHR, textStatus, errorThrown);
+                $('#status_modal_content').append("<p>Done.<p>");
             });
     });
 
@@ -414,11 +431,11 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
                 $.each(response, function(index, value) {
                     $('#status_modal_content').append("<h3>"+value.status+"</h3>")
                 });
-                $('#status_modal_content').append("<p>Done.<p>")
+                $('#status_modal_content').append("<p>Done.<p>");
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 //alert("Error submitting data!");
                 console.log(jqXHR, textStatus, errorThrown);
-                $('#status_modal_content').append("<p>Done.<p>")
+                $('#status_modal_content').append("<p>Done.<p>");
             });
 
     });
@@ -446,10 +463,11 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
                     }
                     
                 });
-                
+                $('#status_modal_content').append("<p>Done.<p>");
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 //alert("Error submitting data!");
                 console.log(jqXHR, textStatus, errorThrown);
+                $('#status_modal_content').append("<p>Done.<p>");
             });
     });
 
@@ -457,6 +475,7 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
         e.preventDefault();
         var data = $('#push_delete_torrents_form :input').serializeArray();
         $('#status_modal_content').html("");
+        $('#status_modal_content').append("<p>Please wait...<p>");
         $('#status_modal').foundation('reveal', 'open');
         
         $.ajax({        
@@ -470,10 +489,11 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
                 $.each(response, function(index, value) {
                     $('#status_modal_content').append("<h3>"+value.status+"</h3>")
                 });
-                
+                $('#status_modal_content').append("<p>Done.<p>");
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 //alert("Error submitting data!");
                 console.log(jqXHR, textStatus, errorThrown);
+                $('#status_modal_content').append("<p>Done.<p>");
             });
     });
 
@@ -494,10 +514,11 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
                 $.each(response, function(index, value) {
                     $('#status_modal_content').append("<h3>"+value.status+"</h3>")
                 });
-                
+                $('#status_modal_content').append("<p>Done.<p>");
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 //alert("Error submitting data!");
                 console.log(jqXHR, textStatus, errorThrown);
+                $('#status_modal_content').append("<p>Done.<p>");
             });
     });
 
@@ -518,10 +539,11 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
                 $.each(response, function(index, value) {
                     $('#folder_list').append("<input type='checkbox' name='folder_ids[]' value='"+value+"'><label>"+value+"</label><br>")
                 }); 
-                
+                $('#status_modal_content').append("<p>Done.<p>");
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 //alert("Error submitting data!");
                 console.log(jqXHR, textStatus, errorThrown);
+                $('#status_modal_content').append("<p>Done.<p>");
             });
     });    
 
@@ -540,13 +562,14 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
                 $('#status_modal').foundation('reveal', 'open');
                 response.cmd_output.reverse();
                 $.each(response.cmd_output, function(index, value) {
-                    $('#status_modal_content').append("<h4>"+value+"</h4>")
+                    $('#status_modal_content').append("<h4>"+value+"</h4>");
                 });
-                
+                $('#status_modal_content').append("<p>Done.<p>");
                 
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 //alert("Error submitting data!");
                 console.log(jqXHR, textStatus, errorThrown);
+                $('#status_modal_content').append("<p>Done.<p>");
             });
         
     });
@@ -579,11 +602,12 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
                 $.each(response, function(index, value) {
                     $('#status_modal_content').append("<h4>IP Address: "+value.ip_address+"</h4><iframe height='100%' width='100%' src='http://"+$(location).attr('host')+":4200'></iframe>")
                 });
-                
+                $('#status_modal_content').append("<p>Done.<p>");
                 
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 //alert("Error submitting data!");
                 console.log(jqXHR, textStatus, errorThrown);
+                $('#status_modal_content').append("<p>Done.<p>");
             });
         
     });
@@ -828,7 +852,6 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
                                 }
                             });
                             
-                            
                         });
                         
                     }).fail(function(jqXHR, textStatus, errorThrown) {
@@ -903,7 +926,7 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
                                 }
 
                                 if(value.vm_count > 0 ) {
-                                    $('#vm_count_'+ value.id).html("<a href='#' data-reveal-id='vm_count_modal_"+value.id+"'>"+value.vm_count+"</a><div id='vm_count_modal_"+value.id+"' class='reveal-modal' data-reveal aria-labelledby='modalTitle' aria-hidden='true' role='dialog'><h2 id='modalTitle'>Running VMs</h2><p class='lead'>"+value.vm_count_list.cmd_output[1]+"</p><a class='close-reveal-modal' aria-label='Close'>&#215;</a></div>");
+                                    $('#vm_count_'+ value.id).html("<a href='#' data-reveal-id='vm_count_modal_"+value.id+"'>"+value.vm_count+"</a><div id='vm_count_modal_"+value.id+"' class='reveal-modal' data-reveal aria-labelledby='modalTitle' aria-hidden='true' role='dialog'><h2 id='modalTitle'>Running VMs</h2><p class='lead'><pre>"+value.running_vm_list+"</pre></p><a class='close-reveal-modal' aria-label='Close'>&#215;</a></div>");
                                 } else {
                                     $('#vm_count_' + value.id).html(value.vm_count);
                                 }

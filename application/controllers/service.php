@@ -422,7 +422,7 @@ class Service extends CI_Controller {
 					$this_room_name = $this->room_model->get_room($m['room_id'])[0]['name'];
 					//print_r($this_room_name);
 					$this->logging->lwrite("...Located VM ".$vm['path'].": Seat ".$m['seat']." (".$m['ip_address'].") in Room ".$this_room_name);
-					$o['status'] = "VM running: Seat ".$m['seat']." (".$m['ip_address'].") in Room ";//.$this_room_name);
+					$o['status'] = "VM running in Room ".$this_room_name." Seat ".$m['seat']." (".$m['ip_address'].")";
 					$output[] = $o;	
 				}		
 			}

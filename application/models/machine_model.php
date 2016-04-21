@@ -215,8 +215,6 @@ class Machine_model extends CI_Model {
                         $machine['disk_usage'] = substr($machine['disk_usage'], $pos-3,3);
                     }
 
-                    // $machine['lab_directory_list'] = $this->lab_directories($machine['ip_address']);
-                    // $machine['lab_directories'] = count($machine['lab_directory_list']['cmd_output']);
                     $lab_dir_list = $this->lab_directories($machine['ip_address']);
                     $machine['lab_directories'] = count($lab_dir_list['cmd_output']);
                     $machine['lab_directory_list'] = "- " . implode("\n- ", $lab_dir_list['cmd_output']);
@@ -225,6 +223,7 @@ class Machine_model extends CI_Model {
                     if(!empty($machine['vm_count_list']['cmd_output'][0])) {
                         $machine['vm_count'] = preg_replace('/\D/', '', $machine['vm_count_list']['cmd_output'][0]);
                         $machine['vm_process_count'] = $this->vm_processes($machine['ip_address'])['cmd_output'][0];
+                        $machine['running_vm_list'] = implode("\n-  ", $machine['vm_count_list']['cmd_output']);
                     }
                     
                     if ($machine['vm_process_count'] == 0) {
