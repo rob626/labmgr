@@ -6,7 +6,7 @@
 <div class='large-10 columns'>
 	<br>
 	<div class="panel callout radius">
-		<h3>Copying by file or directory:</h3>
+		<h3>Copying by file or directory TO:</h3>
 		<p>To copy files or directories to the remote systems, first upload the file or directory to 
 			the ./labmgr/uploads folder on the server.  
 			<br><br>The file or directory is then available through Local File pulldown.
@@ -17,14 +17,14 @@
 	<div class='row'>
 		<div class='small-4 small-centered columns'>
 			<br>
-			<input type='submit' class='button center' value='Copy File or Directory'>
+			<input type='submit' class='button center' value='Copy File or Directory TO'>
 		</div>
 	</div>
 
 	<div class='row'>
 		<div class='large-6 columns'>
 			<div class='row'>
-				<h4>Local File or Directory</h4>
+				<h4>FROM: Local File or Directory</h4>
 
 				<select id='local_file' name='local_file'>
 					<?php foreach ($files as $file) { ?>
@@ -33,8 +33,11 @@
 				</select>
 
 			</div>
+
+			<br>
+
 			<div class='row'>
-				<h4>Remote Path</h4>
+				<h4>TO: Remote Path</h4>
 				<label>(ex: /cygdrive/c/temp/)</label><input name='remote_path' type='text'>
 			</div>
 		</div>

@@ -386,8 +386,30 @@ class Machine_model extends CI_Model {
      */
     public function send_file($file, $remote_path, $ip) {
         $output = array(
+            'status' => "mkdir: Attempting to send file ".$file . " to " .$ip. " remote path: " . $remote_path,
+            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $ip . ' "mkdir -p '.$remote_path.'"', $cmd_output, $exit_status),
+            'cmd_output' => $cmd_output,
+            'exit_status' => $exit_status
+        );
+
+        $output = array(
             'status' => "Attempting to send file ".$file . " to " .$ip. " remote path: " . $remote_path,
             'output' => exec('scp -r -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" '.$file.' ibm_user@' . $ip . ':'.$remote_path, $cmd_output, $exit_status),
+            'cmd_output' => $cmd_output,
+            'exit_status' => $exit_status
+        );
+
+        return $output;
+    }
+
+    /**
+     * Send a file to a machine using scp.
+     */
+    public function get_remote_file($remote_path, $ip) {
+        //mkdir("./uploads/".$ip);
+        $output = array(
+            'status' => "Attempting to get file(s) from remote path: " . $remote_path. " from " .$ip ,
+            'output' => exec('scp -r -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $ip . ':'.$remote_path.' ./uploads/'.$ip.'/', $cmd_output, $exit_status),
             'cmd_output' => $cmd_output,
             'exit_status' => $exit_status
         );
@@ -488,7 +510,7 @@ class Machine_model extends CI_Model {
 
                 //echo "Count for room : " .count($seats)." ON Element: " .$i." Seats value: " . $seats[$i] . " (max=" . max($seats) .", count)<br>";
                 
-                for($j = 0; $j <= count($seats); $j++) { // loop through list of seats and count instances of this seat
+                for($j = 0; $j < count($seats); $j++) { // loop through list of seats and count instances of this seat
                     if($i == $seats[$j]) $this_seat_count++;
                 }
                 //echo "For Element: " .$i." Seats value: " . $seats[$i] . " (max=" . max($seats) .", count ".$this_seat_count. ")<br>";

@@ -692,6 +692,16 @@ class Labmgr extends MY_Controller {
 		}
 	}
 
+	public function copy_file_from_by_machine() {
+		if($_SERVER['REQUEST_METHOD'] === 'POST') {
+			
+		} else {
+			$data['machines'] = $this->machine_model->get_machines();
+			$data['rooms'] = $this->room_model->get_rooms();
+			$this->load->template('copy_file_from_by_machine', $data);
+		}
+	}
+
 	public function run_single_cmd_class() {
 		if($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$cmd = $this->input->post('cmd');
