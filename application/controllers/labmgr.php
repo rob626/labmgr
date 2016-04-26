@@ -970,6 +970,17 @@ class Labmgr extends MY_Controller {
 	}
 
 	/**
+	 * Stop all VMs on the machines in a room or reboot all machines in a room.
+	 */
+	public function room_stop_reboot() {
+		
+		$rooms = $this->room_model->get_rooms();
+		sort($rooms);
+		$data['rooms'] = $rooms;
+		$this->load->template('room_stop_reboot', $data);
+	}
+	
+	/**
 	 * Edit a room
 	 */
 	public function edit_room() {
