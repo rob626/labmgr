@@ -1240,7 +1240,7 @@ class Labmgr extends MY_Controller {
 
 	public function do_upload()
 	{
-		$path = UPLOAD_DIR.uniqid();
+		$path = UPLOADS_DIR.uniqid();
 		mkdir($path);
 		$config['upload_path'] = $path;
 		$config['allowed_types'] = '*';
