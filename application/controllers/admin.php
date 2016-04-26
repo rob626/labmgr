@@ -32,10 +32,13 @@ class Admin extends CI_Controller {
 		if($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$data['rooms'] = $this->room_model->get_rooms();
 			$data['fixed_machines'] = $this->machine_model->fix_broken_macs();
+			$data['broken_machines'] = $this->machine_model->get_broken_macs();
+			$data['fixing_machines'] = 1;
 			$this->load->template('/admin/fix_broken_macs', $data);
 		} else {
 			$data['rooms'] = $this->room_model->get_rooms();
 			$data['broken_machines'] = $this->machine_model->get_broken_macs();
+			$data['fixing_machines'] = 0;
 			$this->load->template('/admin/fix_broken_macs', $data);
 		}
 	}

@@ -21,73 +21,111 @@
 	<div class="panel callout radius">
 		<h4>Fixing missing MAC addresses:</h4>
 		<p>To fix missing MAC addresses, the database is queried for missing MAC addresses.  Each of those
-			systems is pinged and the resulting MAC address is captured and added to the database.
-			<br><br>There are several situations where the MAC address update fails.
+			systems is pinged and the resulting MAC address is captured and added to the database.  Initial
+			attempt is to look for the MAC address in the local ARP table.  If there is no entry in the ARP
+			table, an attempt it made to run a script remotely on the machine to retrieve the MAC address 
+			and return it to the server.
+			<br><br>The primary reason the MAC address update fails.
 			<br>&nbsp &nbsp- The machine is offline
-			<br>&nbsp &nbsp- The machine is behind a router
 			<br><br>When the Fix button is pressed, the resulting page lists only the machines that were fixed.
 		</p>
 	</div>
+	<br><br>
 
 <?php  
-		if(!empty($fixed_machines)) {
-			echo "<h3>Fixed Machines:</h3>";
-			echo "<pre>";
-			//print_r($fixed_machines);
-			$machines = $fixed_machines;	
-			echo "</pre>";		
-		} elseif(!empty($broken_machines)) {	
-			echo "<pre>";
-			//print_r($broken_machines);	
-			$machines = $broken_machines;
-			echo "</pre>";
-		} ?>
+	if($fixing_machines == 0) {
+		echo "<h3>About to fix missing MAC addresses:</h3>";
+		echo "The following machines appear to have missing MAC addresses.  Click the button below ";
+		echo "to attempt to find the correct information.";
+		echo "<br><br>";
+		$machines = $broken_machines;
 
-		<br><input type='submit' value='Fix' class='button'><br><br>
+		echo "<br><input type='submit' value='Fix missing MAC addresses' class='button'><br><br>";
+	} else {
+		echo "<h3>Fixed Machines:</h3>";
+		$machines = $fixed_machines;
+	}
+	//print_r($machines);
 
-		<table id='datatable'>
-			<thead>
-				<tr>
-					<th>Machine ID</th>
-					<th>Room</th>
-					<th>Seat</th>
-					<th>MAC Address</th>
-					<th>IP Address</th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php
-				if(!empty($machines)) {
-					
-					foreach($machines as $machine) {
-						echo "<tr>";
-						echo "<td>".$machine['machine_id']."</td>";
-						foreach($rooms as $room_key => $room_value) {
-							if($room_value['room_id'] == $machine['room_id']) {
-								echo "<td>". $room_value['name'] ."</td>";
-							}
-						}
-						
-						echo "<td>". $machine['seat'] ."</td>";
-						echo "<td>". $machine['mac_address'] ."</td>";
-						echo "<td>". $machine['ip_address'] ."</td>";
+	if(!empty($machines)) {
 
-
-						echo "</tr>";
-						
-
-					}
-				} else {
-					echo "No machines were fixed";
+		echo "<table id='datatable'>";
+		echo "	<thead>";
+		echo "		<tr>";
+		echo "			<th>Machine ID</th>";
+		echo "			<th>Room</th>";
+		echo "			<th>Seat</th>";
+		echo "			<th>MAC Address</th>";
+		echo "			<th>IP Address</th>";
+		echo "		</tr>";
+		echo "	</thead>";
+		echo "<tbody>";
+		
+		foreach($machines as $machine) {
+			echo "<tr>";
+			echo "<td>".$machine['machine_id']."</td>";
+			foreach($rooms as $room_key => $room_value) {
+				if($room_value['room_id'] == $machine['room_id']) {
+					echo "<td>". $room_value['name'] ."</td>";
 				}
-				?>
-
+			}
 			
-			</tbody>
-		</table>
+			echo "<td>". $machine['seat'] ."</td>";
+			echo "<td>". $machine['mac_address'] ."</td>";
+			echo "<td>". $machine['ip_address'] ."</td>";
 
-	
-	<input type='submit' value='Fix' class='button'>
+			echo "</tr>";
+		}
+
+		echo "	</tbody>";
+		echo "</table>";
+	} else {
+		echo "No machines require fixing";
+		echo "<br><br>";
+	}
+
+	if($fixing_machines==0) {
+		echo "<br><input type='submit' value='Fix missing MAC addresses' class='button'><br><br>";
+	} else {
+		if(!empty($broken_machines)) {
+			echo "<h3>Machines not fixed:</h3>";
+
+			echo "The following machines were not fixed.  Most likely the machine(s) are currently ";
+			echo "unreachable.";
+
+			echo "<table id='datatable'>";
+			echo "	<thead>";
+			echo "		<tr>";
+			echo "			<th>Machine ID</th>";
+			echo "			<th>Room</th>";
+			echo "			<th>Seat</th>";
+			echo "			<th>MAC Address</th>";
+			echo "			<th>IP Address</th>";
+			echo "		</tr>";
+			echo "	</thead>";
+			echo "<tbody>";
+
+			foreach($broken_machines as $machine) {
+				echo "<tr>";
+				echo "<td>".$machine['machine_id']."</td>";
+				foreach($rooms as $room_key => $room_value) {
+					if($room_value['room_id'] == $machine['room_id']) {
+						echo "<td>". $room_value['name'] ."</td>";
+					}
+				}
+				
+				echo "<td>". $machine['seat'] ."</td>";
+				echo "<td>". $machine['mac_address'] ."</td>";
+				echo "<td>". $machine['ip_address'] ."</td>";
+
+				echo "</tr>";
+			}
+
+			echo "	</tbody>";
+			echo "</table>";
+		}
+	}
+ ?>
 
 	</form>
 	</div>

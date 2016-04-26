@@ -163,26 +163,24 @@ class Machine_model extends CI_Model {
      * Mouse move
      */
     public function mouse_move($ip) {
-        $path = str_replace('\\', '/', $path);
+        $command = "echo Dim objResult > \delete-me.vbs \n";
+        $command .= "echo Set objShell = WScript.CreateObject(\"WScript.Shell\") >> \delete-me.vbs \n";
+        $command .= "echo objResult = objShell.sendkeys(\"{NUMLOCK}{NUMLOCK}\") >> \delete-me.vbs \n";
+        $command .= "\n";
+        $command .= "cscript //nologo \delete-me.vbs\n";
+        $command .= "\n";
+        $command .= "del \delete-me.vbs\n";
 
-            $command = "echo Dim objResult > \delete-me.vbs \n";
-            $command .= "echo Set objShell = WScript.CreateObject(\"WScript.Shell\") >> \delete-me.vbs \n";
-            $command .= "echo objResult = objShell.sendkeys(\"{NUMLOCK}{NUMLOCK}\") >> \delete-me.vbs \n";
-            $command .= "\n";
-            $command .= "cscript //nologo \delete-me.vbs\n";
-            $command .= "\n";
-            $command .= "del \delete-me.vbs\n";
+        $file = './uploads/mouse_move.bat';
 
-            $file = './uploads/mouse_move.bat';
+        file_put_contents($file, $command);
 
-            file_put_contents($file, $command);
-
-            $output = array(
-                'status' => "Sending mouse move to: ".$ip,
-                'output' => shell_exec('scp -i ./certs/labmgr -o StrictHostKeyChecking=no -o ConnectTimeout=1 '.$file.' ibm_user@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/'),
-                'cmd' => $command,
-                'exit_status' => ''
-            );
+        $output = array(
+            'status' => "Sending mouse move to: ".$ip,
+            'output' => shell_exec('scp -i ./certs/labmgr -o StrictHostKeyChecking=no -o ConnectTimeout=1 '.$file.' ibm_user@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/'),
+            'cmd' => $command,
+            'exit_status' => ''
+        );
 
         return $output;
     }
@@ -329,7 +327,6 @@ class Machine_model extends CI_Model {
 
         $output = array(
             'status' => "Attempting to count lab directories: ".$ip,
-            // 'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" ibm_user@' . $ip . ' "find /cygdrive/c/Labs/* -maxdepth 0 -type d | wc -l "', $cmd_output, $exit_status),
             'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $ip . ' "find /cygdrive/c/Labs/* -maxdepth 0 -type d "', $cmd_output, $exit_status),
             'cmd_output' => $cmd_output,
             'exit_status' => $exit_status
@@ -403,7 +400,7 @@ class Machine_model extends CI_Model {
     }
 
     /**
-     * Send a file to a machine using scp.
+     * Get a file from a machine using scp.
      */
     public function get_remote_file($remote_path, $ip) {
         //mkdir("./uploads/".$ip);
@@ -438,6 +435,50 @@ class Machine_model extends CI_Model {
     }
 
     /**
+     * Returns MAC Address via ssh and vbs script.
+     */
+    public function get_mac_via_ssh($ip) {
+        // Copy over getmac.vbs
+        $command = "if WScript.Arguments.Count = 0 Then Wscript.Quit 2001 \n";
+        $command .= "Dim ObjWMI: Set ObjWMI = GetObject(\"winmgmts:{impersonationLevel=impersonate}!\\\\.\\root\\cimv2\") \n";
+        $command .= "Dim colItems : Set NICS = ObjWMI.ExecQuery(\"Select * From Win32_NetworkAdapterConfiguration Where IPEnabled = True\") \n";
+        $command .= "Dim adapterCFG, IPaddr \n";
+        $command .= "For each adapterCFG in NICS 'Loop through adapters and get needed information.... \n";
+        $command .= " For Each IPaddr  in adapterCFG.IPAddress \n";
+        $command .= "  if WScript.Arguments.Item(0) = IPaddr Then \n";
+        $command .= "    WScript.Echo adapterCFG.MACAddress \n";
+        $command .= "  End if \n";
+        $command .= " Next  \n";
+        $command .= "Next  \n";
+        $command .= "WScript.Quit 2001 \n";
+
+        $file = './uploads/getmac.vbs';
+
+        file_put_contents($file, $command);
+
+        $output = array(
+            'status' => "Sending getmac.vbs to: ".$ip,
+            'output' => shell_exec('scp -i ./certs/labmgr -o StrictHostKeyChecking=no -o ConnectTimeout=1 '.$file.' ibm_user@' . $ip. ':/cygdrive/c/temp/'),
+            'cmd' => $file,
+            'exit_status' => ''
+        );
+
+        $output = array(
+            'status' => "ssh to machine to get MAC address: ".$ip,
+            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $ip .' "cscript //nologo C:/temp/getmac.vbs ' . $ip.'"', $cmd_output, $exit_status),
+            'cmd_output' => $cmd_output,
+            'exit_status' => $exit_status
+        );
+
+        if(!empty($cmd_output[0]) && $cmd_output[0] != 'entries') {
+            return $cmd_output[0];
+        } else {
+            return 'Unable to get MAC Address.';
+        }
+
+    }
+
+    /**
      * Delete lab dir from machine
      */
     public function delete_lab_dir($ip, $path) {
@@ -457,8 +498,23 @@ class Machine_model extends CI_Model {
     public function fix_broken_macs() {
         $result = $this->get_broken_macs();
         $output = array();
+
+        /* echo "<pre>";
+        print_r($result);
+        echo "</pre>"; */
+
         foreach($result as $machine) {
+            shell_exec("fping -r 0 -t500 -q -g " . $machine['ip_address']);
+             
             $mac = $this->get_mac($machine['ip_address']);
+
+            // If the MAC address wasn't available through the arp table (for example, the machine
+            // has a router between it and the labmgr server), attempt to ssh and ask the machine 
+            // to return the MAC address 
+            if($mac = 'Unable to get MAC Address.') {
+                $mac = $this->get_mac_via_ssh($machine['ip_address']);
+            }
+
             if($mac != 'Unable to get MAC Address.') {
                 $retval = $this->update_machine($machine['machine_id'], $machine['room_id'], $machine['seat'], $mac, $machine['ip_address'], $machine['os_id'],$machine['username'],$machine['password'],$machine['torrent_client_id'], $machine['transport_type']);
                 $machine['mac_address'] = $mac;
