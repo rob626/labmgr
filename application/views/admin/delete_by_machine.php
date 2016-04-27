@@ -70,5 +70,6 @@
 
 		</div>
 	</div>
+	<br><input type='submit' class='button large center' value='Delete Folder(s)'>
 	</form>
 </div>

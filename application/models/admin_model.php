@@ -254,6 +254,7 @@ class Admin_model extends CI_Model {
         //shell_exec("ping -c 1 " . $ip);
         $arp_mac = shell_exec("arp -a " . $ip . " | awk '{print $4}'");
         //echo $arp_mac . "<br>";
+        $this->logging->lwrite("Validateing MAC (ip=".$ip.",MAC=".$arp_mac.")");
         if(!empty($arp_mac)) {
             if(trim($arp_mac) != 'entries') {
                 $sql = "SELECT * FROM machine where mac_address = ?";
