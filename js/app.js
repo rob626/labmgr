@@ -683,12 +683,37 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
         }
     });
 
-    $('#reboot_classroom_form').on('submit', function(e) {
-        e.preventDefault();
+    $('.stop_all_classroom_btn').click(function() {
+        var room_id = $(this).attr('id');
+
+        $('#status_modal_content').html("");
+        $('#status_modal_content').append("<p>Please wait......<p>");
+        $('#status_modal').foundation('reveal', 'open');
+
+        $.ajax({        
+            url: "/service/stop_all_classroom",
+            type: "get",
+            dataType: "json",
+            async: true,
+            data: {room_id : room_id}
+            }).done(function(response) {
+                $.each(response, function(index, value) {
+                    $('#status_modal_content').append("<h3>"+value.status+"</h3>");
+                });
+                $('#status_modal_content').append("<p>Done.<p>");
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                //alert("Error submitting data!");
+                console.log(jqXHR, textStatus, errorThrown);
+                $('#status_modal_content').append("<p>Done.<p>");
+            });
+    });
+
+    $('.reboot_classroom_btn').click(function() {
+        var room_id = $(this).attr('id');
         if(window.confirm("Are you sure (Classroom reboot)?")) {
-            var data = $('#reboot_classroom_form :input').serializeArray();
+
             $('#status_modal_content').html("");
-            $('#status_modal_content').append("<p>Please wait...<p>");
+            $('#status_modal_content').append("<p>Please wait.....<p>");
             $('#status_modal').foundation('reveal', 'open');
 
             $.ajax({        
@@ -696,7 +721,7 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
                 type: "get",
                 dataType: "json",
                 async: true,
-                data: {data : data}
+                data: {room_id : room_id}
                 }).done(function(response) {
                     $.each(response, function(index, value) {
                         $('#status_modal_content').append("<h3>"+value.status+"</h3>");
@@ -714,7 +739,7 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
         var room_id = $(this).attr('id');
         
         $('#status_modal_content').html("");
-        $('#status_modal_content').append("<p>Please wait.....<p>");
+        $('#status_modal_content').append("<p>Please wait....<p>");
         $('#status_modal').foundation('reveal', 'open');
 
         $.ajax({        

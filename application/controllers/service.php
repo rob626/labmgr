@@ -793,22 +793,35 @@ class Service extends CI_Controller {
 	/**
 	 *
 	 */
-	public function reboot_classroom() {
-		$data = $this->input->get('data');
+	public function stop_all_classroom() {
+		$room_id = $this->input->get('room_id');
 		$machines = array();
+		array_push($machines, $this->machine_model->get_machines_by_room($room_id));
 
-		foreach($data as $d) {
-			if($d['name'] == 'room_ids[]') {
-				array_push($machines, $this->machine_model->get_machines_by_room($d['value']));
+		foreach($machines as $machine) {
+			foreach($machine as $m) {
+				$this->logging->lwrite("Attempting to stop all VMs on machine: ".$m['ip_address']);
+				$output[] = $this->vm_model->stop_all_vms($m['ip_address']);
 			}
-		}
+		} 
+
+		echo json_encode($output);
+	}
+
+	/**
+	 *
+	 */
+	public function reboot_classroom() {
+		$room_id = $this->input->get('room_id');
+		$machines = array();
+		array_push($machines, $this->machine_model->get_machines_by_room($room_id));
 
 		foreach($machines as $machine) {
 			foreach($machine as $m) {
 				$this->logging->lwrite("Attempting to reboot machine: ".$m['ip_address']);
 				$output[] = $this->machine_model->reboot($m['ip_address'], $m['os_id']);
 			}
-		} 
+		}
 
 		echo json_encode($output);
 	}
@@ -826,7 +839,7 @@ class Service extends CI_Controller {
 				$this->logging->lwrite("Moving mouse for: ".$m['ip_address']);
 				$output[] = $this->machine_model->mouse_move($m['ip_address']);
 			}
-		} 
+		}
 
 		echo json_encode($output);
 	}

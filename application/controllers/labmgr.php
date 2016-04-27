@@ -1228,7 +1228,7 @@ class Labmgr extends MY_Controller {
 				$hash,
 				TORRENT_UPLOAD_DIR.$torrent,
 				'',
-				$this->compute_torrent_version($file_name)
+				$this->compute_torrent_version($filename)
 				);
 			}
 

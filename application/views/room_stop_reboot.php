@@ -28,7 +28,7 @@
 							
 							echo "<tr>";
 							echo "<td>".$room['name']."</td>";
-							echo "<td><form method='POST' id='start_vms_class_form' action='/labmgr/stop_vms_by_classroom'>
+							/* echo "<td><form method='POST' id='start_vms_class_form' action='/labmgr/stop_vms_by_classroom'>
 							<input type='hidden' name='stop_vm_by_machine' value='1'>
 							<input type='hidden' name='stop_all' value='stop_all'>
 							<input type='hidden' name='room_ids[]' value='".$room['room_id']."'>
@@ -40,12 +40,13 @@
 							<input type='submit' class='button tiny radius alert' value='Reboot-all'>
 							</form></td>";
 
-							/*echo "<td><form method='POST' id='mouse_move_classroom_form' action='mouse_move_classroom'>
+							echo "<td><form method='POST' id='mouse_move_classroom_form' action='mouse_move_classroom'>
 							<input type='hidden' name='room_ids[]' value='".$room['room_id']."'>
 							<input type='submit' class='button tiny radius info' value='Mouse-move'>
 							</form></td>"; */
-
-							echo "<td><a class='button tiny radius mouse_move_classroom_btn' id='".$room['room_id']."' href='#'>Mouse-move</a></td>";
+							echo "<td><a class='button tiny radius stop_all_classroom_btn' id='".$room['room_id']."' href='#'>Stop-all</a></td>";
+							echo "<td><a class='button tiny radius alert reboot_classroom_btn' id='".$room['room_id']."' href='#'>Reboot-all</a></td>";
+							echo "<td><a class='button tiny radius info mouse_move_classroom_btn' id='".$room['room_id']."' href='#'>Mouse-move</a></td>";
 
 							echo "</tr>";
 						}
