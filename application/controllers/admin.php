@@ -73,6 +73,9 @@ class Admin extends CI_Controller {
 	{
 		$data['rooms'] = $this->room_model->get_rooms();
 		$seats = array();
+		usort($data['rooms'], function($a, $b) {
+			return strcasecmp(trim($a['name']), trim($b['name']));
+		});
 		foreach($data['rooms'] as $room) {
 			$seats[$room['name']] = $this->machine_model->validate_seats($room['room_id']);
 		}
