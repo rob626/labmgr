@@ -2,9 +2,9 @@
 	<?php 
 		$menu = array(
 			0 => array(
-				'text' => 'Manage Rooms',               'link' => '/labmgr/add_room',         'spacer' => '<hr>'),
+				'text' => 'Manage Rooms',                    'link' => '/labmgr/add_room',         'spacer' => '<hr>'),
 			1 => array(
-				'text' => 'Room Stop-all / Reboot-all', 'link' => '/labmgr/room_stop_reboot', 'spacer' => '')
+				'text' => 'Room Stop / Reboot / Move mouse', 'link' => '/labmgr/room_stop_reboot', 'spacer' => '')
 			);
 
 		foreach($menu as $menu_item) {

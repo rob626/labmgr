@@ -330,6 +330,8 @@ class Service extends CI_Controller {
 		$stop_vm = 0;
 		$snapshot = NULL;
 
+		//print_r($data);
+
 		foreach($data as $d) {
 			if($d['name'] == 'start_vm_option') {
 				$start_vm_option = $d['value'];
@@ -796,6 +798,49 @@ class Service extends CI_Controller {
 				$output[] = $this->machine_model->get_remote_file($remote_path, $m['ip_address']);
 			}
 		}
+
+		echo json_encode($output);
+	}
+
+	/**
+	 *
+	 */
+	public function reboot_classroom() {
+		$data = $this->input->get('data');
+		$machines = array();
+
+		foreach($data as $d) {
+			if($d['name'] == 'room_ids[]') {
+				array_push($machines, $this->machine_model->get_machines_by_room($d['value']));
+			}
+		}
+
+		foreach($machines as $machine) {
+			foreach($machine as $m) {
+				$this->logging->lwrite("Attempting to reboot machine: ".$m['ip_address']);
+				$output[] = $this->machine_model->reboot($m['ip_address'], $m['os_id']);
+			}
+		} 
+
+		echo json_encode($output);
+	}
+
+	public function mouse_move_classroom() {
+		$data = $this->input->get('data');
+		$machines = array();
+
+		foreach($data as $d) {
+			if($d['name'] == 'room_ids[]') {
+				array_push($machines, $this->machine_model->get_machines_by_room($d['value']));
+			}
+		}
+
+		foreach($machines as $machine) {
+			foreach($machine as $m) {
+				$this->logging->lwrite("Moving mouse for: ".$m['ip_address']);
+				$output[] = $this->machine_model->mouse_move($m['ip_address']);
+			}
+		} 
 
 		echo json_encode($output);
 	}
