@@ -642,40 +642,42 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
     });
 
     $('#reboot_btn_test').click(function() {
-        var machines = [];
-        $('input:checkbox.checkbox').each(function() {
-            if(this.checked) {
-                machines.push($(this).val());
-            }
-           
-        });
-        console.log(machines);
-        $('#reboot_modal_content').html("");
-        for(var i=0; i<machines.length; i++) {
-            $.ajax({        
-            url: "/service/reboot_machine",
-            type: "get",
-            dataType: "json",
-            async: true,
-            data: {machine_id : machines[i]}
-            }).done(function(response) {
-                console.log(response.status );
-                /*
-                $.each(response.status, function(index, value) {
-                    if(value.status == 'ONLINE') {
-                        $('#status_'+ value.id).html("<span class='button success tiny radius'>Online</span>");
-                    } else {
-                        $('#status_'+ value.id).html("<span class='button tiny warning radius'>Offline</span>");
-                    }
-                });
-                */
-                $('#reboot_modal_content').append("<h3>"+response.status+"</h3>")
-                $('#reboot_modal').foundation('reveal', 'open');
-                
-            }).fail(function(jqXHR, textStatus, errorThrown) {
-                //alert("Error submitting data!");
-                console.log(jqXHR, textStatus, errorThrown);
+        if(window.confirm("Are you sure (Machine(s) reboot)?")) {
+            var machines = [];
+            $('input:checkbox.checkbox').each(function() {
+                if(this.checked) {
+                    machines.push($(this).val());
+                }
+               
             });
+            console.log(machines);
+            $('#reboot_modal_content').html("");
+            for(var i=0; i<machines.length; i++) {
+                $.ajax({        
+                url: "/service/reboot_machine",
+                type: "get",
+                dataType: "json",
+                async: true,
+                data: {machine_id : machines[i]}
+                }).done(function(response) {
+                    console.log(response.status );
+                    /*
+                    $.each(response.status, function(index, value) {
+                        if(value.status == 'ONLINE') {
+                            $('#status_'+ value.id).html("<span class='button success tiny radius'>Online</span>");
+                        } else {
+                            $('#status_'+ value.id).html("<span class='button tiny warning radius'>Offline</span>");
+                        }
+                    });
+                    */
+                    $('#reboot_modal_content').append("<h3>"+response.status+"</h3>")
+                    $('#reboot_modal').foundation('reveal', 'open');
+                    
+                }).fail(function(jqXHR, textStatus, errorThrown) {
+                    //alert("Error submitting data!");
+                    console.log(jqXHR, textStatus, errorThrown);
+                });
+            }
         }
     });
 
@@ -732,32 +734,34 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
     });
 
     $('#shutdown_btn').click(function() {
-        var machines = [];
-        $('input:checkbox.checkbox').each(function () {
-            if(this.checked) {
-                machines.push($(this).val());
-            }
-           
-        });
-
-        $('#reboot_modal_content').html("");
-        for(var i=0; i<machines.length; i++) {
-            $.ajax({        
-            url: "/service/shutdown_machine",
-            type: "get",
-            dataType: "json",
-            async: true,
-            data: {machine_id : machines[i]}
-            }).done(function(response) {
-
-                console.log(response.status );
-                $('#reboot_modal_content').append("<h3>"+response.status+"</h3>")
-                $('#reboot_modal').foundation('reveal', 'open');
-                
-            }).fail(function(jqXHR, textStatus, errorThrown) {
-                //alert("Error submitting data!");
-                console.log(jqXHR, textStatus, errorThrown);
+        if(window.confirm("Are you sure (Classroom shutdown)?")) {
+            var machines = [];
+            $('input:checkbox.checkbox').each(function () {
+                if(this.checked) {
+                    machines.push($(this).val());
+                }
+               
             });
+
+            $('#reboot_modal_content').html("");
+            for(var i=0; i<machines.length; i++) {
+                $.ajax({        
+                url: "/service/shutdown_machine",
+                type: "get",
+                dataType: "json",
+                async: true,
+                data: {machine_id : machines[i]}
+                }).done(function(response) {
+
+                    console.log(response.status );
+                    $('#reboot_modal_content').append("<h3>"+response.status+"</h3>")
+                    $('#reboot_modal').foundation('reveal', 'open');
+                    
+                }).fail(function(jqXHR, textStatus, errorThrown) {
+                    //alert("Error submitting data!");
+                    console.log(jqXHR, textStatus, errorThrown);
+                });
+            }
         }
     });
 
