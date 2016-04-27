@@ -613,8 +613,8 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
         $.each(data, function(index, value) {
 
         });
-        
     });
+
     $('.ssh_machine_btn').click(function() {
         var machine_id = $(this).attr('id');
         //$('#status_modal').addClass('full');
@@ -710,11 +710,11 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
         }
     });
 
-    $('#mouse_move_classroom_form').on('submit', function(e) {
-        e.preventDefault();
-        var data = $('#mouse_move_classroom_form :input').serializeArray();
+    $('.mouse_move_classroom_btn').click(function() {
+        var room_id = $(this).attr('id');
+        
         $('#status_modal_content').html("");
-        $('#status_modal_content').append("<p>Please wait...<p>");
+        $('#status_modal_content').append("<p>Please wait.....<p>");
         $('#status_modal').foundation('reveal', 'open');
 
         $.ajax({        
@@ -722,7 +722,7 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
             type: "get",
             dataType: "json",
             async: true,
-            data: {data : data}
+            data: {room_id : room_id}
             }).done(function(response) {
                 $.each(response, function(index, value) {
                     $('#status_modal_content').append("<h3>"+value.status+"</h3>");

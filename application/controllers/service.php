@@ -140,9 +140,6 @@ class Service extends CI_Controller {
 	}
 
 	public function cleanup_watchdog() {
-		//$this->logging->lfile("./application/logs/test_lfile");
-		$this->logging->lwrite("cleanup_watchdog (service)");
-
 		$data = $this->input->get('data');
 		$machines = array();
 
@@ -153,24 +150,17 @@ class Service extends CI_Controller {
 			}
 		}
 
-		//print_r($machines);
 		// Call the function(s) for each machine and pass the ip address
 		foreach($machines as $machine) {
-			//echo "inside foreach loop 1<br>";
-			//print_r($machine);
+			$this->logging->lwrite("cleanup dropins and hasbeenrun for ".$machine['ip_address']);			
 			$output[] = $this->machine_model->cleanup_watchdog_dropins($machine['ip_address']);
-			//echo "inside foreach loop 2<br>";
 			$output[] = $this->machine_model->cleanup_watchdog_hasbeenrun($machine['ip_address']);
-			//echo "inside foreach loop 3<br>";
 		}
 		
 		echo json_encode($output);	
 	}
 
 	public function cleanup_watchdog_FULL() {
-		//$this->logging->lfile("./application/logs/test_lfile");
-		$this->logging->lwrite("cleanup_watchdog_full (service)");
-
 		$data = $this->input->get('data');
 		$machines = array();
 
@@ -181,11 +171,9 @@ class Service extends CI_Controller {
 			}
 		}
 
-		//print_r($machines);
 		// Call the function(s) for each machine and pass the ip address
 		foreach($machines as $machine) {
-			//echo "inside foreach loop 1<br>";
-			//print_r($machine);
+			$this->logging->lwrite("cleanup log, dropins and hasbeenrun for ".$machine['ip_address']);
 			$output[] = $this->machine_model->cleanup_watchdog_dropins($machine['ip_address']);
 			$output[] = $this->machine_model->cleanup_watchdog_hasbeenrun($machine['ip_address']);
 			$output[] = $this->machine_model->cleanup_watchdog_logfile($machine['ip_address']);
@@ -825,15 +813,13 @@ class Service extends CI_Controller {
 		echo json_encode($output);
 	}
 
+	/**
+	 * 
+	 */
 	public function mouse_move_classroom() {
-		$data = $this->input->get('data');
-		$machines = array();
-
-		foreach($data as $d) {
-			if($d['name'] == 'room_ids[]') {
-				array_push($machines, $this->machine_model->get_machines_by_room($d['value']));
-			}
-		}
+		$room_id = $this->input->get('room_id');
+		$machines= array();
+		array_push($machines, $this->machine_model->get_machines_by_room($room_id));
 
 		foreach($machines as $machine) {
 			foreach($machine as $m) {

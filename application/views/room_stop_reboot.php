@@ -40,10 +40,12 @@
 							<input type='submit' class='button tiny radius alert' value='Reboot-all'>
 							</form></td>";
 
-							echo "<td><form method='POST' id='mouse_move_classroom_form' action='mouse_move_classroom'>
+							/*echo "<td><form method='POST' id='mouse_move_classroom_form' action='mouse_move_classroom'>
 							<input type='hidden' name='room_ids[]' value='".$room['room_id']."'>
 							<input type='submit' class='button tiny radius info' value='Mouse-move'>
-							</form></td>";
+							</form></td>"; */
+
+							echo "<td><a class='button tiny radius mouse_move_classroom_btn' id='".$room['room_id']."' href='#'>Mouse-move</a></td>";
 
 							echo "</tr>";
 						}
