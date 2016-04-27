@@ -528,27 +528,29 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
 
     $('#delete_dirs_form').on('submit', function(e) {
         e.preventDefault();
-        var data = $('#delete_dirs_form :input').serializeArray();
-        $('#status_modal_content').html("Please wait...");
-        $('#status_modal').foundation('reveal', 'open');
-        
-        $.ajax({        
-            url: "/service/delete_dirs",
-            type: "get",
-            dataType: "json",
-            async: true,
-            data: {data : data}
-            }).done(function(response) {
-                
-                $.each(response, function(index, value) {
-                    $('#status_modal_content').append("<h3>"+value.status+"</h3>")
+        if(window.confirm("Are you sure (Delete directory)?")) {
+            var data = $('#delete_dirs_form :input').serializeArray();
+            $('#status_modal_content').html("Please wait...");
+            $('#status_modal').foundation('reveal', 'open');
+            
+            $.ajax({        
+                url: "/service/delete_dirs",
+                type: "get",
+                dataType: "json",
+                async: true,
+                data: {data : data}
+                }).done(function(response) {
+                    
+                    $.each(response, function(index, value) {
+                        $('#status_modal_content').append("<h3>"+value.status+"</h3>")
+                    });
+                    $('#status_modal_content').append("<p>Done.<p>");
+                }).fail(function(jqXHR, textStatus, errorThrown) {
+                    //alert("Error submitting data!");
+                    console.log(jqXHR, textStatus, errorThrown);
+                    $('#status_modal_content').append("<p>Done.<p>");
                 });
-                $('#status_modal_content').append("<p>Done.<p>");
-            }).fail(function(jqXHR, textStatus, errorThrown) {
-                //alert("Error submitting data!");
-                console.log(jqXHR, textStatus, errorThrown);
-                $('#status_modal_content').append("<p>Done.<p>");
-            });
+        }
     });
 
     $('#folder_list_btn').click(function(e) {
