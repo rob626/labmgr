@@ -239,7 +239,6 @@ class Admin_model extends CI_Model {
                     $output[] = "Validation Error! MAC in DB: " .$machine['mac_address']. " MAC from ARP: ".$mac." <br>";
                     //echo "Validation Error! MAC in DB: " .$machine['mac_address']. " MAC from ARP: ".$mac." <br>";
                 }
-
             }
         }
 
@@ -256,7 +255,6 @@ class Admin_model extends CI_Model {
         // No need to ping... fping already called.  Check arp table.
         $arp_mac = shell_exec("arp -a " . $ip . " | awk '{print $4}'");
         
-
         if(!empty($arp_mac)) {
             if(trim($arp_mac) != 'entries') {
                 // Found the IP address in the arp table.  Check the DB entry for the MAC address
@@ -271,21 +269,17 @@ class Admin_model extends CI_Model {
                     // Check to see if the entry in the DB for the MAC has the same IP address
                     if(trim($machine['ip_address']) == trim($ip)) {
                         // The IP address in the DB matches the IP address in the arp table, do nothing
-                        //$output = $machine['ip_address'] .' = '. $ip;
                     } else {
                         // The IP in the DB does not match, that means we have an IP address change
-                        //$output = "Validation Error: ". $machine;
                         $machine['new_ip'] = $ip;
                         $machine['room_name'] = $this->room_model->get_room($machine['room_id'])[0]['name'];
-                        $output = "Validation Error! RoomID: ".$machine['room_id']." Seat: ".$machine['seat']." MAC:" .$machine['mac_address']. " Old IP: ".$machine['ip_address']." New IP: ".$ip." <br>";
-                        $this->logging->lwrite($output);
-                        //echo "Validation Error! MAC in DB: " .$machine['mac_address']. " MAC from ARP: ".$mac." <br>";
+                        $output = "Validation Error! Room: ".$machine['room_name']." Seat: ".$machine['seat']." MAC:" .$machine['mac_address']. " Old IP: ".$machine['ip_address']." New IP: ".$ip." <br>";
+                        $this->logging->lwrite("Validation Error! Room: ".$machine['room_name']." Seat: ".$machine['seat']." MAC:" .$machine['mac_address']. " Old IP: ".$machine['ip_address']." New IP: ".$ip);
                         return $machine;
                     }
                 }
             }
         }
-        
     }
 
     /**
