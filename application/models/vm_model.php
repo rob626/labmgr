@@ -101,11 +101,8 @@ class Vm_model extends CI_Model {
 	    		'cmd' => $command,
 	    		'exit_status' => ''
     		);
+    		unlink($file);
 	    	return $output;
-	    	//return shell_exec('scp -i ./certs/labmgr '.$file.' ibm_user@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/');
-	    	//return shell_exec('./scripts/start_vm.sh');
-	    	//return shell_exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" ibm_user@' . $ip . ' "echo '.$command.' > '.$dropins_dir.'"');
-	    	//return shell_exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" ibm_user@' . $ip . ' "echo '.$command.'> '.$dropins_dir.'"');	    	//return shell_exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" ibm_user@' . $ip . ' touch file.txt');
 	    }
 
 		/**
@@ -132,6 +129,7 @@ class Vm_model extends CI_Model {
 	    		'cmd' => $command,
 	    		'exit_status' => ''
     		);
+    		unlink($file);
 	    	return $output;
 	    }
 
@@ -161,10 +159,8 @@ class Vm_model extends CI_Model {
 	    		'cmd' => $command,
 	    		'exit_status' => ''
     		);
+    		unlink($file);
 	    	return $output;
-	    	//return shell_exec('./scripts/start_vm.sh');
-	    	//return shell_exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" ibm_user@' . $ip . ' "echo '.$command.' > '.$dropins_dir.'"');
-	    	//return shell_exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" ibm_user@' . $ip . ' touch file.txt');
 	    }
 
 	    /**
@@ -211,6 +207,7 @@ class Vm_model extends CI_Model {
 	    		'cmd' => $command,
 	    		'exit_status' => ''
     		);
+    		unlink($file);
 	    	return $output;
 	    }
 
