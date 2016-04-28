@@ -182,6 +182,7 @@ class Machine_model extends CI_Model {
             'exit_status' => ''
         );
 
+        unlink($file);
         return $output;
     }
 
@@ -462,7 +463,8 @@ class Machine_model extends CI_Model {
             'cmd' => $file,
             'exit_status' => ''
         );
-
+        unlink($file);
+        
         $output = array(
             'status' => "ssh to machine to get MAC address: ".$ip,
             'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $ip .' "cscript //nologo C:/temp/getmac.vbs ' . $ip.'"', $cmd_output, $exit_status),
