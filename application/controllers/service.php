@@ -642,7 +642,7 @@ class Service extends CI_Controller {
 		// Start at the initial from address and add the chunk.  Keep doing that
 		// until we reach the to address.
 		$current = $from_long;
-		$chunk_size = 50;
+		$chunk_size = 20;
 
 		while($current < $to_long) {
 			$max = $current + $chunk_size;
