@@ -20,7 +20,7 @@ class Torrent_model extends CI_Model {
 	 * them all at once.
 	 */
 	public function get_torrents_on_server() {
-		$uploaded_torrents = scandir(TORRENT_UPLOAD_DIR);
+		$uploaded_torrents = scandir(UPLOADS_DIR);
 		foreach($uploaded_torrents as $key => $value) {
             if($value == '.' || $value == '..') {
                     unset($uploaded_torrents[$key]);

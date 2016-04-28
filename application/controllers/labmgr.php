@@ -816,7 +816,7 @@ class Labmgr extends MY_Controller {
 			$this->input->post('torrent_id')
 			);
 		if($retval) {
-			$this->upload_torrent();
+			$this->manage_torrents();
 		} else {
 			echo "DB Error";
 		}
@@ -1206,8 +1206,10 @@ class Labmgr extends MY_Controller {
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$this->load->library('bencoded');
 			foreach($this->input->post('torrents') as $torrent) {
-				
-				$this->bencoded->FromFile(TORRENT_UPLOAD_DIR.$torrent);
+				$path = TORRENT_UPLOAD_DIR.uniqid()."/";
+				mkdir($path);
+				copy(UPLOADS_DIR.$torrent, $path.$torrent);
+				$this->bencoded->FromFile($path.$torrent);
 				$hash = $this->bencoded->InfoHash();
 
 				$filename = $torrent;
@@ -1226,7 +1228,7 @@ class Labmgr extends MY_Controller {
 				$insert_id = $this->torrent_model->add_torrent(
 				$filename,
 				$hash,
-				TORRENT_UPLOAD_DIR.$torrent,
+				$path.$torrent,
 				'',
 				$this->compute_torrent_version($filename)
 				);
@@ -1240,7 +1242,7 @@ class Labmgr extends MY_Controller {
 
 	public function do_upload()
 	{
-		$path = UPLOADS_DIR.uniqid();
+		$path = TORRENT_UPLOAD_DIR.uniqid();
 		mkdir($path);
 		$config['upload_path'] = $path;
 		$config['allowed_types'] = '*';
