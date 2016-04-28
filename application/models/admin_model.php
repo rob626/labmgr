@@ -256,7 +256,7 @@ class Admin_model extends CI_Model {
         // No need to ping... fping already called.  Check arp table.
         $arp_mac = shell_exec("arp -a " . $ip . " | awk '{print $4}'");
         
-        $this->logging->lwrite("Validating MAC 1 (ip=".$ip.",MAC=".$arp_mac.")");
+
         if(!empty($arp_mac)) {
             if(trim($arp_mac) != 'entries') {
                 // Found the IP address in the arp table.  Check the DB entry for the MAC address
