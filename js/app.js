@@ -841,7 +841,7 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
                 
                 $.each(response, function(index, value) {
                     //console.log(value);
-                    $('#validation_results_table tr:last').after("<tr><td><input type='checkbox' class='checkbox' name='machine_ids[]' value='"+value.machine_id+"_"+value.new_ip+"'></td><td>"+value.room_id+"</td><td>"+value.seat+"</td><td>"+value.mac_address+"</td><td>"+value.ip_address+"</td><td style='font-weight:bold'>"+value.new_ip+"</td></tr>")
+                    $('#validation_results_table tr:last').after("<tr><td><input type='checkbox' class='checkbox' name='machine_ids[]' value='"+value.machine_id+"_"+value.new_ip+"'></td><td>"+value.room_name+"</td><td>"+value.seat+"</td><td>"+value.mac_address+"</td><td>"+value.ip_address+"</td><td style='font-weight:bold'>"+value.new_ip+"</td></tr>")
                 });
  
                 
