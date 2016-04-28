@@ -277,7 +277,7 @@ class Admin_model extends CI_Model {
                         // The IP in the DB does not match, that means we have an IP address change
                         //$output = "Validation Error: ". $machine;
                         $machine['new_ip'] = $ip;
-                        $machine['room_name'] = $this->room_model->get_room($machine['room_id']);
+                        $machine['room_name'] = $this->room_model->get_room($machine['room_id'])[0]['name'];
                         $this->logging->lwrite(" ----- room name = ".print_r($machine,true));
                         $output = "Validation Error! RoomID: ".$machine['room_id']." Seat: ".$machine['seat']." MAC:" .$machine['mac_address']. " Old IP: ".$machine['ip_address']." New IP: ".$ip." <br>";
                         //echo "Validation Error! MAC in DB: " .$machine['mac_address']. " MAC from ARP: ".$mac." <br>";
