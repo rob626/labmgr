@@ -632,7 +632,7 @@ class Service extends CI_Controller {
 		}
 		
 		$this->logging->lwrite("Validating MAC addresses for ".$from." to ".$to);
-		
+
 		$from_long = ip2long($from);
 		$to_long = ip2long($to);
 
@@ -646,15 +646,15 @@ class Service extends CI_Controller {
 
 		while($current < $to_long) {
 			$max = $current + $chunk_size;
-			if($max > $to_long) {
-				$max = $to_long;
+			if($max > $to_long+1) {
+				$max = $to_long+1;
 			}
 
 			// fping the next chunck
 			shell_exec("fping -r 0 -t500 -q -g ".long2ip($current)." " . long2ip($max));
 			
 			// validate each ip address in that chunck range
-			for($i = $current; $i <= $max; $i++) {
+			for($i = $current; $i < $max; $i++) {
 				$output[] = $this->admin_model->validate_mac(long2ip($i));
 			}
 
