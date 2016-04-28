@@ -278,6 +278,7 @@ class Admin_model extends CI_Model {
                         //$output = "Validation Error: ". $machine;
                         $machine['new_ip'] = $ip;
                         $machine['room_name'] = $this->room_model->get_room($machine['room_id']);
+                        $this->logging->lwrite("Validating MAC - room name =".$machine['room_name']);
                         $output = "Validation Error! RoomID: ".$machine['room_id']." Seat: ".$machine['seat']." MAC:" .$machine['mac_address']. " Old IP: ".$machine['ip_address']." New IP: ".$ip." <br>";
                         //echo "Validation Error! MAC in DB: " .$machine['mac_address']. " MAC from ARP: ".$mac." <br>";
                         return $machine;
