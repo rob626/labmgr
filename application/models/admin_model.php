@@ -260,7 +260,7 @@ class Admin_model extends CI_Model {
         if(!empty($arp_mac)) {
             if(trim($arp_mac) != 'entries') {
                 // Found the IP address in the arp table.  Check the DB entry for the MAC address
-                $this->logging->lwrite("Validating MAC (ip=".$ip.",MAC=".print_r($arp_mac,true).")");
+                $this->logging->lwrite("Validating MAC (ip=".$ip.",MAC=".$arp_mac.")");
                 $sql = "SELECT * FROM machine where mac_address = ?";
                 $result = $this->db->query($sql, trim($arp_mac));
                 if($result->num_rows() >= 1) {
@@ -278,7 +278,7 @@ class Admin_model extends CI_Model {
                         //$output = "Validation Error: ". $machine;
                         $machine['new_ip'] = $ip;
                         $machine['room_name'] = $this->room_model->get_room($machine['room_id']);
-                        $output = "Validation Error! RoomID: ".$machine['room_name']." Seat: ".$machine['seat']." MAC:" .$machine['mac_address']. " Old IP: ".$machine['ip_address']." New IP: ".$ip." <br>";
+                        $output = "Validation Error! RoomID: ".$machine['room_id']." Seat: ".$machine['seat']." MAC:" .$machine['mac_address']. " Old IP: ".$machine['ip_address']." New IP: ".$ip." <br>";
                         //echo "Validation Error! MAC in DB: " .$machine['mac_address']. " MAC from ARP: ".$mac." <br>";
                         return $machine;
                     }
