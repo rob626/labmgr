@@ -655,6 +655,7 @@ class Service extends CI_Controller {
 			
 			// validate each ip address in that chunck range
 			for($i = $current; $i < $max; $i++) {
+				$this->logging->lwrite("i=".$i." ".long2ip($i)." ".$current." ".$max." ".$from_long." ".$to_long);
 				$output[] = $this->admin_model->validate_mac(long2ip($i));
 			}
 
