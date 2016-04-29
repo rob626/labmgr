@@ -104,7 +104,7 @@ class Torrent_model extends CI_Model {
 	     */
 	    public function delete_torrent($torrent_id) {
 	    	// make sure the torrents/archive directory exists
-			if (!is_dir(TORRENT_UPLOAD_DIR."archive")) {
+			if (!file_exists(TORRENT_UPLOAD_DIR."archive")) {
 				mkdir(TORRENT_UPLOAD_DIR."archive");
 			}
 
@@ -112,6 +112,7 @@ class Torrent_model extends CI_Model {
 			$this->logging->lwrite("Deleting torrent: ".$t[0]['name']);
 			$troot = basename(TORRENT_UPLOAD_DIR);  // this should be 'torrents'
 			$tpath = $t[0]['path'];
+			$tpath_after_root_dir = ".";
 			
 			if (($pos = strpos($tpath, $troot)) !== FALSE) { 
     			$tpath_after_root = substr($tpath, $pos + strlen($troot) + 1); // should be path after torrents folder
@@ -121,7 +122,7 @@ class Torrent_model extends CI_Model {
 			if ($tpath_after_root_dir == ".") {
 				// in case there is not unique folder name between 'torrents' and the torrent file
 				$this->logging->lwrite("Archiving ".$t[0]['name'].": ".TORRENT_UPLOAD_DIR.$tpath_after_root." to ".TORRENT_UPLOAD_DIR."archive/".basename($tpath));
-				rename(TORRENT_UPLOAD_DIR.$tpath_after_root, TORRENT_UPLOAD_DIR."archive/".basename($tpath));
+				rename($tpath, TORRENT_UPLOAD_DIR."archive/".basename($tpath));
 			} else {
 				// move the whole folder to the archive directory
 				$this->logging->lwrite("Archiving ".$t[0]['name'].": ".TORRENT_UPLOAD_DIR.$tpath_after_root_dir."/ to ".TORRENT_UPLOAD_DIR."archive/".$tpath_after_root_dir."/");
