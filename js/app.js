@@ -909,147 +909,147 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
             });
     });
 
-        if($('#torrent_seeds_1').length > 0) {
-            setInterval(function() { 
-                var status_total = $('#status_total').text();
-                var machines = [];
-                for(var status_id = 1; status_id < status_total; status_id++) {    
-                    var ip = $('#machine_ip_'+ status_id).text();
-                    var machine = {
-                        id:status_id,
-                        ip_address:ip,
-                        status:'' 
-                    }
-                    machines.push(machine);
+    if($('#torrent_seeds_1').length > 0) {
+        setInterval(function() { 
+            var status_total = $('#status_total').text();
+            var machines = [];
+            for(var status_id = 1; status_id < status_total; status_id++) {    
+                var ip = $('#machine_ip_'+ status_id).text();
+                var machine = {
+                    id:status_id,
+                    ip_address:ip,
+                    status:'' 
                 }
+                machines.push(machine);
+            }
 
-                $.ajax({        
-                    url: "/service/get_torrent_status",
-                    type: "get",
-                    dataType: "json",
-                    async: true,
-                    data: {machines : machines}
-                    }).done(function(response) {
-                        //console.log(response);
-                        $.each(response, function(index, value) {
-                            $.each(value, function(index2, value2) {
-                                if(value2.torrents == null) {
-                                    console.log('this is null');
-                                    $('#torrent_seeds_'+ value2.id).html('--');
-                                    $('#torrent_size_'+ value2.id).html('--');
-                                } else {
-                                    var total = value2.torrents.length;
-                                    var seeds = 0;
-                                    var total_bytes = 0;
-                                    var remaining_bytes = 0;
-                                    var total_speed = 0;
-                     
-                                    $.each(value2.torrents, function(torrent_index, torrent_value) {
-                                        if(torrent_value['21'] == 'Seeding 100.0 %') {
-                                            seeds++;
-                                        }
-                                        total_bytes += torrent_value['3'];
-                                        remaining_bytes += torrent_value['18'];
-                                        total_speed += torrent_value[9];
-                                    });
-                                    var completed_bytes = total_bytes - remaining_bytes;
-                                    $('#torrent_seeds_'+ value2.id).html(seeds+"/"+total) ;
-                                    if(total_bytes == 0) {
-                                        $('#torrent_size_'+ value2.id).html("<span data-tooltip aria-haspopup='true' class='has-tip' title='This is a tooltip'>- @"+(total_speed/1024/1024).toFixed(0)+"<br>"+(completed_bytes/1024/1024/1024).toFixed(0)+"/"+(total_bytes/1024/1024/1024).toFixed(0)+'</span>');
-                                    } else {
-                                        $('#torrent_size_'+ value2.id).html(((completed_bytes/total_bytes)*100).toFixed(0)+"% @"+(total_speed/1024/1024).toFixed(0)+"<br>"+(completed_bytes/1024/1024/1024).toFixed(0)+"/"+(total_bytes/1024/1024/1024).toFixed(0)) ;
+            $.ajax({        
+                url: "/service/get_torrent_status",
+                type: "get",
+                dataType: "json",
+                async: true,
+                data: {machines : machines}
+                }).done(function(response) {
+                    //console.log(response);
+                    $.each(response, function(index, value) {
+                        $.each(value, function(index2, value2) {
+                            if(value2.torrents == null) {
+                                console.log('this is null');
+                                $('#torrent_seeds_'+ value2.id).html('--');
+                                $('#torrent_size_'+ value2.id).html('--');
+                            } else {
+                                var total = value2.torrents.length;
+                                var seeds = 0;
+                                var total_bytes = 0;
+                                var remaining_bytes = 0;
+                                var total_speed = 0;
+                 
+                                $.each(value2.torrents, function(torrent_index, torrent_value) {
+                                    if(torrent_value['21'] == 'Seeding 100.0 %') {
+                                        seeds++;
                                     }
+                                    total_bytes += torrent_value['3'];
+                                    remaining_bytes += torrent_value['18'];
+                                    total_speed += torrent_value[9];
+                                });
+                                var completed_bytes = total_bytes - remaining_bytes;
+                                $('#torrent_seeds_'+ value2.id).html(seeds+"/"+total) ;
+                                if(total_bytes == 0) {
+                                    $('#torrent_size_'+ value2.id).html("<span data-tooltip aria-haspopup='true' class='has-tip' title='This is a tooltip'>- @"+(total_speed/1024/1024).toFixed(0)+"<br>"+(completed_bytes/1024/1024/1024).toFixed(0)+"/"+(total_bytes/1024/1024/1024).toFixed(0)+'</span>');
+                                } else {
+                                    $('#torrent_size_'+ value2.id).html(((completed_bytes/total_bytes)*100).toFixed(0)+"% @"+(total_speed/1024/1024).toFixed(0)+"<br>"+(completed_bytes/1024/1024/1024).toFixed(0)+"/"+(total_bytes/1024/1024/1024).toFixed(0)) ;
                                 }
-                            });
-                            
+                            }
                         });
                         
-                    }).fail(function(jqXHR, textStatus, errorThrown) {
-                        //alert("Error submitting data!");
-                        console.log(jqXHR, textStatus, errorThrown);
                     });
-
-                }, 10000); 
-        }
-
-        //Get Machine Status
-        if($('#status_total').length > 0) {
-            setInterval(function() {
-                var status_total = $('#status_total').text();
-                var machines = [];
-
-                for(var status_id = 1; status_id < status_total; status_id++) {    
-                    var ip = $('#machine_ip_'+ status_id).text();
-                    var machine_mac = $('#machine_mac_'+status_id).text();
-                    var machine = {
-                        id:status_id,
-                        mac_address:machine_mac,
-                        ip_address:ip,
-                        status:'' 
-                    }
-                    machines.push(machine);
-                    }
-
-                    $.ajax({        
-                        url: "/service/get_machine_status",
-                        type: "get",
-                        dataType: "json",
-                        async: true,
-                        data: {machines : machines}
-                        }).done(function(response) {
-
-                            $.each(response.status, function(index, value) {
-                                console.log(response);
-
-                                //console.log(response.disk_usage);
-                                if (value.disk_usage == false || typeof(value.disk_usage) == 'undefined' || value.disk_usage == null || value.disk_usage == 'null') {
-                                    $('#disk_usage_'+ value.id).html("<span class='button tiny secondary radius'>--</span>") ;
-                                } else {
-                                    if(value.disk_usage > 95) {
-                                        $('#disk_usage_'+ value.id).html("<span class='button tiny alert radius'>"+value.disk_usage+"%</span>") ;
-                                    } else if(value.disk_usage > 89) {
-                                        $('#disk_usage_'+ value.id).html("<span class='button tiny warning radius'>"+value.disk_usage+"%</span>");
-                                    } else if(value.disk_usage > 79) {
-                                        $('#disk_usage_'+ value.id).html("<span class='button tiny success radius'>"+value.disk_usage+"%</span>");
-                                    } else if(value.disk_usage > 49) {
-                                        $('#disk_usage_'+ value.id).html("<span class='button tiny info radius'>"+value.disk_usage+"%</span>");
-                                    }  else {
-                                        $('#disk_usage_'+ value.id).html("<span class='button tiny secondary radius'>"+value.disk_usage+"%</span>");
-                                    }
-                                }
-
-                                if(value.status == 'ONLINE') {
-                                    if(value.mac_status == 'FALSE') {
-                                        $('#status_'+ value.id).html("<span class='button warning tiny radius'>Online</span>");
-
-                                    } else {
-                                        $('#status_'+ value.id).html("<span class='button success tiny radius'>Online</span>");
-                                    }
-                                } else {
-                                    $('#status_'+ value.id).html("<span class='button tiny alert radius'>Offline</span>");
-                                }
-
-                                if(value.lab_directories > 0 ) {
-                                    $('#lab_directories_'+ value.id).html("<a href='#' data-reveal-id='lab_dirs_modal_"+value.id+"'>"+value.lab_directories+"</a><div id='lab_dirs_modal_"+value.id+"' class='reveal-modal' data-reveal aria-labelledby='modalTitle' aria-hidden='true' role='dialog'><h2 id='modalTitle'>Session Directories ("+value.lab_directories+")</h2><p class='lead'><pre>"+value.lab_directory_list+"</pre></p><a class='close-reveal-modal' aria-label='Close'>&#215;</a></div>");
-                                } else {
-                                    $('#lab_directories_'+ value.id).html(value.lab_directories);
-                                }
-
-                                if(value.vm_count > 0 ) {
-                                    $('#vm_count_'+ value.id).html("<a href='#' data-reveal-id='vm_count_modal_"+value.id+"'>"+value.vm_count+"</a><div id='vm_count_modal_"+value.id+"' class='reveal-modal' data-reveal aria-labelledby='modalTitle' aria-hidden='true' role='dialog'><h2 id='modalTitle'>Running VMs</h2><p class='lead'><pre>"+value.running_vm_list+"</pre></p><a class='close-reveal-modal' aria-label='Close'>&#215;</a></div>");
-                                } else {
-                                    $('#vm_count_' + value.id).html(value.vm_count);
-                                }
-                            });
-                            
-
-                        }).fail(function(jqXHR, textStatus, errorThrown) {
-                            //alert("Error submitting data!");
-                            //console.log(jqXHR, textStatus, errorThrown);
-                        });
                     
-                }, 5000); 
+                }).fail(function(jqXHR, textStatus, errorThrown) {
+                    //alert("Error submitting data!");
+                    console.log(jqXHR, textStatus, errorThrown);
+                });
+
+            }, 10000); 
+    }
+
+    //Get Machine Status
+    if($('#status_total').length > 0) {
+        setInterval(function() {
+            var status_total = $('#status_total').text();
+            var machines = [];
+
+            for(var status_id = 1; status_id < status_total; status_id++) {    
+                var ip = $('#machine_ip_'+ status_id).text();
+                var machine_mac = $('#machine_mac_'+status_id).text();
+                var machine = {
+                    id:status_id,
+                    mac_address:machine_mac,
+                    ip_address:ip,
+                    status:'' 
+                }
+                machines.push(machine);
             } 
+
+            $.ajax({        
+                url: "/service/get_machine_status",
+                type: "get",
+                dataType: "json",
+                async: true,
+                data: {machines : machines}
+                }).done(function(response) {
+
+                    $.each(response.status, function(index, value) {
+                        console.log(response);
+
+                        //console.log(response.disk_usage);
+                        if (value.disk_usage == false || typeof(value.disk_usage) == 'undefined' || value.disk_usage == null || value.disk_usage == 'null') {
+                            $('#disk_usage_'+ value.id).html("<span class='button tiny secondary radius'>--</span>") ;
+                        } else {
+                            if(value.disk_usage > 95) {
+                                $('#disk_usage_'+ value.id).html("<span class='button tiny alert radius'>"+value.disk_usage+"%</span>") ;
+                            } else if(value.disk_usage > 89) {
+                                $('#disk_usage_'+ value.id).html("<span class='button tiny warning radius'>"+value.disk_usage+"%</span>");
+                            } else if(value.disk_usage > 79) {
+                                $('#disk_usage_'+ value.id).html("<span class='button tiny success radius'>"+value.disk_usage+"%</span>");
+                            } else if(value.disk_usage > 49) {
+                                $('#disk_usage_'+ value.id).html("<span class='button tiny info radius'>"+value.disk_usage+"%</span>");
+                            }  else {
+                                $('#disk_usage_'+ value.id).html("<span class='button tiny secondary radius'>"+value.disk_usage+"%</span>");
+                            }
+                        }
+
+                        if(value.status == 'ONLINE') {
+                            if(value.mac_status == 'FALSE') {
+                                $('#status_'+ value.id).html("<span class='button warning tiny radius'>Online</span>");
+
+                            } else {
+                                $('#status_'+ value.id).html("<span class='button success tiny radius'>Online</span>");
+                            }
+                        } else {
+                            $('#status_'+ value.id).html("<span class='button tiny alert radius'>Offline</span>");
+                        }
+
+                        if(value.lab_directories > 0 ) {
+                            $('#lab_directories_'+ value.id).html("<a href='#' data-reveal-id='lab_dirs_modal_"+value.id+"'>"+value.lab_directories+"</a><div id='lab_dirs_modal_"+value.id+"' class='reveal-modal' data-reveal aria-labelledby='modalTitle' aria-hidden='true' role='dialog'><h2 id='modalTitle'>Session Directories ("+value.lab_directories+")</h2><p class='lead'><pre>"+value.lab_directory_list+"</pre></p><a class='close-reveal-modal' aria-label='Close'>&#215;</a></div>");
+                        } else {
+                            $('#lab_directories_'+ value.id).html(value.lab_directories);
+                        }
+
+                        if(value.vm_count > 0 ) {
+                            $('#vm_count_'+ value.id).html("<a href='#' data-reveal-id='vm_count_modal_"+value.id+"'>"+value.vm_count+"</a><div id='vm_count_modal_"+value.id+"' class='reveal-modal' data-reveal aria-labelledby='modalTitle' aria-hidden='true' role='dialog'><h2 id='modalTitle'>Running VMs</h2><p class='lead'><pre>"+value.running_vm_list+"</pre></p><a class='close-reveal-modal' aria-label='Close'>&#215;</a></div>");
+                        } else {
+                            $('#vm_count_' + value.id).html(value.vm_count);
+                        }
+                    });
+                    
+
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                //alert("Error submitting data!");
+                //console.log(jqXHR, textStatus, errorThrown);
+            });
+                
+        }, 5000); 
+    } 
 
     function formatTime(strDate) {
         var date = new Date(strDate);
