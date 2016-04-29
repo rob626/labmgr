@@ -121,7 +121,7 @@ class Torrent_model extends CI_Model {
 
 			if ($tpath_after_root_dir == ".") {
 				// in case there is not unique folder name between 'torrents' and the torrent file
-				$this->logging->lwrite("Archiving ".$t[0]['name'].": ".TORRENT_UPLOAD_DIR.$tpath_after_root." to ".TORRENT_UPLOAD_DIR."archive/".basename($tpath));
+				$this->logging->lwrite("Archiving ".$t[0]['name'].": ".$tpath." to ".TORRENT_UPLOAD_DIR."archive/".basename($tpath));
 				rename($tpath, TORRENT_UPLOAD_DIR."archive/".basename($tpath));
 			} else {
 				// move the whole folder to the archive directory
