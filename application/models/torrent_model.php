@@ -73,7 +73,10 @@ class Torrent_model extends CI_Model {
 	     */
 	    public function add_torrent($torrent_name, $hash, $torrent_path, $torrent_file, $torrent_version = 1) {
 	    	
-	    	$result = $this->db->query("SELECT * FROM torrent where hash = ?", $hash);
+	    	// make sure that the torrent doesn't already exist in the DB.  
+	    	// If the same torrent (based on the hash) has a new name, allow that
+	    	$sql = "SELECT * FROM torrent where hash = ? AND name = ?";
+			$result = $this->db->query($sql, array($hash, $torrent_name));
 	    	$result = $result->result_array();
 
 	    	if(isset($result[0]['torrent_id'])) {
