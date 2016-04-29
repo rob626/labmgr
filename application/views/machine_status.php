@@ -88,60 +88,26 @@
 						<input type='hidden' name='machine_id' value='".$machine['machine_id']."'>
 						<input type='submit' class='button tiny radius' value='".$machine['ip_address']."'></form></td>";
 
-						foreach($rooms as $room_key => $room_value) {
-							if($room_value['room_id'] == $machine['room_id']) {
-								echo "<td>". $room_value['name'] ."</td>";
-							} else {
-								//echo "<td></td>";
-							}
-						}
+						echo "<td>".$this->room_model->get_room($machine['room_id'])[0]['name']."</td>";
 						echo "<td>". $machine['seat'] ."</td>";
-
 						echo "<td id='status_".$counter."'><span class='button tiny radius alert-box secondary'>...</span></td>";
 						echo "<td id='disk_usage_".$counter."'><span class='button tiny radius alert-box secondary'>...</span></td>";
-						
-						echo "</td>";
-						echo "<td id='torrent_seeds_".$counter."'>";
-							
-						echo "</td>";
-						
+						echo "<td id='torrent_seeds_".$counter."'></td>";
 						echo "<td id='torrent_size_".$counter."'>0</td>";
-
-						// echo "<td>". " - " ."</td>";  // Lab Dirs
-						echo "<td id='lab_directories_".$counter."'>-";	// Lab Dirs
-						echo "</td>";
-
-						echo "<td id='vm_count_".$counter."'> ... ";  // VM count
-						echo "</td>";
-
-						//echo "<td><a href='#' id='".$machine['machine_id']."' class='reboot_btn button tiny radius'>Reboot</a></td>";
-						/*echo "<td><form method='POST' action='/labmgr/reboot_machine'>
-						<input type='hidden' name='machine_id' value='".$machine['machine_id']."'>
-						<input type='submit' class='button tiny radius' value='Reboot'></form></td>";
-						
-						echo "<td><form method='POST' action='/labmgr/shutdown_machine'>
-						<input type='hidden' name='machine_id' value='".$machine['machine_id']."'>
-						<input type='submit' class='button tiny radius' value='Shutdown'></form></td>";
-						*/
+						echo "<td id='lab_directories_".$counter."'>-</td>";	// Lab Dirs
+						echo "<td id='vm_count_".$counter."'> ... </td>";  // VM count
 						echo "<td><a class='button tiny radius ssh_machine_btn' id='".$machine['machine_id']."' href='#'>SSH</a></td>";
 						echo "<td><a class='button tiny radius view_log_btn' id='".$machine['machine_id']."' href='#'>WD Log</a></td>";
 						echo "<td><a target='_blank' class='button tiny radius' href='http://".$machine['username'].":".$machine['password']."@".$machine['ip_address'].":27555/gui/'>WebUI</a></td>";
 
-						echo "<td><input class='checkbox' type='checkbox' name='machine_ids[]' value='".$machine['machine_id']."'></td>";/*"<td>
-						<form method='POST' action='/labmgr/delete_machine'>
-						<input type='hidden' name='machine_id' value='".$machine['machine_id']."'>
-						<input type='submit' class='button tiny radius alert' value='Delete'></form>
-						</td>";*/
+						echo "<td><input class='checkbox' type='checkbox' name='machine_ids[]' value='".$machine['machine_id']."'></td>";
 						echo "</tr>";
 						$counter++;
-
 					}
 					echo "<span id='status_total' style='display:none;'>".$counter."</span>";
-
 				}
 				?>
 
-			
 			</tbody>
 		</table>
 	</div>
