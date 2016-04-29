@@ -80,8 +80,10 @@ class Torrent_model extends CI_Model {
 	    	$result = $result->result_array();
 
 	    	if(isset($result[0]['torrent_id'])) {
+	    		$this->logging->lwrite("NOT adding ".$torrent_name." (hash ".$hash.") as it appears to already exit");
 	    		return $result[0]['torrent_id'];
 	    	} else {
+	    		$this->logging->lwrite("Adding ".$torrent_name." (hash ".$hash.")");
 	    		$data = array(
 					'name' => $torrent_name,
 					'hash' => $hash,
@@ -97,9 +99,35 @@ class Torrent_model extends CI_Model {
 	    
 
 	    /**
-	     * Delete a torrent
+	     * Delete a torrent from the DB.  Also move the torrent file (or folder) to the
+	     * archive folder.
 	     */
 	    public function delete_torrent($torrent_id) {
+	    	// make sure the torrents/archive directory exists
+			if (!is_dir(TORRENT_UPLOAD_DIR."archive")) {
+				mkdir(TORRENT_UPLOAD_DIR."archive");
+			}
+
+			$t = $this->torrent_model->get_torrent($torrent_id);
+			$troot = basename(TORRENT_UPLOAD_DIR);  // this should be 'torrents'
+			$tpath = $t[0]['path'];
+			
+			if (($pos = strpos($tpath, $troot)) !== FALSE) { 
+    			$tpath_after_root = substr($tpath, $pos + strlen($troot) + 1); // should be path after torrents folder
+    			$tpath_after_root_dir = dirname($tpath_after_root);  // should be the unique folder name
+			}
+
+			if ($tpath_after_root_dir == ".") {
+				// in case there is not unique folder name between 'torrents' and the torrent file
+				$this->logging->lwrite("Moving ".TORRENT_UPLOAD_DIR.$tpath_after_root." to ".TORRENT_UPLOAD_DIR."archive/".basename($tpath));
+				rename(TORRENT_UPLOAD_DIR.$tpath_after_root, TORRENT_UPLOAD_DIR."archive/".basename($tpath));
+			} else {
+				// move the whole folder to the archive directory
+				$this->logging->lwrite("Moving ".TORRENT_UPLOAD_DIR.$tpath_after_root_dir." to ".TORRENT_UPLOAD_DIR."archive/".$tpath_after_root_dir);
+				rename(TORRENT_UPLOAD_DIR.$tpath_after_root_dir, TORRENT_UPLOAD_DIR."archive/".$tpath_after_root_dir);
+			}
+
+			// remove the torrent entry from the db
 	    	$this->db->trans_start();
 	    	$this->db->where('torrent_id', $torrent_id);
 	    	$this->db->delete('torrent');
