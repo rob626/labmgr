@@ -19,15 +19,19 @@
 					<label>Room</label>
 					<select id='room_filter_register_machine' name="room_id">
 						<option value='-1'>Select Room</option>
-						<?php foreach ($rooms as $room) { 
+						<?php 
+							usort($rooms, function($a, $b) {
+							    return strcasecmp(trim($a['name']), trim($b['name']));
+							});
+							foreach ($rooms as $room) { 
 
-							if($current_room == $room['room_id']) {
-								echo "<option selected value='" . $room['room_id']."'>" . $room['name'] ."</option>";
+								if($current_room == $room['room_id']) {
+									echo "<option selected value='" . $room['room_id']."'>" . $room['name'] ."</option>";
 
-							} else {
-								echo "<option value='" . $room['room_id']."'>" . $room['name'] ."</option>";
+								} else {
+									echo "<option value='" . $room['room_id']."'>" . $room['name'] ."</option>";
 
-							}
+								}
 						 } ?>
 					</select> 
 				</div>

@@ -15,6 +15,9 @@
 			<label>Room</label>
 			<?php echo "<select name='room_id'>
 					<option>Select Room</option>";
+					usort($rooms, function($a, $b) {
+					    return strcasecmp(trim($a['name']), trim($b['name']));
+					});
 					foreach ($rooms as $room) {
 						if($room['room_id'] == $machines[0]['room_id']) {
 							echo "<option selected value='".$room['room_id']."'>".$room['name']."</option>";

@@ -10,7 +10,11 @@
 				<select id='room_filter_machine_status' name="room_id">
 					<option>Select Room</option>
 					<option value='-1'>All Rooms</option>
-					<?php foreach ($rooms as $room) { ?>
+					<?php 
+					usort($rooms, function($a, $b) {
+					    return strcasecmp(trim($a['name']), trim($b['name']));
+					});
+					foreach ($rooms as $room) { ?>
 					<option value='<?php echo $room['room_id'] ?>'><?php echo $room['name'] ?> </option>
 					<?php } ?>
 				</select> 
