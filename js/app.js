@@ -1001,7 +1001,7 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
                     $.each(response.status, function(index, value) {
                         console.log(response);
 
-                        //console.log(response.disk_usage);
+                        console.log(response.disk_usage);
                         if (value.disk_usage == false || typeof(value.disk_usage) == 'undefined' || value.disk_usage == null || value.disk_usage == 'null') {
                             $('#disk_usage_'+ value.id).html("<span class='button tiny secondary radius'>--</span>") ;
                         } else {
@@ -1016,17 +1016,6 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
                             }  else {
                                 $('#disk_usage_'+ value.id).html("<span class='button tiny secondary radius'>"+value.disk_usage+"%</span>");
                             }
-                        }
-
-                        if(value.status == 'ONLINE') {
-                            if(value.mac_status == 'FALSE') {
-                                $('#status_'+ value.id).html("<span class='button warning tiny radius'>Online</span>");
-
-                            } else {
-                                $('#status_'+ value.id).html("<span class='button success tiny radius'>Online</span>");
-                            }
-                        } else {
-                            $('#status_'+ value.id).html("<span class='button tiny alert radius'>Offline</span>");
                         }
 
                         if(value.lab_directories > 0 ) {
@@ -1048,8 +1037,58 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
                 //console.log(jqXHR, textStatus, errorThrown);
             });
                 
-        }, 5000); 
+        }, 6000); 
     } 
+
+    //Get Ping Status
+    if($('#status_total').length > 0) {
+        setInterval(function() {
+            var status_total = $('#status_total').text();
+            var machines = [];
+
+            for(var status_id = 1; status_id < status_total; status_id++) {    
+                var ip = $('#machine_ip_'+ status_id).text();
+                var machine_mac = $('#machine_mac_'+status_id).text();
+                var machine = {
+                    id:status_id,
+                    mac_address:machine_mac,
+                    ip_address:ip,
+                    status:'' 
+                }
+                machines.push(machine);
+            } 
+
+            $.ajax({        
+                url: "/service/get_ping_status",
+                type: "get",
+                dataType: "json",
+                async: true,
+                data: {machines : machines}
+                }).done(function(response) {
+
+                    $.each(response.status, function(index, value) {
+                        console.log(response);
+
+                        //console.log(response.disk_usage);
+                        if(value.status == 'ONLINE') {
+                            if(value.mac_status == 'FALSE') {
+                                $('#status_'+ value.id).html("<span class='button warning tiny radius'>Online</span>");
+
+                            } else {
+                                $('#status_'+ value.id).html("<span class='button success tiny radius'>Online</span>");
+                            }
+                        } else {
+                            $('#status_'+ value.id).html("<span class='button tiny alert radius'>Offline</span>");
+                        }
+                    });
+
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                //alert("Error submitting data!");
+                //console.log(jqXHR, textStatus, errorThrown);
+            });
+                
+        }, 10000); 
+    }    
 
     function formatTime(strDate) {
         var date = new Date(strDate);

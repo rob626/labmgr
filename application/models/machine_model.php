@@ -193,19 +193,34 @@ class Machine_model extends CI_Model {
                 $machine['disk_usage'] = false;
                 $machine['lab_directories'] = 0;
                 $machine['lab_directory_list'] = "";
-                $machine['vm_count_list'] = "..";
                 $machine['vm_count'] = "..";
                 $machine['vm_process_count'] = "-";
                 if($machine['status'] == 'ONLINE') {
-                    $mac = shell_exec("arp -a " . $machine['ip_address'] . " | awk '{print $4}'");
-                    if(trim($machine['mac_address']) == trim($mac)) {
-                        $machine['mac_status'] = 'TRUE';
-                    } else {
-                        $machine['mac_status'] = 'FALSE';
-                        //echo "Validation Error! MAC in DB: " .$machine['mac_address']. " MAC from ARP: ".$mac." <br>";
+                    $machine_statuses = implode("\n", $this->get_machine_statuses($machine['ip_address'])['cmd_output']);
+                    //print_r($machine_statuses);
+                    $machine['disk_usage'] = $this->parse_string($machine_statuses, "===1===", "===2===");
+                    
+                    if(!empty($machine['disk_usage'])) {
+                        $pos = strrpos($machine['disk_usage'], "%");
+                        $machine['disk_usage'] = trim(substr($machine['disk_usage'], $pos-3,3));
+                    }
+                    
+                    $lab_dir_list = trim($this->parse_string($machine_statuses, "===2===", "===3==="));
+                    $machine['lab_directories'] = substr_count($lab_dir_list, "\n") + 1;
+                    $machine['lab_directory_list'] = "- " . str_replace("\n", "\n- ", $lab_dir_list);
+
+                    $machine['running_vm_list'] = trim($this->parse_string($machine_statuses, "===3===", "===4==="));
+                    if(!empty($machine['running_vm_list'])) {
+                        $machine['running_vm_list'] = str_replace("\n", "\n- ", $machine['running_vm_list']);
+                        $machine['vm_count'] = substr_count($machine['running_vm_list'], "\n");
+                        $machine['vm_process_count'] = trim($this->parse_string($machine_statuses, "===4===", "===5==="));
+                    }
+                    
+                    if ($machine['vm_process_count'] == 0) {
+                        $machine['vm_count'] = "-";
                     }
 
-                    if(!empty($this->disk_usage($machine['ip_address'])['cmd_output'][1])){
+                    /*if(!empty($this->disk_usage($machine['ip_address'])['cmd_output'][1])){
                         $machine['disk_usage'] = $this->disk_usage($machine['ip_address'])['cmd_output'][1];
                     }
                     
@@ -227,12 +242,31 @@ class Machine_model extends CI_Model {
                     
                     if ($machine['vm_process_count'] == 0) {
                         $machine['vm_count'] = "-";
-                    }
+                    } */
                 }
 
                 array_push($updated_machines, $machine);
 	    	}
+            //print_r($updated_machines);
 	    	return $updated_machines;
+    }
+
+    public function just_ping_test_arr($machines) {
+        $updated_machines = array();
+            foreach($machines as $machine) {
+                $machine['status'] = $this->ping_test($machine['ip_address']);
+                if($machine['status'] == 'ONLINE') {
+                    $mac = shell_exec("arp -a " . $machine['ip_address'] . " | awk '{print $4}'");
+                    if(trim($machine['mac_address']) == trim($mac)) {
+                        $machine['mac_status'] = 'TRUE';
+                    } else {
+                        $machine['mac_status'] = 'FALSE';
+                        //echo "Validation Error! MAC in DB: " .$machine['mac_address']. " MAC from ARP: ".$mac." <br>";
+                    }
+                }
+                array_push($updated_machines, $machine);
+            }
+            return $updated_machines;
     }
 
     /**
@@ -246,6 +280,30 @@ class Machine_model extends CI_Model {
 		} else {
 		   return "OFFLINE";
 		} 
+    }
+
+    /**
+     * Get statuses 1 - disk usage, 2 - lab dirs, 3 - vm-running, 4 - vm-processes 
+     */
+    public function get_machine_statuses($ip) {
+        //echo "Sending shutdown command to: ".$ip;
+        $output = array(
+            'status' => "Sending shutdown command to: ".$ip,
+            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $ip . ' "echo ===1===; df -h; echo ===2===; find /cygdrive/c/Labs/*  -maxdepth 0 -type d ; echo ===3===; vmrun -T ws list; echo ===4===; ps -eW | grep -i vmware.exe | wc -l; echo ===5==="', $cmd_output, $exit_status),
+            'cmd_output' => $cmd_output,
+            'exit_status' => $exit_status
+            );
+
+        return $output;
+    }
+
+    public function parse_string($string, $start, $end) {
+        $string = ' ' . $string;
+        $ini = strpos($string, $start);
+        if ($ini == 0) return '';
+        $ini += strlen($start);
+        $len = strpos($string, $end, $ini) - $ini;
+        return substr($string, $ini, $len);
     }
 
     /**
