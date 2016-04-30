@@ -909,8 +909,12 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
             });
     });
 
-    if($('#torrent_seeds_1').length > 0) {
-        setInterval(function() { 
+    update_torrent_status();
+    setInterval(function () { update_torrent_status() }, 20000);
+
+    // Get Machine Status
+    function update_torrent_status() {
+        if($('#torrent_seeds_1').length > 0) {
             var status_total = $('#status_total').text();
             var machines = [];
             for(var status_id = 1; status_id < status_total; status_id++) {    
@@ -968,13 +972,15 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
                     //alert("Error submitting data!");
                     console.log(jqXHR, textStatus, errorThrown);
                 });
-
-            }, 10000); 
+            }
     }
 
-    //Get Machine Status
-    if($('#status_total').length > 0) {
-        setInterval(function() {
+    update_machine_status();
+    setInterval(function () { update_machine_status() }, 60000);
+
+    // Get Machine Status
+    function update_machine_status() {
+        if($('#status_total').length > 0) {
             var status_total = $('#status_total').text();
             var machines = [];
 
@@ -1035,14 +1041,16 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 //alert("Error submitting data!");
                 //console.log(jqXHR, textStatus, errorThrown);
-            });
-                
-        }, 6000); 
-    } 
+            });       
+        }
+    }
+
+    update_ping_status();
+    setInterval(function () { update_ping_status() }, 10000);
 
     //Get Ping Status
-    if($('#status_total').length > 0) {
-        setInterval(function() {
+    function update_ping_status() {
+        if($('#status_total').length > 0) {
             var status_total = $('#status_total').text();
             var machines = [];
 
@@ -1086,9 +1094,8 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
                 //alert("Error submitting data!");
                 //console.log(jqXHR, textStatus, errorThrown);
             });
-                
-        }, 10000); 
-    }    
+        }
+    }
 
     function formatTime(strDate) {
         var date = new Date(strDate);
