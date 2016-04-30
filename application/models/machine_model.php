@@ -219,30 +219,6 @@ class Machine_model extends CI_Model {
                     if ($machine['vm_process_count'] == 0) {
                         $machine['vm_count'] = "-";
                     }
-
-                    /*if(!empty($this->disk_usage($machine['ip_address'])['cmd_output'][1])){
-                        $machine['disk_usage'] = $this->disk_usage($machine['ip_address'])['cmd_output'][1];
-                    }
-                    
-                    if(!empty($machine['disk_usage'])) {
-                        $pos = strrpos($machine['disk_usage'], "%");
-                        $machine['disk_usage'] = substr($machine['disk_usage'], $pos-3,3);
-                    }
-
-                    $lab_dir_list = $this->lab_directories($machine['ip_address']);
-                    $machine['lab_directories'] = count($lab_dir_list['cmd_output']);
-                    $machine['lab_directory_list'] = "- " . implode("\n- ", $lab_dir_list['cmd_output']);
-
-                    $machine['vm_count_list'] = $this->vm_count_list($machine['ip_address']);
-                    if(!empty($machine['vm_count_list']['cmd_output'][0])) {
-                        $machine['vm_count'] = preg_replace('/\D/', '', $machine['vm_count_list']['cmd_output'][0]);
-                        $machine['vm_process_count'] = $this->vm_processes($machine['ip_address'])['cmd_output'][0];
-                        $machine['running_vm_list'] = implode("\n-  ", $machine['vm_count_list']['cmd_output']);
-                    }
-                    
-                    if ($machine['vm_process_count'] == 0) {
-                        $machine['vm_count'] = "-";
-                    } */
                 }
 
                 array_push($updated_machines, $machine);
