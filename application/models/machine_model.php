@@ -237,7 +237,7 @@ class Machine_model extends CI_Model {
         }
 
         // get a list of machines NOT online (-u only lists those not connected)
-        $output = exec("fping -r 0 -t500 -u ".$machine_list, $cmd_output, $exit_status);
+        $output = shell_exec('fping -r 0 -t500 -u ' . $machine_list);
 
         foreach($machines as $machine) {
             if (strpos($output, $machine['ip_address']) !== false) {
