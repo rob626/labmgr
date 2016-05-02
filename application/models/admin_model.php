@@ -233,7 +233,7 @@ class Admin_model extends CI_Model {
                 shell_exec("ping -c 1 " . $machine['ip_address']);
                 $arp_mac = shell_exec("arp -a " . $machine['ip_address'] . " | awk '{print $4}'");
             
-                if(trim($machine['mac_address']) == trim($mac_arp)) {
+                if(strcasecmp(trim($machine['mac_address']), trim($mac_arp)) == 0) {
                     //echo "They match";
                 } else {
                     $output[] = "Validation Error! MAC in DB: " .$machine['mac_address']. " MAC from ARP: ".$mac." <br>";
