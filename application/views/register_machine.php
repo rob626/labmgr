@@ -24,7 +24,6 @@
 							    return strcasecmp(trim($a['name']), trim($b['name']));
 							});
 							foreach ($rooms as $room) { 
-
 								if($current_room == $room['room_id']) {
 									echo "<option selected value='" . $room['room_id']."'>" . $room['name'] ."</option>";
 
