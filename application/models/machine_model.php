@@ -188,8 +188,8 @@ class Machine_model extends CI_Model {
 
     public function ping_test_arr($machines) {
     	$updated_machines = array();
+            $machines = $this->just_ping_test($machines);
 	    	foreach($machines as $machine) {
-	    		$machine['status'] = $this->ping_test($machine['ip_address']);
                 $machine['disk_usage'] = false;
                 $machine['lab_directories'] = 0;
                 $machine['lab_directory_list'] = "";
@@ -227,7 +227,7 @@ class Machine_model extends CI_Model {
 	    	return $updated_machines;
     }
 
-    public function just_ping_test_arr($machines) {
+    public function just_ping_test($machines) {
         $updated_machines = array();
         $machine_list = "";
 
@@ -256,23 +256,6 @@ class Machine_model extends CI_Model {
         }
 
         return $updated_machines;
-/*
-        $updated_machines = array();
-
-        foreach($machines as $machine) {
-            $machine['status'] = $this->ping_test($machine['ip_address']);
-            if($machine['status'] == 'ONLINE') {
-                $mac = shell_exec("arp -a " . $machine['ip_address'] . " | awk '{print $4}'");
-                if(trim($machine['mac_address']) == trim($mac)) {
-                    $machine['mac_status'] = 'TRUE';
-                } else {
-                    $machine['mac_status'] = 'FALSE';
-                    //echo "Validation Error! MAC in DB: " .$machine['mac_address']. " MAC from ARP: ".$mac." <br>";
-                }
-            }
-            array_push($updated_machines, $machine);
-        }
-        return $updated_machines; */
     }
 
     /**

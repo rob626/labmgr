@@ -124,7 +124,7 @@ class Service extends CI_Controller {
 
 	public function get_ping_status() {
 		$devices = $this->input->get('machines');
-		$data['status'] = $this->machine_model->just_ping_test_arr($devices);
+		$data['status'] = $this->machine_model->just_ping_test($devices);
 		echo json_encode($data);
 	}	
 
