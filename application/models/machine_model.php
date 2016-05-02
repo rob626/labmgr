@@ -228,7 +228,7 @@ class Machine_model extends CI_Model {
     }
 
     public function just_ping_test($machines) {
-        $updated_machines = array();
+        //$updated_machines = array();
         $chunk_size = 20;
         $current = 0;
         $machine_count = count($machines);
@@ -249,30 +249,32 @@ class Machine_model extends CI_Model {
             // get a list of machines NOT online (-u only lists those not connected)
             $output = shell_exec('fping -r 0 -t500 -u ' . $machine_list);
 
-            foreach($machines as $machine) {
-                if (strpos($output, $machine['ip_address']) !== false) {
-                   $machine['status'] = "OFFLINE";
+            for ($i = $current; $i < $max; $i++) {
+                if (strpos($output, $machines[$i]['ip_address']) !== false) {
+                   $machines[$i]['status'] = "OFFLINE";
+                   $machines[$i]['mac_status'] = 'FALSE';
                 } else {
-                    $machine['status'] =  "ONLINE";
-                    $mac = shell_exec("arp -a " . $machine['ip_address'] . " | awk '{print $4}'");
-                    if(strcasecmp(trim($machine['mac_address']), trim($mac)) == 0 ) {
-                        $machine['mac_status'] = 'TRUE';
+                    $machines[$i]['status'] =  "ONLINE";
+                    $mac = shell_exec("arp -a " . $machines[$i]['ip_address'] . " | awk '{print $4}'");
+                    if(strcasecmp(trim($machines[$i]['mac_address']), trim($mac)) == 0 ) {
+                        $machines[$i]['mac_status'] = 'TRUE';
                     } else {
-                        $machine['mac_status'] = 'FALSE';
+                        $machines[$i]['mac_status'] = 'FALSE';
                         //echo "Validation Error! MAC in DB: " .$machine['mac_address']. " MAC from ARP: ".$mac." <br>";
                     }
-                    $this->logging->lwrite("checking ".$machine['ip_address']
-                        ." status: ".$machine['status']
-                        ." mac_status: ".$machine['mac_status']
-                        ." arp mac: ".trim($mac)
-                        ." db mac: ".trim($machine['mac_address']));
                 }
-                array_push($updated_machines, $machine);
+                $this->logging->lwrite("checking ".$machines[$i]['ip_address']
+                        ." status: ".$machines[$i]['status']
+                        ." mac_status: ".$machines[$i]['mac_status']
+                        ." arp mac: ".trim($mac)
+                        ." db mac: ".trim($machines[$i]['mac_address']));
+
+                //array_push($updated_machines, $machine);
             }
             $current += $chunk_size;
         }
         //print_r($updated_machines);
-        return $updated_machines;
+        return $machines;
     }
 
     /**
