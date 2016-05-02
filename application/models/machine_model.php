@@ -249,15 +249,19 @@ class Machine_model extends CI_Model {
             for ($i = $current; $i < $max; $i++) {
                 if (strpos($output, $machines[$i]['ip_address']) !== false) {
                    $machines[$i]['status'] = "OFFLINE";
-                   $machines[$i]['mac_status'] = 'FALSE';
+                    if (array_key_exists('mac_address', $machines[$i])) {
+                        $machines[$i]['mac_status'] = 'FALSE';
+                    }
                 } else {
                     $machines[$i]['status'] =  "ONLINE";
-                    $mac = shell_exec("arp -a " . $machines[$i]['ip_address'] . " | awk '{print $4}'");
-                    if(strcasecmp(trim($machines[$i]['mac_address']), trim($mac)) == 0 ) {
-                        $machines[$i]['mac_status'] = 'TRUE';
-                    } else {
-                        $machines[$i]['mac_status'] = 'FALSE';
-                        //echo "Validation Error! MAC in DB: " .$machine['mac_address']. " MAC from ARP: ".$mac." <br>";
+                    if (array_key_exists('mac_address', $machines[$i])) {
+                        $mac = shell_exec("arp -a " . $machines[$i]['ip_address'] . " | awk '{print $4}'");
+                        if(strcasecmp(trim($machines[$i]['mac_address']), trim($mac)) == 0 ) {
+                            $machines[$i]['mac_status'] = 'TRUE';
+                        } else {
+                            $machines[$i]['mac_status'] = 'FALSE';
+                            //echo "Validation Error! MAC in DB: " .$machine['mac_address']. " MAC from ARP: ".$mac." <br>";
+                        }
                     }
                 }
             }

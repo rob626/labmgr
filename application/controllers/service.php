@@ -190,7 +190,9 @@ class Service extends CI_Controller {
 	}
 	public function get_torrent_status() {
 		$machines = $this->input->get('machines');
+		//print_r($machines);
 		$machines = $this->machine_model->just_ping_test($machines);
+		//print_r($machines);
 
 		foreach($machines as $key => $machine) {
 			if($machine['status'] == 'ONLINE') {
@@ -199,8 +201,8 @@ class Service extends CI_Controller {
 				$torrent_data = $this->makeRequest($machine['ip_address'], '27555', $m['username'], $m['password'], '?list=1');
 				$machine['torrents'] = $torrent_data['torrents'];
 				$data['machines'][$key] = $machine;
-				}
 			}
+		}
 
 		echo json_encode($data);
 	}
