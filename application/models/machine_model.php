@@ -255,7 +255,7 @@ class Machine_model extends CI_Model {
                     ." status: ".$machine['status']
                     ." mac_status: ".$machine['mac_status']
                     ." arp mac: ".trim($mac)
-                    ." db mac: ".trim($machine['mac_address']);
+                    ." db mac: ".trim($machine['mac_address']));
             }
             array_push($updated_machines, $machine);
         }
