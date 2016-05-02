@@ -245,7 +245,7 @@ class Machine_model extends CI_Model {
             } else {
                 $machine['status'] =  "ONLINE";
                 $mac = shell_exec("arp -a " . $machine['ip_address'] . " | awk '{print $4}'");
-                if(trim($machine['mac_address']) == trim($mac)) {
+                if(strcasecmp(trim($machine['mac_address']), trim($mac)) == 0 ) {
                     $machine['mac_status'] = 'TRUE';
                 } else {
                     $machine['mac_status'] = 'FALSE';
