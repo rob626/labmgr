@@ -223,28 +223,24 @@ class Machine_model extends CI_Model {
 
                 array_push($updated_machines, $machine);
 	    	}
-            //print_r($updated_machines);
+
 	    	return $updated_machines;
     }
 
     public function just_ping_test($machines) {
-        //$updated_machines = array();
         $chunk_size = 20;
         $current = 0;
         $machine_count = count($machines);
-        //print_r($machines);
 
         while($current < $machine_count) {
             $machine_list = "";
             $max = $current + $chunk_size;
             if($max > $machine_count) $max = $machine_count;
-            //echo "machine_count: ".$machine_count." max: ".$max." current: ".$current;
 
             // build list of IP addresses to check
             for ($i = $current; $i < $max; $i++) {
                 $machine_list .= $machines[$i]['ip_address'] . " ";
             }
-            //echo "machine_list: ".$machine_list;
 
             // get a list of machines NOT online (-u only lists those not connected)
             $output = shell_exec('fping -r 0 -t500 -u ' . $machine_list);
@@ -263,17 +259,10 @@ class Machine_model extends CI_Model {
                         //echo "Validation Error! MAC in DB: " .$machine['mac_address']. " MAC from ARP: ".$mac." <br>";
                     }
                 }
-                $this->logging->lwrite("checking ".$machines[$i]['ip_address']
-                        ." status: ".$machines[$i]['status']
-                        ." mac_status: ".$machines[$i]['mac_status']
-                        ." arp mac: ".trim($mac)
-                        ." db mac: ".trim($machines[$i]['mac_address']));
-
-                //array_push($updated_machines, $machine);
             }
             $current += $chunk_size;
         }
-        //print_r($updated_machines);
+
         return $machines;
     }
 
