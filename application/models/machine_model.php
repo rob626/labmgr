@@ -229,20 +229,50 @@ class Machine_model extends CI_Model {
 
     public function just_ping_test_arr($machines) {
         $updated_machines = array();
-            foreach($machines as $machine) {
-                $machine['status'] = $this->ping_test($machine['ip_address']);
-                if($machine['status'] == 'ONLINE') {
-                    $mac = shell_exec("arp -a " . $machine['ip_address'] . " | awk '{print $4}'");
-                    if(trim($machine['mac_address']) == trim($mac)) {
-                        $machine['mac_status'] = 'TRUE';
-                    } else {
-                        $machine['mac_status'] = 'FALSE';
-                        //echo "Validation Error! MAC in DB: " .$machine['mac_address']. " MAC from ARP: ".$mac." <br>";
-                    }
+        $machine_list = "";
+
+        // build list of IP addresses to check
+        foreach($machines as $machine) {
+            $machine_list .= $machine['ip_address'] . " ";
+        }
+
+        // get a list of machines NOT online (-u only lists those not connected)
+        $output = exec("fping -r 0 -t500 -u ".$machine_list, $cmd_output, $exit_status);
+
+        foreach($machines as $machine) {
+            if (strpos($output, $machine['ip_address']) !== false) {
+               $machine['status'] = "OFFLINE";
+            } else {
+                $machine['status'] =  "ONLINE";
+                $mac = shell_exec("arp -a " . $machine['ip_address'] . " | awk '{print $4}'");
+                if(trim($machine['mac_address']) == trim($mac)) {
+                    $machine['mac_status'] = 'TRUE';
+                } else {
+                    $machine['mac_status'] = 'FALSE';
+                    //echo "Validation Error! MAC in DB: " .$machine['mac_address']. " MAC from ARP: ".$mac." <br>";
                 }
-                array_push($updated_machines, $machine);
             }
-            return $updated_machines;
+            array_push($updated_machines, $machine);
+        }
+
+        return $updated_machines;
+/*
+        $updated_machines = array();
+
+        foreach($machines as $machine) {
+            $machine['status'] = $this->ping_test($machine['ip_address']);
+            if($machine['status'] == 'ONLINE') {
+                $mac = shell_exec("arp -a " . $machine['ip_address'] . " | awk '{print $4}'");
+                if(trim($machine['mac_address']) == trim($mac)) {
+                    $machine['mac_status'] = 'TRUE';
+                } else {
+                    $machine['mac_status'] = 'FALSE';
+                    //echo "Validation Error! MAC in DB: " .$machine['mac_address']. " MAC from ARP: ".$mac." <br>";
+                }
+            }
+            array_push($updated_machines, $machine);
+        }
+        return $updated_machines; */
     }
 
     /**
