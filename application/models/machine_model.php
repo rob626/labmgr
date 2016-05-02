@@ -251,7 +251,7 @@ class Machine_model extends CI_Model {
                     $machine['mac_status'] = 'FALSE';
                     //echo "Validation Error! MAC in DB: " .$machine['mac_address']. " MAC from ARP: ".$mac." <br>";
                 }
-                $this->logging->lwrite("checking ".$machine['ip_address']." status: ".$machine['status']." arp mac: ".$mac." db mac: ".$machine['mac_address']);
+                $this->logging->lwrite("checking ".$machine['ip_address']." status: ".$machine['status']." mac_status: ".$machine['mac_status']." arp mac: ".$mac." db mac: ".$machine['mac_address']);
             }
             array_push($updated_machines, $machine);
         }
