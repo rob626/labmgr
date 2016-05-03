@@ -192,11 +192,11 @@ class Service extends CI_Controller {
 		$machines = $this->input->get('machines');
 		$this->logging->lwrite("getting torrent status");
 		//print_r($machines);
-		//$machines = $this->machine_model->just_ping_test($machines);
+		$machines = $this->machine_model->just_ping_test($machines);
 		//print_r($machines);
 
 		foreach($machines as $key => $machine) {
-			//if($machine['status'] == 'ONLINE') {
+			if($machine['status'] == 'ONLINE') {
 				$m = $this->machine_model->get_machine_ip($machine['ip_address']);
 				//print_r($m);
 				$this->logging->lwrite("looking at torrent data for ".$machine['ip_address']);
@@ -205,7 +205,7 @@ class Service extends CI_Controller {
 				$machine['torrents'] = $torrent_data['torrents'];
 				//print_r($machine['torrents']);
 				$data['machines'][$key] = $machine;
-			//}
+			}
 		}
 
 		echo json_encode($data);
