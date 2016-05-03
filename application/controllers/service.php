@@ -198,12 +198,12 @@ class Service extends CI_Controller {
 		foreach($machines as $key => $machine) {
 			if($machine['status'] == 'ONLINE') {
 				$m = $this->machine_model->get_machine_ip($machine['ip_address']);
-				print_r($m);
-				$this->logging->lwrite("looking at torrent data for ".$machine['ip_address']);
+				//print_r($m);
+				//$this->logging->lwrite("looking at torrent data for ".$machine['ip_address']);
 				$this->getToken($machine['ip_address'], '27555', $m['username'], $m['password']);
 				$torrent_data = $this->makeRequest($machine['ip_address'], '27555', $m['username'], $m['password'], '?list=1');
 				$machine['torrents'] = $torrent_data['torrents'];
-				print_r($machine['torrents']);
+				//print_r($machine['torrents']);
 				$data['machines'][$key] = $machine;
 			}
 		}
