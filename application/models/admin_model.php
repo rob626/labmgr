@@ -269,7 +269,7 @@ class Admin_model extends CI_Model {
                 
                 if(!empty($machine)) {
                     // Check to see if the entry in the DB for the MAC has the same IP address
-                    $this->logging->lwrite("- Found a possible match: "..print_r($machine, true));
+                    $this->logging->lwrite("- Found a possible match: ".print_r($machine, true));
                     if(trim($machine['ip_address']) == trim($ip)) {
                         // The IP address in the DB matches the IP address in the arp table, do nothing
                         $this->logging->lwrite("-- MATCH");
