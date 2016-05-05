@@ -251,14 +251,14 @@ class Admin_model extends CI_Model {
      * Return the machine information only if the IP address does not match
      */
     public function validate_mac($ip) {
-        $output = '';
+        // $output = '';
         // No need to ping... fping already called.  Check arp table.
         $arp_mac = shell_exec("arp -a " . $ip . " | awk '{print $4}'");
         
         if(!empty($arp_mac)) {
-            if(trim($arp_mac) != 'entries') {
+            if(trim($arp_mac) != 'entries' && trim($arp_mac) != '<incomplete>') {
                 $this->logging->lwrite("Checking ip (".$ip.") and seeing [".trim($arp_mac)."] in the arp table");
-                
+
                 // Found the IP address in the arp table.  Check the DB entry for the MAC address
                 $sql = "SELECT * FROM machine where mac_address = ?";
                 $result = $this->db->query($sql, trim($arp_mac));
@@ -277,7 +277,7 @@ class Admin_model extends CI_Model {
                         // The IP in the DB does not match, that means we have an IP address change
                         $machine['new_ip'] = $ip;
                         $machine['room_name'] = $this->room_model->get_room($machine['room_id'])[0]['name'];
-                        $output = "Validation Error! Room: ".$machine['room_name']." Seat: ".$machine['seat']." MAC:" .$machine['mac_address']. " Old IP: ".$machine['ip_address']." New IP: ".$ip." <br>";
+                        //$output = "Validation Error! Room: ".$machine['room_name']." Seat: ".$machine['seat']." MAC:" .$machine['mac_address']. " Old IP: ".$machine['ip_address']." New IP: ".$ip." <br>";
                         $this->logging->lwrite("Validation Error! Room: ".$machine['room_name']." Seat: ".$machine['seat']." MAC:" .$machine['mac_address']. " Old IP: ".$machine['ip_address']." New IP: ".$ip);
                         return $machine;
                     }
