@@ -269,16 +269,16 @@ class Admin_model extends CI_Model {
                 
                 if(!empty($machine)) {
                     // Check to see if the entry in the DB for the MAC has the same IP address
-                    $this->logging->lwrite("Found a possible match: ".$machine);
+                    $this->logging->lwrite("- Found a possible match: "..print_r($machine, true));
                     if(trim($machine['ip_address']) == trim($ip)) {
                         // The IP address in the DB matches the IP address in the arp table, do nothing
-                        $this->logging->lwrite("MATCH");
+                        $this->logging->lwrite("-- MATCH");
                     } else {
                         // The IP in the DB does not match, that means we have an IP address change
                         $machine['new_ip'] = $ip;
                         $machine['room_name'] = $this->room_model->get_room($machine['room_id'])[0]['name'];
                         //$output = "Validation Error! Room: ".$machine['room_name']." Seat: ".$machine['seat']." MAC:" .$machine['mac_address']. " Old IP: ".$machine['ip_address']." New IP: ".$ip." <br>";
-                        $this->logging->lwrite("Validation Error! Room: ".$machine['room_name']." Seat: ".$machine['seat']." MAC:" .$machine['mac_address']. " Old IP: ".$machine['ip_address']." New IP: ".$ip);
+                        $this->logging->lwrite("-- MISMATCH! Room: ".$machine['room_name']." Seat: ".$machine['seat']." MAC:" .$machine['mac_address']. " Old IP: ".$machine['ip_address']." New IP: ".$ip);
                         return $machine;
                     }
                 }
