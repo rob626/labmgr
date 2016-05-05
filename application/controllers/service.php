@@ -190,7 +190,7 @@ class Service extends CI_Controller {
 	}
 	public function get_torrent_status() {
 		$machines = $this->input->get('machines');
-		$this->logging->lwrite("getting torrent status");
+		//$this->logging->lwrite("getting torrent status");
 		//print_r($machines);
 		$machines = $this->machine_model->just_ping_test($machines);
 		//print_r($machines);

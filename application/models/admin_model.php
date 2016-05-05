@@ -256,6 +256,7 @@ class Admin_model extends CI_Model {
         $arp_mac = shell_exec("arp -a " . $ip . " | awk '{print $4}'");
         
         if(!empty($arp_mac)) {
+            $this->logging->lwrite("Checking ip (".$ip.") and seeing [".$arp_mac."] in the arp table");
             if(trim($arp_mac) != 'entries') {
                 // Found the IP address in the arp table.  Check the DB entry for the MAC address
                 $sql = "SELECT * FROM machine where mac_address = ?";
@@ -267,8 +268,10 @@ class Admin_model extends CI_Model {
                 
                 if(!empty($machine)) {
                     // Check to see if the entry in the DB for the MAC has the same IP address
+                    $this->logging->lwrite("Found a possible match: ".$machine);
                     if(trim($machine['ip_address']) == trim($ip)) {
                         // The IP address in the DB matches the IP address in the arp table, do nothing
+                        $this->logging->lwrite("MATCH");
                     } else {
                         // The IP in the DB does not match, that means we have an IP address change
                         $machine['new_ip'] = $ip;
@@ -278,6 +281,7 @@ class Admin_model extends CI_Model {
                         return $machine;
                     }
                 }
+            } else {
             }
         }
     }
