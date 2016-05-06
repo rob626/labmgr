@@ -615,8 +615,6 @@ class Machine_model extends CI_Model {
             $seats[] = $machine['seat'];
         }
 
-        //echo "Seats - " .$seats[]."<br>";
-
         $dupes = array();
         $misses = array();
         $missing_seats="";
@@ -624,35 +622,71 @@ class Machine_model extends CI_Model {
         if(!empty($seats)) {
             for($i = 1; $i <= max($seats); $i++) {  // look to see if possible seats 1..max in the list
                 $this_seat_count=0; // start by assuming seat is not there
-                //if($seats[$i]=="") {echo "breaking2<br>"; break;}
 
-                //echo "Count for room : " .count($seats)." ON Element: " .$i." Seats value: " . $seats[$i] . " (max=" . max($seats) .", count)<br>";
-                
                 for($j = 0; $j < count($seats); $j++) { // loop through list of seats and count instances of this seat
                     if($i == $seats[$j]) $this_seat_count++;
                 }
-                //echo "For Element: " .$i." Seats value: " . $seats[$i] . " (max=" . max($seats) .", count ".$this_seat_count. ")<br>";
 
                 if($this_seat_count==0) {
                     $misses[] = $i;
-                    //$missing_seats.=" $i, ";
                 }
                 if($this_seat_count>1) {
                     for($j = 1; $j< $this_seat_count; $j++) {
                         $dupes[] = $i;
                     }
-                    //$duplicate_seats.=" $i (".$this_seat_count."), ";
                 }
             }
         }
         $output['missing_seats'] = $misses;
         $output['duplicates'] = $dupes;
 
-        //echo "Missing - " .$missing_seats."<br>";
-        //echo "Duplicate - " .$duplicate_seats."<br>";
-
         return $output;
 
     }
 
+    /**
+     * See if there are any duplicate IP addresses or MAC addresses
+     */
+    public function machine_duplicates() {
+        $output = array();
+        $machines_mac = array();
+        $machines_ip = array();
+
+        $this->logging->lwrite("Checking for duplicate machines (ip and mac addresses)");
+
+        $q = "SELECT ip_address, COUNT(*) c FROM machine GROUP BY ip_address HAVING c > 1";
+        $ip_results = $this->db->query($q);
+        $ip_results = $ip_results->result_array();
+
+        $q = "SELECT mac_address, COUNT(*) c FROM machine GROUP BY mac_address HAVING c > 1";
+        $mac_results = $this->db->query($q);
+        $mac_results = $mac_results->result_array();
+
+        $count = 0;
+        foreach($ip_results as $result) {
+            $this->logging->lwrite("- IP address: ".$result['ip_address']." count: ".$result['c']);
+            $q = "SELECT * FROM machine where ip_address = ?";
+            $result = $this->db->query($q, trim($result['ip_address']));
+            $machines_dup_ip = $result->result_array();
+            $ip_results[$count]['machines'] = $machines_dup_ip;
+            //print_r($machines_dup_ip);
+            $count++;
+        }
+
+        $count = 0;
+        foreach($mac_results as $result) {
+            $this->logging->lwrite("Mac address: ".$result['mac_address']." count: ".$result['c']);
+            $q = "SELECT * FROM machine where mac_address = ?";
+            $result = $this->db->query($q, trim($result['mac_address']));
+            $machines_dup_mac = $result->result_array();
+            $mac_results[$count]['machines'] = $machines_dup_mac;
+            //print_r($machines_dup_mac);
+            $count++;
+        }
+
+        $output['duplicate_ips'] = $ip_results;
+        $output['duplicate_macs'] = $mac_results;
+
+        return $output;
+    }
 }

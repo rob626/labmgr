@@ -666,12 +666,16 @@ class Service extends CI_Controller {
 				$max = $to_long+1;
 			}
 
-			// fping the next chunck
-			shell_exec("fping -r 0 -t500 -q -g ".long2ip($current)." " . long2ip($max));
+			// fping the next chunck, get a list of only online systems
+			$reachable = shell_exec("fping -r 0 -t500 -a -g ".long2ip($current)." " . long2ip($max));
 			
-			// validate each ip address in that chunck range
+			// validate each online ip address in that chunck range
+			$this->logging->lwrite("- reachable systems (".long2ip($current)."-".long2ip($max)."): ".$reachable);
 			for($i = $current; $i <= $max; $i++) {
-				$output[] = $this->admin_model->validate_mac(long2ip($i));
+				if (strpos($reachable, long2ip($i)) !== false) {
+					$this->logging->lwrite("- checking online system: ".long2ip($i));
+					$output[] = $this->admin_model->validate_mac(long2ip($i));
+				}
 			}
 
 			$current += $chunk_size;
