@@ -9,7 +9,10 @@
 			<div class="panel callout radius">
 				<h3>Machine Duplicates</h3>
 				<p>This function searches the database for instances of duplicate IP addresses
-					and duplicate MAC addresses.
+					and duplicate MAC addresses.<br><br>
+					Typically, there should be no duplicates.  If there are, it is a good idea to use 
+					the <b>Machines &gt Manage Machines</b> page to remove the duplicate entry(s) which is 
+					not correct.
 				</p>
 			</div>
 		</div>
