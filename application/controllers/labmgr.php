@@ -822,8 +822,9 @@ class Labmgr extends MY_Controller {
 		}
 	}
 
-		/**
+	/**
 	 * Add a script.
+	 * a,b,c;
 	 */
 	public function add_vm() {
 		

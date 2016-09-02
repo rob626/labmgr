@@ -10,6 +10,7 @@ class Admin extends CI_Controller {
 		$this->load->model('conference_model');
 		$this->load->model('server_model');
 		$this->load->model('twitter_model');
+		$this->load->model('global_defaults_model', 'gdm');
 	}
 
 	public function index()
@@ -25,8 +26,55 @@ class Admin extends CI_Controller {
 
 	public function set_global_defaults() 
 	{
-		$this->load->template('/admin/set_global_defaults');
+		if($_SERVER['REQUEST_METHOD'] === 'POST') {
+			$this->load->template('/admin/set_global_defaults', $data);
+		} else {
+			$data['defaults'] = $this->gdm->get_global_defaults();
+			$this->load->template('/admin/set_global_defaults', $data);
+		}
+		//$this->load->template('/admin/set_global_defaults');
 	}
+
+	/**
+	 * Delete a conference.
+	 */
+	public function delete_default() {
+		$retval = $this->gdm->delete_global_default(
+			$this->input->post('default_id')
+			);
+		if($retval) {
+			redirect('/admin/set_global_defaults');
+		} else {
+			echo "DB Error";
+		}
+	}
+
+	/**
+	 * Edit a global default
+	 */
+	public function edit_global_default() {
+		$default_id = $this->input->post("default_id");
+		$data['global_default'] = $this->gdm->get_global_default($default_id);
+		$this->load->template('/admin/edit_global_default', $data);
+	}
+
+	/**
+	 * Save changes made to a global default
+	 */
+	public function save_global_default_edits() {
+		$retval = $this->admin_model->update_global_default(
+			$this->input->post('default_id'), 
+			$this->input->post('name'), 
+			$this->input->post('value')
+			);
+		if($retval) {
+			redirect('/admin/add_global_default');
+		} else {
+			echo "DB Error";
+		}
+	}
+
+
 
 	public function fix_macs() {
 		if($_SERVER['REQUEST_METHOD'] === 'POST') {
