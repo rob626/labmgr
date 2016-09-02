@@ -3,7 +3,7 @@
 </div> 
 
 <div class='large-10 columns'>
-	<form method='POST' action='/admin/set_global_defaults'>
+	
 		<div class='row'>
 			<br>
 			<div class="panel callout radius">
@@ -40,13 +40,13 @@
 							echo "<td>".$default['value']."</td>";
 							echo "<td>".$default['create_timestamp']."</td>";
 							echo "<td>".$default['last_update_timestamp']."</td>";
-							echo "<td><form method='POST' action='/admin/edit_default'>
+							echo "<td><form method='POST' action='/admin/edit_global_default'>
 							<input type='hidden' name='default_id' value='".$default['default_id']."'>
 							<input type='submit' class='button tiny radius' value='Edit'>
 							</form></td>";
 
 
-							echo "<td><form method='POST' action='/admin/delete_default'>
+							echo "<td><form method='POST' action='/admin/delete_global_default'>
 							<input type='hidden' name='default_id' value='".$default['default_id']."'>
 							<input type='submit' class='button tiny radius alert' value='Delete'>
 							</form>
@@ -58,6 +58,6 @@
 				</tbody>
 			</table>
 		</div>
-	</form>
+	
 	</div>
 </div>

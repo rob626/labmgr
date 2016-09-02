@@ -36,9 +36,9 @@ class Admin extends CI_Controller {
 	}
 
 	/**
-	 * Delete a conference.
+	 * Delete a global default.
 	 */
-	public function delete_default() {
+	public function delete_global_default() {
 		$retval = $this->gdm->delete_global_default(
 			$this->input->post('default_id')
 			);
@@ -54,7 +54,7 @@ class Admin extends CI_Controller {
 	 */
 	public function edit_global_default() {
 		$default_id = $this->input->post("default_id");
-		$data['global_default'] = $this->gdm->get_global_default($default_id);
+		$data['defaults'] = $this->gdm->get_global_default($default_id);
 		$this->load->template('/admin/edit_global_default', $data);
 	}
 
