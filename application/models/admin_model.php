@@ -251,35 +251,83 @@ class Admin_model extends CI_Model {
      * Return the machine information only if the IP address does not match
      */
     public function validate_mac($ip) {
-        $output = '';
+        // $output = '';
         // No need to ping... fping already called.  Check arp table.
         $arp_mac = shell_exec("arp -a " . $ip . " | awk '{print $4}'");
+        $this->logging->lwrite("Checking ip (".$ip.") and seeing [".trim($arp_mac)."] in the arp table");
         
-        if(!empty($arp_mac)) {
-            if(trim($arp_mac) != 'entries') {
-                // Found the IP address in the arp table.  Check the DB entry for the MAC address
-                $sql = "SELECT * FROM machine where mac_address = ?";
-                $result = $this->db->query($sql, trim($arp_mac));
-                if($result->num_rows() >= 1) {
-                    $machine = $result->result_array();
-                    $machine = $machine[0];
+        if(!empty($arp_mac) && trim($arp_mac) != 'entries' && trim($arp_mac) != '<incomplete>') {
+            // We have a viable mac address from the arp table
+            $mac = $arp_mac;
+        } else {
+            // Try getting the MAC from the ssh connection
+            $getmac = $this->machine_model->get_mac_via_ssh($ip);
+            $this->logging->lwrite("- can not find mac address in arp table, trying ssh (".$getmac.")");
+            if ($getmac == 'Unable to get MAC Address.' ) return; // no mac address
+            $mac = $getmac;
+        }  
+        
+        // Check the DB entry for the MAC address
+        $sql = "SELECT * FROM machine where mac_address = ?";
+        $result = $this->db->query($sql, trim($mac));
+        if($result->num_rows() >= 1) {
+            $machine = $result->result_array();
+            $machine = $machine[0];
+        }
+        
+        if(!empty($machine)) {
+            // Check to see if the entry in the DB for the MAC has the same IP address
+            $this->logging->lwrite("- Found a possible match: ".print_r($machine, true));
+            if(trim($machine['ip_address']) == trim($ip)) {
+                // The IP address in the DB matches the IP address in the arp table, do nothing
+                $this->logging->lwrite("---- MATCH");
+            } else {
+                // The IP in the DB does not match, that means we have an IP address change
+                $machine['new_ip'] = $ip;
+                $machine['room_name'] = $this->room_model->get_room($machine['room_id'])[0]['name'];
+                //$output = "Validation Error! Room: ".$machine['room_name']." Seat: ".$machine['seat']." MAC:" .$machine['mac_address']. " Old IP: ".$machine['ip_address']." New IP: ".$ip." <br>";
+                $this->logging->lwrite("---- MISMATCH! Room: ".$machine['room_name']." Seat: ".$machine['seat']." MAC:" .$machine['mac_address']. " Old IP: ".$machine['ip_address']." New IP: ".$ip);
+                return $machine;
+            }
+            
+        }
+
+        /* $arp_mac = shell_exec("arp -a " . $ip . " | awk '{print $4}'");
+        
+        if(!empty($arp_mac)) && trim($arp_mac) != 'entries' && trim($arp_mac) != '<incomplete>') {
+            $this->logging->lwrite("Checking ip (".$ip.") and seeing [".trim($arp_mac)."] in the arp table");
+
+            // Found the IP address in the arp table.  Check the DB entry for the MAC address
+            $sql = "SELECT * FROM machine where mac_address = ?";
+            $result = $this->db->query($sql, trim($arp_mac));
+            if($result->num_rows() >= 1) {
+                $machine = $result->result_array();
+                $machine = $machine[0];
+            }
+            
+            if(!empty($machine)) {
+                // Check to see if the entry in the DB for the MAC has the same IP address
+                $this->logging->lwrite("- Found a possible match: ".print_r($machine, true));
+                if(trim($machine['ip_address']) == trim($ip)) {
+                    // The IP address in the DB matches the IP address in the arp table, do nothing
+                    $this->logging->lwrite("-- MATCH");
+                } else {
+                    // The IP in the DB does not match, that means we have an IP address change
+                    $machine['new_ip'] = $ip;
+                    $machine['room_name'] = $this->room_model->get_room($machine['room_id'])[0]['name'];
+                    //$output = "Validation Error! Room: ".$machine['room_name']." Seat: ".$machine['seat']." MAC:" .$machine['mac_address']. " Old IP: ".$machine['ip_address']." New IP: ".$ip." <br>";
+                    $this->logging->lwrite("-- MISMATCH! Room: ".$machine['room_name']." Seat: ".$machine['seat']." MAC:" .$machine['mac_address']. " Old IP: ".$machine['ip_address']." New IP: ".$ip);
+                    return $machine;
                 }
-                
-                if(!empty($machine)) {
-                    // Check to see if the entry in the DB for the MAC has the same IP address
-                    if(trim($machine['ip_address']) == trim($ip)) {
-                        // The IP address in the DB matches the IP address in the arp table, do nothing
-                    } else {
-                        // The IP in the DB does not match, that means we have an IP address change
-                        $machine['new_ip'] = $ip;
-                        $machine['room_name'] = $this->room_model->get_room($machine['room_id'])[0]['name'];
-                        $output = "Validation Error! Room: ".$machine['room_name']." Seat: ".$machine['seat']." MAC:" .$machine['mac_address']. " Old IP: ".$machine['ip_address']." New IP: ".$ip." <br>";
-                        $this->logging->lwrite("Validation Error! Room: ".$machine['room_name']." Seat: ".$machine['seat']." MAC:" .$machine['mac_address']. " Old IP: ".$machine['ip_address']." New IP: ".$ip);
-                        return $machine;
-                    }
+            } else {
+                $is_alive = shell_exec("fping -r 0 -t500 " . $ip . " | awk '{print $3}'");
+                if(!empty($is_alive) && trim($is_alive) == 'alive' {
+                    // No entry in the ARP table, but the system is alive.  Try connecting via
+                    // ssh to get the mac corrent address
+                    $mac = $this->get_mac_via_ssh($machine['ip_address']);
                 }
             }
-        }
+        } */
     }
 
     /**

@@ -97,7 +97,7 @@ class Login extends CI_Controller {
 	 */
 	public function twitter_message() {
 		$machines = $this->machine_model->get_machines();
-		$machines = $this->machine_model->ping_test_arr($machines);
+		$machines = $this->machine_model->check_machine_status($machines);
 
 		foreach($machines as $key => $machine) {
 				$this->utorrent_model->getToken($machine['ip_address'], '27555', $machine['username'], $machine['password']);

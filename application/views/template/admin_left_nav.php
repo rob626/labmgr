@@ -8,26 +8,28 @@
 			2 => array(
 				'text' => 'Validate Seats',            'link' => '/admin/validate_seats',      'spacer' => ''),
 			3 => array(
-				'text' => 'Validate VMX',              'link' => '/admin/validate_vmx',        'spacer' => '<hr>'),
+				'text' => 'Machine Duplicates',        'link' => '/admin/machine_duplicates',  'spacer' => ''),
 			4 => array(
-				'text' => 'Database Reset',            'link' => '/admin/db_reset',            'spacer' => ''),
+				'text' => 'Validate VMX',              'link' => '/admin/validate_vmx',        'spacer' => '<hr>'),
 			5 => array(
-				'text' => 'Database Export',           'link' => '/admin/export_db',           'spacer' => ''),
+				'text' => 'Database Reset',            'link' => '/admin/db_reset',            'spacer' => ''),
 			6 => array(
-				'text' => 'Database Import/Manage',    'link' => '/admin/import_db',           'spacer' => '<hr>'),
+				'text' => 'Database Export',           'link' => '/admin/export_db',           'spacer' => ''),
 			7 => array(
-				'text' => 'Ticket System',             'link' => '/admin/ticket_system',       'spacer' => ''),
+				'text' => 'Database Import/Manage',    'link' => '/admin/import_db',           'spacer' => '<hr>'),
 			8 => array(
-				'text' => 'Log file',                  'link' => '/admin/view_log_file',       'spacer' => ''),
+				'text' => 'Ticket System',             'link' => '/admin/ticket_system',       'spacer' => ''),
 			9 => array(
-				'text' => 'Watchdog dropins & full cleanups','link' => '/admin/cleanup_watchdog','spacer' => '<hr>'),
+				'text' => 'Log file',                  'link' => '/admin/view_log_file',       'spacer' => ''),
 			10 => array(
-				'text' => 'Reporting - twitter',       'link' => '/admin/reporting_twitter',   'spacer' => '<hr>'),
+				'text' => 'Watchdog dropins & full cleanups','link' => '/admin/cleanup_watchdog','spacer' => '<hr>'),
 			11 => array(
-				'text' => 'Add Labmgr User',           'link' => '/admin/add_user',            'spacer' => ''),
+				'text' => 'Reporting - twitter',       'link' => '/admin/reporting_twitter',   'spacer' => '<hr>'),
 			12 => array(
-				'text' => 'Set Global Defaults',       'link' => '/admin/set_global_defaults', 'spacer' => ''),
+				'text' => 'Add Labmgr User',           'link' => '/admin/add_user',            'spacer' => ''),
 			13 => array(
+				'text' => 'Set Global Defaults',       'link' => '/admin/set_global_defaults', 'spacer' => ''),
+			14 => array(
 				'text' => 'Labmgr Manage Configs',      'link' => '/admin/labmgr_manage_configs', 'spacer' => '')
 			);
 

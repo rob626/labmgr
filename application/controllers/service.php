@@ -117,7 +117,7 @@ class Service extends CI_Controller {
 
 	public function get_machine_status() {
 		$devices = $this->input->get('machines');
-		$data['status'] = $this->machine_model->ping_test_arr($devices);
+		$data['status'] = $this->machine_model->check_machine_status($devices);
 		echo json_encode($data);
 		//print_r($data);
 	}
@@ -190,14 +190,23 @@ class Service extends CI_Controller {
 	}
 	public function get_torrent_status() {
 		$machines = $this->input->get('machines');
+		//$this->logging->lwrite("getting torrent status");
+		//print_r($machines);
+		$machines = $this->machine_model->just_ping_test($machines);
+		//print_r($machines);
 
 		foreach($machines as $key => $machine) {
+			if($machine['status'] == 'ONLINE') {
 				$m = $this->machine_model->get_machine_ip($machine['ip_address']);
+				//print_r($m);
+				//$this->logging->lwrite("looking at torrent data for ".$machine['ip_address']);
 				$this->getToken($machine['ip_address'], '27555', $m['username'], $m['password']);
 				$torrent_data = $this->makeRequest($machine['ip_address'], '27555', $m['username'], $m['password'], '?list=1');
 				$machine['torrents'] = $torrent_data['torrents'];
+				//print_r($machine['torrents']);
 				$data['machines'][$key] = $machine;
 			}
+		}
 
 		echo json_encode($data);
 	}
@@ -657,12 +666,16 @@ class Service extends CI_Controller {
 				$max = $to_long+1;
 			}
 
-			// fping the next chunck
-			shell_exec("fping -r 0 -t500 -q -g ".long2ip($current)." " . long2ip($max));
+			// fping the next chunck, get a list of only online systems
+			$reachable = shell_exec("fping -r 0 -t500 -a -g ".long2ip($current)." " . long2ip($max));
 			
-			// validate each ip address in that chunck range
-			for($i = $current; $i < $max; $i++) {
-				$output[] = $this->admin_model->validate_mac(long2ip($i));
+			// validate each online ip address in that chunck range
+			$this->logging->lwrite("- reachable systems (".long2ip($current)."-".long2ip($max)."): ".$reachable);
+			for($i = $current; $i <= $max; $i++) {
+				if (strpos($reachable, long2ip($i)) !== false) {
+					$this->logging->lwrite("- checking online system: ".long2ip($i));
+					$output[] = $this->admin_model->validate_mac(long2ip($i));
+				}
 			}
 
 			$current += $chunk_size;

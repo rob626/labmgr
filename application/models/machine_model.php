@@ -186,45 +186,46 @@ class Machine_model extends CI_Model {
         return $output;
     }
 
-    public function ping_test_arr($machines) {
+    public function check_machine_status($machines) {
     	$updated_machines = array();
-            $machines = $this->just_ping_test($machines);
-	    	foreach($machines as $machine) {
-                $machine['disk_usage'] = false;
-                $machine['lab_directories'] = 0;
-                $machine['lab_directory_list'] = "";
-                $machine['vm_count'] = "..";
-                $machine['vm_process_count'] = "-";
-                if($machine['status'] == 'ONLINE') {
-                    $machine_statuses = implode("\n", $this->get_machine_statuses($machine['ip_address'])['cmd_output']);
-                    //print_r($machine_statuses);
-                    $machine['disk_usage'] = $this->parse_string($machine_statuses, "===1===", "===2===");
-                    
-                    if(!empty($machine['disk_usage'])) {
-                        $pos = strrpos($machine['disk_usage'], "%");
-                        $machine['disk_usage'] = trim(substr($machine['disk_usage'], $pos-3,3));
-                    }
-                    
-                    $lab_dir_list = trim($this->parse_string($machine_statuses, "===2===", "===3==="));
-                    $machine['lab_directories'] = substr_count($lab_dir_list, "\n") + 1;
-                    $machine['lab_directory_list'] = "- " . str_replace("\n", "\n- ", $lab_dir_list);
-
-                    $machine['running_vm_list'] = trim($this->parse_string($machine_statuses, "===3===", "===4==="));
-                    if(!empty($machine['running_vm_list'])) {
-                        $machine['running_vm_list'] = str_replace("\n", "\n- ", $machine['running_vm_list']);
-                        $machine['vm_count'] = substr_count($machine['running_vm_list'], "\n");
-                        $machine['vm_process_count'] = trim($this->parse_string($machine_statuses, "===4===", "===5==="));
-                    }
-                    
-                    if ($machine['vm_process_count'] == 0) {
-                        $machine['vm_count'] = "-";
-                    }
+            
+        $machines = $this->just_ping_test($machines);
+    	foreach($machines as $machine) {
+            $machine['disk_usage'] = false;
+            $machine['lab_directories'] = 0;
+            $machine['lab_directory_list'] = "";
+            $machine['vm_count'] = "..";
+            $machine['vm_process_count'] = "-";
+            if($machine['status'] == 'ONLINE') {
+                $machine_statuses = implode("\n", $this->get_machine_statuses($machine['ip_address'])['cmd_output']);
+                //print_r($machine_statuses);
+                $machine['disk_usage'] = $this->parse_string($machine_statuses, "===1===", "===2===");
+                
+                if(!empty($machine['disk_usage'])) {
+                    $pos = strrpos($machine['disk_usage'], "%");
+                    $machine['disk_usage'] = trim(substr($machine['disk_usage'], $pos-3,3));
                 }
+                
+                $lab_dir_list = trim($this->parse_string($machine_statuses, "===2===", "===3==="));
+                $machine['lab_directories'] = substr_count($lab_dir_list, "\n") + 1;
+                $machine['lab_directory_list'] = "- " . str_replace("\n", "\n- ", $lab_dir_list);
 
-                array_push($updated_machines, $machine);
-	    	}
+                $machine['running_vm_list'] = trim($this->parse_string($machine_statuses, "===3===", "===4==="));
+                if(!empty($machine['running_vm_list'])) {
+                    $machine['running_vm_list'] = str_replace("\n", "\n- ", $machine['running_vm_list']);
+                    $machine['vm_count'] = substr_count($machine['running_vm_list'], "\n");
+                    $machine['vm_process_count'] = trim($this->parse_string($machine_statuses, "===4===", "===5==="));
+                }
+                
+                if ($machine['vm_process_count'] == 0) {
+                    $machine['vm_count'] = "-";
+                }
+            }
 
-	    	return $updated_machines;
+            array_push($updated_machines, $machine);
+    	}
+
+    	return $updated_machines;
     }
 
     public function just_ping_test($machines) {
@@ -248,15 +249,19 @@ class Machine_model extends CI_Model {
             for ($i = $current; $i < $max; $i++) {
                 if (strpos($output, $machines[$i]['ip_address']) !== false) {
                    $machines[$i]['status'] = "OFFLINE";
-                   $machines[$i]['mac_status'] = 'FALSE';
+                    if (array_key_exists('mac_address', $machines[$i])) {
+                        $machines[$i]['mac_status'] = 'FALSE';
+                    }
                 } else {
                     $machines[$i]['status'] =  "ONLINE";
-                    $mac = shell_exec("arp -a " . $machines[$i]['ip_address'] . " | awk '{print $4}'");
-                    if(strcasecmp(trim($machines[$i]['mac_address']), trim($mac)) == 0 ) {
-                        $machines[$i]['mac_status'] = 'TRUE';
-                    } else {
-                        $machines[$i]['mac_status'] = 'FALSE';
-                        //echo "Validation Error! MAC in DB: " .$machine['mac_address']. " MAC from ARP: ".$mac." <br>";
+                    if (array_key_exists('mac_address', $machines[$i])) {
+                        $mac = shell_exec("arp -a " . $machines[$i]['ip_address'] . " | awk '{print $4}'");
+                        if(strcasecmp(trim($machines[$i]['mac_address']), trim($mac)) == 0 ) {
+                            $machines[$i]['mac_status'] = 'TRUE';
+                        } else {
+                            $machines[$i]['mac_status'] = 'FALSE';
+                            //echo "Validation Error! MAC in DB: " .$machine['mac_address']. " MAC from ARP: ".$mac." <br>";
+                        }
                     }
                 }
             }
@@ -610,8 +615,6 @@ class Machine_model extends CI_Model {
             $seats[] = $machine['seat'];
         }
 
-        //echo "Seats - " .$seats[]."<br>";
-
         $dupes = array();
         $misses = array();
         $missing_seats="";
@@ -619,35 +622,71 @@ class Machine_model extends CI_Model {
         if(!empty($seats)) {
             for($i = 1; $i <= max($seats); $i++) {  // look to see if possible seats 1..max in the list
                 $this_seat_count=0; // start by assuming seat is not there
-                //if($seats[$i]=="") {echo "breaking2<br>"; break;}
 
-                //echo "Count for room : " .count($seats)." ON Element: " .$i." Seats value: " . $seats[$i] . " (max=" . max($seats) .", count)<br>";
-                
                 for($j = 0; $j < count($seats); $j++) { // loop through list of seats and count instances of this seat
                     if($i == $seats[$j]) $this_seat_count++;
                 }
-                //echo "For Element: " .$i." Seats value: " . $seats[$i] . " (max=" . max($seats) .", count ".$this_seat_count. ")<br>";
 
                 if($this_seat_count==0) {
                     $misses[] = $i;
-                    //$missing_seats.=" $i, ";
                 }
                 if($this_seat_count>1) {
                     for($j = 1; $j< $this_seat_count; $j++) {
                         $dupes[] = $i;
                     }
-                    //$duplicate_seats.=" $i (".$this_seat_count."), ";
                 }
             }
         }
         $output['missing_seats'] = $misses;
         $output['duplicates'] = $dupes;
 
-        //echo "Missing - " .$missing_seats."<br>";
-        //echo "Duplicate - " .$duplicate_seats."<br>";
-
         return $output;
 
     }
 
+    /**
+     * See if there are any duplicate IP addresses or MAC addresses
+     */
+    public function machine_duplicates() {
+        $output = array();
+        $machines_mac = array();
+        $machines_ip = array();
+
+        $this->logging->lwrite("Checking for duplicate machines (ip and mac addresses)");
+
+        $q = "SELECT ip_address, COUNT(*) c FROM machine GROUP BY ip_address HAVING c > 1";
+        $ip_results = $this->db->query($q);
+        $ip_results = $ip_results->result_array();
+
+        $q = "SELECT mac_address, COUNT(*) c FROM machine GROUP BY mac_address HAVING c > 1";
+        $mac_results = $this->db->query($q);
+        $mac_results = $mac_results->result_array();
+
+        $count = 0;
+        foreach($ip_results as $result) {
+            $this->logging->lwrite("- IP address: ".$result['ip_address']." count: ".$result['c']);
+            $q = "SELECT * FROM machine where ip_address = ?";
+            $result = $this->db->query($q, trim($result['ip_address']));
+            $machines_dup_ip = $result->result_array();
+            $ip_results[$count]['machines'] = $machines_dup_ip;
+            //print_r($machines_dup_ip);
+            $count++;
+        }
+
+        $count = 0;
+        foreach($mac_results as $result) {
+            $this->logging->lwrite("Mac address: ".$result['mac_address']." count: ".$result['c']);
+            $q = "SELECT * FROM machine where mac_address = ?";
+            $result = $this->db->query($q, trim($result['mac_address']));
+            $machines_dup_mac = $result->result_array();
+            $mac_results[$count]['machines'] = $machines_dup_mac;
+            //print_r($machines_dup_mac);
+            $count++;
+        }
+
+        $output['duplicate_ips'] = $ip_results;
+        $output['duplicate_macs'] = $mac_results;
+
+        return $output;
+    }
 }

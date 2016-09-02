@@ -468,4 +468,10 @@ class Admin extends CI_Controller {
 		$this->load->template('/admin/ticket_system');
 	}
 
+	public function machine_duplicates() 
+	{
+		$duplicates = $this->machine_model->machine_duplicates();
+		$this->load->template('/admin/machine_duplicates', $duplicates);
+	}
+
 }
