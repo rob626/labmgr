@@ -9,7 +9,7 @@
 
 	<form method='POST' action='/admin/save_global_default_edits'>
 	<table id='datatable'>
-		<thead>a
+		<thead>
 			<tr>
 				<th>global default ID</th>
 				<th>global default Name</th>
@@ -29,7 +29,7 @@
 	?>
 	</tbody>
 	</table>
-	<input type='hidden' name='global_default_id' value='<?php echo $defaults[0]['global_default_id']; ?>'>
+	<input type='hidden' name='default_id' value='<?php echo $defaults[0]['default_id']; ?>'>
 	<input class='button' type='submit' value='Submit'>
 	<a href='/labmgr/set_global_default' class='button'>Cancel</a>
 	 </div>

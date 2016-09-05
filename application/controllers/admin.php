@@ -62,13 +62,13 @@ class Admin extends CI_Controller {
 	 * Save changes made to a global default
 	 */
 	public function save_global_default_edits() {
-		$retval = $this->admin_model->update_global_default(
+		$retval = $this->gdm->update_global_default(
 			$this->input->post('default_id'), 
 			$this->input->post('name'), 
 			$this->input->post('value')
 			);
 		if($retval) {
-			redirect('/admin/add_global_default');
+			redirect('/admin/set_global_defaults');
 		} else {
 			echo "DB Error";
 		}

@@ -26,7 +26,7 @@ class Global_defaults_model extends CI_Model {
 	    /**
 	     * Update global_defaults data a global_defaults ID.
 	     */
-	    public function update_global_defaults($default_id, $global_defaults_name, $global_defaults_val) {
+	    public function update_global_default($default_id, $global_defaults_name, $global_defaults_val) {
 	    	$this->db->trans_start();
 
 	    	$this->db->where('default_id', $default_id);
