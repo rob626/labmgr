@@ -472,9 +472,9 @@ class Service extends CI_Controller {
 						$this->getToken($m['ip_address'], '27555', $m['username'], $m['password']);
 						$retval = $this->makeRequest($m['ip_address'], '27555', $m['username'], $m['password'], "?action=".($delete_option ? "removedata" : "remove").$this->paramImplode("&hash=", $torrent['hash']), false);
 						if($retval) {
-							$output['status'] = "Successfully sent to: " . $m['ip_address'] . "<br>";
+							$output[]['status'] = "Successfully sent to: " . $m['ip_address'] . "<br>";
 						} else {
-							$output['status'] = "Failed to send to: " . $m['ip_address'] . "<br>";
+							$output[]['status'] = "Failed to send to: " . $m['ip_address'] . "<br>";
 						}
 					}
 					
@@ -537,9 +537,9 @@ class Service extends CI_Controller {
 						$this->getToken($m['ip_address'], '27555', $m['username'], $m['password']);
 						$retval = $this->makeRequest($m['ip_address'], '27555', $m['username'], $m['password'], "?action=".($delete_option ? "removedata" : "remove").$this->paramImplode("&hash=", $torrent['hash']), false);
 						if($retval) {
-							$output['status'] = "Successfully sent to: " . $m['ip_address'] . "<br>";
+							$output[]['status'] = "Successfully sent to: " . $m['ip_address'] . "<br>";
 						} else {
-							$output['status'] = "Failed to send to: " . $m['ip_address'] . "<br>";
+							$output[]['status'] = "Failed to send to: " . $m['ip_address'] . "<br>";
 						}
 					}
 				}
