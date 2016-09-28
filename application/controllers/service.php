@@ -460,10 +460,11 @@ class Service extends CI_Controller {
 			}
 			if($d['name'] == 'delete_option') {
 				$delete_option = $d['value'];
+				$delete = 1;
 			}
 		}
+
 		//$machines = $machines[0];
-		
 		if($delete == 1) {
 			foreach($torrents as $torrent) {
 				foreach($machines as $machine) {
