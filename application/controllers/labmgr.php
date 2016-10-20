@@ -842,18 +842,23 @@ class Labmgr extends MY_Controller {
 
 						if(!empty($line_arr[2])) {
 							$snapshots = $line_arr[2];
-							$snapshots_array = explode('///');
+							$snapshots_array = explode('///', $snapshots);
 							$snapshot = array_pop($snapshots_array);
 						}
+
 
 						$retval = $this->vm_model->add_vm(
 							$name,
 							$path,
 							'',
 							$snapshot
-							);
+							); 
 					}
+
 				}
+
+				
+						
 
 			} else {
 				$retval = $this->vm_model->add_vm(
