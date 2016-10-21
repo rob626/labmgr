@@ -464,6 +464,13 @@ class Service extends CI_Controller {
 			}
 		}
 
+		if($delete_option == 'delete_torrent_data') {
+				$delete_option = true;
+			} else {
+				$delete_option = false;
+			}
+
+
 		//$machines = $machines[0];
 		if($delete == 1) {
 			foreach($torrents as $torrent) {
@@ -529,6 +536,12 @@ class Service extends CI_Controller {
 		}
 
 		//$machines = $machines[0];
+
+		if($delete_option == 'delete_torrent_data') {
+				$delete_option = true;
+			} else {
+				$delete_option = false;
+			}
 
 		if($delete == 1) {
 			foreach($torrents as $torrent) {
