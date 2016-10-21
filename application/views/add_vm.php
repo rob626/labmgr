@@ -102,7 +102,7 @@
 <div id="script-modal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
 	<h2 id='modalTitle'>Paste me!</h2>
 	<div class='panel'>
-		<h4>If you have a format like C:\Labs\A001\vm1\worksation.vmx and you want the VM name to be A001-vm1, 
+		<h4>NOTE: you can also use the labmgr-vmx-entries.sh script in the labmgr/tools directory on the labmgr server.<br><br>If you have a format like C:\Labs\A001\vm1\worksation.vmx and you want the VM name to be A001-vm1, 
 			use the following code:</h4>
 		echo off <br>
 		dir /s/b *.vmx | findstr /v .vmx. > delete.me<br>
