@@ -329,6 +329,69 @@ $(document).ready(function(){
             });
     });
 
+    $('#bg_info_update_class_form').on('submit', function(e) {
+        e.preventDefault();
+        var data = $('#bg_info_update_class_form :input').serializeArray();
+        console.log(data);
+        $('#status_modal_content').html("");
+        $('#status_modal_content').append("<p>Please wait...<p>");
+        $('#status_modal').foundation('reveal', 'open');
+
+        $.ajax({        
+            url: "/service/run_cmd",
+            type: "get",
+            dataType: "json",
+            async: true,
+            data: {data : data}
+            }).done(function(response) {
+                console.log(response);
+                $.each(response, function(index, value) {
+                    $('#status_modal_content').append("<h3>"+value.status+"</h3>");
+
+                    $.each(value.cmd_output, function(index, value) {
+                        $('#status_modal_content').append("<h4>"+value+"</h4>")
+                    });
+                });
+                $('#status_modal_content').append("<p>Done.<p>");
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                //alert("Error submitting data!");
+                console.log(jqXHR, textStatus, errorThrown);
+                $('#status_modal_content').append("<p>Done.<p>");
+            });
+    });
+
+$('#show_desktop_class_form').on('submit', function(e) {
+        e.preventDefault();
+        var data = $('#show_desktop_class_form :input').serializeArray();
+        console.log(data);
+        $('#status_modal_content').html("");
+        $('#status_modal_content').append("<p>Please wait...<p>");
+        $('#status_modal').foundation('reveal', 'open');
+
+        $.ajax({        
+            url: "/service/show_desktop",
+            type: "get",
+            dataType: "json",
+            async: true,
+            data: {data : data}
+            }).done(function(response) {
+                console.log(response);
+                $.each(response, function(index, value) {
+                    $('#status_modal_content').append("<h3>"+value.status+"</h3>");
+
+                    $.each(value.cmd_output, function(index, value) {
+                        $('#status_modal_content').append("<h4>"+value+"</h4>")
+                    });
+                });
+                $('#status_modal_content').append("<p>Done.<p>");
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                //alert("Error submitting data!");
+                console.log(jqXHR, textStatus, errorThrown);
+                $('#status_modal_content').append("<p>Done.<p>");
+            });
+    });
+
+
     $('#run_single_cmd_class_form').on('submit', function(e) {
         e.preventDefault();
         var data = $('#run_single_cmd_class_form :input').serializeArray();

@@ -702,6 +702,48 @@ class Labmgr extends MY_Controller {
 		}
 	}
 
+	public function bg_info_update() {
+		if($_SERVER['REQUEST_METHOD'] === 'POST') {
+			$cmd = $this->input->post('cmd');
+			$machines = array();
+			$rooms = $this->input->post('room_ids');
+			foreach($rooms as $room) {
+				$machines = array_merge($machines, $this->machine_model->get_machines_by_room($room));
+			}
+			foreach($machines as $machine) {
+				echo "<pre>";
+				print_r($this->machine_model->run_cmd($cmd, $machine['ip_address']));
+				echo "</pre>";
+			}
+			
+		} else {
+			$data['machines'] = $this->machine_model->get_machines();
+			$data['rooms'] = $this->room_model->get_rooms();
+			$this->load->template('bg_info_update', $data);
+		}
+	}
+
+	public function show_desktop() {
+		if($_SERVER['REQUEST_METHOD'] === 'POST') {
+			$cmd = $this->input->post('cmd');
+			$machines = array();
+			$rooms = $this->input->post('room_ids');
+			foreach($rooms as $room) {
+				$machines = array_merge($machines, $this->machine_model->get_machines_by_room($room));
+			}
+			foreach($machines as $machine) {
+				echo "<pre>";
+				print_r($this->machine_model->run_cmd($cmd, $machine['ip_address']));
+				echo "</pre>";
+			}
+			
+		} else {
+			$data['machines'] = $this->machine_model->get_machines();
+			$data['rooms'] = $this->room_model->get_rooms();
+			$this->load->template('show_desktop', $data);
+		}
+	}
+
 	public function run_single_cmd_class() {
 		if($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$cmd = $this->input->post('cmd');

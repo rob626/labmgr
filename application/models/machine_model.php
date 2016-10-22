@@ -439,6 +439,19 @@ class Machine_model extends CI_Model {
         return $output;
     }
 
+    public function show_desktop($ip) {
+        $remote_path = "/cygdrive/c/labmgr-wd/dropins/";
+        $file = "./uploads/show_desktop.bat";
+        $output = array(
+            'status' => "Sending show_desktop.bat to: ".$ip,
+            'output' => exec('scp -r -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" '.$file.' ibm_user@' . $ip . ':'.$remote_path, $cmd_output, $exit_status),
+            'cmd_output' => $cmd_output,
+            'exit_status' => $exit_status
+        );
+
+        return $output;
+    }
+
     /**
      * Send a file to a machine using scp.
      */
@@ -459,6 +472,8 @@ class Machine_model extends CI_Model {
 
         return $output;
     }
+
+
 
     /**
      * Get a file from a machine using scp.

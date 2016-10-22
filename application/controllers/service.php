@@ -596,6 +596,29 @@ class Service extends CI_Controller {
 		echo json_encode($machine);
 	}
 
+	public function show_desktop() {
+		$data = $this->input->get('data');
+		
+		$machines = array();
+
+		foreach($data as $d) {
+			if($d['name'] == 'room_ids[]') {
+				array_push($machines, $this->machine_model->get_machines_by_room($d['value']));
+				
+			}
+		}
+		//$machines = $machines[0];
+
+		foreach($machines as $machine) {
+			foreach($machine as $m) {
+
+				$output[] = $this->machine_model->show_desktop($m['ip_address']);
+			}
+		}
+
+		echo json_encode($output);
+	}
+
 	/**
 	 * Run a single command.
 	 */

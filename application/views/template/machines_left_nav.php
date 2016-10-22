@@ -4,7 +4,13 @@
 			0 => array(
 				'text' => 'Machines status',       'link' => '/labmgr/machine_status',  'spacer' => '<hr>'),
 			1 => array(
-				'text' => 'Manage Machines',       'link' => '/labmgr/manage_machines', 'spacer' => '')
+				'text' => 'Manage Machines',       'link' => '/labmgr/manage_machines', 'spacer' => '<hr>'),
+			2 => array(
+				'text' => 'BG Info Update',       'link' => '/labmgr/bg_info_update',  'spacer' => ''),
+			3 => array(
+				'text' => 'Show Desktop',       'link' => '/labmgr/show_desktop',  'spacer' => ''),
+			4 => array(
+				'text' => 'BG Info Room Config',       'link' => '/labmgr/',  'spacer' => '')
 		);
 
 		foreach($menu as $menu_item) {
