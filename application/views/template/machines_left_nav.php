@@ -10,7 +10,7 @@
 			3 => array(
 				'text' => 'Show Desktop',       'link' => '/labmgr/show_desktop',  'spacer' => ''),
 			4 => array(
-				'text' => 'BG Info Room Config',       'link' => '/labmgr/',  'spacer' => '')
+				'text' => 'BG Info Room Config',       'link' => '/labmgr/bg_info_config',  'spacer' => '')
 		);
 
 		foreach($menu as $menu_item) {

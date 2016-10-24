@@ -50,6 +50,30 @@ $(document).ready(function(){
 
     });
 
+    $('#room_filter_bg').change(function() {
+        var room_id = $(this).val();
+         $.ajax({        
+            url: "/service/get_machines_by_room",
+            type: "get",
+            dataType: "json",
+            data: {room_id : room_id}
+            }).done(function(response) {
+                //console.log(response);
+                $('#machine_list').html("");
+                $.each(response, function(index, machine) {
+                    //console.log(machine.ip_address);
+                    $('#machine_list').append("<input type='text' name='machine_ids[]' value='"+machine['ip_address']+","+response['room'][0]['name']+" - Seat "+machine['seat']+"' >");
+                    //$('#machine_list').append("<input type='text' name='machine_ids[]' value='"machine['ip_address']+","+response['room'][0]['name']+" - Seat "+machine['seat']+"' />");
+                    //$('#machine_list').append("<input type='checkbox' class='machine-checkboxes' name='machine_ids[]' value='"+response['room'][0]['name']+"'><label>Seat: "+machine['seat']+")</label><br>");
+                });
+                
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                //alert("Error submitting data!");
+                console.log(jqXHR, textStatus, errorThrown);
+            });
+
+    });
+
     $('#room_filter_machine_status').change(function() {
         var room_id = $(this).val();
         var params = [

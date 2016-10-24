@@ -723,6 +723,23 @@ class Labmgr extends MY_Controller {
 		}
 	}
 
+	public function bg_info_config() {
+		if($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+			$machines = $this->input->post('machine_ids');
+			foreach($machines as $machine) {
+				$line_arr = explode(',', $machine);
+				$output[] = $this->machine_model->bg_info_config($line_arr[0], $line_arr[1]);
+			}
+
+			print_r($output);
+		} else {
+			$data['machines'] = $this->machine_model->get_machines();
+			$data['rooms'] = $this->room_model->get_rooms();
+			$this->load->template('bg_info_config', $data);
+		}
+	}
+
 	public function show_desktop() {
 		if($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$cmd = $this->input->post('cmd');
