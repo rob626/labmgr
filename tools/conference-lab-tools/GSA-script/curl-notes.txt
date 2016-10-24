@@ -1,0 +1,196 @@
+https://bldgsa.ibm.com/gsadoc/help/gsa_rest_v1.0/Group_Resources.shtml
+https://bldgsa.ibm.com/gsadoc/help/gsa_rest_v2.0/GSA_Groups.shtml
+
+https://bldgsa.ibm.com/gsadoc/help/gsa_rest_v1.0/ACL_Resources.shtml
+
+https://bldgsa.ibm.com/gsadoc/help/gsa_rest_v1.0/File_and_Dir_Resources.shtml
+
+
+=========== DIRECTORIES ============
+
+# Create a directory
+curl --netrc -u jpn:xxxxxxxx -X PUT https://bldgsa.ibm.com/cgi-bin/dir/create/gsa/bldgsa/projects/w/websphere-tech-u/a123
+
+
+# remove a directory
+curl --netrc -u jpn:xxxxxxxx -X DELETE https://bldgsa.ibm.com/cgi-bin/dir/delete/gsa/bldgsa/projects/w/websphere-tech-u/a123
+
+=========== GROUPS ============
+
+# show group info
+curl --netrc -u jpn:xxxxxxxx -X GET https://bldgsa.ibm.com/cgi-bin/group/show/p/websphere-tech-u/a114
+
+# show members of a group
+curl --netrc -u jpn:xxxxxxxx! -X GET https://bldgsa.ibm.com/api/gsa_groups/p/websphere-tech-u/a114
+
+# create a group
+curl --netrc -u jpn:xxxxxxxx -X PUT https://bldgsa.ibm.com/api/gsa_groups/p/websphere-tech-u/a123
+
+# add user to group
+curl --netrc -u jpn:xxxxxxxx -H "Content-Type: application/gsa-group" -X PUT -d '{ "metadata" : { "gsa_add_ids" : [ "jpn", "milligan" ] } }' https://bldgsa.ibm.com/api/gsa_groups/p/websphere-tech-u/a123
+
+# remove user from group
+curl --netrc -u jpn:xxxxxxxx -H "Content-Type: application/gsa-group" -X PUT -d '{ "metadata" : { "gsa_remove_ids" : [ "milligan" ] } }' https://bldgsa.ibm.com/api/gsa_groups/p/websphere-tech-u/a123 
+
+# delete a group
+curl --netrc -u jpn:xxxxxxxx -X DELETE https://bldgsa.ibm.com/api/gsa_groups/p/websphere-tech-u/a123
+
+=========== ACLS ============
+
+# show ACLs on a dir
+curl --netrc -u jpn:xxxxxxxx -X GET https://bldgsa.ibm.com/cgi-bin/acl/show/gsa/projects/w/websphere-tech-u/A114
+
+# add ACL to a dir with RW (recursively)
+curl --netrc -u jpn:xxxxxxxx -X PUT -H "Content-type: text/xml" -d @add_acl.xml https://bldgsa.ibm.com/cgi-bin/acl/add/gsa/projects/w/websphere-tech-u/A123
+
+	add_acl.xml
+	-----------
+	<add_acl>
+	  <add_obj_acl>
+	    <mask_ace>rwxc</mask_ace>
+	    <ext_group_ace gsa_group="p/websphere-tech-u/a123">rwx-</ext_group_ace>
+	  </add_obj_acl>
+	  <add_inh_acl>
+	    <ext_group_ace gsa_group="p/websphere-tech-u/a123">rwx-</ext_group_ace>   
+	  </add_inh_acl>
+	</add_acl>
+
+
+# modify ACL on dir (recursively) - add / remove W access
+curl --netrc -u jpn:xxxxxxxx -X PUT -H "Content-type: text/xml" -d @mod_acl.xml https://bldgsa.ibm.com/cgi-bin/acl/change/gsa/projects/w/websphere-tech-u/A123
+
+	chg_acl.xml
+	-----------
+	<chg_acl>
+	  <chg_obj_acl>
+	    <mask_ace>rwxc</mask_ace>
+	    <ext_group_ace gsa_group="p/websphere-tech-u/a123">r-x-</ext_group_ace>
+	  </chg_obj_acl>
+	  <chg_inh_acl>
+	    <ext_group_ace gsa_group="p/websphere-tech-u/a123">r-x-</ext_group_ace>   
+	  </chg_inh_acl>
+	</chg_acl>
+
+
+# remove ACL from dir
+curl --netrc -u jpn:xxxxxxxx -X PUT -H "Content-type: text/xml" -d @del_acl.xml https://bldgsa.ibm.com/cgi-bin/acl/delete/gsa/projects/w/websphere-tech-u/A123
+
+	del_acl.xml
+	-----------
+	<del_acl>
+	  <del_obj_acl>
+	    <gsa_group>p/websphere-tech-u/a123</gsa_group>
+	  </del_obj_acl>
+		      
+	  <del_inh_acl>
+	    <gsa_group>p/websphere-tech-u/a123</gsa_group>    
+	  </del_inh_acl>
+	</del_acl>
+
+=========== GSA IDs ============
+
+# list GSA IDs for IntranetID
+curl --netrc -u jpn:xxxxxxxx -X GET https://bldgsa.ibm.com/api/gsa_intranet_ids/cathyn@us.ibm.com
+
+
+
+===================================================================
+===================================================================
+
+=========== DIRECTORIES ============
+
+# Create a directory
+curl --netrc -u $USER:$PASSWD -X PUT https://$GSA-CELL/cgi-bin/dir/create/gsa/$GSA-SHORT-CELLNAME/projects/$PROJECT-DIR/$DIR
+
+
+# remove a directory
+curl --netrc -u $USER:$PASSWD -X DELETE https://$GSA-CELL/cgi-bin/dir/delete/gsa/$GSA-SHORT-CELLNAME/projects/$PROJECT-DIR/$DIR
+
+=========== GROUPS ============
+
+# show group info
+curl --netrc -u $USER:$PASSWD -X GET https://$GSA-CELL/cgi-bin/group/show/$GROUP-NAME
+
+# show members of a group
+curl --netrc -u $USER:$PASSWD -X GET https://$GSA-CELL/api/gsa_groups/$GROUP-NAME
+
+# create a group
+curl --netrc -u $USER:$PASSWD -X PUT https://$GSA-CELL/api/gsa_groups/$PROJECT/$DIR
+
+# add user to group
+curl --netrc -u $USER:$PASSWD -H "Content-Type: application/gsa-group" -X PUT -d '{ "metadata" : { "gsa_add_ids" : [ "userbob", "userjane" ] } }' https://$GSA-CELL/api/gsa_groups/$PROJECT/$DIR
+
+# remove user from group
+curl --netrc -u $USER:$PASSWD -H "Content-Type: application/gsa-group" -X PUT -d '{ "metadata" : { "gsa_remove_ids" : [ "userbob" ] } }' https://$GSA-CELL/api/gsa_groups/$PROJECT/$DIR 
+
+# delete a group
+curl --netrc -u $USER:$PASSWD -X DELETE https://$GSA-CELL/api/gsa_groups/$PROJECT/$DIR
+
+=========== ACLS ============
+
+# show ACLs on a dir
+curl --netrc -u $USER:$PASSWD -X GET https://$GSA-CELL/cgi-bin/acl/show/gsa/projects/$PROJECT-DIR/$DIR
+
+# add ACL to a dir with RW (recursively)
+curl --netrc -u $USER:$PASSWD -X PUT -H "Content-type: text/xml" -d @add_acl.xml https://$GSA-CELL/cgi-bin/acl/add/gsa/projects/$PROJECT-DIR/$DIR
+
+	add_acl.xml
+	-----------
+	<add_acl>
+	  <add_obj_acl>
+	    <mask_ace>rwxc</mask_ace>
+	    <ext_group_ace gsa_group="$PROJECT/$DIR">rwx-</ext_group_ace>
+	  </add_obj_acl>
+	  <add_inh_acl>
+	    <ext_group_ace gsa_group="$PROJECT/$DIR">rwx-</ext_group_ace>   
+	  </add_inh_acl>
+	</add_acl>
+
+
+# modify ACL on dir (recursively) - add / remove W access
+curl --netrc -u $USER:$PASSWD -X PUT -H "Content-type: text/xml" -d @mod_acl.xml https://$GSA-CELL/cgi-bin/acl/change/gsa/projects/$PROJECT-DIR/$DIR
+
+	chg_acl.xml
+	-----------
+	<chg_acl>
+	  <chg_obj_acl>
+	    <mask_ace>rwxc</mask_ace>
+	    <ext_group_ace gsa_group="$PROJECT/$DIR">r-x-</ext_group_ace>
+	  </chg_obj_acl>
+	  <chg_inh_acl>
+	    <ext_group_ace gsa_group="$PROJECT/$DIR">r-x-</ext_group_ace>   
+	  </chg_inh_acl>
+	</chg_acl>
+
+
+# remove ACL from dir
+curl --netrc -u $USER:$PASSWD -X PUT -H "Content-type: text/xml" -d @del_acl.xml https://$GSA-CELL/cgi-bin/acl/delete/gsa/projects/$PROJECT-DIR/$DIR
+
+	del_acl.xml
+	-----------
+	<del_acl>
+	  <del_obj_acl>
+	    <gsa_group>$PROJECT/$DIR</gsa_group>
+	  </del_obj_acl>
+		      
+	  <del_inh_acl>
+	    <gsa_group>$PROJECT/$DIR</gsa_group>    
+	  </del_inh_acl>
+	</del_acl>
+
+=========== GSA IDs ============
+
+# list GSA IDs for IntranetID
+curl --netrc -u $USER:$PASSWD -X GET https://$GSA-CELL/api/gsa_intranet_ids/userbob@us.ibm.com
+del_acl>
+  <del_obj_acl>
+    <gsa_group>$PROJECT/$DIR</gsa_group>
+  </del_obj_acl>
+	      
+  <del_inh_acl>
+    <gsa_group>$PROJECT/$DIR</gsa_group>    
+  </del_inh_acl>
+</del_acl>
+
+
+
