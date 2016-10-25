@@ -8,9 +8,9 @@
 			2 => array(
 				'text' => 'Update BG Info',       'link' => '/labmgr/bg_info_update',  'spacer' => ''),
 			3 => array(
-				'text' => 'BG Info Room Config',       'link' => '/labmgr/bg_info_config',  'spacer' => '')
+				'text' => 'BG Info Room Config',       'link' => '/labmgr/bg_info_config',  'spacer' => ''),
 			4 => array(
-				'text' => 'Show Desktop',       'link' => '/labmgr/show_desktop',  'spacer' => ''),
+				'text' => 'Show Desktop',       'link' => '/labmgr/show_desktop',  'spacer' => '')
 			
 		);
 
