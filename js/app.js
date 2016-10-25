@@ -62,7 +62,7 @@ $(document).ready(function(){
                 $('#machine_list').html("");
                 $.each(response, function(index, machine) {
                     //console.log(machine.ip_address);
-                    $('#machine_list').append("<input type='text' name='machine_ids[]' value='"+machine['ip_address']+","+response['room'][0]['name']+" - Seat "+machine['seat']+"' >");
+                    $('#machine_list').append("<input type='text' name='machine_ids[]' value='"+machine['ip_address']+","+machine['name']+" - Seat "+machine['seat']+"' >");
                     //$('#machine_list').append("<input type='text' name='machine_ids[]' value='"machine['ip_address']+","+response['room'][0]['name']+" - Seat "+machine['seat']+"' />");
                     //$('#machine_list').append("<input type='checkbox' class='machine-checkboxes' name='machine_ids[]' value='"+response['room'][0]['name']+"'><label>Seat: "+machine['seat']+")</label><br>");
                 });
