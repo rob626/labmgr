@@ -108,12 +108,17 @@ class Service extends CI_Controller {
 		$room_id = $this->input->get('room_id');
 		if($room_id == -1) {
 			$machines = $this->machine_model->get_machines();
-			$machines['room'] = $this->room_model->get_room($room_id);
+			//$machines['room'] = $this->room_model->get_room($room_id);
 		} else {
 			$machines = $this->machine_model->get_machines_by_room($room_id);
-			$machines['room'] = $this->room_model->get_room($room_id);
+			//$machines['room'] = $this->room_model->get_room($room_id);
 		}
-		
+
+		//print_r($machines);
+		usort($machines, function($a, $b) {
+		    return (int)$a['seat'] - (int)$b['seat'];
+		}); 
+
 		echo json_encode($machines);
 	}
 
