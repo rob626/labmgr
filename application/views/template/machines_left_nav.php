@@ -6,11 +6,12 @@
 			1 => array(
 				'text' => 'Manage Machines',       'link' => '/labmgr/manage_machines', 'spacer' => '<hr>'),
 			2 => array(
-				'text' => 'BG Info Update',       'link' => '/labmgr/bg_info_update',  'spacer' => ''),
+				'text' => 'Update BG Info',       'link' => '/labmgr/bg_info_update',  'spacer' => ''),
 			3 => array(
-				'text' => 'Show Desktop',       'link' => '/labmgr/show_desktop',  'spacer' => ''),
+				'text' => 'BG Info Room Config',       'link' => '/labmgr/bg_info_config',  'spacer' => ''),
 			4 => array(
-				'text' => 'BG Info Room Config',       'link' => '/labmgr/bg_info_config',  'spacer' => '')
+				'text' => 'Show Desktop',       'link' => '/labmgr/show_desktop',  'spacer' => '')
+			
 		);
 
 		foreach($menu as $menu_item) {
