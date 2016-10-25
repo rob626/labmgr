@@ -441,11 +441,29 @@ class Machine_model extends CI_Model {
     }
 
     public function show_desktop($ip) {
-        $remote_path = "/cygdrive/c/labmgr-wd/dropins/";
-        $file = "./uploads/show_desktop.bat";
+        $command = "powershell -command \"& { \$x = New-Object -ComObject Shell.Application; \$x.minimizeall() }\"";
+        $file = './uploads/show_desktop.bat';
+
+        file_put_contents($file, $command);
+
         $output = array(
-            'status' => "Sending show_desktop.bat to: ".$ip,
-            'output' => exec('scp -r -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" '.$file.' ibm_user@' . $ip . ':'.$remote_path, $cmd_output, $exit_status),
+            'status' => "Sending Show desktop to: ".$ip,
+            'output' => exec('scp -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" '.$file.' ibm_user@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/', $cmd_output, $exit_status),
+            'cmd_output' => $cmd_output,
+            'exit_status' => $exit_status
+        );
+
+        unlink($file);
+        return $output;
+    } 
+
+    public function bg_info_config($ip, $content) {
+
+        $cmd = 'echo '. $content . ' > /cygdrive/c/labmgr-room-seat.txt';
+        echo $cmd;
+        $output = array(
+            'status' => 'Sending BG Info Config',
+            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $ip . ' "'.$cmd.'"', $cmd_output, $exit_status),
             'cmd_output' => $cmd_output,
             'exit_status' => $exit_status
         );
@@ -473,23 +491,6 @@ class Machine_model extends CI_Model {
 
         return $output;
     }
-
-    public function bg_info_config($ip, $content) {
-
-        $cmd = 'echo '. $content . ' > /cygdrive/c/labmgr-room-seat.txt';
-        echo $cmd;
-        $output = array(
-            'status' => 'Sending BG Info Config',
-            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $ip . ' '.$cmd.'', $cmd_output, $exit_status),
-            'cmd_output' => $cmd_output,
-            'exit_status' => $exit_status
-        );
-
-        return $output;
-        
-
-    }
-
 
 
     /**
