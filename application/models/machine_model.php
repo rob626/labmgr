@@ -9,7 +9,8 @@ class Machine_model extends CI_Model {
 	 * Get all machine data.
 	 */
 	public function get_machines() {
-		$q = "SELECT * FROM machine";
+		//$q = "SELECT machine FROM machine";
+        $q = "SELECT m.*, r.name from machine m, room r where m.room_id = r.room_id";
 		$result = $this->db->query($q);
 		return $result->result_array();
 	}
@@ -45,7 +46,7 @@ class Machine_model extends CI_Model {
 	 * Get machines by room ID
 	 */
 	public function get_machines_by_room($room_id) {
-		$q = "SELECT * FROM machine where room_id = ?";
+		$q = "SELECT * FROM machine, room where room_id = ?";
 		$result = $this->db->query($q, $room_id);
 		return $result->result_array();
 	}
