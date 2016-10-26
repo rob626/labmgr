@@ -97,8 +97,8 @@ $(document).ready(function(){
                     $.each(value.cmd_output, function(index, value) {
                         $('#status_modal_content').append("<h4>"+value+"</h4>")
                     });
-                    $('#status_modal_content').append("<p>Done.<p>");
                 });
+                $('#status_modal_content').append("<p>Done.<p>");
                 
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 //alert("Error submitting data!");
@@ -106,10 +106,6 @@ $(document).ready(function(){
                 $('#status_modal_content').append("<p>Done.<p>");
             });
     });
-
-
-
-    
 
     $('#room_filter_machine_status').change(function() {
         var room_id = $(this).val();
