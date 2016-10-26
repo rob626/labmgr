@@ -726,14 +726,21 @@ class Labmgr extends MY_Controller {
 	public function bg_info_config() {
 		if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-			$machines = $this->input->post('machine_ids');
+			$room_id = $this->input->post('room_id');
+			$room_label = $this->input->post('Room-label');
+
+			$machines = $this->machine_model->get_machines_by_room($room_id);
 			print_r($machines);
 			foreach($machines as $machine) {
-				$line_arr = explode(',', $machine);
-				$output[] = $this->machine_model->bg_info_config($line_arr[0], $line_arr[1]);
+				if(empty($room_label)) {
+					$content = $machine['name']; 
+				} else {
+					$content = $room_label;
+				}
+					
+				print_r($this->machine_model->bg_info_config($machine['ip_address'], $content));
 			}
-
-			print_r($output);
+			
 		} else {
 			$data['machines'] = $this->machine_model->get_machines();
 			$data['rooms'] = $this->room_model->get_rooms();
