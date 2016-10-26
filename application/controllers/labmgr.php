@@ -730,15 +730,15 @@ class Labmgr extends MY_Controller {
 			$room_label = $this->input->post('Room-label');
 
 			$machines = $this->machine_model->get_machines_by_room($room_id);
-			print_r($machines);
+
 			foreach($machines as $machine) {
 				if(empty($room_label)) {
-					$content = $machine['name']; 
+					$content = $machine['name'] . ' - Seat ' . $machine['seat']; 
 				} else {
-					$content = $room_label;
+					$content = $room_label . ' - Seat ' . $machine['seat'];
 				}
 					
-				print_r($this->machine_model->bg_info_config($machine['ip_address'], $content));
+				$this->machine_model->bg_info_config($machine['ip_address'], $content);
 			}
 			
 		} else {

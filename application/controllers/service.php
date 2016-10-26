@@ -219,6 +219,37 @@ class Service extends CI_Controller {
 	}
 
 	/**
+	 *
+	 */
+	public function bg_info_config() {
+		$data = $this->input->get('data');
+
+		foreach($data as $d) {
+			if($d['name'] == 'room_id') {
+				$room_id = $d['value'];
+			}
+			if($d['name'] == 'Room-label') {
+				$room_label = $d['value'];
+			}
+		}
+
+		$machines = $this->machine_model->get_machines_by_room($room_id);
+
+		foreach($machines as $machine) {
+			if(empty($room_label)) {
+				$content = $machine['name'] . ' - Seat ' . $machine['seat']; 
+			} else {
+				$content = $room_label . ' - Seat ' . $machine['seat'];
+			}
+				
+			$output[] = $this->machine_model->bg_info_config($machine['ip_address'], $content);
+		}
+
+		echo json_encode($output);	
+
+	}
+
+	/**
 	 * Get list of directories to delete.
 	 */
 	public function delete_dirs_list() {
