@@ -460,7 +460,6 @@ class Machine_model extends CI_Model {
     public function bg_info_config($ip, $content) {
 
         $cmd = 'echo '. $content . ' > /cygdrive/c/labmgr-room-seat.txt';
-        echo $cmd;
         $output = array(
             'status' => 'Sending BG Info Config',
             'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $ip . ' "'.$cmd.'"', $cmd_output, $exit_status),
