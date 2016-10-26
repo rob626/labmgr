@@ -727,6 +727,7 @@ class Labmgr extends MY_Controller {
 		if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 			$machines = $this->input->post('machine_ids');
+			print_r($machines);
 			foreach($machines as $machine) {
 				$line_arr = explode(',', $machine);
 				$output[] = $this->machine_model->bg_info_config($line_arr[0], $line_arr[1]);

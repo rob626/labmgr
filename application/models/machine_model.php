@@ -461,7 +461,7 @@ class Machine_model extends CI_Model {
 
         $cmd = 'echo '. $content . ' > /cygdrive/c/labmgr-room-seat.txt';
         $output = array(
-            'status' => 'Sending BG Info Config',
+            'status' => 'Sending BGinfo Config',
             'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $ip . ' "'.$cmd.'"', $cmd_output, $exit_status),
             'cmd_output' => $cmd_output,
             'exit_status' => $exit_status

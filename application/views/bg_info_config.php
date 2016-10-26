@@ -7,15 +7,29 @@
 	<form method='POST' id='bg_info_config_class_form' action='/labmgr/bg_info_config'>
 	<div class='row'>
 		<div class='small-12 small-centered columns'>
-			<h1>BG Info Config</h1>
+			<h1>BGinfo Config</h1>
+			<div class="panel callout radius">
+				<p>This function pushes out a file called labmgr-room-seat.txt to C:\ on each machine.  This file is read by bginfo to load the individual machines room and seat information. 
+				<br><br>
+				The file C:\Windows\bginfo-labmgr.bgi must exist and be configured to read this file.
+				<br><br>
+				The file bginfo.bat needs to be in the Start folder for all users.  This file calls bginfo and points to the bginfo-labmgr.bgi.  If the labmgr-room-seat.txt file does not exist on the machine, that field is blank in bginfo.
+				</p>
+			</div>
 			<br>
 			<input type='submit' class='button large center' value='Run...'>
 		</div>
 	</div>
 
 	<div class='row'>
+		<div class='large-3 columns'>
+			<label>Alternate Room Label</label>
+			<input type='text' name='Room-label' value=''>
+		</div>
+	</div>
 
-		<h4>Machines</h4>
+	<div class='row'>
+		<h4>Rooms</h4>
 			<label>Show by Room</label>
 				<select id='room_filter_bg' name="room_id">
 					<option value='-1'>All Rooms</option>
@@ -28,6 +42,9 @@
 					<?php } ?>
 				</select> 
 		
+
+
+			<!-- 
 			<a href='#' id='select_all'>Select All</a>&nbsp &nbsp  <a href='#' id='unselect_all'>Unselect All</a><br>
 			<div id='machine_list'>
 			<?php
@@ -52,6 +69,7 @@
 				}
 			?>
 			</div>
+		-->
 	</div>
 	</form>
 </div>

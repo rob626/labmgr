@@ -7,7 +7,7 @@
 	<form method='POST' id='bg_info_update_class_form' action='/'>
 	<div class='row'>
 		<div class='small-12 small-centered columns'>
-			<h1>Update BG Info</h1>
+			<h1>Update BGinfo</h1>
 			<input type='hidden' name='cmd' value='cp /cygdrive/c/ProgramData/Microsoft/Windows/Start\ Menu/Programs/Startup/bginfo.bat /cygdrive/c/labmgr-wd/dropins/';>
 			<br>
 			<input type='submit' class='button large center' value='Run...'>
