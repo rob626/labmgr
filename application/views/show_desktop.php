@@ -1,5 +1,5 @@
 <div class='large-2 columns side-nav-color'>
-	<?php $this->load->view('template/machines_left_nav'); ?>
+	<?php $this->load->view('template/rooms_left_nav'); ?>
 </div>
 
 
