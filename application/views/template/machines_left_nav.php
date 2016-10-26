@@ -6,11 +6,13 @@
 			1 => array(
 				'text' => 'Manage Machines',       'link' => '/labmgr/manage_machines', 'spacer' => '<hr>'),
 			2 => array(
-				'text' => 'Update BGinfo',       'link' => '/labmgr/bg_info_update',  'spacer' => ''),
+				'text' => 'Update BGinfo by room',       'link' => '/labmgr/bg_info_update',  'spacer' => ''),
 			3 => array(
 				'text' => 'BGinfo Room Config',       'link' => '/labmgr/bg_info_config',  'spacer' => ''),
 			4 => array(
-				'text' => 'Show Desktop',       'link' => '/labmgr/show_desktop',  'spacer' => '')
+				'text' => 'Move mouse by room',       'link' => '/labmgr/move_mouse',  'spacer' => ''),
+			5 => array(
+				'text' => 'Show Desktop by room',       'link' => '/labmgr/show_desktop',  'spacer' => '')
 			
 		);
 

@@ -459,7 +459,7 @@ class Machine_model extends CI_Model {
 
     public function bg_info_config($ip, $content) {
 
-        $cmd = 'echo '. $content . ' > /cygdrive/c/labmgr-room-seat.txt';
+        $cmd = 'echo '. $content . ' > /cygdrive/c/Windows/bginfo-labmgr-room-seat.txt';
 
         $output = array(
             'status' => 'Sending BGinfo Config to ' . $ip,

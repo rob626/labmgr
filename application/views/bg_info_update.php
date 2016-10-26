@@ -8,7 +8,7 @@
 	<div class='row'>
 		<div class='small-12 small-centered columns'>
 			<h1>Update BGinfo</h1>
-			<input type='hidden' name='cmd' value='cp /cygdrive/c/ProgramData/Microsoft/Windows/Start\ Menu/Programs/Startup/bginfo.bat /cygdrive/c/labmgr-wd/dropins/';>
+			<input type='hidden' name='cmd' value='cp /cygdrive/c/ProgramData/Microsoft/Windows/Start\ Menu/Programs/Startup/bginfo-labmgr.bat /cygdrive/c/labmgr-wd/dropins/';>
 			<br>
 			<input type='submit' class='button large center' value='Run...'>
 		</div>

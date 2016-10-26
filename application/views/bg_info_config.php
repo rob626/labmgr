@@ -9,11 +9,11 @@
 		<div class='small-12 small-centered columns'>
 			<h1>BGinfo Config</h1>
 			<div class="panel callout radius">
-				<p>This function pushes out a file called labmgr-room-seat.txt to C:\ on each machine.  This file is read by bginfo to load the individual machines room and seat information. 
+				<p>This function pushes out a file called bginfo-labmgr-room-seat.txt to C:\Windows\ on each machine.  This file is read by bginfo to load the individual machines room and seat information. 
 				<br><br>
 				The file C:\Windows\bginfo-labmgr.bgi must exist and be configured to read this file.
 				<br><br>
-				The file bginfo.bat needs to be in the Start folder for all users.  This file calls bginfo and points to the bginfo-labmgr.bgi.  If the labmgr-room-seat.txt file does not exist on the machine, that field is blank in bginfo.
+				The file bginfo-labmgr.bat needs to be in the Start folder for all users.  This file calls bginfo and points to the bginfo-labmgr.bgi.  If the bginfo-labmgr-room-seat.txt file does not exist on the machine, that field is blank in bginfo.
 				</p>
 			</div>
 			<br>
