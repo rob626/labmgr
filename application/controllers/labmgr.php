@@ -904,7 +904,7 @@ class Labmgr extends MY_Controller {
 					$line_arr = explode(',', $line);
 					if(!empty($line_arr[0])) {
 						$name = $line_arr[0];
-						$path = trim($line_arr[1]);
+						$path = $line_arr[1];
 						$snapshot = 'startlab';
 
 						if(!empty($line_arr[2])) {
