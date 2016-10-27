@@ -39,7 +39,7 @@ generate_vmx_snapshot_report() {
 
   while IFS='' read -r -u9 line || [[ -n "$line" ]]; do
     echo_vm_name "$line"
-    echo -n "$line"
+    echo -n "$line,"
 
     snapshot_list=$("$vmware_path/vmrun.exe" listSnapshots "$line")
     readarray -t snapshot_array <<<"$snapshot_list"
@@ -48,26 +48,26 @@ generate_vmx_snapshot_report() {
 	snapshot_output=""
 	for (( i=1; i <= 20; ++i )); do 
 	    if [ -n "${snapshot_array[i]}" ]; then
-		snapshot_output+=$(echo "; <${snapshot_array[i]}>" | tr -d '\r')
+		snapshot_output+=$(echo "///${snapshot_array[i]}" | tr -d '\r')
 	    fi
 	done
 	if [ "$snapshot_output" == "" ]; then
-	    echo "; NONE"
+	    echo ";"
 	else
-	    echo $snapshot_output
+	    echo "$snapshot_output;"
 	fi
     fi
 
     if [ "$snapshots" == "single" ]; then
 	if [ ${#snapshot_array[@]} = 1 ]; then
-	    echo "; NONE"
+	    echo ";"
 	else
-	    echo "; <${snapshot_array[-1]}>" | tr -d '\r'
+	    echo "///${snapshot_array[-1]};" | tr -d '\r'
 	fi
     fi
 
     if [ "$snapshots" == "none" ]; then
-	echo
+	echo ";"
     fi
   done 9< "$tmp_file"  
   
@@ -97,6 +97,7 @@ for var in "$@"; do
 	n|none) snapshots=none ;;
 	s|single) snapshots=single ;;
 	m|multiple) snapshots=multiple ;;
+	r=*|root=*) search_root="${var#*=}" ;;
 	23) nameformat=23 ;;
 	2) nameformat=2 ;;
 	3) nameformat=3 ;;
@@ -107,7 +108,7 @@ done
 if [ "$quietmode" == "no" ]; then
     echo
     echo "This script outputs the list of vmx files under C:\Labs in the following format:"
-    echo "    vm-name, vmx-path; <snapshots>..."
+    echo "    vm-name, vmx-path,///snapshot///snapshot///snapshot;"
     echo 
     echo "Use command line arguments to control the snapshot list:"
     echo "    none | n (default) - no snapshots"
@@ -120,14 +121,16 @@ if [ "$quietmode" == "no" ]; then
     echo "    3 - use the 3rd element of the path for the name (vm1)"
     echo
     echo "Use command line arguement q|quiet to suppress this intial help, and h|header to"
-    echo "the "
+    echo "    add a header line with the host IP address to the start of the output "
+    echo
+    echo "Use command line arguement r|root=<root-path> to change the default search root from C:\Labs"
     echo 
     echo "To run the script remotely, try:"
     echo "    ssh IBM_USER@9.37.99.76 'bash -s multiple 23' < labmgr-vmx-entries.sh"
     echo "    ssh IBM_USER@9.37.99.76 'bash -s single 3' < labmgr-vmx-entries.sh > output.log"
     echo
     
-    echo "Looking for VMX files under $DEF_search_root (snapshots=$snapshots, name=$nameformat)"
+    echo "Looking for VMX files under $search_root (snapshots=$snapshots, name=$nameformat)"
     echo
 fi
 

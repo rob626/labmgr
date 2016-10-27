@@ -1,2 +1,0 @@
-172.23.15.252:
-Ubuntu-base, C:/Labs/Ubuntu-base/Ubuntu_14-04.vmx,///Snapshot 3;
