@@ -31,7 +31,7 @@
 				    return strcasecmp(trim($a['name']), trim($b['name']));
 				});
 				foreach($vms as $vm) {
-					echo "<input type='radio' name='vm_id' value='".$vm['vm_id']."'><label>".$vm['name']."</label><br>";
+					echo "<input type='radio' name='vm_id' value='".$vm['vm_id']."'><label>".$vm['name']." (".$vm['snapshot'].")</label><br>";
 				}
 			?>
 		</div>

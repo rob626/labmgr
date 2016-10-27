@@ -903,14 +903,14 @@ class Labmgr extends MY_Controller {
 				foreach($multiple_arr as $line) {
 					$line_arr = explode(',', $line);
 					if(!empty($line_arr[0])) {
-						$name = $line_arr[0];
-						$path = $line_arr[1];
+						$name = trim($line_arr[0]);
+						$path = trim($line_arr[1]);
 						$snapshot = 'startlab';
 
 						if(!empty($line_arr[2])) {
 							$snapshots = $line_arr[2];
 							$snapshots_array = explode('///', $snapshots);
-							$snapshot = array_pop($snapshots_array);
+							$snapshot = trim(array_pop($snapshots_array));
 						}
 
 
