@@ -71,13 +71,13 @@
 				
 				<div class='large-6 columns'>
 					<label>Username</label>
-					<input type='text' name='username' value='Admin'>
+					<input type='text' name='username' value='<?php echo $torrent_username['value']; ?>'>
 				</div>
 
 			
 				<div class='large-6 columns'>
 					<label>Password</label>
-					<input type='text' name='password' value='web1sphere'>
+					<input type='text' name='password' value='<?php echo $torrent_password['value']; ?>'>
 				</div>
 				
 				<div class='large-6 columns'>

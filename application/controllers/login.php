@@ -8,6 +8,7 @@ class Login extends CI_Controller {
 		$this->load->model('utorrent_model');
 		$this->load->model('machine_model');
 		$this->load->model('twitter_model');
+		$this->load->model('global_defaults_model');
 	}
 
 	function index() {
@@ -79,6 +80,8 @@ class Login extends CI_Controller {
 			$data['rooms'] = $rooms;
 			$data['operating_systems'] = $operating_systems;
 			$data['torrent_clients'] = $this->admin_model->get_torrent_clients();
+			$data['torrent_username'] = $this->global_defaults_model->get_global('torrent_username');
+			$data['torrent_password'] = $this->global_defaults_model->get_global('torrent_password');
 			$this->load->template('noauth_register_machine', $data);
 		}
 	}

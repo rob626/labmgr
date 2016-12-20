@@ -75,4 +75,13 @@ class Global_defaults_model extends CI_Model {
 	    	return $this->db->trans_status();
 	    }
 
+	    /**
+	     * Get a global variblae based on name in the db.
+	     */
+	    public function get_global($name) {
+	    	$q = "SELECT * FROM global_defaults where name = ?";
+			$result = $this->db->query($q, $name);
+			return $result->result_array()[0];
+	    }
+
 	}
