@@ -12,6 +12,7 @@
 		<table id='datatable'>
 			<thead>
 				<tr>
+					<th>Select</th>
 					<th>Machine ID</th>
 					<th>Room</th>
 					<th>Seat</th>
@@ -27,11 +28,29 @@
 				</tr>
 			</thead>
 			<tbody>
+				<a href='#' id='select_all'>Select All</a>&nbsp &nbsp  <a href='#' id='unselect_all'>Unselect All</a><br>
+				<a href='#' id='delete_machines_btn' class='button'>Delete Selected</a>
+				<div class='large-3 columns'>
+					<label>Room</label>
+						<select id='room_filter_machine_status' name="room_id">
+							<option>Select Room</option>
+							<option value='-1'>All Rooms</option>
+							<?php 
+							usort($rooms, function($a, $b) {
+							    return strcasecmp(trim($a['name']), trim($b['name']));
+							});
+							foreach ($rooms as $room) { ?>
+							<option value='<?php echo $room['room_id'] ?>'><?php echo $room['name'] ?> </option>
+							<?php } ?>
+						</select> 
+						<br>
+				</div>
 				<?php
 				if(!empty($machines)) {
 					
 					foreach($machines as $machine) {
 						echo "<tr>";
+						echo "<td><input class='checkbox' type='checkbox' name='machine_ids[]' value='".$machine['machine_id']."'></td>";
 						echo "<td>".$machine['machine_id']."</td>";
 						foreach($rooms as $room_key => $room_value) {
 							if($room_value['room_id'] == $machine['room_id']) {

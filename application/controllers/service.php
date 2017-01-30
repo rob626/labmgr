@@ -14,6 +14,7 @@ class Service extends CI_Controller {
 		$this->load->model('admin_model');
 		$this->load->model('script_model');
 		$this->load->model('vm_model');
+		$this->load->model('global_defaults_model');
 	}
 
 		private function paramImplode($glue, $param) {
@@ -122,6 +123,11 @@ class Service extends CI_Controller {
 		echo json_encode($machines);
 	}
 
+	public function delete_machine() {
+		$machine_id = $this->input->get('machine_id');
+		echo json_encode($this->machine_model->delete_machine($machine_id));
+	}
+
 	public function get_machine_status() {
 		$devices = $this->input->get('machines');
 		$data['status'] = $this->machine_model->check_machine_status($devices);
@@ -207,8 +213,8 @@ class Service extends CI_Controller {
 				$m = $this->machine_model->get_machine_ip($machine['ip_address']);
 				//print_r($m);
 				//$this->logging->lwrite("looking at torrent data for ".$machine['ip_address']);
-				$this->getToken($machine['ip_address'], '27555', $m['username'], $m['password']);
-				$torrent_data = $this->makeRequest($machine['ip_address'], '27555', $m['username'], $m['password'], '?list=1');
+				$this->getToken($machine['ip_address'], $this->global_defaults_model->get_global('torrent_port')['value'], $m['username'], $m['password']);
+				$torrent_data = $this->makeRequest($machine['ip_address'], $this->global_defaults_model->get_global('torrent_port')['value'], $m['username'], $m['password'], '?list=1');
 				$machine['torrents'] = $torrent_data['torrents'];
 				//print_r($machine['torrents']);
 				$data['machines'][$key] = $machine;
@@ -514,8 +520,8 @@ class Service extends CI_Controller {
 			foreach($torrents as $torrent) {
 				foreach($machines as $machine) {
 					foreach($machine as $m) {
-						$this->getToken($m['ip_address'], '27555', $m['username'], $m['password']);
-						$retval = $this->makeRequest($m['ip_address'], '27555', $m['username'], $m['password'], "?action=".($delete_option ? "removedata" : "remove").$this->paramImplode("&hash=", $torrent['hash']), false);
+						$this->getToken($m['ip_address'], $this->global_defaults_model->get_global('torrent_port')['value'], $m['username'], $m['password']);
+						$retval = $this->makeRequest($m['ip_address'], $this->global_defaults_model->get_global('torrent_port')['value'], $m['username'], $m['password'], "?action=".($delete_option ? "removedata" : "remove").$this->paramImplode("&hash=", $torrent['hash']), false);
 						if($retval) {
 							$output[]['status'] = "Successfully sent to: " . $m['ip_address'] . "<br>";
 						} else {
@@ -530,8 +536,8 @@ class Service extends CI_Controller {
 			foreach($torrents as $torrent) {
 				foreach($machines as $machine) {
 					foreach($machine as $m) {
-						$this->getToken($m['ip_address'], '27555', $m['username'], $m['password']);
-						if($this->torrentAdd($torrent['path'], $m['ip_address'], '27555', $m['username'], $m['password'])) {
+						$this->getToken($m['ip_address'], $this->global_defaults_model->get_global('torrent_port')['value'], $m['username'], $m['password']);
+						if($this->torrentAdd($torrent['path'], $m['ip_address'], $this->global_defaults_model->get_global('torrent_port')['value'], $m['username'], $m['password'])) {
 							$output[]['status'] = "Successfully sent to: " . $m['ip_address'] . "<br>";
 						} else {
 							$output[]['status'] = "Failed to send to: " . $m['ip_address'] . "<br>";
@@ -585,8 +591,8 @@ class Service extends CI_Controller {
 			foreach($torrents as $torrent) {
 				foreach($machines as $machine) {
 					foreach($machine as $m) {
-						$this->getToken($m['ip_address'], '27555', $m['username'], $m['password']);
-						$retval = $this->makeRequest($m['ip_address'], '27555', $m['username'], $m['password'], "?action=".($delete_option ? "removedata" : "remove").$this->paramImplode("&hash=", $torrent['hash']), false);
+						$this->getToken($m['ip_address'], $this->global_defaults_model->get_global('torrent_port')['value'], $m['username'], $m['password']);
+						$retval = $this->makeRequest($m['ip_address'], $this->global_defaults_model->get_global('torrent_port')['value'], $m['username'], $m['password'], "?action=".($delete_option ? "removedata" : "remove").$this->paramImplode("&hash=", $torrent['hash']), false);
 						if($retval) {
 							$output[]['status'] = "Successfully sent to: " . $m['ip_address'] . "<br>";
 						} else {
@@ -600,8 +606,8 @@ class Service extends CI_Controller {
 			foreach($torrents as $torrent) {
 				foreach($machines as $machine) {
 					foreach($machine as $m) {
-						$this->getToken($m['ip_address'], '27555', $m['username'], $m['password']);
-						if($this->torrentAdd($torrent['path'], $m['ip_address'], '27555', $m['username'], $m['password'])) {
+						$this->getToken($m['ip_address'], $this->global_defaults_model->get_global('torrent_port')['value'], $m['username'], $m['password']);
+						if($this->torrentAdd($torrent['path'], $m['ip_address'], $this->global_defaults_model->get_global('torrent_port')['value'], $m['username'], $m['password'])) {
 							$output[]['status'] = "Successfully sent to: " . $m['ip_address'] . "<br>";
 						} else {
 							$output[]['status'] = "Failed to send to: " . $m['ip_address'] . "<br>";

@@ -15,6 +15,7 @@ class Labmgr extends MY_Controller {
 		$this->load->model('admin_model');
 		$this->load->model('script_model');
 		$this->load->model('vm_model');
+		$this->load->model('global_defaults_model');
 	}
 
 	/**
@@ -41,7 +42,7 @@ class Labmgr extends MY_Controller {
 	public function get_utorrents() {
 		/* $params = array(
 			'host' => '192.168.15.190',
-			'port' => '27555',
+			'port' => $this->global_defaults_model->get_global('torrent_port')['value'],
 			'user' => 'admin',
 			'pass' => 'web1sphere'
 			);
@@ -49,8 +50,8 @@ class Labmgr extends MY_Controller {
 		$machine['ip_address'] = '172.20.128.72';
 		echo "Running utorrent lib... <br>";
 		echo "<pre>";
-		$this->getToken($machine['ip_address'], '27555', 'admin', 'web1sphere');
-		print_r($this->makeRequest($machine['ip_address'], '27555', 'admin', 'web1sphere', '?list=1'));
+		$this->getToken($machine['ip_address'], $this->global_defaults_model->get_global('torrent_port')['value'], 'admin', 'web1sphere');
+		print_r($this->makeRequest($machine['ip_address'], $this->global_defaults_model->get_global('torrent_port')['value'], 'admin', 'web1sphere', '?list=1'));
 
 		//print_r($this->utorrent->torrentRemove('BADBC42E639D870A24E70A7AAFA5389DDDDA0079'));
 		echo "</pre>";
@@ -76,8 +77,8 @@ class Labmgr extends MY_Controller {
 		print_r($this->machine_model->get_next_seat());
 		die();
 
-		$this->getToken('192.168.15.103', '27555', 'admin', 'web1sphere');
-				$torrent_data = $this->makeRequest('192.168.15.103', '27555', 'admin', 'web1sphere', '?list=1');
+		$this->getToken('192.168.15.103', $this->global_defaults_model->get_global('torrent_port')['value'], 'admin', 'web1sphere');
+				$torrent_data = $this->makeRequest('192.168.15.103', $this->global_defaults_model->get_global('torrent_port')['value'], 'admin', 'web1sphere', '?list=1');
 
 
 		echo "<pre>";
@@ -137,44 +138,14 @@ class Labmgr extends MY_Controller {
 		print_r($combined);
 	}
 
-	public function sendTorrent() {
-		$params = array(
-			'host' => '192.168.15.190',
-			'port' => '27555',
-			'user' => 'admin',
-			'pass' => 'web1sphere'
-			);
-		$this->load->library('utorrent', $params);
-
-		$filename = '/home/robert/Desktop/Ubuntu_64-bit.5.torrent';
-		print_r($this->utorrent->torrentAdd($filename));
-	}
-
-	public function get_token() {
-		$url = 'http://192.168.15.190:27555/gui/token.html';
-        $curl = curl_init($url);
-        curl_setopt($curl, CURLOPT_USERPWD, 'admin' . ":" . 'web1sphere');
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
-        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, TRUE);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
-        $response = curl_exec($curl);
-
-
-        preg_match("#<div[^>]*id='token'[^>]*>([^<]+)</div>#simU", $response, $x);
-        print_r($x[1]);
-
-        //curl_setopt($curl,CURLOPT_URL,'http://192.168.15.190:27555/gui/?token='.$x[1].'&list=1');
-        //$response = curl_exec($curl);
-        //print_r($response);
-	}	
 
 	public function remove_all_torrents() {
 		$machines = $this->machine_model->get_machines();
 		$hash = '3798819A90FE09CA7B0F515A76E3CFDF7EB0D9CA';
 		$data = true;
 		foreach($machines as $machine) {
-			$this->getToken($machine['ip_address'], '27555', 'admin', 'web1sphere');
-			 $this->makeRequest($machine['ip_address'], '27555', 'admin', 'web1sphere', "?action=".($data ? "removedata" : "remove").$this->paramImplode("&hash=", $hash), false);
+			$this->getToken($machine['ip_address'], $this->global_defaults_model->get_global('torrent_port')['value'], 'admin', 'web1sphere');
+			 $this->makeRequest($machine['ip_address'], $this->global_defaults_model->get_global('torrent_port')['value'], 'admin', 'web1sphere', "?action=".($data ? "removedata" : "remove").$this->paramImplode("&hash=", $hash), false);
 		}
 	}
 
@@ -185,9 +156,9 @@ class Labmgr extends MY_Controller {
 		
 		foreach($machines as $machine) {
 
-			$this->getToken($machine['ip_address'], '27555', 'admin', 'web1sphere');
+			$this->getToken($machine['ip_address'], $this->global_defaults_model->get_global('torrent_port')['value'], 'admin', 'web1sphere');
 
-			if($this->torrentAdd($filename, $machine['ip_address'], '27555', 'admin', 'web1sphere')) {
+			if($this->torrentAdd($filename, $machine['ip_address'], $this->global_defaults_model->get_global('torrent_port')['value'], 'admin', 'web1sphere')) {
 				echo "Successfully sent to: " . $machine['ip_address'] . "<br>";
 			} else {
 				echo "Failed to send to: " . $machine['ip_address'] . "<br>";
@@ -300,8 +271,8 @@ class Labmgr extends MY_Controller {
 
 	    	
 			/*foreach($data['machines'] as $key => $machine) {
-				$this->getToken($machine['ip_address'], '27555', 'admin', 'web1sphere');
-				$torrent_data = $this->makeRequest($machine['ip_address'], '27555', 'admin', 'web1sphere', '?list=1');
+				$this->getToken($machine['ip_address'], $this->global_defaults_model->get_global('torrent_port')['value'], 'admin', 'web1sphere');
+				$torrent_data = $this->makeRequest($machine['ip_address'], $this->global_defaults_model->get_global('torrent_port')['value'], 'admin', 'web1sphere', '?list=1');
 				$machine['torrents'] = $torrent_data['torrents'];
 				$data['machines'][$key] = $machine;
 			}  */
@@ -401,9 +372,9 @@ class Labmgr extends MY_Controller {
 			
 			foreach($torrents as $torrent) {
 				foreach($machines as $machine) {
-					$this->getToken($machine['ip_address'], '27555', 'admin', 'web1sphere');
+					$this->getToken($machine['ip_address'], $this->global_defaults_model->get_global('torrent_port')['value'], 'admin', 'web1sphere');
 
-					if($this->torrentAdd($torrent['path'], $machine['ip_address'], '27555', 'admin', 'web1sphere')) {
+					if($this->torrentAdd($torrent['path'], $machine['ip_address'], $this->global_defaults_model->get_global('torrent_port')['value'], 'admin', 'web1sphere')) {
 						echo "Successfully sent to: " . $machine['ip_address'] . "<br>";
 					} else {
 						echo "Failed to send to: " . $machine['ip_address'] . "<br>";
@@ -450,9 +421,9 @@ class Labmgr extends MY_Controller {
 			
 			foreach($torrents as $torrent) {
 				foreach($machines as $machine) {
-					$this->getToken($machine['ip_address'], '27555', 'admin', 'web1sphere');
+					$this->getToken($machine['ip_address'], $this->global_defaults_model->get_global('torrent_port')['value'], 'admin', 'web1sphere');
 
-					$retval = $this->makeRequest($machine['ip_address'], '27555', 'admin', 'web1sphere', "?action=".($data ? "removedata" : "remove").$this->paramImplode("&hash=", $torrent['hash']), false);
+					$retval = $this->makeRequest($machine['ip_address'], $this->global_defaults_model->get_global('torrent_port')['value'], 'admin', 'web1sphere', "?action=".($data ? "removedata" : "remove").$this->paramImplode("&hash=", $torrent['hash']), false);
 					if($retval) {
 						echo "Successfully sent to: " . $machine['ip_address'] . "<br>";
 					} else {
@@ -503,8 +474,8 @@ class Labmgr extends MY_Controller {
 			}
 			foreach($torrents as $torrent) {
 				foreach($machines as $machine) {
-					$this->getToken($machine['ip_address'], '27555', 'admin', 'web1sphere');
-					$retval = $this->makeRequest($machine['ip_address'], '27555', 'admin', 'web1sphere', "?action=".($data ? "removedata" : "remove").$this->paramImplode("&hash=", $torrent['hash']), false);
+					$this->getToken($machine['ip_address'], $this->global_defaults_model->get_global('torrent_port')['value'], 'admin', 'web1sphere');
+					$retval = $this->makeRequest($machine['ip_address'], $this->global_defaults_model->get_global('torrent_port')['value'], 'admin', 'web1sphere', "?action=".($data ? "removedata" : "remove").$this->paramImplode("&hash=", $torrent['hash']), false);
 					if($retval) {
 						echo "Successfully sent to: " . $machine['ip_address'] . "<br>";
 					} else {
@@ -513,8 +484,8 @@ class Labmgr extends MY_Controller {
 				}
 			}
 			foreach($machines as $machine) {
-				$this->getToken($machine['ip_address'], '27555', 'admin', 'web1sphere');
-				$retval = $this->makeRequest($machine['ip_address'], '27555', 'admin', 'web1sphere', "?action=".($data ? "removedata" : "remove").$this->paramImplode("&hash=", $torrent['hash']), false);
+				$this->getToken($machine['ip_address'], $this->global_defaults_model->get_global('torrent_port')['value'], 'admin', 'web1sphere');
+				$retval = $this->makeRequest($machine['ip_address'], $this->global_defaults_model->get_global('torrent_port')['value'], 'admin', 'web1sphere', "?action=".($data ? "removedata" : "remove").$this->paramImplode("&hash=", $torrent['hash']), false);
 				if($retval) {
 					echo "Successfully sent to: " . $machine['ip_address'] . "<br>";
 				} else {
@@ -656,9 +627,9 @@ class Labmgr extends MY_Controller {
 
 			foreach($torrents as $torrent) {
 				foreach($machines as $machine) {
-					$this->getToken($machine['ip_address'], '27555', 'admin', 'web1sphere');
+					$this->getToken($machine['ip_address'], $this->global_defaults_model->get_global('torrent_port')['value'], 'admin', 'web1sphere');
 
-					if($this->torrentAdd($torrent['path'], $machine['ip_address'], '27555', 'admin', 'web1sphere')) {
+					if($this->torrentAdd($torrent['path'], $machine['ip_address'], $this->global_defaults_model->get_global('torrent_port')['value'], 'admin', 'web1sphere')) {
 						echo "Successfully sent to: " . $machine['ip_address'] . "<br>";
 					} else {
 						echo "Failed to send to: " . $machine['ip_address'] . "<br>";
@@ -1181,6 +1152,8 @@ class Labmgr extends MY_Controller {
 			$data['rooms'] = $rooms;
 			$data['operating_systems'] = $operating_systems;
 			$data['torrent_clients'] = $this->admin_model->get_torrent_clients();
+			$data['torrent_username'] = $this->global_defaults_model->get_global('torrent_username');
+			$data['torrent_password'] = $this->global_defaults_model->get_global('torrent_password');
 			$this->load->template('register_machine', $data);
 		}
 	}
@@ -1231,13 +1204,22 @@ class Labmgr extends MY_Controller {
 			$this->load->template('manage_machines', $data);
 
 		} else {
-			$machines = $this->machine_model->get_machines();
-			$rooms = $this->room_model->get_rooms();
-			sort($machines);
-			$data['machines'] = $machines;
-			$data['rooms'] = $rooms;
-			$data['torrent_clients'] = $this->admin_model->get_torrent_clients();
-			$data['operating_systems'] = $this->admin_model->get_operating_systems();
+			$room_id = $this->input->get('room');
+
+			if (empty($room_id) || $room_id == -1){
+				$data['machines'] = $this->machine_model->get_machines();
+				$rooms = $this->room_model->get_rooms();
+				$data['rooms'] = $rooms;
+				$data['torrent_clients'] = $this->admin_model->get_torrent_clients();
+				$data['operating_systems'] = $this->admin_model->get_operating_systems();
+			} else {
+				$data['machines'] = $this->machine_model->get_machines_by_room($room_id);
+				$rooms = $this->room_model->get_rooms();
+				$data['rooms'] = $rooms;
+				$data['torrent_clients'] = $this->admin_model->get_torrent_clients();
+				$data['operating_systems'] = $this->admin_model->get_operating_systems();
+			}
+			
 			$this->load->template('manage_machines', $data);
 		}
 	}

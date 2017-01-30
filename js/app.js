@@ -942,6 +942,35 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
         }
     });
 
+    $('#delete_machines_btn').click(function() {
+        var machines = [];
+        $('input:checkbox.checkbox').each(function () {
+            if(this.checked) {
+                machines.push($(this).val());
+            }
+           
+        });
+
+
+        for(var i=0; i<machines.length; i++) {
+            $.ajax({        
+            url: "/service/delete_machine",
+            type: "get",
+            dataType: "json",
+            async: true,
+            data: {machine_id : machines[i]}
+            }).done(function(response) {
+
+                
+                
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                //alert("Error submitting data!");
+                console.log(jqXHR, textStatus, errorThrown);
+            });
+        }
+        window.location.reload(1);
+    });
+
     $('#validate_ips_form').on('submit', function(e) {
         e.preventDefault();
         var data = $('#validate_ips_form :input').serializeArray();
