@@ -137,7 +137,7 @@ class Machine_model extends CI_Model {
 
     	$output = array(
     		'status' => "Sending reboot command to: ".$ip,
-    		'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $ip . ' "'.$cmd.'"', $cmd_output, $exit_status),
+    		'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" IBM_USER@' . $ip . ' "'.$cmd.'"', $cmd_output, $exit_status),
     		'cmd_output' => $cmd_output,
     		'exit_status' => $exit_status
     		);
@@ -152,7 +152,7 @@ class Machine_model extends CI_Model {
     	//echo "Sending shutdown command to: ".$ip;
     	$output = array(
     		'status' => "Sending shutdown command to: ".$ip,
-    		'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $ip . ' "shutdown -s -t 0 -f"', $cmd_output, $exit_status),
+    		'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" IBM_USER@' . $ip . ' "shutdown -s -t 0 -f"', $cmd_output, $exit_status),
     		'cmd_output' => $cmd_output,
     		'exit_status' => $exit_status
     		);
@@ -178,7 +178,7 @@ class Machine_model extends CI_Model {
 
         $output = array(
             'status' => "Sending mouse move to: ".$ip,
-            'output' => shell_exec('scp -i ./certs/labmgr -o StrictHostKeyChecking=no -o ConnectTimeout=1 '.$file.' ibm_user@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/'),
+            'output' => shell_exec('scp -i ./certs/labmgr -o StrictHostKeyChecking=no -o ConnectTimeout=1 '.$file.' IBM_USER@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/'),
             'cmd' => $command,
             'exit_status' => ''
         );
@@ -292,7 +292,7 @@ class Machine_model extends CI_Model {
         //echo "Sending shutdown command to: ".$ip;
         $output = array(
             'status' => "Sending shutdown command to: ".$ip,
-            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $ip . ' "echo ===1===; df -h; echo ===2===; find /cygdrive/c/Labs/*  -maxdepth 0 -type d ; echo ===3===; vmrun -T ws list; echo ===4===; ps -eW | grep -i vmware.exe | wc -l; echo ===5==="', $cmd_output, $exit_status),
+            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 5" IBM_USER@' . $ip . ' "echo ===1===; df -h; echo ===2===; find /cygdrive/c/Labs/*  -maxdepth 0 -type d ; echo ===3===; vmrun -T ws list; echo ===4===; ps -eW | grep -i vmware.exe | wc -l; echo ===5==="', $cmd_output, $exit_status),
             'cmd_output' => $cmd_output,
             'exit_status' => $exit_status
             );
@@ -316,7 +316,7 @@ class Machine_model extends CI_Model {
         //echo $ip;
     	$output = array(
     		'status' => "Cleaning up dropins directory on: ".$ip,
-    		'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $ip . ' "rm -rf /cygdrive/c/labmgr-wd/dropins/* "', $cmd_output, $exit_status),
+    		'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" IBM_USER@' . $ip . ' "rm -rf /cygdrive/c/labmgr-wd/dropins/* "', $cmd_output, $exit_status),
     		'cmd_output' => $cmd_output,
     		'exit_status' => $exit_status
     	);
@@ -333,7 +333,7 @@ class Machine_model extends CI_Model {
 
         $output = array(
             'status' => "Cleaning up hasbeenrun directory on: ".$ip,
-            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $ip . ' "rm -rf /cygdrive/c/labmgr-wd/hasbeenrun/* "', $cmd_output, $exit_status),
+            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" IBM_USER@' . $ip . ' "rm -rf /cygdrive/c/labmgr-wd/hasbeenrun/* "', $cmd_output, $exit_status),
             'cmd_output' => $cmd_output,
             'exit_status' => $exit_status
         );
@@ -347,7 +347,7 @@ class Machine_model extends CI_Model {
     public function cleanup_watchdog_logfile($ip) {
         $output = array(
             'status' => "Cleaning up watchdog logfile on: ".$ip,
-            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $ip . ' "rm -rf /cygdrive/c/labmgr-wd/labmgr-logfile.log "', $cmd_output, $exit_status),
+            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" IBM_USER@' . $ip . ' "rm -rf /cygdrive/c/labmgr-wd/labmgr-logfile.log "', $cmd_output, $exit_status),
             'cmd_output' => $cmd_output,
             'exit_status' => $exit_status
         );
@@ -360,7 +360,7 @@ class Machine_model extends CI_Model {
     public function view_watchdog_log($ip) {
     	$output = array(
     		'status' => "Attempting to read remote logfile: ".$ip,
-    		'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $ip . ' "cat /cygdrive/c/labmgr-wd/labmgr-logfile.log "', $cmd_output, $exit_status),
+    		'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" IBM_USER@' . $ip . ' "cat /cygdrive/c/labmgr-wd/labmgr-logfile.log "', $cmd_output, $exit_status),
     		'cmd_output' => $cmd_output,
     		'exit_status' => $exit_status
     	);
@@ -374,7 +374,7 @@ class Machine_model extends CI_Model {
     public function disk_usage($ip) {
     	$output = array(
     		'status' => "Attempting to read remote disk usage: ".$ip,
-    		'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $ip . ' "df -h "', $cmd_output, $exit_status),
+    		'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" IBM_USER@' . $ip . ' "df -h "', $cmd_output, $exit_status),
     		'cmd_output' => $cmd_output,
     		'exit_status' => $exit_status
     	);
@@ -389,7 +389,7 @@ class Machine_model extends CI_Model {
 
         $output = array(
             'status' => "Attempting to count lab directories: ".$ip,
-            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $ip . ' "find /cygdrive/c/Labs/* -maxdepth 0 -type d "', $cmd_output, $exit_status),
+            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" IBM_USER@' . $ip . ' "find /cygdrive/c/Labs/* -maxdepth 0 -type d "', $cmd_output, $exit_status),
             'cmd_output' => $cmd_output,
             'exit_status' => $exit_status
         );
@@ -403,7 +403,7 @@ class Machine_model extends CI_Model {
     public function vm_count_list($ip) {
         $output = array(
             'status' => "Attempting to count running vms: ".$ip,
-            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $ip . ' "vmrun -T ws list "', $cmd_output, $exit_status),
+            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" IBM_USER@' . $ip . ' "vmrun -T ws list "', $cmd_output, $exit_status),
             'cmd_output' => $cmd_output,
             'exit_status' => $exit_status
         );
@@ -417,7 +417,7 @@ class Machine_model extends CI_Model {
     public function vm_processes($ip) {
         $output = array(
             'status' => "Attempting to count running vmware processes: ".$ip,
-            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $ip . ' "ps -eW | grep -i vmware | wc -l "', $cmd_output, $exit_status),
+            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" IBM_USER@' . $ip . ' "ps -eW | grep -i vmware | wc -l "', $cmd_output, $exit_status),
             'cmd_output' => $cmd_output,
             'exit_status' => $exit_status
         );
@@ -432,7 +432,7 @@ class Machine_model extends CI_Model {
     public function run_cmd($cmd, $ip) {
         $output = array(
             'status' => "Running command,".$cmd.", on: ".$ip,
-            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $ip . ' "'.$cmd.'"', $cmd_output, $exit_status),
+            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" IBM_USER@' . $ip . ' "'.$cmd.'"', $cmd_output, $exit_status),
             'cmd_output' => $cmd_output,
             'exit_status' => $exit_status
         );
@@ -448,7 +448,7 @@ class Machine_model extends CI_Model {
 
         $output = array(
             'status' => "Sending Show desktop to: ".$ip,
-            'output' => exec('scp -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" '.$file.' ibm_user@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/', $cmd_output, $exit_status),
+            'output' => exec('scp -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" '.$file.' IBM_USER@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/', $cmd_output, $exit_status),
             'cmd_output' => $cmd_output,
             'exit_status' => $exit_status
         );
@@ -463,7 +463,7 @@ class Machine_model extends CI_Model {
 
         $output = array(
             'status' => 'Sending BGinfo Config to ' . $ip,
-            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $ip . ' "'.$cmd.'"', $cmd_output, $exit_status),
+            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" IBM_USER@' . $ip . ' "'.$cmd.'"', $cmd_output, $exit_status),
             'cmd_output' => $cmd_output,
             'exit_status' => $exit_status
         );
@@ -477,14 +477,14 @@ class Machine_model extends CI_Model {
     public function send_file($file, $remote_path, $ip) {
         $output = array(
             'status' => "mkdir: Attempting to send file ".$file . " to " .$ip. " remote path: " . $remote_path,
-            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $ip . ' "mkdir -p '.$remote_path.'"', $cmd_output, $exit_status),
+            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" IBM_USER@' . $ip . ' "mkdir -p '.$remote_path.'"', $cmd_output, $exit_status),
             'cmd_output' => $cmd_output,
             'exit_status' => $exit_status
         );
 
         $output = array(
             'status' => "Attempting to send file ".$file . " to " .$ip. " remote path: " . $remote_path,
-            'output' => exec('scp -r -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" '.$file.' ibm_user@' . $ip . ':'.$remote_path, $cmd_output, $exit_status),
+            'output' => exec('scp -r -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" '.$file.' IBM_USER@' . $ip . ':'.$remote_path, $cmd_output, $exit_status),
             'cmd_output' => $cmd_output,
             'exit_status' => $exit_status
         );
@@ -500,7 +500,7 @@ class Machine_model extends CI_Model {
         //mkdir("./uploads/".$ip);
         $output = array(
             'status' => "Attempting to get file(s) from remote path: " . $remote_path. " from " .$ip ,
-            'output' => exec('scp -r -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $ip . ':'.$remote_path.' ./uploads/'.$ip.'/', $cmd_output, $exit_status),
+            'output' => exec('scp -r -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" IBM_USER@' . $ip . ':'.$remote_path.' ./uploads/'.$ip.'/', $cmd_output, $exit_status),
             'cmd_output' => $cmd_output,
             'exit_status' => $exit_status
         );
@@ -552,7 +552,7 @@ class Machine_model extends CI_Model {
 
         $output = array(
             'status' => "Sending getmac.vbs to: ".$ip,
-            'output' => shell_exec('scp -i ./certs/labmgr -o StrictHostKeyChecking=no -o ConnectTimeout=1 '.$file.' ibm_user@' . $ip. ':/cygdrive/c/temp/'),
+            'output' => shell_exec('scp -i ./certs/labmgr -o StrictHostKeyChecking=no -o ConnectTimeout=1 '.$file.' IBM_USER@' . $ip. ':/cygdrive/c/temp/'),
             'cmd' => $file,
             'exit_status' => ''
         );
@@ -560,7 +560,7 @@ class Machine_model extends CI_Model {
         
         $output = array(
             'status' => "ssh to machine to get MAC address: ".$ip,
-            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $ip .' "cscript //nologo C:/temp/getmac.vbs ' . $ip.'"', $cmd_output, $exit_status),
+            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" IBM_USER@' . $ip .' "cscript //nologo C:/temp/getmac.vbs ' . $ip.'"', $cmd_output, $exit_status),
             'cmd_output' => $cmd_output,
             'exit_status' => $exit_status
         );
@@ -579,7 +579,7 @@ class Machine_model extends CI_Model {
     public function delete_lab_dir($ip, $path) {
         $output = array(
             'status' => "Deleting dir: ".$path.", on: ".$ip,
-            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $ip . ' "rm -rf '.$path.'"', $cmd_output, $exit_status),
+            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" IBM_USER@' . $ip . ' "rm -rf '.$path.'"', $cmd_output, $exit_status),
             'cmd_output' => $cmd_output,
             'exit_status' => $exit_status
         );
