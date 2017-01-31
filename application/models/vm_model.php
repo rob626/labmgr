@@ -97,7 +97,7 @@ class Vm_model extends CI_Model {
 			*/
 	    	$output = array(
 	    		'status' => "Sending start vm command to: ".$ip,
-	    		'output' => shell_exec('scp -i ./certs/labmgr -o StrictHostKeyChecking=no -o ConnectTimeout=1 '.$file.' ibm_user@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/'),
+	    		'output' => shell_exec('scp -i ./certs/labmgr -o StrictHostKeyChecking=no -o ConnectTimeout=1 '.$file.' IBM_USER@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/'),
 	    		'cmd' => $command,
 	    		'exit_status' => ''
     		);
@@ -121,11 +121,11 @@ class Vm_model extends CI_Model {
 
 	    	echo "<br>Cert: " . FCPATH . 'certs/labmgr';
 	    	echo "<br>Command: " . $command;
-	    	return shell_exec('scp -i ./certs/labmgr '.$file.' ibm_user@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/');
+	    	return shell_exec('scp -i ./certs/labmgr '.$file.' IBM_USER@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/');
 	    	*/
 	    	$output = array(
 	    		'status' => "Sending revert vm command to: ".$ip,
-	    		'output' => shell_exec('scp -i ./certs/labmgr -o StrictHostKeyChecking=no -o ConnectTimeout=1 '.$file.' ibm_user@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/'),
+	    		'output' => shell_exec('scp -i ./certs/labmgr -o StrictHostKeyChecking=no -o ConnectTimeout=1 '.$file.' IBM_USER@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/'),
 	    		'cmd' => $command,
 	    		'exit_status' => ''
     		);
@@ -151,11 +151,11 @@ class Vm_model extends CI_Model {
 	    	echo "<br>Cert: " . FCPATH . 'certs/labmgr';
 	    	echo "<br>Command: " . $command;
 	    	*/
-	    	//return shell_exec('scp -i ./certs/labmgr '.$file.' ibm_user@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/');
+	    	//return shell_exec('scp -i ./certs/labmgr '.$file.' IBM_USER@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/');
 
 	    	$output = array(
 	    		'status' => "Sending stop vm command to: ".$ip,
-	    		'output' => shell_exec('scp -i ./certs/labmgr -o StrictHostKeyChecking=no -o ConnectTimeout=1 '.$file.' ibm_user@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/'),
+	    		'output' => shell_exec('scp -i ./certs/labmgr -o StrictHostKeyChecking=no -o ConnectTimeout=1 '.$file.' IBM_USER@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/'),
 	    		'cmd' => $command,
 	    		'exit_status' => ''
     		);
@@ -170,7 +170,7 @@ class Vm_model extends CI_Model {
 
 	    	$output = array(
 	    		'status' => "Finding VM on machine: ".$ip,
-	    		'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $ip . ' "vmrun -T ws list"', $cmd_output, $exit_status),
+	    		'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" IBM_USER@' . $ip . ' "vmrun -T ws list"', $cmd_output, $exit_status),
 	    		'cmd' => $cmd_output,
 	    		'exit_status' => ''
     		);
@@ -184,7 +184,7 @@ class Vm_model extends CI_Model {
 	    public function stop_all_vms($ip) {
 	    	$list_output = array(
 	    		'status' => "Attempting to gather running VMs: ".$ip,
-	    		'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $ip . ' "vmrun -T ws list"', $cmd_output, $exit_status),
+	    		'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" IBM_USER@' . $ip . ' "vmrun -T ws list"', $cmd_output, $exit_status),
 	    		'cmd_output' => $cmd_output,
 	    		'exit_status' => $exit_status
 	    		);
@@ -203,7 +203,7 @@ class Vm_model extends CI_Model {
 
 	    	$output = array(
 	    		'status' => "Sending stop all VMs command to: ".$ip,
-	    		'output' => shell_exec('scp -i ./certs/labmgr -o StrictHostKeyChecking=no -o ConnectTimeout=1 '.$file.' ibm_user@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/'),
+	    		'output' => shell_exec('scp -i ./certs/labmgr -o StrictHostKeyChecking=no -o ConnectTimeout=1 '.$file.' IBM_USER@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/'),
 	    		'cmd' => $command,
 	    		'exit_status' => ''
     		);
@@ -221,7 +221,7 @@ class Vm_model extends CI_Model {
     		);
 		$list_output = array(
     		'status' => "Attempting to find files: ".$ip,
-    		'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $ip . ' "find '.$root.' -name *.vmx"', $cmd_output, $exit_status),
+    		'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" IBM_USER@' . $ip . ' "find '.$root.' -name *.vmx"', $cmd_output, $exit_status),
     		'cmd_output' => $cmd_output,
     		'exit_status' => $exit_status
 	    );

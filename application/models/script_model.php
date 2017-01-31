@@ -97,7 +97,7 @@ class Script_model extends CI_Model {
     public function run_script($script, $machine) {
     	$output = array(
             'status' => "Running script,".$script['name'].", on: ".$machine['ip_address'],
-            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" ibm_user@' . $machine['ip_address'] . ' < '.$script['path'].'', $cmd_output, $exit_status),
+            'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" IBM_USER@' . $machine['ip_address'] . ' < '.$script['path'].'', $cmd_output, $exit_status),
             'cmd_output' => $cmd_output,
             'exit_status' => $exit_status
         );
