@@ -15,6 +15,7 @@ class Labmgr extends MY_Controller {
 		$this->load->model('admin_model');
 		$this->load->model('script_model');
 		$this->load->model('vm_model');
+		$this->load->model('url_model');
 		$this->load->model('global_defaults_model');
 	}
 
@@ -70,7 +71,7 @@ class Labmgr extends MY_Controller {
 
 	public function test() {
 
-		print_r($this->machine_model->ping_test('1.2.3.4'));
+		print_r($this->vm_model->start_browser('9.37.99.101', 'www.cnn.com'));
 		
 		die();
 		/*
@@ -281,7 +282,17 @@ class Labmgr extends MY_Controller {
 			$this->load->template('machine_status', $data);
 		}
     }
+    public function start_browser_by_machine() {
+    	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			
 
+		} else {
+			$data['machines'] = $this->machine_model->get_machines();
+			$data['rooms'] = $this->room_model->get_rooms();
+			$data['urls'] = $this->url_model->get_urls();
+			$this->load->template('start_browser_by_machine', $data);
+		}
+    }
     public function start_vms_by_machine() {
     	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			/*echo "<pre>";
@@ -860,6 +871,34 @@ class Labmgr extends MY_Controller {
 		}
 	}
 
+
+	public function add_url() {
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+			$retval = $this->url_model->add_url(
+				$this->input->post('name'), 
+				$this->input->post('path'));
+
+			redirect('/labmgr/add_url');
+		} else {
+			$data['urls'] = $this->url_model->get_urls();
+			$this->load->template('add_url', $data);
+		}
+	}
+
+	/**
+	 * Delete a url.
+	 */
+	public function delete_url() {
+		$retval = $this->url_model->delete_url(
+			$this->input->post('url_id')
+			);
+		if($retval) {
+			redirect('/labmgr/add_url');
+		} else {
+			echo "DB Error";
+		}
+	}
 	/**
 	 * Add a script.
 	 * a,b,c;
@@ -894,9 +933,6 @@ class Labmgr extends MY_Controller {
 					}
 
 				}
-
-				
-						
 
 			} else {
 				$retval = $this->vm_model->add_vm(

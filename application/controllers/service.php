@@ -14,6 +14,7 @@ class Service extends CI_Controller {
 		$this->load->model('admin_model');
 		$this->load->model('script_model');
 		$this->load->model('vm_model');
+		$this->load->model('url_model');
 		$this->load->model('global_defaults_model');
 	}
 
@@ -305,7 +306,66 @@ class Service extends CI_Controller {
 		echo json_encode($output);
 	}
 
+	/**
+	 *
+	 */
+	public function start_stop_browser() {
+		$data = $this->input->get('data');
+		$start_url_option = '';
+		$url_id = '';
+		$url = '';
+		$machines = array();
+		$stop_url = 0;
 
+		foreach($data as $d) {
+			if($d['name'] == 'start_url_option') {
+				$start_url_option = $d['value'];
+			}
+			if($d['name'] == 'url_id') {
+				$url = $this->url_model->get_url($d['value']);
+				$url = $url[0];
+			}
+			if($d['name'] == 'stop_all') {
+				$stop_all = $d['value'];
+			}
+			if($d['name'] == 'machine_ids[]') {
+				array_push($machines, $this->machine_model->get_machine($d['value'])[0]);
+			}
+			if($d['name'] == 'stop_url_by_machine') {
+				$stop_url = 1;
+			}
+			if($d['name'] == 'snapshot') {
+				$url['snapshot'] = $d['value'];
+			}
+		}
+
+		if($stop_url) {
+			if($stop_all == 'stop_all') {
+				foreach($machines as $machine) {
+					$output[] = $this->url_model->stop_all_urls($machine['ip_address'], $url['path']);
+				}
+			} else {
+				foreach($machines as $machine) {
+						$output[] = $this->url_model->stop_url($machine['ip_address'], $url['path']);
+					}
+			}
+
+		} else {
+
+			foreach($machines as $machine) {
+				$output[] = $this->url_model->start_browser($machine['ip_address'], $url['path']);
+			}
+
+			
+			if($start_url_option == 'revert_start_url' || $start_url_option == 'start_url') {
+				foreach($machines as $machine) {
+					$output[] = $this->url_model->start_url($machine['ip_address'], $url['path']);			
+				}
+			}
+		}
+
+		echo json_encode($output);
+	}
 	/**
 	 *
 	 */
