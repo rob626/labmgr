@@ -10,8 +10,10 @@
 			3 => array(
 				'text' => 'Stop by Machine',      'link' => '/labmgr/stop_vms_by_machine',    'spacer' => '<hr>'),
 			4 => array(
-				'text' => 'Manage VMs',           'link' => '/labmgr/add_vm',                 'spacer' => '<hr>'),
+				'text' => 'Manage VMs',           'link' => '/labmgr/add_vm',                 'spacer' => ''),
 			5 => array(
+				'text' => 'Manage URLs',           'link' => '/labmgr/add_url',                 'spacer' => '<hr>'),
+			6 => array(
 				'text' => 'Find Running VMs by Classroom', 'link' => '/labmgr/find_vms_by_classroom',     'spacer' => '')
 			);
 
@@ -25,7 +27,6 @@
 		}
 	?>
 
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 </ul>
 
