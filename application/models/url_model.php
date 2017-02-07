@@ -74,4 +74,30 @@ class url_model extends CI_Model {
 	    	
 	    	return $this->db->trans_status();
 	    }
+
+	    /**
+	     * Start a browser with a url.
+	     */
+	    public function start_browser($ip, $url, $browser = 'firefox') {
+	    	if(strpos($url, '?')) {
+	    		$url = $url."&clientipaddr=".$ip;
+	    	} else {
+	    		$url = $url."?clientipaddr=".$ip;
+	    	}
+	    	
+	    	$command = $browser. ' "'.$url.'"';
+	    	$file = './uploads/'.$browser.uniqid().'.gui-command';
+
+	    	file_put_contents($file, $command);
+
+	    	$output = array(
+	    		'status' => "Sending start browser command to: ".$ip,
+	    		'output' => shell_exec('scp -i ./certs/labmgr -o StrictHostKeyChecking=no -o ConnectTimeout=1 '.$file.' IBM_USER@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/'),
+	    		'cmd' => $command,
+	    		'exit_status' => ''
+    		);
+
+    		unlink($file);
+	    	return $output;
+	    }
 	}
