@@ -203,7 +203,8 @@ class Machine_model extends CI_Model {
                 $machine['disk_usage'] = $this->parse_string($machine_statuses, "===1===", "===2===");
                 
                 if(!empty($machine['disk_usage'])) {
-                    $pos = strrpos($machine['disk_usage'], "%");
+                    $pos0 = strpos($machine['disk_usage'], "%");
+                    $pos = strpos($machine['disk_usage'], "%", $pos0 + 1);
                     $machine['disk_usage'] = trim(substr($machine['disk_usage'], $pos-3,3));
                 }
                 
