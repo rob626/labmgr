@@ -31,7 +31,7 @@ class url_model extends CI_Model {
 
 	    	$this->db->where('url_id', $url_id);
 	    	$this->db->update('url', array(
-	    		'name' => $url_name, 
+	    		'name' => $url_name,
 	    		'path' => $url_path,
 	    		'last_update_timestamp' => date("Y-m-d H:i:s")
 	    		)
@@ -45,7 +45,7 @@ class url_model extends CI_Model {
 	     * Add a url record.
 	     */
 	    public function add_url($url_name, $url_path) {
-	    	
+
 	    	$result = $this->db->query("SELECT * FROM url where name = ?", $url_name);
 	    	$result = $result->result_array();
 
@@ -61,7 +61,7 @@ class url_model extends CI_Model {
 	    	return $this->db->insert_id();
 	    	}
 	    }
-	    
+
 
 	    /**
 	     * Delete a url
@@ -71,7 +71,7 @@ class url_model extends CI_Model {
 	    	$this->db->where('url_id', $url_id);
 	    	$this->db->delete('url');
 	    	$this->db->trans_complete();
-	    	
+
 	    	return $this->db->trans_status();
 	    }
 
@@ -80,11 +80,11 @@ class url_model extends CI_Model {
 	     */
 	    public function start_browser($ip, $url, $browser = 'firefox') {
 	    	if(strpos($url, '?')) {
-	    		$url = $url."&clientipaddr=".$ip;
+	    		$url = $url."&username=".$ip;
 	    	} else {
-	    		$url = $url."?clientipaddr=".$ip;
+	    		$url = $url."?username=".$ip;
 	    	}
-	    	
+
 	    	$command = $browser. ' "'.$url.'"';
 	    	$file = './uploads/'.$browser.uniqid().'.gui-command';
 
