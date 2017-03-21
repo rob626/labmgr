@@ -182,6 +182,11 @@ class Vm_model extends CI_Model {
 	     * Stop all running VMs on a machine.
 	     */
 	    public function stop_all_vms($ip) {
+	    	$content = "Stop All VMs";
+	    	$file = "./uploads/vms.stop-labs";
+	    	file_put_contents($file, $content);
+	    	
+	    	/*
 	    	$list_output = array(
 	    		'status' => "Attempting to gather running VMs: ".$ip,
 	    		'output' => exec('ssh -i ./certs/labmgr -o "StrictHostKeyChecking no" -o "ConnectTimeout = 1" IBM_USER@' . $ip . ' "vmrun -T ws list"', $cmd_output, $exit_status),
@@ -199,7 +204,7 @@ class Vm_model extends CI_Model {
 	    	file_put_contents($file, 'ping 127.0.0.1 -n 5 > nul'.PHP_EOL, FILE_APPEND);
 	    	file_put_contents($file, 'taskkill /f /im vmware.exe'.PHP_EOL, FILE_APPEND);
 
-	    	
+	    	*/
 
 	    	$output = array(
 	    		'status' => "Sending stop all VMs command to: ".$ip,
