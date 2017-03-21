@@ -6,9 +6,9 @@
 			1 => array(
 				'text' => 'Room Stop / Reboot / Move mouse', 'link' => '/labmgr/room_stop_reboot', 'spacer' => '<hr>'),
 			2 => array(
-				'text' => 'Update BGinfo by room',       'link' => '/labmgr/bg_info_update',  'spacer' => ''),
+				'text' => 'BGinfo Refresh by room',       'link' => '/labmgr/bg_info_update',  'spacer' => ''),
 			3 => array(
-				'text' => 'BGinfo Room Config',       'link' => '/labmgr/bg_info_config',  'spacer' => ''),
+				'text' => 'BGinfo Send Seating Info',       'link' => '/labmgr/bg_info_config',  'spacer' => ''),
 			4 => array(
 				'text' => 'Show Desktop by room',       'link' => '/labmgr/show_desktop',  'spacer' => '')
 		);
