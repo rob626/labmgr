@@ -183,9 +183,9 @@ class Vm_model extends CI_Model {
 	     */
 	    public function stop_all_vms($ip) {
 	    	$content = "Stop All VMs";
-	    	$file = "./uploads/vms.stop-labs";
+	    	$file = "./uploads/vms.stop-lab";
 	    	file_put_contents($file, $content);
-	    	
+
 	    	/*
 	    	$list_output = array(
 	    		'status' => "Attempting to gather running VMs: ".$ip,
