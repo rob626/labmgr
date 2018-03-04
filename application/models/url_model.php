@@ -89,10 +89,10 @@ class url_model extends CI_Model {
 
 	    	if(!empty($url_suffix)) {
 	    		$command = $browser. ' "'.$url.$url_suffix.'"';
-	    		$file = './uploads/'.$browser.uniqid().'.gui-command';
+	    		$file = './uploads/'.$ip.uniqid().'.gui-command';
 	    	} else {
 	    		$command = $browser. ' "'.$url.'"';
-	    		$file = './uploads/'.$browser.uniqid().'.gui-command';
+	    		$file = './uploads/'.$ip.uniqid().'.gui-command';
 	    	}
 	    	
 	    	file_put_contents($file, $command);

@@ -385,7 +385,7 @@ class Service extends CI_Controller {
 		$machine_id = $this->input->get('machine_id');
 		$machine = $this->machine_model->get_machine($machine_id);
 
-		echo json_encode($this->url_model->start_browser($machine[0]['ip_address']), '', 'cleanonly', '');
+		echo json_encode($this->url_model->start_browser($machine[0]['ip_address'], '', 'cleanonly', ''));
 	}
 	/**
 	 *

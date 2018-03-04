@@ -983,7 +983,6 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
             data: {machine_id : machines[i]}
             }).done(function(response) {
 
-                console.log(response.status );
                 $('#reboot_modal_content').append("<h3>"+response.status+"</h3>")
                 $('#reboot_modal').foundation('reveal', 'open');
                 
