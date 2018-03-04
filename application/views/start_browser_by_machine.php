@@ -24,7 +24,7 @@
 			
 			<br>
 			<input type='submit' class='button large center' value='Make it so...'>
-			<a href='#' id='clean_browsers_btn' class='button'>Clean Browsers<a>
+			<a href='#' id='clean_browsers_btn' class='button'>Clean Up Browsers<a>
 			<table id='datatable3'>
 				<thead>
 					<tr>
