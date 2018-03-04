@@ -6,17 +6,49 @@
 <div class='large-10 columns'>
 	<form method='POST' id='start_browser_form' action=''>
 
+
 	<div class='row'>
 		<div class='large-6 columns'>
-			<h2>urls</h2>
-			<?php
-				usort($urls, function($a, $b) {
-				    return strcasecmp(trim($a['name']), trim($b['name']));
-				});
-				foreach($urls as $url) {
-					echo "<input type='radio' name='url_id' value='".$url['url_id']."'><label>".$url['name']." (".$url['path'].")</label><br>";
-				}
-			?>
+			<h2>Open Browser by Machines</h2>
+			
+			<input type='radio' name='browser_id' value='chrome'>Chrome
+			<input type='radio' name='browser_id' value='firefox'>Firefox
+			<input type='radio' name='browser_id' value='iexplore'>IE
+			<input type='radio' name='browser_id' value='cleanbrowser' checked>cleanbrowser
+
+			<label>URL Suffix<input type='text' name='url_suffix' value="<?php echo $default_url_suffix ?>"></label>
+			
+			<label>Use URL Suffix?</label>
+				<input type='radio' name='use_suffix' value='yes' checked> Yes
+				<input type='radio' name='use_suffix' value='no'> No
+			
+			<br>
+			<input type='submit' class='button large center' value='Make it so...'>
+			<a href='#' id='clean_browsers_btn' class='button'>Clean Browsers<a>
+			<table id='datatable3'>
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>URL</th>
+					</tr>
+				</thead>
+				<tbody>
+
+				<?php
+					usort($urls, function($a, $b) {
+					    return strcasecmp(trim($a['name']), trim($b['name']));
+					});
+					foreach($urls as $url) {
+						echo "<tr>";
+						echo "<td>";
+						echo "<input type='radio' name='url_id' value='".$url['url_id']."'><label>".$url['name']." </label><br>";
+						echo "</td>";
+						echo "<td>".$url['path']."</td>";
+						echo "</tr>";
+					}
+				?>
+				</tbody>
+			</table>
 		</div>
 
 		<div class='large-6 columns'>

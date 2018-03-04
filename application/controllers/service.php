@@ -316,6 +316,7 @@ class Service extends CI_Controller {
 		$url = '';
 		$machines = array();
 		$stop_url = 0;
+		
 
 		foreach($data as $d) {
 			if($d['name'] == 'start_url_option') {
@@ -337,6 +338,19 @@ class Service extends CI_Controller {
 			if($d['name'] == 'snapshot') {
 				$url['snapshot'] = $d['value'];
 			}
+			if($d['name'] == 'browser_id') {
+				$browser_type = $d['value'];
+			}
+			if($d['name'] == 'url_suffix') {
+				$url_suffix = $d['value'];
+			}
+			if($d['name'] == 'use_suffix') {
+				$use_suffix = $d['value'];
+			}
+		}
+
+		if($use_suffix == 'no') {
+			$url_suffix = '';
 		}
 
 		if($stop_url) {
@@ -353,18 +367,25 @@ class Service extends CI_Controller {
 		} else {
 
 			foreach($machines as $machine) {
-				$output[] = $this->url_model->start_browser($machine['ip_address'], $url['path']);
+				$output[] = $this->url_model->start_browser($machine['ip_address'], $url['path'], $browser_type, $url_suffix);
 			}
 
 			
 			if($start_url_option == 'revert_start_url' || $start_url_option == 'start_url') {
 				foreach($machines as $machine) {
-					$output[] = $this->url_model->start_url($machine['ip_address'], $url['path']);			
+					$output[] = $this->url_model->start_browser($machine['ip_address'], $url['path'], $browser_type, $url_suffix);			
 				}
 			}
 		}
 
 		echo json_encode($output);
+	}
+
+	public function clean_browsers() {
+		$machine_id = $this->input->get('machine_id');
+		$machine = $this->machine_model->get_machine($machine_id);
+
+		echo json_encode($this->url_model->start_browser($machine[0]['ip_address']), '', 'cleanonly', '');
 	}
 	/**
 	 *

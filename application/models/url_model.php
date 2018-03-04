@@ -78,20 +78,27 @@ class url_model extends CI_Model {
 	    /**
 	     * Start a browser with a url.
 	     */
-	    public function start_browser($ip, $url, $browser = 'firefox') {
-	    	if(strpos($url, '?')) {
-	    		$url = $url."&username=".$ip;
-	    	} else {
-	    		$url = $url."?username=".$ip;
+	    public function start_browser($ip, $url, $browser, $url_suffix) {
+
+	    	if($browser == 'cleanbrowser') {
+	    		$browser = "C:\\Users\\cleanbrowser\\cleanbrowser.bat";
+	    	}
+	    	if($browser == 'cleanonly') {
+	    		$browser = "C:\\Users\\cleanbrowser\\cleanbrowser.bat -clean";
 	    	}
 
-	    	$command = $browser. ' "'.$url.'"';
-	    	$file = './uploads/'.$browser.uniqid().'.gui-command';
-
+	    	if(!empty($url_suffix)) {
+	    		$command = $browser. ' "'.$url.$url_suffix.'"';
+	    		$file = './uploads/'.$browser.uniqid().'.gui-command';
+	    	} else {
+	    		$command = $browser. ' "'.$url.'"';
+	    		$file = './uploads/'.$browser.uniqid().'.gui-command';
+	    	}
+	    	
 	    	file_put_contents($file, $command);
 
 	    	$output = array(
-	    		'status' => "Sending start browser command to: ".$ip,
+	    		'status' => "Sending start browser command to: ".$ip." on browser ".$browser,
 	    		'output' => shell_exec('scp -i ./certs/labmgr -o StrictHostKeyChecking=no -o ConnectTimeout=1 '.$file.' IBM_USER@' . $ip. ':/cygdrive/c/labmgr-wd/dropins/'),
 	    		'cmd' => $command,
 	    		'exit_status' => ''

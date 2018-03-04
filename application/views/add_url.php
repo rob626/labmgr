@@ -25,6 +25,14 @@
 			</div>
 
 			<div class='row'>
+				<div class='large-12 columns'>
+					<label>Add Multiple </label>
+					<textarea name='multiple' rows='3'></textarea>
+					<br>
+				</div>
+			</div>
+
+			<div class='row'>
 				<div class='large-1 columns'>
 					<input type='submit' class='button' value='Submit'>
 				</div>

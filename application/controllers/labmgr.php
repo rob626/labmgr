@@ -290,6 +290,7 @@ class Labmgr extends MY_Controller {
 			$data['machines'] = $this->machine_model->get_machines();
 			$data['rooms'] = $this->room_model->get_rooms();
 			$data['urls'] = $this->url_model->get_urls();
+			$data['default_url_suffix'] = $this->global_defaults_model->get_global('default_url_suffix')['value'];
 			$this->load->template('start_browser_by_machine', $data);
 		}
     }
@@ -874,10 +875,28 @@ class Labmgr extends MY_Controller {
 
 	public function add_url() {
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-			$retval = $this->url_model->add_url(
+			if(!empty($this->input->post('multiple'))) {
+				$multiples = $this->input->post('multiple');
+				$multiple_arr = explode(';', $multiples);
+				
+				foreach($multiple_arr as $pair) {
+					$pair_arr = explode(',', $pair);
+					print_r($pair_arr);
+					$retval = $this->url_model->add_url(
+						$pair_arr[0], 
+						$pair_arr[1]);
+				}
+				
+			} else {
+				print_r($_POST);
+				die();
+				
+				$retval = $this->url_model->add_url(
 				$this->input->post('name'), 
 				$this->input->post('path'));
+			}
+
+			
 
 			redirect('/labmgr/add_url');
 		} else {

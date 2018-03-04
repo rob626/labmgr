@@ -965,6 +965,35 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
         }
     });
 
+    $('#clean_browsers_btn').click(function() {
+        var machines = [];
+        $('input:checkbox.checkbox').each(function () {
+            if(this.checked) {
+                machines.push($(this).val());
+            }
+        });
+
+        $('#reboot_modal_content').html("");
+        for(var i=0; i<machines.length; i++) {
+            $.ajax({        
+            url: "/service/clean_browsers",
+            type: "get",
+            dataType: "json",
+            async: true,
+            data: {machine_id : machines[i]}
+            }).done(function(response) {
+
+                console.log(response.status );
+                $('#reboot_modal_content').append("<h3>"+response.status+"</h3>")
+                $('#reboot_modal').foundation('reveal', 'open');
+                
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                //alert("Error submitting data!");
+                console.log(jqXHR, textStatus, errorThrown);
+            });
+        }
+    });
+
     $('#delete_machines_btn').click(function() {
         var machines = [];
         $('input:checkbox.checkbox').each(function () {
@@ -1382,6 +1411,13 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
 
     if($('#datatable2').length > 0) {
         $('#datatable2').dataTable({
+            "paging": false,
+            "order": [[ 1, 'asc' ]]
+        });
+    }
+
+    if($('#datatable3').length > 0) {
+        $('#datatable3').dataTable({
             "paging": false,
             "order": [[ 1, 'asc' ]]
         });
