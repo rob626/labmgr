@@ -888,8 +888,6 @@ class Labmgr extends MY_Controller {
 				}
 				
 			} else {
-				print_r($_POST);
-				die();
 				
 				$retval = $this->url_model->add_url(
 				$this->input->post('name'), 
