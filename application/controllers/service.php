@@ -129,6 +129,11 @@ class Service extends CI_Controller {
 		echo json_encode($this->machine_model->delete_machine($machine_id));
 	}
 
+	public function delete_urls() {
+		$url_id = $this->input->get('url_id');
+		echo json_encode($this->url_model->delete_url($url_id));
+	}
+
 	public function get_machine_status() {
 		$devices = $this->input->get('machines');
 		$data['status'] = $this->machine_model->check_machine_status($devices);

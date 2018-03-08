@@ -44,7 +44,8 @@
 	<h1>Existing URLs</h1>
 </div>
 	<div class='large-12 columns'>
-
+		<a href='#' id='select_all'>Select All</a>&nbsp &nbsp  <a href='#' id='unselect_all'>Unselect All</a><br>
+		<a href='#' id='delete_urls_btn' class='button'>Delete Selected</a>
 		<table id='datatable'>
 			<thead>
 				<tr>
@@ -53,6 +54,7 @@
 					<th>Path</th>
 					<th>Edit</th>
 					<th>Delete</th>
+					<th>Select</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -72,6 +74,7 @@
 						<input type='hidden' name='url_id' value='".$url['url_id']."'>
 						<input type='submit' class='button tiny radius alert' value='Delete'></form>
 						</td>";
+						echo "<td><input class='checkbox' type='checkbox' name='url_ids[]' value='".$url['url_id']."'></td>";
 						echo "</tr>";
 					}
 				}

@@ -1002,7 +1002,6 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
            
         });
 
-
         for(var i=0; i<machines.length; i++) {
             $.ajax({        
             url: "/service/delete_machine",
@@ -1010,6 +1009,34 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
             dataType: "json",
             async: true,
             data: {machine_id : machines[i]}
+            }).done(function(response) {
+
+                
+                
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                //alert("Error submitting data!");
+                console.log(jqXHR, textStatus, errorThrown);
+            });
+        }
+        window.location.reload(1);
+    });
+
+    $('#delete_urls_btn').click(function() {
+        var urls = [];
+        $('input:checkbox.checkbox').each(function () {
+            if(this.checked) {
+                urls.push($(this).val());
+            }
+           
+        });
+
+        for(var i=0; i<urls.length; i++) {
+            $.ajax({        
+            url: "/service/delete_url",
+            type: "get",
+            dataType: "json",
+            async: true,
+            data: {url_id : urls[i]}
             }).done(function(response) {
 
                 
