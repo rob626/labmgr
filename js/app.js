@@ -1418,7 +1418,7 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
     if($('#datatable3').length > 0) {
         $('#datatable3').dataTable({
             "paging": false,
-            "order": [[ 1, 'asc' ]]
+            "order": [[1, 'asc' ]]
         });
     }
     

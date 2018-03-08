@@ -28,6 +28,7 @@
 			<table id='datatable3'>
 				<thead>
 					<tr>
+						<th>Select</th>
 						<th>Name</th>
 						<th>URL</th>
 					</tr>
@@ -40,8 +41,9 @@
 					});
 					foreach($urls as $url) {
 						echo "<tr>";
+						echo "<td><input type='radio' name='url_id' value='".$url['url_id']."'></td>";
 						echo "<td>";
-						echo "<input type='radio' name='url_id' value='".$url['url_id']."'><label>".$url['name']." </label><br>";
+						echo $url['name'];
 						echo "</td>";
 						echo "<td>".$url['path']."</td>";
 						echo "</tr>";
