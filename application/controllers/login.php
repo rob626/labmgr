@@ -49,6 +49,8 @@ class Login extends CI_Controller {
 			if($retval) {
 				$room_name=$this->room_model->get_room($this->input->post('room_id'));
 				$this->session->set_flashdata('status', 'machine-id: '.$retval.' room: '.$room_name[0]['name'].' / seat: '.$this->input->post('seat'));
+				$content = 'Seat ' . $this->input->post('seat'); 
+				$this->machine_model->bg_info_config($this->input->post('ip_address'), $content);
 				redirect('/login/register_machine');
 			} else {
 				echo "DB Error";
