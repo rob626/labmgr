@@ -78,12 +78,10 @@ class url_model extends CI_Model {
 	    /**
 	     * Start a browser with a url.
 	     */
+
 	    public function start_browser($ip, $url, $browser, $url_suffix) {
-<<<<<<< HEAD
 
 	    	$url = trim($url);
-=======
->>>>>>> aee2fe48032342b9bc089137e5bce8990d266fc4
 
 	    	if($browser == 'cleanbrowser') {
 	    		$browser = "C:\\Users\\cleanbrowser\\cleanbrowser.bat";
