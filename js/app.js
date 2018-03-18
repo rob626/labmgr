@@ -973,22 +973,26 @@ $('#run_single_cmd_machine_form').on('submit', function(e) {
             }
         });
 
-        $('#reboot_modal_content').html("");
-        for(var i=0; i<machines.length; i++) {
-            $.ajax({        
+        $('#status_modal_content').html("");
+        $('#status_modal_content').append("<p>Please wait....<p>");
+        $('#status_modal').foundation('reveal', 'open');
+
+    for(var i=0; i<machines.length; i++) {
+        $.ajax({        
             url: "/service/clean_browsers",
             type: "get",
             dataType: "json",
             async: true,
             data: {machine_id : machines[i]}
             }).done(function(response) {
-
-                $('#reboot_modal_content').append("<h3>"+response.status+"</h3>")
-                $('#reboot_modal').foundation('reveal', 'open');
-                
+                $.each(response, function(index, value) {
+                    $('#status_modal_content').append("<h3>"+value.status+"</h3>");
+                });
+                $('#status_modal_content').append("<p>Done.<p>");
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 //alert("Error submitting data!");
                 console.log(jqXHR, textStatus, errorThrown);
+                $('#status_modal_content').append("<p>Done.<p>");
             });
         }
     });
