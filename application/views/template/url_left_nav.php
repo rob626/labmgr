@@ -6,7 +6,9 @@
 			1 => array(
 				'text' => 'Stop Browser by Machine',      'link' => '/labmgr/stop_browser_by_machine',    'spacer' => '<hr>'),
 			2 => array(
-				'text' => 'Manage URLs',           'link' => '/labmgr/add_url',                 'spacer' => '<hr>')
+				'text' => 'Manage URLs',           'link' => '/labmgr/add_url',                 'spacer' => '<hr>'),
+			3 => array(
+				'text' => 'Clean Browsers',           'link' => '/labmgr/clean_browsers',                 'spacer' => '<hr>')
 			);
 
 		foreach($menu as $menu_item) {

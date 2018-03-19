@@ -294,6 +294,12 @@ class Labmgr extends MY_Controller {
 			$this->load->template('start_browser_by_machine', $data);
 		}
     }
+
+    public function clean_browsers() {
+    	$data['machines'] = $this->machine_model->get_machines();
+		$data['rooms'] = $this->room_model->get_rooms();
+    	$this->load->template('test_clean_browsers', $data);
+    }
     public function start_vms_by_machine() {
     	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			/*echo "<pre>";
