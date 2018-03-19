@@ -15,6 +15,7 @@
 			<input type='radio' name='browser_id' value='firefox'>Firefox
 			<input type='radio' name='browser_id' value='iexplore'>IE
 			<input type='radio' name='browser_id' value='cleanbrowser' checked>cleanbrowser
+			<input type='radio' name='browser_id' value='cleanupbrowser'>Clean Up Browsers
 
 			<label>URL Suffix<input type='text' name='url_suffix' value="<?php echo $default_url_suffix ?>"></label>
 			
@@ -24,7 +25,7 @@
 			
 			<br>
 			<input type='submit' class='button large center' value='Make it so...'>
-			<a href='#' id='clean_browsers_btn' class='button'>Clean Up Browsers<a>
+
 			<table id='datatable3'>
 				<thead>
 					<tr>

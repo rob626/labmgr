@@ -352,33 +352,43 @@ class Service extends CI_Controller {
 			if($d['name'] == 'use_suffix') {
 				$use_suffix = $d['value'];
 			}
+			if($d['name'] == 'clean_up_browsers') {
+				$cleanup_browsers = 1;
+			}
 		}
 
 		if($use_suffix == 'no') {
 			$url_suffix = '';
 		}
-
-		if($stop_url) {
-			if($stop_all == 'stop_all') {
-				foreach($machines as $machine) {
-					$output[] = $this->url_model->stop_all_urls($machine['ip_address'], $url['path']);
+		if($cleanup_browsers) {
+			foreach($machines as $machine) {
+					$output[] = $this->url_model->start_browser($machine['ip_address'], '', 'cleanonly', '');
 				}
-			} else {
-				foreach($machines as $machine) {
-						$output[] = $this->url_model->stop_url($machine['ip_address'], $url['path']);
-					}
-			}
-
 		} else {
 
-			foreach($machines as $machine) {
-				$output[] = $this->url_model->start_browser($machine['ip_address'], $url['path'], $browser_type, $url_suffix);
-			}
+		
+			if($stop_url) {
+				if($stop_all == 'stop_all') {
+					foreach($machines as $machine) {
+						$output[] = $this->url_model->stop_all_urls($machine['ip_address'], $url['path']);
+					}
+				} else {
+					foreach($machines as $machine) {
+							$output[] = $this->url_model->stop_url($machine['ip_address'], $url['path']);
+						}
+				}
 
-			
-			if($start_url_option == 'revert_start_url' || $start_url_option == 'start_url') {
+			} else {
+
 				foreach($machines as $machine) {
-					$output[] = $this->url_model->start_browser($machine['ip_address'], $url['path'], $browser_type, $url_suffix);			
+					$output[] = $this->url_model->start_browser($machine['ip_address'], $url['path'], $browser_type, $url_suffix);
+				}
+
+				
+				if($start_url_option == 'revert_start_url' || $start_url_option == 'start_url') {
+					foreach($machines as $machine) {
+						$output[] = $this->url_model->start_browser($machine['ip_address'], $url['path'], $browser_type, $url_suffix);			
+					}
 				}
 			}
 		}
