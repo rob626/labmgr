@@ -90,11 +90,16 @@ class url_model extends CI_Model {
 	    		$browser = "C:\\Users\\cleanbrowser\\cleanbrowser.bat -clean";
 	    	}
 
+	    	$skytap_ip = '';
+	    	if(strpos($url, 'thinklabs.mybluemix.net') !== false) {
+	    		$skytap_ip = '/' . $ip;
+	    	}
+
 	    	if(!empty($url_suffix)) {
-	    		$command = $browser. ' "'.$url.$url_suffix.'"';
+	    		$command = $browser. ' "'.$url.$skytap_ip.$url_suffix.'"';
 	    		$file = './uploads/'.$ip.uniqid().'.gui-command';
 	    	} else {
-	    		$command = $browser. ' "'.$url.'"';
+	    		$command = $browser. ' "'.$url.$skytap_ip'"';
 	    		$file = './uploads/'.$ip.uniqid().'.gui-command';
 	    	}
 	    	
