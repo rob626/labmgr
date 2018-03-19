@@ -352,7 +352,7 @@ class Service extends CI_Controller {
 			if($d['name'] == 'use_suffix') {
 				$use_suffix = $d['value'];
 			}
-			if($d['name'] == 'clean_up_browsers') {
+			if($d['name'] == 'cleanupbrowser') {
 				$cleanup_browsers = 1;
 			}
 		}
