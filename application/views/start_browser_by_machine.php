@@ -15,7 +15,7 @@
 			<input type='radio' name='browser_id' value='firefox'>Firefox
 			<input type='radio' name='browser_id' value='iexplore'>IE
 			<input type='radio' name='browser_id' value='cleanbrowser' checked>cleanbrowser
-			<input type='radio' name='browser_id' value='cleanupbrowser'>Clean Up Browsers
+			<input type='radio' name='cleanupbrowser' value='cleanupbrowser'>Clean Up Browsers
 
 			<label>URL Suffix<input type='text' name='url_suffix' value="<?php echo $default_url_suffix ?>"></label>
 			
