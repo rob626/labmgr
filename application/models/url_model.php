@@ -91,7 +91,7 @@ class url_model extends CI_Model {
 	    	}
 
 	    	$skytap_ip = '';
-	    	if(strpos($url, 'thinklabs.mybluemix.net')) !== false) {
+	    	if(strpos($url, 'thinklabs.mybluemix.net') !== false) {
 	    		$skytap_ip = '/' . $ip;
 	    	}
 
@@ -99,7 +99,7 @@ class url_model extends CI_Model {
 	    		$command = $browser. ' "'.$url.$skytap_ip.$url_suffix.'"';
 	    		$file = './uploads/'.$ip.uniqid().'.gui-command';
 	    	} else {
-	    		$command = $browser. ' "'.$url.$skytap_ip'"';
+	    		$command = $browser. ' "'.$url.$skytap_ip.'"';
 	    		$file = './uploads/'.$ip.uniqid().'.gui-command';
 	    	}
 	    	
