@@ -91,7 +91,7 @@ class url_model extends CI_Model {
 	    	}
 
 	    	$skytap_ip = '';
-	    	if(strpos($url, 'thinklabs.mybluemix.net') !== false) {
+	    	if(strpos($url, 'thinklabs.mybluemix.net')) !== false) {
 	    		$skytap_ip = '/' . $ip;
 	    	}
 
