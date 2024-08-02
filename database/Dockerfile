@@ -14,7 +14,7 @@ ENV MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
 
 COPY . /etc/mysql/backups/
 
-RUN sed -i 's/MYSQL_DATABASE/'$MYSQL_DATABASE'/g' /etc/mysql/backups/20151027132207.db.sql
-RUN cp /etc/mysql/backups/20151027132207.db.sql /docker-entrypoint-initdb.d
+RUN sed -i 's/MYSQL_DATABASE/'$MYSQL_DATABASE'/g' /etc/mysql/backups/labmgr.20160408124225.db.sql
+RUN cp /etc/mysql/backups/labmgr.20160408124225.db.sql /docker-entrypoint-initdb.d
 
 EXPOSE 3306
